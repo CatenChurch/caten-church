@@ -2,7 +2,8 @@ class Group < ActiveRecord::Base
 	# 使title不為空白
 	validates :title, presence: true
 	# 建立與 models > post.rb 之間的關聯 group有許多post
-	has_many :posts
+	# dependent: :destroy 刪除group會連帶刪除它的posts
+	has_many :posts, dependent: :destroy
 	# group has many group_users
 	# group has many members from user, and save in group_user
 	has_many :group_users
