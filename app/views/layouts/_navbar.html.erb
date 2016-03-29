@@ -1,0 +1,63 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">茄典教會</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <%= nav_li "介紹", history_path %>
+        <%= nav_li "週報", weekly_path %>
+        <%= nav_li "消息", news_path %>
+        <%= nav_li "影音", media_path %>
+        <%= nav_li "團契", fellowship_path %>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <%= nav_li "討論區", groups_path %>
+        <% if !current_user %>
+          <%= nav_li "註冊", new_user_registration_path %>
+          <%= nav_li "登入", new_user_session_path %>
+        <% else %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <!--
+              因為devise user 新增了 name 欄位 故將此行更換為下面那行
+              Hi!, <%= current_user.email %>
+              -->
+              Hi!, <%= current_user.name %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <%= nav_li "我的群組", account_groups_path %>
+              <%= nav_li "我的文章", account_posts_path %>
+              <%= nav_li "帳號設定", edit_user_registration_path %>
+              <li> <%= link_to("登出", destroy_user_session_path, method: :delete) %> </li>
+            </ul>
+          </li>
+        <% end %>
+      </u>
+    </div>
+  </div>
+</nav>
