@@ -39,6 +39,7 @@
             <ul class="dropdown-menu">
               <%= nav_li "我的群組", account_groups_path %>
               <%= nav_li "我的文章", account_posts_path %>
+              <%= nav_li "Profile", account_profile_path %>
               <%= nav_li "帳號設定", edit_user_registration_path %>
               <li> <%= link_to("登出", destroy_user_session_path, method: :delete) %> </li>
             </ul>

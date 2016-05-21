@@ -1,13 +1,23 @@
 Rails.application.routes.draw do
+  # users
   devise_for :users
 
-  # account/groups 跟 account/posts controller
   namespace :account do
+    # account/groups
     resources :groups
+
+    # account/posts
     resources :posts
   end
 
-  # groups controller
+  # account/profile 
+  get 'account/profile' => 'profile#show'
+  get 'account/profile/new' => 'profile#new'
+  post 'account/profile/new' => 'profile#create'
+  get 'account/profile/edit' => 'profile#edit'
+  match 'account/profile/edit' => 'profile#update', via: [:put, :patch]
+
+  # groups 
   get 'groups/' => 'groups#index'
 
   resources :groups do
@@ -18,8 +28,10 @@ Rails.application.routes.draw do
     # posts 的路徑
     resources :posts
   end
-  # pages controller
+
+  # pages 
   get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', controller: 'pages'
+  
   # 首頁
   root 'pages#index'
 

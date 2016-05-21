@@ -1,0 +1,18 @@
+<h1>Edit Profile</h1>
+<br/>
+<%= simple_form_for @profile, url: account_profile_edit_path do |f| %>
+    <div class="form-group">
+        <%= f.input :name %>
+        <%= f.input :sex %>
+        <%= f.input :birth, start_year: Date.today.year - 100,
+                            end_year: Date.today.year, 
+                            order: [:year, :month, :day] %>
+        <%= f.input :phone, placeholder: '07-XXXXXXX'%>
+        <%= f.input :cellphone %>
+        <%= f.input :email, placeholder: 'example@gmail.com' %>
+        <%= f.input :address %>
+        <%= f.input :education %>
+
+    </div>
+    <%= f.button :submit, class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+<% end %>

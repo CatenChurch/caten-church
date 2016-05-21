@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   # user has many participated_groups from group, and save in group_user
   has_many :group_users
   has_many :participated_groups, through: :group_users, source: :group
+  # 一個 user 有一個 user_profile
+  has_one :profile, dependent: :destroy
 
   # 把 group 放入 participated_groups
   def join!(group)
