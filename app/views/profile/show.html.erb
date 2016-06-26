@@ -2,10 +2,8 @@
     <% flash[:notice] = "You don't have your profile yet" %>
     <%= link_to('Create Profile', account_profile_new_path) %>
 <% else %>
-    <%= link_to('Edit Profile', account_profile_edit_path) %>
-    
-    <table class="table">
-        <caption>Profile</caption>
+    <h3 class="text-center">Profile</h3>
+    <table class="table table-striped">
     	<tbody>
     	    <% p=@user.profile %>
     		<tr>
@@ -42,4 +40,7 @@
     		</tr>
     	</tbody>
     </table>
+    <br/>
+    <%= link_to('Edit Profile', account_profile_edit_path) %>
+    
 <% end %>

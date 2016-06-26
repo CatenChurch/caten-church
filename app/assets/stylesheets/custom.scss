@@ -1,0 +1,16 @@
+/* Google Font Noto Sans TC (Chinese Traditional) */
+@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+$navbar_height : 60px;
+$footer_height : 20px;
+body {
+	font-family: 'Noto Sans TC', sans-serif;
+    padding-top: $navbar_height+10px;
+    padding-bottom: $footer_height+10px;
+}
+footer {
+    background-color: #3A3335;
+    height: $footer_height;
+    color: #F5F5F5;
+    letter-spacing: 2px;
+    text-align: center;
+}

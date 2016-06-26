@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     # account/posts
     resources :posts
+    
   end
 
   # account/profile 

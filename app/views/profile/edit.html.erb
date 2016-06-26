@@ -3,7 +3,7 @@
 <%= simple_form_for @profile, url: account_profile_edit_path do |f| %>
     <div class="form-group">
         <%= f.input :name %>
-        <%= f.input :sex %>
+        <%= f.input :sex, collection: ["男","女"], prompt: "Select your sex"%>
         <%= f.input :birth, start_year: Date.today.year - 100,
                             end_year: Date.today.year, 
                             order: [:year, :month, :day] %>

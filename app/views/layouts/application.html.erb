@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>茄典教會</title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
+	<%= render 'layouts/header'%>
 </head>
 <body>
     <%= render 'layouts/navbar'%>
     <%= notice_message %>
-    <%= yield %>
+    <div class="container-fluid">
+    	<%= yield %>
+    </div>
     <%= render 'layouts/footer'%>
 </body>
 </html>
