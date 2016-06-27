@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :participated_groups, through: :group_users, source: :group
   # 一個 user 有一個 user_profile
   has_one :profile, dependent: :destroy
+  # event
+  has_many :events
 
   # 把 group 放入 participated_groups
   def join!(group)

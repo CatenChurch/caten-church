@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 	# if yes => 繼續下面的程序
 	# if no => 轉到登入畫面
 	# # 可使會員登入後才能使用這些 action
-	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
+	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy, :join, :quit]
 
 	# only 這些 action 執行時會執行 find_group
 	# 還有相對於 after_action 用於每個 action 執行後執行

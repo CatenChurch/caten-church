@@ -1,4 +1,4 @@
-class ProfileController < ApplicationController
+class Account::ProfileController < ApplicationController
     # 先確認登入 
     before_action :authenticate_user! 
     # 設定 @user

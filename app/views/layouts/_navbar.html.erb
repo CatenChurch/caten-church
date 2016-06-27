@@ -22,6 +22,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <%= nav_li "活動一覽", events_path %>
         <%= nav_li "討論區", groups_path %>
         <% if !current_user %>
           <%= nav_li "註冊", new_user_registration_path %>
@@ -29,10 +30,6 @@
         <% else %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              <!--
-              因為devise user 新增了 name 欄位 故將此行更換為下面那行
-              Hi!, <%= current_user.email %>
-              -->
               Hi!, <%= current_user.name %>
               <span class="caret"></span>
             </a>

@@ -8,19 +8,18 @@ Rails.application.routes.draw do
 
     # account/posts
     resources :posts
-    
-  end
 
-  # account/profile 
-  get 'account/profile' => 'profile#show'
-  get 'account/profile/new' => 'profile#new'
-  post 'account/profile/new' => 'profile#create'
-  get 'account/profile/edit' => 'profile#edit'
-  match 'account/profile/edit' => 'profile#update', via: [:put, :patch]
+    # account/profile 
+    get 'profile' => 'profile#show'
+    get 'profile/new' => 'profile#new'
+    post 'profile/new' => 'profile#create'
+    get 'profile/edit' => 'profile#edit'
+    match 'profile/edit' => 'profile#update', via: [:put, :patch]
+  
+  end
 
   # groups 
   get 'groups/' => 'groups#index'
-
   resources :groups do
     member do
       post :join
@@ -29,6 +28,15 @@ Rails.application.routes.draw do
     # posts 的路徑
     resources :posts
   end
+
+  # events
+  resources :events do 
+    member do 
+      post 'join'
+      post 'quit'
+    end
+  end
+
 
   # pages 
   get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', controller: 'pages'
