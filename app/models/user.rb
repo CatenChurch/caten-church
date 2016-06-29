@@ -14,20 +14,39 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   # event
   has_many :events
+  # user has many event_users
+  # user has many participated_events from event, and save in event_user
+  has_many :event_users
+  has_many :participated_events, through: :event_users, source: :event
+
 
   # 把 group 放入 participated_groups
-  def join!(group)
+  def join_group(group)
     participated_groups << group
   end
   # 把 participated_groups 中的 group 刪除
-  def quit!(group)
+  def quit_group(group)
     participated_groups.delete(group)
   end
-
-
-
   # 確認 user 是否為此 group 的 members
-  def is_member_of?(group)
+  def is_member_of_group?(group)
     participated_groups.include?(group)
   end
+
+
+  # 把 event 放入 participated_events
+  def join_event(event)
+    participated_events << event
+  end
+  # 把 participated_events 中的 event 刪除
+  def quit_event(event)
+    participated_events.delete(event)
+  end
+  # 確認 user 是否為此 group 的 members
+  def is_participant_of_event?(event)
+    participated_events.include?(event)
+  end
+
+
+  
 end

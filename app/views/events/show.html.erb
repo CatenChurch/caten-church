@@ -1,49 +1,59 @@
 <div class="col-md-10 col-md-offset-1">
-    <h2><%= @event.name %></h2>
-    <hr/>
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <td>nature</td>
-                <td><%= @event.nature %></td>
-            </tr>
-            <tr>
-                <td>description</td>
-                <td><%= @event.description %></td>
-            </tr>
-            <tr>
-                <td>min_sign_up_number</td>
-                <td><%= @event.min_sign_up_number %></td>
-            </tr>
-            <tr>
-                <td>max_sign_up_number</td>
-                <td><%= @event.max_sign_up_number %></td>
-            </tr>
-            <tr>
-                <td>sign_up_begin</td>
-                <td><%= @event.sign_up_begin %></td>
-            </tr>
-            <tr>
-                <td>sign_up_end</td>
-                <td><%= @event.sign_up_end %></td>
-            </tr>
-            <tr>
-                <td>start</td>
-                <td><%= @event.start%></td>
-            </tr>
-            <tr>
-                <td>over</td>
-                <td><%= @event.over %></td>
-            </tr>
-        </tbody>
-    </table>
-    <br/>
-    <div class="btn-group pull-right">
-    	<% if @event.editable_by?(current_user) %>
-	      <%= link_to("Edit", edit_event_path(@event), class: "btn btn-sm btn-primary")%>
-	      <%= link_to("Delete", event_path(@event),    class: "btn btn-sm btn-danger",method: :delete, data: { confirm: "Are you sure?" } )%>
-	    <% end %>
-    </div>
+	<h2><%= @event.name %></h2>
+	<hr/>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<td>nature</td>
+				<td><%= @event.nature %></td>
+			</tr>
+			<tr>
+				<td>description</td>
+				<td><%= @event.description %></td>
+			</tr>
+			<tr>
+				<td>min_sign_up_number</td>
+				<td><%= @event.min_sign_up_number %></td>
+			</tr>
+			<tr>
+				<td>max_sign_up_number</td>
+				<td><%= @event.max_sign_up_number %></td>
+			</tr>
+			<tr>
+				<td>sign_up_begin</td>
+				<td><%= @event.sign_up_begin %></td>
+			</tr>
+			<tr>
+				<td>sign_up_end</td>
+				<td><%= @event.sign_up_end %></td>
+			</tr>
+			<tr>
+				<td>start</td>
+				<td><%= @event.start%></td>
+			</tr>
+			<tr>
+				<td>over</td>
+				<td><%= @event.over %></td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+
+
+	<% if current_user.present? %>
+		<% if current_user.is_participant_of_event?(@event) %>
+			<%= link_to("Quit Event", quit_event_path(@event), method: :post, class: "btn btn-danger") %>
+		<% else %>
+			<%= link_to("Join Event", join_event_path(@event), method: :post, class: "btn btn-info") %>
+		<% end %>
+	<% end %>
+
+	<div class="btn-group pull-right">
+		<% if @event.editable_by?(current_user) %>
+		<%= link_to("Edit", edit_event_path(@event), class: "btn btn-sm btn-primary")%>
+		<%= link_to("Delete", event_path(@event),    class: "btn btn-sm btn-danger",method: :delete, data: { confirm: "Are you sure?" } )%>
+		<% end %>
+	</div>
 
 
 </div>

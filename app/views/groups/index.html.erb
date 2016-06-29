@@ -1,31 +1,38 @@
-<div class="btn-group pull-right">
-	<%= link_to("New group", new_group_path, class: "btn btn-primary") %>
-</div>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<td>#</td>
-			<td>Title</td>
-			<td>Description</td>
-			<td>Edit / Delete</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% i=0 %>
-		<% @groups.each do |group| %>
-		<tr>
-			<td><%= i+=1 %></td>
-			<td><%= link_to(group.title, group_path(group)) %></td>
-			<td><%= group.description %></td>
-			<td>
-				<!--編輯與刪除要是作者才顯示-->
-				<% if group.editable_by?(current_user) %>
-					<%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-primary")%>
-					<%= link_to("Delete", group_path(group),    class: "btn btn-sm btn-danger",
-					method: :delete, data: { confirm: "Are you sure?" } )%>
-				<% end %>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+<div class="col-md-10 col-md-offset-1">
+	<div class="btn-group pull-right">
+		<%= link_to("New group", new_group_path, class: "btn btn-primary") %>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Post Count</th>
+				<th>Updated at</th>
+				<th>Edit / Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% i=0 %>
+			<% @groups.each do |group| %>
+			<tr>
+				<td><%= i+=1 %></td>
+				<td><%= link_to(group.title, group_path(group)) %></td>
+				<td> <%= group.description %> </td>
+				<td> <%= group.posts.size %> </td>
+				<td> <%= group.updated_at %> </td>
+				<td>
+					<!--編輯與刪除要是作者才顯示-->
+					<% if group.editable_by?(current_user) %>
+						<%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-primary")%>
+						<%= link_to("Delete", group_path(group),    class: "btn btn-sm btn-danger",
+						method: :delete, data: { confirm: "Are you sure?" } )%>
+					<% end %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>	
+</div>	
+

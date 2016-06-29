@@ -60,8 +60,8 @@ class GroupsController < ApplicationController
 	end
 
 	def join
-		if !current_user.is_member_of?(@group)
-			current_user.join!(@group)
+		if !current_user.is_member_of_group?(@group)
+			current_user.join_group(@group)
 			flash[:notice] = "加入本討論版成功！"
 		else
 			flash[:warning] = "你已經是本討論版成員了！"
@@ -71,8 +71,8 @@ class GroupsController < ApplicationController
 	end
 
 	def quit
-		if current_user.is_member_of?(@group)
-			current_user.quit!(@group)
+		if current_user.is_member_of_group?(@group)
+			current_user.quit_group(@group)
 			flash[:alert] = "已退出本討論版！"
 		else
 			flash[:warning] = "你不是本討論版成員"
