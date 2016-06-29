@@ -33,7 +33,7 @@ class GroupsController < ApplicationController
 
 		if @group.save
 			# 創建 group 後自動 join group
-			current_user.join!(@group)
+			current_user.join_group(@group)
 
 			redirect_to groups_path
 			flash[:success] = "討論版建立成功"

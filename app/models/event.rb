@@ -4,8 +4,9 @@ class Event < ActiveRecord::Base
 	
 	# event has many event_users
 	# event has many members from user, and save in group_user
+	# 刪除 event 會清空報名event的人的資料(participants)
 	has_many :event_users
-    has_many :participants, through: :event_users, source: :user
+    has_many :participants, through: :event_users, source: :user, dependent: :destroy
 	
 	# 修改權限
 	def editable_by?(user)
