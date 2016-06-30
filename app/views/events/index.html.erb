@@ -9,18 +9,21 @@
 			<td>報名時間</td>
 			<td>活動時間</td>
 			<td>報名人數</td>
-			<td>修改</td>
 		</tr>
 	</thead>
 	<tbody>
 		<% i=0 %>
 		<% @events.each do |event| %>
 		<tr>
-			<td><%= i+=1 %></td>
-			<td><%= link_to(event.name, event_path(event)) %></td>
-			<td><%= event.sign_up_begin %>至<%= event.sign_up_end %></td>
-			<td><%= event.start %>至<%= event.over %></td>
-			<td><%= event.participants_count %>/<%= event.max_sign_up_number %></td>
+			<td> <%= i+=1 %> </td>
+			<td> <%= link_to(event.name, event_path(event)) %> </td>
+			<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " ~ " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
+			<td> <%= event.start.to_s(:Ymd_HM) + " ~ " +event.over.to_s(:Ymd_HM) %> </td>
+			<td> 
+				<%= event.participants_count %> 
+				/ 
+				<%= event.max_sign_up_number %>
+			</td>
 			<td>
 				<% if event.editable_by?(current_user) %>
 					<%= link_to("Edit", edit_event_path(event), class: "btn btn-sm btn-primary")%>

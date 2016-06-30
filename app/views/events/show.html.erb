@@ -41,19 +41,19 @@
 		</tr>
 		<tr>
 			<td>sign_up_begin</td>
-			<td><%= @event.sign_up_begin %></td>
+			<td><%= @event.sign_up_begin.to_s(:Ymd_HM_A) %></td>
 		</tr>
 		<tr>
 			<td>sign_up_end</td>
-			<td><%= @event.sign_up_end %></td>
+			<td><%= @event.sign_up_end.to_s(:Ymd_HM_A) %></td>
 		</tr>
 		<tr>
 			<td>start</td>
-			<td><%= @event.start%></td>
+			<td><%= @event.start.to_s(:Ymd_HM_A)%></td>
 		</tr>
 		<tr>
 			<td>over</td>
-			<td><%= @event.over %></td>
+			<td><%= @event.over.to_s(:Ymd_HM_A) %></td>
 		</tr>
 	</tbody>
 </table>
