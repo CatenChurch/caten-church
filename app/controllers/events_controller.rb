@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
-	before_action :find_event, only:[:show, :join, :quit]
+	before_action :find_event, only:[:show, :join, :quit, :show_list]
 	def find_event
 		@event = Event.find(params[:id])
 	end
@@ -47,12 +47,17 @@ class EventsController < ApplicationController
 	end
 
 	def join
-		if !current_user.is_participant_of_event?(@event)
-			current_user.join_event(@event)
-			flash[:notice] = "報名本活動成功"
+		if @event.participants_count >= @event.max_sign_up_number
+			flash[:warning] = "報名人數已達上限"
 		else
-			flash[:warning] = "你已經報名過這個活動了"
+			if !current_user.is_participant_of_event?(@event)
+				current_user.join_event(@event)
+				flash[:notice] = "報名本活動成功"
+			else
+				flash[:warning] = "你已經報名過這個活動了"
+			end
 		end
+		
 
 		redirect_to event_path(@event)
 	end
@@ -65,6 +70,11 @@ class EventsController < ApplicationController
 			flash[:warning] = "你還沒報名參加活動呢"
 		end
 		redirect_to event_path(@event)
+	end
+
+	def show_list
+		# n+1 queries 修正
+		@participants = @event.participants.includes(:profile)
 	end
 
 	private

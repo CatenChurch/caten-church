@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     participated_events.include?(event)
   end
 
+  
 
   
 end

@@ -1,0 +1,39 @@
+<%= link_to "Go Back", event_path(@event), class: "btn btn-default"%>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Sex</td>
+			<td>Birth</td>
+			<td>Phone</td>
+			<td>Email</td>
+			<td>Address</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- 這邊產生了 n+1 queries  -->
+		<!-- 修正方法：在 controller 中使用 @participants.includes(:profile)  -->
+		<% @participants.each do |participant| %>
+		<% if participant.profile.nil? %>
+			<tr>
+				<td >
+					<%= participant.name %>
+				</td>
+				<td colspan="5" class="text-center">
+					have no profile
+				</td>
+				
+			</tr>
+		<% else %>
+			<tr>
+				<td><%= participant.profile.name %></td>
+				<td><%= participant.profile.sex %></td>
+				<td><%= participant.profile.birth %></td>
+				<td><%= participant.profile.phone %></td>
+				<td><%= participant.profile.email %></td>
+				<td><%= participant.profile.address %></td>
+			</tr>
+		<% end %>
+		<% end %>
+	</tbody>
+</table>

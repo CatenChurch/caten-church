@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629124225) do
+ActiveRecord::Schema.define(version: 20160630033414) do
 
   create_table "event_users", force: :cascade do |t|
     t.integer  "event_id"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 20160629124225) do
     t.datetime "sign_up_end"
     t.datetime "start"
     t.datetime "over"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
+    t.integer  "participants_count", default: 0
   end
 
   create_table "group_users", force: :cascade do |t|
