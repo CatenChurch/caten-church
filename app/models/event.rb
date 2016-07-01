@@ -11,9 +11,33 @@ class Event < ActiveRecord::Base
 	# 驗證
 	# 必填欄位
   validates_presence_of  :name, :max_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over
+  validate :reasonable
+
 
 	# 修改權限
 	def editable_by?(user)
     user && user == organizer
-    end
+  end
+
+  def can_join_event?
+  	(self.participants_count < self.max_sign_up_number) && (self.sign_up_end.to_i >= DateTime.now.to_i) && (self.sign_up_begin.to_i <= DateTime.now.to_i)
+  end
+
+  private
+
+  def reasonable
+  	if max_sign_up_number.to_i < min_sign_up_number.to_i
+  		errors[:max_sign_up_number] << "max_sign_up_number can not small then min_sign_up_number"	
+  	end
+  	if sign_up_begin.to_i >= sign_up_end.to_i
+  		errors[:sign_up_end] << "sign_up_end must >= sign_up_begin"	
+  	end
+  	if start.to_i >=  over.to_i
+  		errors[:over] << "over must >= start"	
+  	end
+  	if sign_up_end.to_i >= start.to_i 
+  		errors[:start] << "start must >= sign_up_end"	
+  	end
+  end
+
 end
