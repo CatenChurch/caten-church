@@ -1,4 +1,4 @@
-<%= link_to "Go Back", events_path, class: "btn btn-default"%>
+<%= link_to "活動一覽", events_path, class: "btn btn-default"%>
 <% if current_user.present? %>
 	<% if current_user.is_participant_of_event?(@event) %>
 		<%= link_to("Quit Event", quit_event_path(@event), method: :post, class: "btn btn-warning") %>

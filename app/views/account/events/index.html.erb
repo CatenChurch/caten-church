@@ -1,0 +1,25 @@
+<h2 class="text-center"> 我報名的活動 </h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th> # </th>
+      <th> 名稱 </th>
+      <th> 性質 </th>
+      <th> 報名人數</th>
+      <th> 活動時間 </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% i = 0 %>
+    <% @events.each do |event| %>
+      <tr>
+        <td> <%= i+=1 %> </td>
+        <td> <%= link_to(event.name, event_path(event)) %> </td>
+        <td> <%= event.nature %> </td>
+        <td> <%= event.participants_count %> / <%= event.max_sign_up_number %> </td>
+        <td> <%= event.start.to_s(:Ymd_HM) %> - <%= event.over.to_s(:Ymd_HM) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

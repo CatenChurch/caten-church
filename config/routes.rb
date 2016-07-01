@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   namespace :account do
     # account/groups
-    resources :groups
+    resources :groups, only: [:index]
 
     # account/posts
-    resources :posts
+    resources :posts, only: [:index]
 
     # account/profile 
     get 'profile' => 'profile#show'
@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     post 'profile/new' => 'profile#create'
     get 'profile/edit' => 'profile#edit'
     match 'profile/edit' => 'profile#update', via: [:put, :patch]
-  
+    
+    # account/events
+    resources :events, only: [:index]
   end
 
   # groups 

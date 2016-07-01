@@ -17,8 +17,8 @@
 		<tr>
 			<td> <%= i+=1 %> </td>
 			<td> <%= link_to(event.name, event_path(event)) %> </td>
-			<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " ~ " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
-			<td> <%= event.start.to_s(:Ymd_HM) + " ~ " +event.over.to_s(:Ymd_HM) %> </td>
+			<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " - " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
+			<td> <%= event.start.to_s(:Ymd_HM) + " - " +event.over.to_s(:Ymd_HM) %> </td>
 			<td> 
 				<%= event.participants_count %> 
 				/ 
