@@ -1,14 +1,24 @@
 class EventsController < ApplicationController
-	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
-	before_action :find_event, only:[:show, :join, :quit, :show_list]
+	load_and_authorize_resource # cancancan
+
+	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy, :join, :quit, :show_list]
+	before_action :find_event, only:[:show, :join, :quit, :show_list, :edit, :update, :destroy ]
 	def find_event
 		@event = Event.find(params[:id])
 	end
 	def index
 		@events = Event.all
+		respond_to do |format|
+	      	format.html
+	      	format.json { render :json => @events }
+	    end
 	end
 
 	def show
+		respond_to do |format|
+	      	format.html
+	      	format.json { render :json => @event }
+	    end
 	end
 
 	def new 
@@ -18,6 +28,10 @@ class EventsController < ApplicationController
 	def create
 		@event = current_user.events.new(event_params)
 		if @event.save
+
+			# add role 'organizer'
+			current_user.add_role :organizer, Event.find(@event.id)
+
 			redirect_to events_path
 			flash[:success] = "活動發起成功"
 		else
@@ -26,11 +40,14 @@ class EventsController < ApplicationController
 	end
 
 	def edit
-		@event = current_user.events.find(params[:id])
+		# cancancan 讓 admin 可以編輯其他人的 event
+		# @event = current_user.events.find(params[:id]) 
 	end
 
 	def update
-		@event = current_user.events.find(params[:id])
+		# cancancan 讓 admin 可以編輯其他人的 event
+		# @event = current_user.events.find(params[:id])
+		 
 		if @event.update(event_params)
 			redirect_to events_path
 			flash[:success] = "活動修改成功"
@@ -40,7 +57,12 @@ class EventsController < ApplicationController
 	end
 
 	def destroy
-		@event = current_user.events.find(params[:id])
+		# cancancan 讓 admin 可以刪除其他人的 event
+		# @event = current_user.events.find(params[:id])
+
+		# remove role 'organizer'
+		current_user.remove_role :organizer, Event.find(@event.id)
+
 		@event.destroy
 		redirect_to events_path
 		flash[:danger] = "活動已刪除"
@@ -57,8 +79,11 @@ class EventsController < ApplicationController
 		# 		flash[:warning] = "你已經報名過這個活動了"
 		# 	end
 		# end
+
 		if @event.can_join_event?
 			current_user.join_event(@event)
+			# add role 'participant'
+			current_user.add_role :participant, Event.find(@event.id)
 			flash[:notice] = "報名本活動成功"
 		else
 			flash[:warning] = "不在報名期限內或人數已滿"	
@@ -71,6 +96,8 @@ class EventsController < ApplicationController
 	def quit
 		if current_user.is_participant_of_event?(@event)
 			current_user.quit_event(@event)
+			# remove role 'participant'
+			current_user.remove_role :participant, Event.find(@event.id)
 			flash[:alert] = "已取消報名此活動"
 		else
 			flash[:warning] = "你還沒報名參加活動呢"
@@ -81,6 +108,14 @@ class EventsController < ApplicationController
 	def show_list
 		# n+1 queries 修正
 		@participants = @event.participants.includes(:profile)
+		respond_to do |format|
+		    format.html
+		    if current_user.is_manager?
+		    	format.json { render :json => @participants.to_json(include: :profile) } 
+		    else
+		    	format.json { render :json => @participants.to_json(include: { profile: { only: [:name,:sex] }}) } 
+		    end   	
+		end
 	end
 
 	private

@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+	load_and_authorize_resource # cancancan
 	# 這是 devise 內建的功能，只要把它放進 controller 裡面，
 	# 就會自動驗證使用者是否入
 	# if yes => 繼續下面的程序
@@ -9,13 +10,17 @@ class GroupsController < ApplicationController
 	# only 這些 action 執行時會執行 find_group
 	# 還有相對於 after_action 用於每個 action 執行後執行
 	# 還有相對於 only 的 except
-	before_action :find_group, only:[:show, :join, :quit] #, :edit, :update, :destroy]
+	before_action :find_group, only:[:show, :join, :quit, :edit, :update, :destroy]
 	def find_group
 		@group = Group.find(params[:id])
 	end
 
 	def index
 		@groups = Group.all
+		respond_to do |format|
+      		format.html
+      		format.json { render :json => @groups }
+    	end
 	end
 	def new
 		@group = Group.new
@@ -24,12 +29,11 @@ class GroupsController < ApplicationController
 		@posts = @group.posts
 	end
 	def edit
-		@group = current_user.groups.find(params[:id])
+
 	end
 
 	def create
 		@group = current_user.groups.new(group_params)
-		# @group = Group.create(group_params)
 
 		if @group.save
 			# 創建 group 後自動 join group
@@ -42,8 +46,6 @@ class GroupsController < ApplicationController
 		end
 	end
 	def update
-		@group = current_user.groups.find(params[:id])
-
 		if @group.update(group_params)
 			redirect_to groups_path
 			flash[:success] = "討論版修改成功"
@@ -52,8 +54,6 @@ class GroupsController < ApplicationController
 		end
 	end
 	def destroy
-		@group = current_user.groups.find(params[:id])
-
 		@group.destroy
 		redirect_to groups_path
 		flash[:danger] = "討論版已刪除"

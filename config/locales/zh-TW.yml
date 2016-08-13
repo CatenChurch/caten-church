@@ -1,0 +1,63 @@
+'zh-TW':
+  # navbar
+  admin_system : '管理員後台'
+  my_groups : '我的群組'
+  # common
+  create : '創建'
+  submit : '送出'
+  edit : '編輯'
+  delete : '刪除'
+  # groups
+  new_group : '新增討論版'
+  new_post : '新增文章'
+  join_group : '加入討論區'
+  quit_group : '離開討論區'
+  posts : '文章列表' 
+  title : '標題'
+  post_count : '文章數'
+  last_update : '最後更新'
+  # posts
+  my_posts : '我的文章'
+  content : '內容'
+  group_name : '討論區名稱'
+  new_post : '新增文章'
+  edit_post : '修改文章'
+  # events  
+  new_event: '新增活動'
+  event_name : '活動名稱'
+  event_sign_up_time : '活動報名時間'
+  event_time : '活動時間'
+  event_participants_number : '報名人數'
+  events_list : '活動一覽'
+  quit_event : '取消報名'
+  event_participants_list : '報名者一覽'
+  nature : '性質'
+  description : '描述'
+  min_sign_up_number : '活動成立人數'
+  max_sign_up_number : '活動人數上限'
+  sign_up_begin : '開始報名'
+  sign_up_end : '結束報名'
+  event_start : '活動開始時間'
+  event_over : '活動結束時間'
+  back_to_event : '回到活動'
+  my_events : '我的活動'
+  sign_up_time : '報名時間'
+  # profile
+  profile : '個人資料'
+  name : '姓名'
+  sex : '性別'
+  birth : '生日'
+  phone : '電話'
+  cellphone: '行動電話'
+  email : 'Email'
+  address : '地址'
+  education : '學歷'
+  no_profile : '沒有建立個人資料'
+  # devise
+  log_in : '登入'
+  log_out : '登出'
+  sign_up : '註冊'
+  edit_user_registration : '帳號設定'
+
+
+

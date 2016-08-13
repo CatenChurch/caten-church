@@ -1,17 +1,17 @@
-<%= link_to "活動一覽", events_path, class: "btn btn-default"%>
+<%= link_to t(:events_list), events_path, class: "btn btn-default"%>
 <% if current_user.present? %>
 	<% if current_user.is_participant_of_event?(@event) %>
-		<%= link_to("Quit Event", quit_event_path(@event), method: :post, class: "btn btn-warning") %>
-		<%= link_to "Show Participants", show_list_event_path(@event), method: :post, class: "btn btn-info" %>
+		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
+		<%= link_to t(:event_participants_list), show_list_event_path(@event), class: "btn btn-info" %>
 	<% else %>
 		<%= link_to("Join Event", join_event_path(@event), method: :post, class: "btn btn-success") %>
 	<% end %>
 <% end %>
 
 <div class="btn-group pull-right">
-	<% if @event.editable_by?(current_user) %>
-		<%= link_to("Edit", edit_event_path(@event), class: "btn btn-default")%>
-		<%= link_to("Delete", event_path(@event),    class: "btn btn-danger",method: :delete, data: { confirm: "Are you sure?" } )%>
+	<% if current_user.is_manager? %>
+		<%= link_to(t(:edit), edit_event_path(@event), class: "btn btn-default")%>
+		<%= link_to(t(:delete), event_path(@event),    class: "btn btn-danger",method: :delete, data: { confirm: "Are you sure?" } )%>
 	<% end %>
 </div>
 
@@ -20,39 +20,39 @@
 <table class="table table-striped">
 	<tbody>
 		<tr>
-			<td>nature</td>
+			<td> <%= t(:nature)%> </td>
 			<td><%= @event.nature %></td>
 		</tr>
 		<tr>
-			<td>description</td>
+			<td> <%= t(:description)%> </td>
 			<td><%= @event.description %></td>
 		</tr>
 		<tr>
-			<td>participants number</td>
+			<td> <%= t(:event_participants_number)%> </td>
 			<td><%= @event.participants_count %></td>
 		</tr>
 		<tr>
-			<td>min_sign_up_number</td>
+			<td> <%= t(:min_sign_up_number)%> </td>
 			<td><%= @event.min_sign_up_number %></td>
 		</tr>
 		<tr>
-			<td>max_sign_up_number</td>
+			<td> <%= t(:max_sign_up_number)%> </td>
 			<td><%= @event.max_sign_up_number %></td>
 		</tr>
 		<tr>
-			<td>sign_up_begin</td>
+			<td> <%= t(:sign_up_begin)%> </td>
 			<td><%= @event.sign_up_begin.to_s(:Ymd_HM_A) %></td>
 		</tr>
 		<tr>
-			<td>sign_up_end</td>
+			<td> <%= t(:sign_up_end)%> </td>
 			<td><%= @event.sign_up_end.to_s(:Ymd_HM_A) %></td>
 		</tr>
 		<tr>
-			<td>start</td>
+			<td> <%= t(:event_start)%> </td>
 			<td><%= @event.start.to_s(:Ymd_HM_A)%></td>
 		</tr>
 		<tr>
-			<td>over</td>
+			<td> <%= t(:event_over)%> </td>
 			<td><%= @event.over.to_s(:Ymd_HM_A) %></td>
 		</tr>
 	</tbody>

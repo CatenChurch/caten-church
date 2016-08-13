@@ -1,38 +1,77 @@
 <div class="btn-group pull-right">
-	<%= link_to("New event", new_event_path, class: "btn btn-primary") %>
+	<%= link_to(t(:new_event), new_event_path, class: "btn btn-primary") if current_user.is_manager? %>
 </div>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<td>#</td>
-			<td>活動名稱</td>
-			<td>報名時間</td>
-			<td>活動時間</td>
-			<td>報名人數</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% i=0 %>
-		<% @events.each do |event| %>
-		<tr>
-			<td> <%= i+=1 %> </td>
-			<td> <%= link_to(event.name, event_path(event)) %> </td>
-			<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " - " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
-			<td> <%= event.start.to_s(:Ymd_HM) + " - " +event.over.to_s(:Ymd_HM) %> </td>
-			<td> 
-				<%= event.participants_count %> 
-				/ 
-				<%= event.max_sign_up_number %>
-			</td>
-			<td>
-				<% if event.editable_by?(current_user) %>
-					<%= link_to("Edit", edit_event_path(event), class: "btn btn-sm btn-primary")%>
-					<%= link_to("Delete", event_path(event),    class: "btn btn-sm btn-danger",
-					method: :delete, data: { confirm: "Are you sure?" } )%>
-				<% end %>
-			</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+<div id="events">
+	<table class="table table-hover" >
+		<thead>
+			<tr >
+				<td @click="orderByWhat('id')">#</td>
+				<td @click="orderByWhat('name')"><%= t(:event_name) %></td>
+				<td @click="orderByWhat('sign_up_begin')"><%= t(:event_sign_up_time) %></td>
+				<td @click="orderByWhat('start')"><%= t(:event_time) %></td>
+				<td @click="orderByWhat('participants_count')"><%= t(:event_participants_number) %></td>
+			</tr>
+		</thead>
+		<!-- <tbody>
+			<% i=0 %>
+			<% @events.each do |event| %>
+			<tr>
+				<td> <%= i+=1 %> </td>
+				<td> <%= link_to(event.name, event_path(event)) %> </td>
+				<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " - " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
+				<td> <%= event.start.to_s(:Ymd_HM) + " - " +event.over.to_s(:Ymd_HM) %> </td>
+				<td> 
+					<%= event.participants_count %> 
+					/ 
+					<%= event.max_sign_up_number %>
+				</td>
+				<td>
+					<% if current_user.is_manager? %>
+						<%= link_to(t(:edit), edit_event_path(event), class: "btn btn-sm btn-primary")%>
+						<%= link_to(t(:delete), event_path(event),    class: "btn btn-sm btn-danger",
+						method: :delete, data: { confirm: "Are you sure?" } )%>
+					<% end %>
+				</td>
+				
+			</tr>
+			<% end %>
+		</tbody> -->
+		
+		<!-- Vue events -->
+		<tbody >
+			<tr v-for=" event in events | orderBy what order " onclick="window.document.location='/events/{{event.id}}';">
+				<td>{{ $index + 1}}</td>
+				<td>{{ event.name }}</td>
+				<td>{{ event.sign_up_begin }} <br> {{ event.sign_up_end }}</td>
+				<td>{{ event.start }} <br> {{ event.start }}</td>
+				<td>{{ event.participants_count }} / {{ event.max_sign_up_number }}</td>	
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<script type="text/javascript">
+	var events_data = <%= sanitize @events.to_json %>;
+	var events = new Vue({
+		el : '#events',
+		data : {
+			order : 1,
+			what : '',
+			events : events_data
+		},
+		methods : {
+			orderByWhat : function(what){
+        if (this.what == what) {
+          this.order = this.order * -1;
+        }
+        else{
+          this.order = 1;
+          this.what = what;
+        }
+          
+      }
+    }
+	});
+</script>
+
 

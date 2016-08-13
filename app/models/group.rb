@@ -1,4 +1,5 @@
 class Group < ActiveRecord::Base
+	resourcify
 	# 使title不為空白
 	validates :title, presence: true
 	# 建立與 models > post.rb 之間的關聯 group有許多post
@@ -11,8 +12,8 @@ class Group < ActiveRecord::Base
     has_many :members, through: :group_users, source: :user, dependent: :destroy
 	# 設定 user 跟 group 之間的資料庫關聯
 	belongs_to :owner, class_name: "User", foreign_key: :user_id
-	# 驗證目前的登入的使用者為作者
-	def editable_by?(user)
-    	user && user == owner
-    end
+	# 驗證目前的登入的使用者為作者(目前使用cancancan)
+	# def manage_by?(user)
+ 	#    user && user.has_any_role?(:admin, :manager)
+ 	# end
 end

@@ -1,8 +1,16 @@
 source 'https://rubygems.org'
+# vue.js 關閉 TurboLinks
+gem 'vuejs-rails'
+# 多國語言 i18n
+gem "rails-i18n"
+gem 'devise-i18n'
 # 表單
 gem "simple_form"
 # 建立會員使用者套件
 gem 'devise'
+# 會員功能 權限 任務分配
+gem 'cancancan'
+gem 'rolify'
 # Bootstrap套件
 gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

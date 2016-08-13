@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,7 +19,11 @@ class User < ActiveRecord::Base
   # user has many participated_events from event, and save in event_user
   has_many :event_users
   has_many :participated_events, through: :event_users, source: :event
-
+  
+  # 管理人員
+  def is_manager?
+    self &&  self.has_any_role?(:admin, :manager)
+  end
 
   # 把 group 放入 participated_groups
   def join_group(group)

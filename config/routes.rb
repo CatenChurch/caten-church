@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     member do 
       post 'join'
       post 'quit'
-      post 'show_list'
+      get 'show_list'  
     end
   end
 

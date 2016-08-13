@@ -1,42 +1,181 @@
-<%= link_to "Go Back", event_path(@event), class: "btn btn-default"%>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<td>Name</td>
-			<td>Sex</td>
-			<td>Birth</td>
-			<td>Phone</td>
-			<td>Email</td>
-			<td>Address</td>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- 這邊產生了 n+1 queries  -->
-		<!-- 修正方法：在 controller 中使用 @participants.includes(:profile)  -->
-		<% @participants.each do |participant| %>
-		<% if participant.profile.nil? %>
-			<tr>
-				<td >
-					<%= participant.name %>
-				</td>
-				<td colspan="5" class="text-center">
-					have no profile
-				</td>
-				
-			</tr>
-		<% else %>
-			<tr>
-				<td><%= participant.profile.name %></td>
-				<td><%= participant.profile.sex %></td>
-				<td><%= participant.profile.birth %></td>
-				<td>
-					<%= participant.profile.cellphone %>
-					<br>
-					<%= participant.profile.phone %></td>
-				<td><%= participant.profile.email %></td>
-				<td><%= participant.profile.address %></td>
-			</tr>
-		<% end %>
-		<% end %>
-	</tbody>
-</table>
+<%= link_to t(:back_to_event), event_path(@event), class: "btn btn-default"%>
+<% if current_user.is_manager? %>
+  <div id="participants">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td @click="orderByWhat('id')">#</td>
+          <td @click="orderByWhat('name')"><%= t(:name) %></td>
+          <td @click="orderByWhat('sex')"><%= t(:sex) %></td>
+          <td @click="orderByWhat('birth')"><%= t(:birth) %></td>
+          <td @click="orderByWhat('phone')"><%= t(:phone) %></td>
+          <td @click="orderByWhat('email')"><%= t(:email) %></td>
+          <td @click="orderByWhat('address')"><%= t(:address) %></td>
+        </tr>
+      </thead>
+      <tbody >
+        <tr v-for=" participant in participants | orderBy what order ">
+          <td>{{ $index + 1}}</td>
+          <td>{{ participant.profile.name }}</td>
+          <td>{{ participant.profile.sex }}</td>
+          <td>{{ participant.profile.birth }}</td>
+          <td>{{ participant.profile.cellphone }}</td> 
+          <td>{{ participant.profile.email }}</td>
+          <td>{{ participant.profile.address }}</td> 
+        </tr>
+      </tbody>
+
+      <!-- <tbody>
+        <% # 這邊產生了 n+1 queries  %>
+        <% # 修正方法：在 controller 中使用 @participants.includes(:profile) %>
+        <% @participants.each do |participant| %>
+        <% if participant.profile.nil? %>
+          <tr>
+            <td >
+              <%= participant.name %>
+            </td>
+            <td colspan="5" class="text-center">
+              <%= t(:no_profile) %>
+            </td>
+            
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= participant.profile.name %></td>
+            <td><%= participant.profile.sex %></td>
+            <td><%= participant.profile.birth %></td>
+            <td>
+              <%= participant.profile.cellphone %>
+              <br>
+              <%= participant.profile.phone %></td>
+            <td><%= participant.profile.email %></td>
+            <td><%= participant.profile.address %></td>
+          </tr>
+        <% end %>
+        <% end %>
+      </tbody> -->
+    </table>
+  </div>
+  <script type="text/javascript">
+    var participants_data = <%= sanitize @participants.to_json(include: :profile) %>;
+    
+    var participants = new Vue({
+      el : '#participants',
+      data : {
+        order : 1,
+        what : '',
+        participants : participants_data
+      },
+      created : function(){
+        this.checkProfile();
+      },
+      methods : {
+        orderByWhat : function(what){
+          this.order = this.order * -1;
+          this.what = what;
+        },
+        checkProfile : function(){
+          for (var i = 0; i < this.participants.length; i++) {
+            if ( !this.participants[i].profile ) {
+              this.participants[i].profile = {
+                name : '',
+                sex : '',
+                birth : '',
+                cellphone : '',
+                email : '',
+                address : ''
+              };
+              this.participants[i].profile.name = this.participants[i].name;
+            } 
+          }
+        }
+      }
+    });
+  </script>
+
+<% else %>
+  <div id="participants">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td @click="orderByWhat('id')">#</td>
+          <td @click="orderByWhat('name')"><%= t(:name) %></td>
+          <td @click="orderByWhat('sex')"><%= t(:sex) %></td>
+        </tr>
+      </thead>
+      <tbody >
+        <tr v-for=" participant in participants | orderBy what order ">
+          <td>{{ $index + 1}}</td>
+          <td>{{ participant.profile.name }}</td>
+          <td>{{ participant.profile.sex }}</td>
+        </tr>
+      </tbody>
+
+      <!-- <tbody>
+          <% # 這邊產生了 n+1 queries  %>
+          <% # 修正方法：在 controller 中使用 @participants.includes(:profile) %>
+          <% @participants.each do |participant| %>
+          <% if participant.profile.nil? %>
+            <tr>
+              <td >
+                <%= participant.name %>
+              </td>
+              <td colspan="5" class="text-center">
+                <%= t(:no_profile) %>
+              </td>
+              
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= participant.profile.name %></td>
+              <td><%= participant.profile.sex %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody> -->
+
+    </table>
+  </div>
+  <script type="text/javascript">
+    var participants_data = <%= sanitize @participants.to_json(include: { profile: { only: [:name,:sex] }}) %>;
+
+    var participants = new Vue({
+      el : '#participants',
+      data : {
+        order : 1,
+        what : '',
+        participants : participants_data
+      },
+      created : function(){
+        this.checkProfile();
+      },
+      methods : {
+        orderByWhat : function(what){
+          if (this.what == what) {
+            this.order = this.order * -1;
+          }
+          else{
+            this.order = 1;
+            this.what = what;
+          }
+          
+        },
+        checkProfile : function(){
+          for (var i = 0; i < this.participants.length; i++) {
+            if ( !this.participants[i].profile ) {
+              this.participants[i].profile = {
+                name : '',
+                sex : '',
+              };
+              this.participants[i].profile.name = this.participants[i].name;
+            } 
+          }
+        }
+      }
+    });
+  </script>
+
+<% end %>
+
+
+

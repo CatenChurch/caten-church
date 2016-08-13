@@ -1,49 +1,49 @@
 <% if @user.profile.nil? %>
     <% flash[:notice] = "You don't have your profile yet" %>
-    <%= link_to('Create Profile', account_profile_new_path) %>
+    <%= link_to(t(:create), account_profile_new_path) %>
 <% else %>
     <div class="col-md-10 col-md-offset-1">
-        <h2>Profile</h2>
+        <h2><%= t(:profile) %></h2>
         <hr/>
         <table class="table table-striped">
             <tbody>
                 <% p=@user.profile %>
                 <tr>
-                    <td>name</td>
+                    <td><%= t(:name) %></td>
                     <td><%= p.name %></td>
                 </tr>
                 <tr>
-                    <td>sex</td>
+                    <td><%= t(:sex) %></td>
                     <td><%= p.sex %></td>
                 </tr>
                 <tr>
-                    <td>birth</td>
+                    <td><%= t(:birth) %></td>
                     <td><%= p.birth%></td>
                 </tr>
                 <tr>
-                    <td>phone</td>
+                    <td><%= t(:phone) %></td>
                     <td><%= p.phone%></td>
                 </tr>
                 <tr>
-                    <td>cellphone</td>
+                    <td><%= t(:cellphone) %></td>
                     <td><%= p.cellphone%></td>
                 </tr>
                 <tr>
-                    <td>email</td>
+                    <td><%= t(:email) %></td>
                     <td><%= p.email%></td>
                 </tr>
                 <tr>
-                    <td>address</td>
+                    <td><%= t(:address) %></td>
                     <td><%= p.address%></td>
                 </tr>
                 <tr>
-                    <td>education</td>
+                    <td><%= t(:education) %></td>
                     <td><%= p.education%></td>
                 </tr>
             </tbody>
         </table>
         <br/>
-        <%= link_to('Edit Profile', account_profile_edit_path, class: "btn btn-primary pull-right") %>
+        <%= link_to(t(:edit), account_profile_edit_path, class: "btn btn-primary pull-right") %>
 
     </div>
 <% end %>
