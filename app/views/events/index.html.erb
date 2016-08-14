@@ -1,7 +1,17 @@
-<div class="btn-group pull-right">
+<div class="pull-right">
 	<%= link_to(t(:new_event), new_event_path, class: "btn btn-primary") if current_user.is_manager? %>
 </div>
 <div id="events">
+
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="col-md-1  control-label">搜索 : </label>
+      <div class="col-md-2">
+        <input v-model="searchText" type="text" class="form-control" placeholder="活動名稱">
+      </div>
+    </div>
+  </form>
+
 	<table class="table table-hover" >
 		<thead>
 			<tr >
@@ -39,7 +49,7 @@
 		
 		<!-- Vue events -->
 		<tbody >
-			<tr v-for=" event in events | orderBy what order " onclick="window.document.location='/events/{{event.id}}';">
+			<tr v-for=" event in events | orderBy what order | filterBy searchText in fields " onclick="window.document.location='/events/{{event.id}}';">
 				<td>{{ $index + 1}}</td>
 				<td>{{ event.name }}</td>
 				<td>{{ event.sign_up_begin }} <br> {{ event.sign_up_end }}</td>
@@ -57,7 +67,9 @@
 		data : {
 			order : 1,
 			what : '',
-			events : events_data
+			events : events_data,
+      searchText : '',
+      fields : ['name']
 		},
 		methods : {
 			orderByWhat : function(what){
