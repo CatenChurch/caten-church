@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-# vue.js 關閉 TurboLinks
+# JS處理前端時間格式
+gem 'momentjs-rails'
+# vue.js (關閉 turbolinks)
 gem 'vuejs-rails'
 # 多國語言 i18n
 gem "rails-i18n"
@@ -15,8 +17,6 @@ gem 'rolify'
 gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -55,6 +55,9 @@ group :development, :test do
 end
 
 group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -64,5 +67,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+end
+
+group :production do
+  # heroku 環境要求使用
+  gem 'pg'
+  gem 'rails_12factor'
 end
 

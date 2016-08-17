@@ -15,4 +15,6 @@
 //= require bootstrap
 //= require vue
 //= require vue-resource
+//= require moment
+//= require moment/zh-tw.js
 

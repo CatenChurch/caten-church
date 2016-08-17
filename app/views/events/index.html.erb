@@ -17,8 +17,10 @@
 			<tr >
 				<td @click="orderByWhat('id')">#</td>
 				<td @click="orderByWhat('name')"><%= t(:event_name) %></td>
-				<td @click="orderByWhat('sign_up_begin')"><%= t(:event_sign_up_time) %></td>
-				<td @click="orderByWhat('start')"><%= t(:event_time) %></td>
+				<td @click="orderByWhat('sign_up_begin')"><%= t(:event_sign_up_begin) %></td>
+				<td @click="orderByWhat('sign_up_end')"><%= t(:event_sign_up_end) %></td>
+				<td @click="orderByWhat('start')"><%= t(:event_start) %></td>
+				<td @click="orderByWhat('over')"><%= t(:event_over) %></td>
 				<td @click="orderByWhat('participants_count')"><%= t(:event_participants_number) %></td>
 			</tr>
 		</thead>
@@ -52,8 +54,10 @@
 			<tr v-for=" event in events | orderBy what order | filterBy searchText in fields " onclick="window.document.location='/events/{{event.id}}';">
 				<td>{{ $index + 1}}</td>
 				<td>{{ event.name }}</td>
-				<td>{{ event.sign_up_begin }} <br> {{ event.sign_up_end }}</td>
-				<td>{{ event.start }} <br> {{ event.start }}</td>
+				<td>{{ event.sign_up_begin_format }}</td>
+				<td>{{ event.sign_up_end_format }}</td>	
+				<td>{{ event.start_format }}</td>
+				<td>{{ event.over_format }}</td>
 				<td>{{ event.participants_count }} / {{ event.max_sign_up_number }}</td>	
 			</tr>
 		</tbody>
@@ -68,21 +72,33 @@
 			order : 1,
 			what : '',
 			events : events_data,
-      searchText : '',
-      fields : ['name']
+      	searchText : '',
+      	fields : ['name']
+		},
+		created : function(){
+			this.setTimeFormat();
 		},
 		methods : {
 			orderByWhat : function(what){
-        if (this.what == what) {
-          this.order = this.order * -1;
-        }
-        else{
-          this.order = 1;
-          this.what = what;
-        }
+		        if (this.what == what) {
+		          this.order = this.order * -1;
+		        }
+		        else{
+		          this.order = 1;
+		          this.what = what;
+		        }
           
-      }
-    }
+      		},
+      		setTimeFormat : function(){
+      			for (var i = 0; i < this.events.length; i++) {
+      				this.events[i].sign_up_begin_format = moment(this.events[i].sign_up_begin).format("YYYY年 M月D日 HH點mm分, dddd");
+      				this.events[i].sign_up_end_format = moment(this.events[i].sign_up_end).format("YYYY年 M月D日 HH點mm分, dddd");
+      				this.events[i].start_format = moment(this.events[i].start).format("YYYY年 M月D日 HH點mm分, dddd");
+      				this.events[i].over_format = moment(this.events[i].over).format("YYYY年 M月D日 HH點mm分, dddd");
+      			}
+      		}
+    	}
+
 	});
 </script>
 
