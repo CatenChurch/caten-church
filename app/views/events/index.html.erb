@@ -1,5 +1,5 @@
 <div class="pull-right">
-	<%= link_to(t(:new_event), new_event_path, class: "btn btn-primary") if current_user.is_manager? %>
+	<%= link_to(t(:new_event), new_event_path, class: "btn btn-primary") if current_user.present? && current_user.is_manager? %>
 </div>
 <div id="events">
 
@@ -38,7 +38,7 @@
 					<%= event.max_sign_up_number %>
 				</td>
 				<td>
-					<% if current_user.is_manager? %>
+					<% if current_user.present? && current_user.is_manager? %>
 						<%= link_to(t(:edit), edit_event_path(event), class: "btn btn-sm btn-primary")%>
 						<%= link_to(t(:delete), event_path(event),    class: "btn btn-sm btn-danger",
 						method: :delete, data: { confirm: "Are you sure?" } )%>

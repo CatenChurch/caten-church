@@ -16,9 +16,9 @@ class Event < ActiveRecord::Base
 
 
 	# 修改權限 哪些role有權限(目前使用cancancan)
-	# def manage_by?(user)
-  #    user && user.has_any_role?(:admin, :manager) 
-  # end
+	def manage_by?(user)
+     user && user.has_any_role?(:admin, :manager) 
+  end
 
   def can_join_event?
   	(self.participants_count < self.max_sign_up_number) && (self.sign_up_end.to_i >= DateTime.now.to_i) && (self.sign_up_begin.to_i <= DateTime.now.to_i)

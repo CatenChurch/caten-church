@@ -3,9 +3,7 @@ class EventsController < ApplicationController
 
 	before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy, :join, :quit, :show_list]
 	before_action :find_event, only:[:show, :join, :quit, :show_list, :edit, :update, :destroy ]
-	def find_event
-		@event = Event.find(params[:id])
-	end
+	before_action :guest_user, only: [:index, :show]
 	def index
 		@events = Event.all
 		respond_to do |format|
@@ -113,11 +111,15 @@ class EventsController < ApplicationController
 		    if current_user.is_manager?
 		    	format.json { render :json => @participants.to_json(include: :profile) } 
 		    else
-		    	format.json { render :json => @participants.to_json(include: { profile: { only: [:name,:sex] }}) } 
+		    	format.json { render :json => current_user } 
 		    end   	
 		end
 	end
 
+	def find_event
+		@event = Event.find(params[:id])
+	end
+	
 	private
 
 	def event_params

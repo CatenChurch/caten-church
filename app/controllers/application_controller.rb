@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   # 還看不太懂
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-
+  def guest_user
+    if current_user.blank?
+      current_user = User.new
+    end
+  end
   protected
 
   def configure_permitted_parameters

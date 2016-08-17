@@ -1,5 +1,5 @@
 <div class="btn-group pull-right">
-	<%= link_to( t(:new_group), new_group_path, class: "btn btn-primary") if current_user.is_manager? %>
+	<%= link_to( t(:new_group), new_group_path, class: "btn btn-primary") if current_user.present? && current_user.is_manager? %>
 </div>
 <table class="table table-hover">
 	<thead>
@@ -22,7 +22,7 @@
 			<td> <%= group.updated_at %> </td>
 			<td>
 				<!--編輯與刪除要通過條件才顯示-->
-				<% if current_user.is_manager? %>
+				<% if current_user.present? && current_user.is_manager? %>
 					<%= link_to(t(:edit), edit_group_path(group), class: "btn btn-sm btn-primary")%>
 					<%= link_to(t(:delete), group_path(group),    class: "btn btn-sm btn-danger",
 					method: :delete, data: { confirm: "Are you sure?" } )%>
