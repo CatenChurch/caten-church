@@ -37,6 +37,10 @@ class Account::ProfileController < ApplicationController
             flash[:alert] = "fail to edit the profile."
         end
     end
+
+    def term
+        
+    end
     
     private
     
@@ -45,7 +49,7 @@ class Account::ProfileController < ApplicationController
     end
     
     def profile_params
-	    params.require(:profile).permit(:name, :sex, :birth, :phone, :cellphone, :address, :email, :education)
+	    params.require(:profile).permit(:name, :sex, :birth, :phone, :cellphone, :address, :email, :education, :terms_of_service)
     end
   
 end

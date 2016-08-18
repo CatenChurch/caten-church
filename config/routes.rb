@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  # users
-  devise_for :users
+  # devise 註冊後custom導向
+  devise_for :users, controllers: { registrations: "registrations" }
 
   namespace :account do
     # account/groups
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'profile/new' => 'profile#new'
     post 'profile/new' => 'profile#create'
     get 'profile/edit' => 'profile#edit'
+    get 'profile/term' => 'profile#term'
     match 'profile/edit' => 'profile#update', via: [:put, :patch]
     
     # account/events

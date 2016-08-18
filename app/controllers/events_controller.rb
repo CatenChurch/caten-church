@@ -77,30 +77,35 @@ class EventsController < ApplicationController
 		# 		flash[:warning] = "你已經報名過這個活動了"
 		# 	end
 		# end
-
-		if @event.can_join_event?
+		if current_user.profile.nil?
+			flash[:notice] = "填寫個人資料後再來報名活動"
+			redirect_to account_profile_new_path
+		elsif @event.can_join_event?
 			current_user.join_event(@event)
 			# add role 'participant'
 			current_user.add_role :participant, Event.find(@event.id)
 			flash[:notice] = "報名本活動成功"
+			redirect_to event_path(@event)
 		else
 			flash[:warning] = "不在報名期限內或人數已滿"	
+			redirect_to event_path(@event)
 		end
 		
 
-		redirect_to event_path(@event)
+		
 	end
 
 	def quit
 		if current_user.is_participant_of_event?(@event)
-			current_user.quit_event(@event)
 			# remove role 'participant'
 			current_user.remove_role :participant, Event.find(@event.id)
+			current_user.quit_event(@event)
 			flash[:alert] = "已取消報名此活動"
+			redirect_to event_path(@event)
 		else
 			flash[:warning] = "你還沒報名參加活動呢"
+			redirect_to event_path(@event)
 		end
-		redirect_to event_path(@event)
 	end
 
 	def show_list

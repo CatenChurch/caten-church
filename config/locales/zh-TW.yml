@@ -53,6 +53,7 @@
   address : '地址'
   education : '學歷'
   no_profile : '沒有建立個人資料'
+
   # devise
   log_in : '登入'
   log_out : '登出'

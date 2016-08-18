@@ -1,5 +1,5 @@
 <% if @user.profile.nil? %>
-    <% flash[:notice] = "You don't have your profile yet" %>
+    <% flash[:notice] = "你還沒填寫個人資料" %>
     <%= link_to(t(:create), account_profile_new_path) %>
 <% else %>
     <div class="col-md-10 col-md-offset-1">
