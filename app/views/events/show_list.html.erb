@@ -189,6 +189,23 @@
               };
               this.participants[i].profile.name = this.participants[i].name;
             } 
+            
+            // 名字上馬賽克 ex: 王小明 => 王X明
+            var nameArray = this.participants[i].profile.name.split("");
+            switch(nameArray.length){
+              case 2 :
+                nameArray.splice(1, 1, "X");
+                break;
+              case 3 :
+                nameArray.splice(1, 1, "X");
+                break;
+              case 4 :
+                nameArray.splice(2, 1, "X");
+                break;
+              default :
+                
+            }
+            this.participants[i].profile.name = nameArray.join("");
           }
         }
       }

@@ -29,16 +29,16 @@ class Event < ActiveRecord::Base
 
   def myValid
   	if max_sign_up_number.to_i < min_sign_up_number.to_i
-  		errors[:max_sign_up_number] << "max_sign_up_number can not small then min_sign_up_number"	
+  		errors[:max_sign_up_number] << "報名活動的人數上限要比活動成立的人數高吧!"	
   	end
   	if sign_up_begin.to_i >= sign_up_end.to_i
-  		errors[:sign_up_end] << "sign_up_end must >= sign_up_begin"	
+  		errors[:sign_up_end] << "結束報名的時間要比開始報名的時間後面喔!"	
   	end
   	if start.to_i >=  over.to_i
-  		errors[:over] << "over must >= start"	
+  		errors[:start] << "活動開始的時間要比活動結束的時間還前面吧!"	
   	end
-  	if sign_up_end.to_i >= start.to_i 
-  		errors[:start] << "start must >= sign_up_end"	
+  	if sign_up_end.to_i >= over.to_i 
+  		errors[:over] << "報名截止的時間要在活動結束的時間之前喔!"	
   	end
   end
 
