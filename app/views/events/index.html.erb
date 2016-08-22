@@ -1,6 +1,3 @@
-<div class="pull-right">
-	<%= link_to(t(:new_event), new_event_path, class: "btn btn-primary") if current_user.present? && current_user.is_manager? %>
-</div>
 <div id="events">
 
   <form class="form-horizontal" role="form">
@@ -24,30 +21,6 @@
 				<td @click="orderByWhat('participants_count')"><%= t(:event_participants_number) %></td>
 			</tr>
 		</thead>
-		<!-- <tbody>
-			<% i=0 %>
-			<% @events.each do |event| %>
-			<tr>
-				<td> <%= i+=1 %> </td>
-				<td> <%= link_to(event.name, event_path(event)) %> </td>
-				<td> <%= event.sign_up_begin.to_s(:Ymd_HM) + " - " +event.sign_up_end.to_s(:Ymd_HM) %> </td>
-				<td> <%= event.start.to_s(:Ymd_HM) + " - " +event.over.to_s(:Ymd_HM) %> </td>
-				<td> 
-					<%= event.participants_count %> 
-					/ 
-					<%= event.max_sign_up_number %>
-				</td>
-				<td>
-					<% if current_user.present? && current_user.is_manager? %>
-						<%= link_to(t(:edit), edit_event_path(event), class: "btn btn-sm btn-primary")%>
-						<%= link_to(t(:delete), event_path(event),    class: "btn btn-sm btn-danger",
-						method: :delete, data: { confirm: "Are you sure?" } )%>
-					<% end %>
-				</td>
-				
-			</tr>
-			<% end %>
-		</tbody> -->
 		
 		<!-- Vue events -->
 		<tbody >
@@ -61,8 +34,9 @@
 				<td>{{ event.participants_count }} / {{ event.max_sign_up_number }}</td>	
 			</tr>
 		</tbody>
-	</table>
 
+	</table>
+	
 </div>
 <script type="text/javascript">
 	var events_data = <%= sanitize @events.to_json %>;

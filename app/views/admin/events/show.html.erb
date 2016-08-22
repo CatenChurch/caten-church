@@ -1,12 +1,10 @@
-<%= link_to "回前頁", events_path, class: "btn btn-default"%>
-<% if current_user.present? %>
-	<% if current_user.is_participant_of_event?(@event) %>
-		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
-		<%= link_to t(:event_participants_list), show_list_event_path(@event), class: "btn btn-info" %>
-	<% else %>
-		<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
-	<% end %>
-<% end %>
+<%= link_to t(:events_list), admin_events_path, class: "btn btn-default"%>
+<%= link_to t(:event_participants_list), show_list_admin_event_path(@event), class: "btn btn-info" %>
+<div class="btn-group pull-right">
+	<%= link_to(t(:edit), edit_admin_event_path(@event), class: "btn btn-default") %>
+	<%= link_to(t(:delete), admin_event_path(@event), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
+</div>
+
 
 <h2><%= @event.name %></h2>
 <hr/>

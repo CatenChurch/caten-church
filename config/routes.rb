@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :events do 
+      member do 
+        get 'show_list'
+      end
+    end
+    get '/' => 'pages#index'
+  end
   # devise 註冊後custom導向
   devise_for :users, controllers: { registrations: "registrations" }
 
@@ -33,7 +41,7 @@ Rails.application.routes.draw do
   end
 
   # events
-  resources :events do 
+  resources :events, only: [:index, :show] do 
     member do 
       post 'join'
       post 'quit'

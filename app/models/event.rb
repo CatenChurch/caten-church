@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
 	belongs_to :organizer, class_name: "User", foreign_key: :user_id
 	
 	# event has many event_users
-	# event has many members from user, and save in group_user
+	# event has many participants from user, and save in event_users
 	# 刪除 event 會清空報名event的人的資料(participants)
 	has_many :event_users
   has_many :participants, through: :event_users, source: :user, dependent: :destroy
