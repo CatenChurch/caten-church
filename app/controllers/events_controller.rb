@@ -16,8 +16,6 @@ class EventsController < ApplicationController
 			redirect_to account_profile_new_path
 		elsif @event.can_join_event?
 			current_user.join_event(@event)
-			# add role 'participant'
-			current_user.add_role :participant, Event.find(@event.id)
 			flash[:notice] = "報名本活動成功"
 			redirect_to event_path(@event)
 		else
@@ -27,14 +25,12 @@ class EventsController < ApplicationController
 	end
 
 	def quit
-		if current_user.is_participant_of_event?(@event)
-			# remove role 'participant'
-			current_user.remove_role :participant, Event.find(@event.id)
+		if current_user.is_participant_of_event?(@event) && @event.can_join_event?
 			current_user.quit_event(@event)
 			flash[:alert] = "已取消報名此活動"
 			redirect_to event_path(@event)
 		else
-			flash[:warning] = "你還沒報名參加活動呢"
+			flash[:warning] = "報名截止，無法取消報名"
 			redirect_to event_path(@event)
 		end
 	end

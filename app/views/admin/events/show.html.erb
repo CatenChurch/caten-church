@@ -5,47 +5,5 @@
 	<%= link_to(t(:delete), admin_event_path(@event), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
 </div>
 
+<%= render 'events/event_table', :e => @event %>
 
-<h2><%= @event.name %></h2>
-<hr/>
-<table class="table table-striped">
-	<tbody>
-		<tr>
-			<td> <%= t(:nature)%> </td>
-			<td><%= @event.nature %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:description)%> </td>
-			<td> <%= @event.description %> </td>
-		</tr>
-		<tr>
-			<td> <%= t(:event_participants_number)%> </td>
-			<td><%= @event.participants_count %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:min_sign_up_number)%> </td>
-			<td><%= @event.min_sign_up_number %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:max_sign_up_number)%> </td>
-			<td><%= @event.max_sign_up_number %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:event_sign_up_begin)%> </td>
-			<td><%= @event.sign_up_begin.to_s(:Ymd_HM_A) %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:event_sign_up_end)%> </td>
-			<td><%= @event.sign_up_end.to_s(:Ymd_HM_A) %></td>
-		</tr>
-		<tr>
-			<td> <%= t(:event_start)%> </td>
-			<td><%= @event.start.to_s(:Ymd_HM_A)%></td>
-		</tr>
-		<tr>
-			<td> <%= t(:event_over)%> </td>
-			<td><%= @event.over.to_s(:Ymd_HM_A) %></td>
-		</tr>
-	</tbody>
-</table>
-<br/>

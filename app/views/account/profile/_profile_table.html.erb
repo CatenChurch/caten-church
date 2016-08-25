@@ -1,0 +1,42 @@
+<h2><%= t(:profile) %></h2>
+  <hr/>
+<% if p.nil? %>
+  <h4>此會員還沒建立個人資料</h4>
+<% else %>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td><%= t(:name) %></td>
+        <td><%= p.name %></td>
+      </tr>
+      <tr>
+        <td><%= t(:sex) %></td>
+        <td><%= p.sex %></td>
+      </tr>
+      <tr>
+        <td><%= t(:birth) %></td>
+        <td><%= p.birth%></td>
+      </tr>
+      <tr>
+        <td><%= t(:phone) %></td>
+        <td><%= p.phone%></td>
+      </tr>
+      <tr>
+        <td><%= t(:cellphone) %></td>
+        <td><%= p.cellphone%></td>
+      </tr>
+      <tr>
+        <td><%= t(:email) %></td>
+        <td><%= p.email%></td>
+      </tr>
+      <tr>
+        <td><%= t(:address) %></td>
+        <td><%= p.address%></td>
+      </tr>
+      <tr>
+        <td><%= t(:education) %></td>
+        <td><%= p.education%></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

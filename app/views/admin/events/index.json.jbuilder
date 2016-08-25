@@ -1,4 +1,4 @@
-json.array!(@admin_events) do |admin_event|
-  json.extract! admin_event, :id
-  json.url admin_event_url(admin_event, format: :json)
+json.array!(@events) do |event|
+  json.extract! event, :id
+  json.url event_url(event, format: :json)
 end

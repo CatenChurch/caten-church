@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  
   namespace :admin do
+    resources :members, only: [:index,:show]
     resources :events do 
       member do 
         get 'show_list'

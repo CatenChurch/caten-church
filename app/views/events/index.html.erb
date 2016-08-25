@@ -2,10 +2,18 @@
 
   <form class="form-horizontal" role="form">
     <div class="form-group">
-      <label class="col-md-1  control-label">搜索 : </label>
+
+      <label class="col-md-1  control-label">活動名稱 : </label>
       <div class="col-md-2">
-        <input v-model="searchText" type="text" class="form-control" placeholder="活動名稱">
+        <input v-model="searchText" type="text" class="form-control" placeholder="名稱">
       </div>
+
+      <div class="col-md-2 checkbox">
+        <label>
+          <input type="checkbox" v-model="showExpiredEvent">顯示過期活動
+        </label>
+      </div>
+
     </div>
   </form>
 
@@ -24,7 +32,7 @@
 		
 		<!-- Vue events -->
 		<tbody >
-			<tr v-for=" event in events | orderBy what order | filterBy searchText in fields " onclick="window.document.location='/events/{{event.id}}';">
+			<tr v-for="event in events | orderBy what order | filterBy searchText in fields" v-show="unexpired(event.over)||showExpiredEvent" onclick="window.document.location='/events/{{event.id}}';">
 				<td>{{ $index + 1}}</td>
 				<td>{{ event.name }}</td>
 				<td>{{ event.sign_up_begin_format }}</td>
@@ -47,7 +55,8 @@
 			what : '',
 			events : events_data,
       	searchText : '',
-      	fields : ['name']
+      	fields : ['name'],
+        showExpiredEvent : false,
 		},
 		created : function(){
 			this.setTimeFormat();
@@ -70,6 +79,9 @@
       				this.events[i].start_format = moment(this.events[i].start).format("YYYY年 M月D日 HH點mm分, dddd");
       				this.events[i].over_format = moment(this.events[i].over).format("YYYY年 M月D日 HH點mm分, dddd");
       			}
+      		},
+      		unexpired : function(time){
+      			return moment(time) > moment();
       		}
     	}
 

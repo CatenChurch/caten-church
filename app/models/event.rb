@@ -24,7 +24,6 @@ class Event < ActiveRecord::Base
   	(self.participants_count < self.max_sign_up_number) && (self.sign_up_end.to_i >= DateTime.now.to_i) && (self.sign_up_begin.to_i <= DateTime.now.to_i)
   end
 
-
   private
 
   def myValid

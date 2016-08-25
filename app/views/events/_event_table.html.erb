@@ -1,0 +1,42 @@
+<h2><%= e.name %></h2>
+<hr/>
+<table class="table table-striped">
+	<tbody>
+		<tr>
+			<td> <%= t(:nature)%> </td>
+			<td><%= e.nature %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:description)%> </td>
+			<td> <%= e.description %> </td>
+		</tr>
+		<tr>
+			<td> <%= t(:event_participants_number)%> </td>
+			<td><%= e.participants_count %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:min_sign_up_number)%> </td>
+			<td><%= e.min_sign_up_number %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:max_sign_up_number)%> </td>
+			<td><%= e.max_sign_up_number %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:event_sign_up_begin)%> </td>
+			<td><%= e.sign_up_begin.to_s(:Ymd_HM_A) %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:event_sign_up_end)%> </td>
+			<td><%= e.sign_up_end.to_s(:Ymd_HM_A) %></td>
+		</tr>
+		<tr>
+			<td> <%= t(:event_start)%> </td>
+			<td><%= e.start.to_s(:Ymd_HM_A)%></td>
+		</tr>
+		<tr>
+			<td> <%= t(:event_over)%> </td>
+			<td><%= e.over.to_s(:Ymd_HM_A) %></td>
+		</tr>
+	</tbody>
+</table>
