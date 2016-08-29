@@ -54,38 +54,36 @@
 			order : 1,
 			what : '',
 			events : events_data,
-      	searchText : '',
-      	fields : ['name'],
-        showExpiredEvent : false,
-		},
-		created : function(){
-			this.setTimeFormat();
-		},
-		methods : {
-			orderByWhat : function(what){
-		        if (this.what == what) {
-		          this.order = this.order * -1;
-		        }
-		        else{
-		          this.order = 1;
-		          this.what = what;
-		        }
-          
-      		},
-      		setTimeFormat : function(){
-      			for (var i = 0; i < this.events.length; i++) {
-      				this.events[i].sign_up_begin_format = moment(this.events[i].sign_up_begin).format("YYYY年 M月D日 HH點mm分, dddd");
-      				this.events[i].sign_up_end_format = moment(this.events[i].sign_up_end).format("YYYY年 M月D日 HH點mm分, dddd");
-      				this.events[i].start_format = moment(this.events[i].start).format("YYYY年 M月D日 HH點mm分, dddd");
-      				this.events[i].over_format = moment(this.events[i].over).format("YYYY年 M月D日 HH點mm分, dddd");
-      			}
-      		},
-      		unexpired : function(time){
-      			return moment(time) > moment();
-      		}
-    	}
-
-	});
+     searchText : '',
+     fields : ['name'],
+     showExpiredEvent : false,
+    },
+    created : function(){
+     this.setTimeFormat();
+    },
+    methods : {
+      orderByWhat : function(what){
+        if (this.what == what) {
+          this.order = this.order * -1;
+        }
+        else{
+          this.order = 1;
+          this.what = what;
+        }
+      },
+      setTimeFormat : function(){
+        for (var i = 0; i < this.events.length; i++) {
+          this.events[i].sign_up_begin_format = moment(this.events[i].sign_up_begin).format("YYYY年 M月D日 HH點mm分, dddd");
+          this.events[i].sign_up_end_format = moment(this.events[i].sign_up_end).format("YYYY年 M月D日 HH點mm分, dddd");
+          this.events[i].start_format = moment(this.events[i].start).format("YYYY年 M月D日 HH點mm分, dddd");
+          this.events[i].over_format = moment(this.events[i].over).format("YYYY年 M月D日 HH點mm分, dddd");
+        }
+      },
+      unexpired : function(time){
+       return moment(time) > moment();
+      }
+    }
+  });
 </script>
 
 

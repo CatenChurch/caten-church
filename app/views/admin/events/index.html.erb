@@ -3,10 +3,18 @@
 
   <form class="form-horizontal" role="form">
     <div class="form-group">
+
       <label class="col-md-1  control-label">搜索 : </label>
       <div class="col-md-2">
         <input v-model="searchText" type="text" class="form-control" placeholder="活動名稱">
       </div>
+
+      <div class="col-md-2 checkbox">
+        <label>
+          <input type="checkbox" v-model="showExpiredEvent">顯示過期活動
+        </label>
+      </div>
+
     </div>
   </form>
 
@@ -26,13 +34,13 @@
 
     <!-- Vue events -->
     <tbody >
-      <tr v-for=" event in events | orderBy what order | filterBy searchText in fields " onclick="window.document.location='/admin/events/{{event.id}}';">
-        <td>{{ $index + 1}}</td>
+      <tr v-for=" event in events | orderBy what order | filterBy searchText in fields " v-show="unexpired(event.over)||showExpiredEvent" onclick="window.document.location='/admin/events/{{event.id}}';">
+        <td>{{ event.id }}</td>
         <td>{{ event.name }}</td>
-        <td>{{ event.sign_up_begin_format }}</td>
-        <td>{{ event.sign_up_end_format }}</td> 
-        <td>{{ event.start_format }}</td>
-        <td>{{ event.over_format }}</td>
+        <td>{{ myFormat(event.sign_up_begin) }}</td>
+        <td>{{ myFormat(event.sign_up_end) }}</td> 
+        <td>{{ myFormat(event.start) }}</td>
+        <td>{{ myFormat(event.over) }}</td>
         <td>{{ event.participants_count }} / {{ event.max_sign_up_number }}</td>
         <td class="btn-group">
           <a class="btn btn-sm btn-default" href="/admin/events/{{event.id}}/edit">編輯</a>
@@ -43,6 +51,7 @@
   </table>
 
 </div>
+
 <script type="text/javascript">
   var events_data = <%= sanitize @events.to_json %>;
   var events = new Vue({
@@ -52,10 +61,8 @@
       what : '',
       events : events_data,
         searchText : '',
-        fields : ['name']
-    },
-    created : function(){
-      this.setTimeFormat();
+        fields : ['name'], 
+        showExpiredEvent : false
     },
     methods : {
       orderByWhat : function(what){
@@ -67,13 +74,11 @@
           this.what = what;
         }   
       },
-      setTimeFormat : function(){
-        for (var i = 0; i < this.events.length; i++) {
-          this.events[i].sign_up_begin_format = moment(this.events[i].sign_up_begin).format("YYYY年 M月D日 HH點mm分, dddd");
-          this.events[i].sign_up_end_format = moment(this.events[i].sign_up_end).format("YYYY年 M月D日 HH點mm分, dddd");
-          this.events[i].start_format = moment(this.events[i].start).format("YYYY年 M月D日 HH點mm分, dddd");
-          this.events[i].over_format = moment(this.events[i].over).format("YYYY年 M月D日 HH點mm分, dddd");
-        }
+      myFormat : function(what){
+        return moment(what).format("YYYY年 M月D日 HH點mm分, dddd");
+      },
+      unexpired : function(time){
+        return moment(time) > moment();
       }
     }
   });
