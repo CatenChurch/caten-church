@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+# excel用axlsx
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
 # JS處理前端時間格式
 gem 'momentjs-rails'
 # vue.js (關閉 turbolinks)
@@ -52,11 +56,13 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
 
+  # pg db 
+  gem 'pg'
 end
 
 group :development do
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  # gem 'sqlite3'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'

@@ -1,12 +1,13 @@
 class Admin::EventsController < AdminController
   load_and_authorize_resource # cancancan
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :show_list]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :show_list, :download]
 
   def index
     @events = Admin::Event.all
   end
 
   def show
+
   end
 
   def new
@@ -50,6 +51,12 @@ class Admin::EventsController < AdminController
         format.json { render :json => @participants.to_json(include: :profile) }    
     end
   end
+
+  def download
+    @participants = @event.participants.includes(:profile)
+    render xlsx: 'download', filename: "#{@event.name}.xlsx", disposition: 'inline'
+  end
+
   private
     def set_event
       @event = Admin::Event.find(params[:id])

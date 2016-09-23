@@ -15,10 +15,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <%= nav_li t(:events_list), events_path %>
+        <%= nav_li "佈告欄", announcements_path %>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <%= nav_li("後台",admin_path) if current_user && current_user.has_role?(:admin) %>
+
         <% if !current_user %>
           <%= nav_li t(:sign_up), new_user_registration_path %>
           <%= nav_li t(:log_in), new_user_session_path %>

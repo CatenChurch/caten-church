@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   
   # 管理人員
   def is_manager?
-    self &&  self.has_any_role?(:admin, :manager)
+    self &&  self.has_any_role?(:admin)
   end
 
   # 把 group 放入 participated_groups

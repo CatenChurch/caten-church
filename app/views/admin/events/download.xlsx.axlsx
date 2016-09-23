@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: @event.name) do |sheet|
+  sheet.add_row ["活動資訊"]
+  @event.attributes.each do |a|
+    sheet.add_row [t(a[0]),a[1]]
+  end
+end
+wb.add_worksheet(name: "報名人員一覽") do |sheet|
+  sheet.add_row ["報名人員"]
+  sheet.add_row [t(:name), t(:sex), t(:birth), t(:phone), t(:email), t(:address)]
+  @participants.each do |p|
+    sheet.add_row [p.profile.name, p.profile.sex, p.profile.birth, p.profile.cellphone, p.profile.email, p.profile.address]
+  end
+end

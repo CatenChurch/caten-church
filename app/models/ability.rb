@@ -2,20 +2,14 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.blank?  
-      # not logged in 如果 user 沒登入
-      cannot :manage, :all   # 設置無法管理任何資源
-      can :read , [Event, Group, Post]
-      cannot :manage, Admin::Event
-    elsif user.has_role?(:admin) # 如果role 為 admin
-      # admin
-      can :manage, :all # 管理所有資源
-    elsif user.has_role?(:manager) # 如果role 為 manager
-      can :manage, :all # 管理所有資源
-    else 
-      can :read, [Event, Group, Post]
+    if user.blank?  # 訪客
+      cannot :manage, :all   
+      can :read , [Event, Group, Post, Announcement]
+    elsif user.has_role?(:admin) # 管理員
+      can :manage, :all 
+    else # 一般會員
+      can :read, [Event, Group, Post, Announcement]
       can [ :join, :quit, :show_list ], [ Event, Group ]
-      cannot :manage, Admin::Event
     end
 
     # Define abilities for the passed in user here. For example:

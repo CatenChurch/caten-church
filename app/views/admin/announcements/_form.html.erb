@@ -1,0 +1,10 @@
+<%= simple_form_for(@admin_announcement) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-group">
+    <%= f.input :title, label: "標題" %>
+    <%= f.input :description, label: "內文" %>
+  </div>
+
+  <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+<% end %>

@@ -1,0 +1,11 @@
+
+<div class="btn-group">
+  <%= link_to '布告欄一覽', admin_announcements_path, class: "btn btn-default"%>
+</div>
+
+<div class="btn-group pull-right">
+  <%= link_to(t(:edit), edit_admin_announcement_path(@admin_announcement) , class: "btn btn-default") %>
+  <%= link_to(t(:delete), admin_announcement_path(@admin_announcement), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
+</div>
+
+<%= render 'announcements/announcements_table', :a => @admin_announcement%>

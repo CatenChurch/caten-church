@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   layout 'admin'
-  before_action :authenticate_user!,:authenticate_admin!
+  before_action :authenticate_user!, :authenticate_admin!
   private
   def authenticate_admin!
   	if !current_user.is_manager?
