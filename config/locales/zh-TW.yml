@@ -11,6 +11,7 @@
   created_at : '建立於'
   updated_at : '更新於'
   user_id : '擁有者id'
+  download_excel : '下載 Excel'
   # groups
   new_group : '新增討論版'
   new_post : '新增文章'
@@ -68,6 +69,8 @@
   log_out : '登出'
   sign_up : '註冊'
   edit_user_registration : '帳號設定'
+  # announcement
+  new_announcement : '新增公告'
 
 
 

@@ -1,54 +1,15 @@
 Rails.application.routes.draw do
   
-  namespace :admin do
-    resources :announcements
-  end
   resources :announcements, only: [:index,:show]
-  
-  namespace :admin do
-    resources :members, only: [:index,:show]
-    resources :events do 
-      member do 
-        get 'show_list'
-        get 'download'
-      end
-    end
-    get '/' => 'pages#index'
-  end
-  # devise 註冊後custom導向
-  devise_for :users, controllers: { registrations: "registrations" }
 
-  namespace :account do
-    # account/groups
-    resources :groups, only: [:index]
-
-    # account/posts
-    resources :posts, only: [:index]
-
-    # account/profile 
-    get 'profile' => 'profile#show'
-    get 'profile/new' => 'profile#new'
-    post 'profile/new' => 'profile#create'
-    get 'profile/edit' => 'profile#edit'
-    get 'profile/term' => 'profile#term'
-    match 'profile/edit' => 'profile#update', via: [:put, :patch]
-    
-    # account/events
-    resources :events, only: [:index]
-  end
-
-  # groups 
-  get 'groups/' => 'groups#index'
   resources :groups do
     member do
       post :join
       post :quit
     end
-    # posts 的路徑
     resources :posts
   end
 
-  # events
   resources :events, only: [:index, :show] do 
     member do 
       post 'join'
@@ -57,10 +18,46 @@ Rails.application.routes.draw do
     end
   end
 
-
-  # pages 
   get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', controller: 'pages'
   
+  
+  # devise 註冊後custom導向
+  devise_for :users, controllers: { registrations: "registrations" }
+
+  namespace :admin do
+
+    get '/' => 'pages#index'
+
+    resources :announcements
+
+    resources :members, only: [:index,:show] do
+      get 'download', on: :collection
+    end
+
+    resources :events do 
+      member do 
+        get 'show_list'
+        get 'download'
+      end
+    end
+  end
+
+  namespace :account do
+
+    resources :groups, only: [:index]
+
+    resources :posts, only: [:index]
+
+    get 'profile' => 'profile#show'
+    get 'profile/new' => 'profile#new'
+    post 'profile/new' => 'profile#create'
+    get 'profile/edit' => 'profile#edit'
+    get 'profile/term' => 'profile#term'
+    match 'profile/edit' => 'profile#update', via: [:put, :patch]
+    
+    resources :events, only: [:index]
+  end
+
   # 首頁
   root 'pages#index'
 
