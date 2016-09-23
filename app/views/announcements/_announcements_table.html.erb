@@ -1,6 +1,12 @@
-<div class="col-md-8 col-md-offset-2">
-  <h2><%= a.title %></h2>
+<div class="col-md-8 col-md-offset-2 jumbotron">
+  <h1 class="text-center"><%= a.title %></h1>
   <br>
-
-  <p><%= sanitize a.description %></p>
+  <div>
+    <span><%= "#{ t(:created_at) } : #{ a.created_at }" %></span>
+    <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
+  </div>
+  <br>
+  
+  
+  <p><%= a.description %></p>
 </div>
