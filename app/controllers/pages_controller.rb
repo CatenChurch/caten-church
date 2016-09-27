@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def index
     @announcements = Announcement.all
+    @events = Event.all
   end
 
   def history

@@ -8,4 +8,4 @@
   <%= link_to(t(:delete), admin_announcement_path(@admin_announcement), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
 </div>
 
-<%= render 'announcements/announcements_table', :a => @admin_announcement%>
+<%= render 'announcements/announcement_table', :a => @admin_announcement%>

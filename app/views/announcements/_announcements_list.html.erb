@@ -4,7 +4,6 @@
         <tr>
           <th><%= t(:title) %></th>
           <th><%= t(:description) %></th>
-          <th><%= t(:created_at) %></th>
           <th><%= t(:updated_at) %></th>
         </tr>
     </thead>
@@ -13,7 +12,6 @@
       <tr v-for="announcement in announcements" onclick="window.document.location='/admin/announcements/{{announcement.id}}'; ">
         <td>{{announcement.title}}</td>
         <td>{{announcement.description}}</td>
-        <td>{{announcement.created_at}}</td>
         <td>{{announcement.updated_at}}</td>
         <td class="btn-group">
           <a class="btn btn-sm btn-default" href="/admin/announcements/{{announcement.id}}/edit">編輯</a>
@@ -22,10 +20,9 @@
       </tr>
       <% else %>
       <tr v-for="announcement in announcements" onclick="window.document.location='/announcements/{{announcement.id}}'; ">
-        <td>{{announcement.title}}</td>
-        <td>{{announcement.description}}</td>
-        <td>{{announcement.created_at}}</td>
-        <td>{{announcement.updated_at}}</td> 
+        <td>{{ announcement.title }}</td>
+        <td>{{ announcement.description }}</td>
+        <td>{{ myFormat(announcement.updated_at) }}</td> 
       </tr>
       <% end %>
 
@@ -40,6 +37,11 @@
     el: '#announcements',
     data: {
       announcements: announcements_data
+    },
+    methods:{
+      myFormat : function(what){
+        return moment(what).format("YYYY年 M月D日 HH點mm分, dddd");
+      }
     }
   })
 </script>
