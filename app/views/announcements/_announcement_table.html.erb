@@ -6,7 +6,6 @@
     <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
   </div>
   <br>
-  
-  
-  <p><%= a.description %></p>
+  <%- # simple_format 這個helper可以處理換行，資料庫中 text 的換行 \n 會被轉成 <br> %>
+  <%= simple_format a.description %>
 </div>
