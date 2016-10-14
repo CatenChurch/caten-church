@@ -70,6 +70,6 @@ class Admin::AnnouncementsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def resource_params
-      params.require(:admin_announcement).permit(:title, :description)
+      params.require(:admin_announcement).permit(:title, :description, :content)
     end
 end
