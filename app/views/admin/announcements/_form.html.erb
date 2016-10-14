@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <%= f.input :title, label: "標題" %>
-    <%= f.input :description, label: "內文" %>
+    <%= f.input :description, as: :pagedown, input_html: { preview: false, rows: 20 }, label: "內文" %>
   </div>
 
   <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %>

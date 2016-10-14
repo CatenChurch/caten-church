@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2 jumbotron">
+<div class="col-md-8 col-md-offset-2">
   <h1 class="text-center"><%= a.title %></h1>
   <br>
   <div>
@@ -7,5 +7,7 @@
   </div>
   <br>
   <%- # simple_format 這個helper可以處理換行，資料庫中 text 的換行 \n 會被轉成 <br> %>
-  <%= simple_format a.description %>
+  <div class="jumbotron">
+    <%= simple_format a.description %>
+  </div>
 </div>

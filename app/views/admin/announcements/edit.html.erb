@@ -1,5 +1,9 @@
 <h1>Editing Admin Announcement</h1>
-<%= render 'form' %>
+<%= link_to 'Back', admin_announcements_path, class: "btn btn-default"  %>
 <br>
-<%= link_to 'Show', @admin_announcement, class: "btn btn-default" %> |
-<%= link_to 'Back', admin_announcements_path, class: "btn btn-default" %>
+<div class="col-md-8 col-md-offset-2">
+  <%= render 'form' %>
+</div>
+
+
+

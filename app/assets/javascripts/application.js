@@ -12,16 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-
+//= require bootstrap-sprockets
 // vue
 //= require vue
 //= require vue-resource
-
 // moment
 //= require moment
 //= require moment/zh-tw.js
-
 // pagedown
 //= require pagedown_bootstrap
 //= require pagedown_init
