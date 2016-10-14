@@ -11,10 +11,12 @@
  * file per style scope.
  */
 @import "bootstrap-sprockets";
-@import "bootstrap_darkly";
+@import "bootstrap-darkly";
 @import "font-awesome";
 @import "pagedown_bootstrap";
+@import "github-markdown";
 @import "custom";
+
 
 
 

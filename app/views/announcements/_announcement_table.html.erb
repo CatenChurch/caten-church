@@ -1,8 +1,6 @@
 <div class="col-md-8 col-md-offset-2">
   <h1 class="text-center"><%= a.title %></h1>
-  <div>
-    <%= a.description %>
-  </div>
+  <p><%= a.description %></p>
   <div>
     <span><%= "#{ t(:created_at) } : #{ a.created_at }" %></span>
     <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
@@ -10,7 +8,7 @@
   
   <br>
   <%- # simple_format 這個helper可以處理換行，資料庫中 text 的換行 \n 會被轉成 <br> %>
-  <div class="jumbotron">
+  <div class="jumbotron markdown-body ">
     <%= markdown a.content %>
   </div>
 </div>
