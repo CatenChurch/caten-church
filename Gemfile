@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+# markdown語法轉成html
+# 參考：https://ruby-china.org/topics/474
+gem 'redcarpet'
 # use markdown editor on website
 # https://github.com/hughevans/pagedown-bootstrap-rails
 gem 'font-awesome-rails'
