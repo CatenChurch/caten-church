@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
-# switch sqlite to pg
+# use markdown editor on website
+# https://github.com/hughevans/pagedown-bootstrap-rails
+gem 'font-awesome-rails'
+gem 'pagedown-bootstrap-rails'
+# switch Database from sqlite to pg
 gem 'pg'
-# excel用axlsx
+# excel file axlsx
 gem 'rubyzip', '~> 1.1.0'
 gem 'axlsx', '2.1.0.pre'
 gem 'axlsx_rails'
