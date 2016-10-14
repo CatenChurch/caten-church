@@ -11,10 +11,10 @@
  * file per style scope.
  */
 @import "bootstrap-sprockets";
-@import './bootstrap.min.css';
-@import './custom.css';
-@import 'font-awesome';
-@import 'pagedown_bootstrap';
+@import "bootstrap_darkly";
+@import "font-awesome";
+@import "pagedown_bootstrap";
+@import "custom.css";
 
 
 
