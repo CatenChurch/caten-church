@@ -15,7 +15,8 @@ gem 'axlsx_rails'
 # JS處理前端時間格式
 gem 'momentjs-rails'
 # vue.js (關閉 turbolinks)
-gem 'vuejs-rails'
+gem 'vuejs-rails', '1.0.26'
+# vue 2 請搭配 gem 'lodash-rails'
 # 多國語言 i18n
 gem "rails-i18n"
 gem 'devise-i18n'
@@ -69,6 +70,9 @@ group :development, :test do
 end
 
 group :development do
+  # 畫出 Rails 專案中的 ER-Model https://github.com/voormedia/rails-erd
+  gem "rails-erd"
+
   # Use sqlite3 as the database for Active Record
   # gem 'sqlite3'
 

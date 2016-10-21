@@ -1,3 +1,5 @@
+require 'net/http'
+
 class PagesController < ApplicationController
   def index
     @announcements = Announcement.all
@@ -17,5 +19,24 @@ class PagesController < ApplicationController
   end
 
   def weekly
+  end
+
+  def youtube
+    # Google Api Key
+    api_key = "AIzaSyDHEfUPJKIZBKR8WEWxYmBYRrDSJSKOup4"
+    # YouTube https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w
+    @channel_id = "UC-MvdM-JEdQUsT5h7Ratc2w"
+    @res = get_res(api_key,@channel_id)
+    respond_to do |format|
+      format.html 
+      format.json { render json: @res }
+    end
+  end
+
+  private
+
+  def get_res(api_key,channel_id)
+    api_url = URI("https://www.googleapis.com/youtube/v3/search?key=#{api_key}&channelId=#{channel_id}&part=snippet,id&order=date&maxResults=50")
+    res = Net::HTTP.get(api_url)
   end
 end

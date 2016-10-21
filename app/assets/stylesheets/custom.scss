@@ -1,5 +1,7 @@
 $navbar_height : 60px;
 $footer_height : 20px;
+$iframe_width : 500px;
+$iframe_height : $iframe_width * 9 / 16;
 body {
     padding-top: $navbar_height+10px;
     padding-bottom: $footer_height+10px;
@@ -10,4 +12,7 @@ footer {
     color: #F5F5F5;
     letter-spacing: 2px;
     text-align: center;
+}
+#youtube .youtube_video{
+  margin-bottom: 10px;
 }

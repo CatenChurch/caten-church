@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', controller: 'pages'
+  get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', 'youtube', controller: 'pages'
   
   
   # devise 註冊後custom導向

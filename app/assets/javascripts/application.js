@@ -16,6 +16,7 @@
 // vue
 //= require vue
 //= require vue-resource
+// vue 2 請搭配 require lodash
 // moment
 //= require moment
 //= require moment/zh-tw.js
