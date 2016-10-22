@@ -5,9 +5,7 @@
     <span><%= "#{ t(:created_at) } : #{ a.created_at }" %></span>
     <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
   </div>
-  
   <br>
-  <%- # simple_format 這個helper可以處理換行，資料庫中 text 的換行 \n 會被轉成 <br> %>
   <div class="jumbotron markdown-body ">
     <%= markdown a.content %>
   </div>

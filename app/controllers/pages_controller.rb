@@ -1,5 +1,4 @@
 require 'net/http'
-
 class PagesController < ApplicationController
   def index
     @announcements = Announcement.all
@@ -28,8 +27,9 @@ class PagesController < ApplicationController
     @channel_id = "UC-MvdM-JEdQUsT5h7Ratc2w"
     @res = get_res(api_key,@channel_id)
     respond_to do |format|
-      format.html 
-      format.json { render json: @res }
+      format.html
+      format.json 
+      # format.json { render json: @res }
     end
   end
 
@@ -37,6 +37,9 @@ class PagesController < ApplicationController
 
   def get_res(api_key,channel_id)
     api_url = URI("https://www.googleapis.com/youtube/v3/search?key=#{api_key}&channelId=#{channel_id}&part=snippet,id&order=date&maxResults=50")
-    res = Net::HTTP.get(api_url)
+    res = Net::HTTP.get_response(api_url)
+    encode = res['content-type'].split('=').last
+    res_body = res.body.force_encoding(encode)
+    JSON.parse(res_body)
   end
 end
