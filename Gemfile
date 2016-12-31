@@ -59,6 +59,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # factory_girl 
+  gem 'factory_girl_rails'
+  # 假資料
+  gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -66,12 +70,15 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
 
+  # 畫出 Rails 專案中的 ER-Model https://github.com/voormedia/rails-erd
+  gem "rails-erd"
+  # 畫 UML https://github.com/preston/railroady
+  gem 'railroady'
   
 end
 
 group :development do
-  # 畫出 Rails 專案中的 ER-Model https://github.com/voormedia/rails-erd
-  gem "rails-erd"
+  
 
   # Use sqlite3 as the database for Active Record
   # gem 'sqlite3'

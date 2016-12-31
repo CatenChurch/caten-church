@@ -1,5 +1,5 @@
 class Account::EventsController < ApplicationController
-	before_action :authenticate_user!
+  authorize_resource :account
 	
 	def index
 		@events = current_user.participated_events

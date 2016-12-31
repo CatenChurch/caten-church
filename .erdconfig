@@ -1,0 +1,15 @@
+attributes:
+  - content
+  - foreign_key
+  - inheritance
+  - primary_keys
+indirect: true
+markup: true
+sort: true
+warn: true
+title: false
+orientation: vertical
+exclude: "Group,Post,GroupUser,Admin::Member,Admin::Event,Admin::Announcement"
+only_recursion_depth: null
+prepend_primary: false
+cluster: false

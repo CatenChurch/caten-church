@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
-	load_and_authorize_resource # cancancan
-	before_action :authenticate_user!, only:[:join, :quit, :show_list]
+	authorize_resource # cancancan
 	before_action :find_event, only:[:show, :join, :quit, :show_list]
 
 	def index
@@ -39,17 +38,10 @@ class EventsController < ApplicationController
 		# n+1 queries 修正
 		@participants = @event.participants.includes(:profile)
 	end
-
-	
 	
 	private
 	def find_event
 		@event = Event.find(params[:id])
 	end
-
-	def event_params
-		params.require(:event).permit(:name, :nature, :description, :max_sign_up_number, :min_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over)
-	end
-
 	
 end

@@ -1,17 +1,12 @@
 class AnnouncementsController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_announcement, only: [:show]
+  skip_authorization_check
 
   def index
     @announcements = Announcement.all
   end
 
   def show
+    @announcement = Announcement.find(params[:id])
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_announcement
-      @announcement = Announcement.find(params[:id])
-    end
+  
 end

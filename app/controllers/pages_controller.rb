@@ -1,5 +1,6 @@
 require 'net/http'
 class PagesController < ApplicationController
+  skip_authorization_check # 不需要cancancan授權
   def index
     @announcements = Announcement.all
     @events = Event.all
@@ -29,7 +30,6 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html
       format.json 
-      # format.json { render json: @res }
     end
   end
 

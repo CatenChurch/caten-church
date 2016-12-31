@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   # event
   has_many :events
+  # announcement
+  has_many :announcements
   # user has many event_users
   # user has many participated_events from event, and save in event_user
   has_many :event_users
@@ -22,7 +24,7 @@ class User < ActiveRecord::Base
   
   # 管理人員
   def is_manager?
-    self &&  self.has_any_role?(:admin)
+    self && self.has_any_role?(:admin)
   end
 
   # 把 group 放入 participated_groups

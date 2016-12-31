@@ -1,6 +1,8 @@
 class Account::ProfileController < ApplicationController
     # 先確認登入 
-    before_action :authenticate_user! 
+    # before_action :authenticate_user!
+    # 瀏覽權限統一使用cancancan管理
+    authorize_resource :account 
     # 設定 @user
     before_action :set_user
     

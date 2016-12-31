@@ -1,4 +1,4 @@
-<%= simple_form_for(@event) do |f| %>
+<%= simple_form_for([:admin,@event]) do |f| %>
   <%= f.error_notification %>
   <div class="form-group">
   	<%= f.input :name, label: t(:event_name) %>

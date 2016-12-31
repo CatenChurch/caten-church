@@ -5,7 +5,7 @@
     <div class="btn btn-default" v-show="currentVideo!=0" @click="currentVideo--">Prev</div>
     <div class="btn btn-default pull-right" v-show="currentVideo!=numOfVidoes-1" @click="currentVideo++">Next</div>
   </div>
-  
+  <br>
   <div v-for="(index, video) in channel.videos | orderBy video.published_at 1" v-show="index==currentVideo"  class="embed-responsive embed-responsive-16by9 youtube_video">
     <iframe :src="video.embed_url" class="embed-responsive-item" frameborder="0"; allowfullscreen></iframe>
   </div>
