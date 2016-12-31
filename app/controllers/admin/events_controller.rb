@@ -1,5 +1,4 @@
 class Admin::EventsController < AdminController
-  authorize_resource # cancancan
   before_action :set_event, only: [:show, :edit, :update, :destroy, :show_list, :download]
 
   def index
