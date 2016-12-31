@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  check_authorization # 檢查所有controller的cancancan驗證
+  # check_authorization # 檢查所有controller的cancancan驗證
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
