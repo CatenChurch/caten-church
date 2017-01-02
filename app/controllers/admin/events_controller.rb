@@ -2,7 +2,7 @@ class Admin::EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :show_list, :download]
 
   def index
-    @events = Event.all
+    @events = Event.all.order(id: :desc)
   end
 
   def show

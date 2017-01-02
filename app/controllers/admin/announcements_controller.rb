@@ -2,7 +2,7 @@ class Admin::AnnouncementsController < AdminController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy]
 
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.all.order(id: :desc)
   end
 
   def show

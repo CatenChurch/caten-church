@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 	before_action :find_event, only:[:show, :join, :quit, :show_list]
 
 	def index
-		@events = Event.all
+		@events = Event.all.order(id: :desc)
 	end
 
 	def show
