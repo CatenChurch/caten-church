@@ -22,14 +22,14 @@ class PagesController < ApplicationController
   end
 
   def youtube
-    # Google Api Key
-    api_key = "AIzaSyDHEfUPJKIZBKR8WEWxYmBYRrDSJSKOup4"
+    # Google Api Key in config/application.yml
+    api_key = ENV['google_api_key']
     # YouTube https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w
     @channel_id = "UC-MvdM-JEdQUsT5h7Ratc2w"
     @res = get_res(api_key,@channel_id)
     respond_to do |format|
       format.html
-      format.json 
+      format.json
     end
   end
 

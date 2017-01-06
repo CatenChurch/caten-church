@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                 :integer          not null, primary key
+#  name               :string
+#  nature             :string
+#  description        :text
+#  max_sign_up_number :integer
+#  min_sign_up_number :integer
+#  sign_up_begin      :datetime
+#  sign_up_end        :datetime
+#  start              :datetime
+#  over               :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  user_id            :integer
+#  participants_count :integer          default(0)
+#
+
 class Event < ActiveRecord::Base
   resourcify
 	# 活動發起者

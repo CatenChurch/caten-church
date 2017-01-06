@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+# 密碼等 ENV value 保護
+gem "figaro"
+# model schema comment
+gem 'annotate'
 # markdown語法轉成html
 # 參考：https://ruby-china.org/topics/474
 gem 'redcarpet'
@@ -59,7 +63,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # factory_girl 
+  # factory_girl
   gem 'factory_girl_rails'
   # 假資料
   gem 'faker'
@@ -74,11 +78,11 @@ group :development, :test do
   gem "rails-erd"
   # 畫 UML https://github.com/preston/railroady
   gem 'railroady'
-  
+
 end
 
 group :development do
-  
+
 
   # Use sqlite3 as the database for Active Record
   # gem 'sqlite3'
@@ -98,4 +102,3 @@ group :production do
   # heroku 環境要求使用
   gem 'rails_12factor'
 end
-
