@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # 檢查所有controller的cancancan驗證
-  # check_authorization 
+  # check_authorization
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :current_password])
   end
 end

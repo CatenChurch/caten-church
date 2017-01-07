@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   # user has many participated_events from event, and save in event_user
   has_many :event_users
   has_many :participated_events, through: :event_users, source: :event
-  
+
   # 管理人員
   def is_manager?
     self && self.has_any_role?(:admin)
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     participated_events.include?(event)
   end
 
-  
 
-  
+
+
 end

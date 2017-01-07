@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
-  protected
 
+  protected
   def after_sign_up_path_for(resource)
-    account_profile_new_path # Or :prefix_to_your_route
+    account_profile_new_path
   end
 end
