@@ -65,21 +65,21 @@
 #
 
 Rails.application.routes.draw do
-  
+
   resources :announcements, only: [:index,:show]
 
-  resources :events, only: [:index, :show] do 
+  resources :events, only: [:index, :show] do
 
-    member do 
+    member do
       post 'join'
       post 'quit'
-      get 'show_list'  
+      get 'show_list'
     end
 
   end
 
   get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', 'youtube', controller: 'pages'
-  
+
   # devise 註冊後custom導向
   devise_for :users, controllers: { registrations: "registrations" }
 
@@ -95,7 +95,7 @@ Rails.application.routes.draw do
 
     resources :events do
 
-      member do 
+      member do
         get 'show_list'
         get 'download'
       end
@@ -105,11 +105,6 @@ Rails.application.routes.draw do
   end
 
   namespace :account do
-
-    resources :groups, only: [:index]
-
-    resources :posts, only: [:index]
-
     get 'profile' => 'profile#show'
     get 'profile/new' => 'profile#new'
     post 'profile/new' => 'profile#create'

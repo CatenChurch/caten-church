@@ -1,9 +1,9 @@
 <%= link_to '所有會員', admin_members_path, class: "btn btn-default" %>
-<h1 class="text-center"><%= @member.name %></h1>
+<h1 class="text-center"><%= @member.profile.name %></h1>
 <div class="col-md-5 col-md-offset-1">
   <div id="profile">
-    <%= render 'account/profile/profile_table', :p => @member.profile %> 
-  </div> 
+    <%= render 'account/profile/profile_table', :p => @member.profile %>
+  </div>
 </div>
 <div class="col-md-5">
   <h2>參加的活動</h2>

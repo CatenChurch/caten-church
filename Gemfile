@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+# omniauth
+gem 'omniauth'
+gem 'omniauth-facebook'
 # 密碼等 ENV value 保護
 gem "figaro"
 # model schema comment

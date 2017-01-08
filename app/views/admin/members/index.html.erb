@@ -9,15 +9,15 @@
       </div>
     </div>
   </form>
-  
+
   <table class="table table-hover" >
     <thead>
       <tr >
         <td @click="orderByWhat('id')">id</td>
-        <td @click="orderByWhat('name')"><%= t("姓名") %></td>
+        <td @click="orderByWhat('profile.name')"><%= t(:name) %></td>
         <td @click="orderByWhat('profile.sex')"><%= t(:sex) %></td>
         <td @click="orderByWhat('profile.birth')"><%= t(:birth) %></td>
-        <td @click="orderByWhat('profile.email')"><%= t(:email) %></td>
+        <td @click="orderByWhat('email')"><%= t(:email) %></td>
         <td @click="orderByWhat('profile.phone')"><%= t(:phone) %></td>
         <td @click="orderByWhat('profile.cellphone')"><%= t(:cellphone) %></td>
         <td @click="orderByWhat('profile.address')"><%= t(:address) %></td>
@@ -28,10 +28,10 @@
     <tbody >
       <tr v-for=" member in members | orderBy what order | filterBy searchText in fields " onclick="window.document.location='/admin/members/{{member.id}}';">
         <td>{{ member.id }}</td>
-        <td>{{ member.name }}</td>
+        <td>{{ member.profile.name }}</td>
         <td>{{ member.profile.sex }}</td>
         <td>{{ member.profile.birth }}</td>
-        <td>{{ member.profile.email }}</td>
+        <td>{{ member.email }}</td>
         <td>{{ member.profile.phone }}</td>
         <td>{{ member.profile.cellphone }}</td>
         <td>{{ member.profile.address }}</td>
@@ -49,7 +49,7 @@
       what : 'id',
       members : members_data,
         searchText : '',
-        fields : ['id','name','profile.sex','profile.birth','profile.email','profile.phone','profile.cellphone','profile.address']
+        fields : ['id','profile.name','profile.sex','profile.birth','email','profile.phone','profile.cellphone','profile.address']
     },
     created : function(){
       this.checkProfile();
@@ -62,7 +62,7 @@
         else{
           this.order = 1;
           this.what = what;
-        }   
+        }
       },
       checkProfile : function(){
         for (var i = 0; i < this.members.length; i++) {
@@ -73,14 +73,11 @@
               birth : '',
               phone : '',
               cellphone : '',
-              email : '',
               address : ''
             };
-          } 
+          }
         }
       }
     }
   });
 </script>
-
-

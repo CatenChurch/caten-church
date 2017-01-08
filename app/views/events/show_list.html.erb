@@ -44,7 +44,7 @@
           this.order = 1;
           this.what = what;
         }
-        
+
       },
       checkProfile : function(){
         for (var i = 0; i < this.participants.length; i++) {
@@ -53,9 +53,8 @@
               name : '',
               sex : '',
             };
-            this.participants[i].profile.name = this.participants[i].name;
-          } 
-          
+          }
+
           // 名字上馬賽克 ex: 王小明 => 王X明
           var nameArray = this.participants[i].profile.name.split("");
           switch(nameArray.length){
@@ -69,7 +68,7 @@
               nameArray.splice(2, 1, "X");
               break;
             default :
-              
+
           }
           this.participants[i].profile.name = nameArray.join("");
         }
