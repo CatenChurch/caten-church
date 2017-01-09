@@ -4,13 +4,13 @@ wb.add_worksheet(name: "會員一覽") do |sheet|
   sheet.add_row ["會員"]
   sheet.merge_cells("A1:H1")
 
-  sheet.add_row [ t(:id), t(:name), t(:sex), t(:birth), t(:email), t(:phone), t(:cellphone), t(:address) ]
+  sheet.add_row [ t(:id), t(:email), t(:name), t(:sex), t(:birth), t(:phone), t(:cellphone), t(:address) ]
 
   @members.each do |m|
     if m.profile ||= false
-      sheet.add_row [ m.id, m.name, m.profile.sex, m.profile.birth, m.profile.email, m.profile.phone, m.profile.cellphone, m.profile.address ]
+      sheet.add_row [ m.id, m.email, m.profile.name, m.profile.sex, m.profile.birth, m.profile.phone, m.profile.cellphone, m.profile.address ]
     else
-      sheet.add_row [ m.id, m.name, t(:no_profile)]
+      sheet.add_row [ m.id, m.email, t(:no_profile)]
     end
   end
 end

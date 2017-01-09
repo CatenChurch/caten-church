@@ -1,6 +1,6 @@
 <div class="btn-group">
 	<%= link_to t(:events_list), admin_events_path, class: "btn btn-default"%>
-	<%= link_to t(:event_participants_list), show_list_admin_event_path(@event), class: "btn btn-info" %>
+	<%= link_to t(:event_participants_list), show_participants_admin_event_path(@event), class: "btn btn-info" %>
 </div>
 
 <div class="btn-group pull-right">
@@ -10,4 +10,3 @@
 </div>
 
 <%= render 'events/event_table', :e => @event %>
-

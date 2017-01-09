@@ -1,0 +1,16 @@
+<%= simple_form_for @profile, url: account_profile_new_path do |f| %>
+	<div class="form-group">
+		<%= f.input :name, label:t(:name) %>
+		<%= f.input :sex, collection: ["男","女"], prompt: "Select your sex", label:t(:sex)%>
+		<%= f.input :birth,
+			start_year: Date.today.year - 100,
+			end_year: Date.today.year,
+			order: [:year, :month, :day], label:t(:birth) %>
+		<%= f.input :phone, placeholder: '07-XXXXXXX', label:t(:phone)%>
+		<%= f.input :cellphone, label:t(:cellphone) %>
+		<%= f.input :address, label:t(:address) %>
+		<%= f.input :education, label:t(:education) %>
+	</div>
+	<%= f.input :terms_of_service, as: :boolean, label: sanitize("我已閱讀並且接受#{link_to('個人資料提供告知暨同意書',account_profile_term_path).html_safe }的內容") %>
+	<%= f.button :submit, class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+<% end %>
