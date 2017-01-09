@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	authorize_resource # cancancan
-	before_action :find_event, only:[:show, :join, :quit, :show_list]
+	before_action :find_event, only:[:show, :join, :quit, :show_participants]
 
 	def index
 		@events = Event.all.order(id: :desc)
@@ -18,9 +18,9 @@ class EventsController < ApplicationController
 			flash[:notice] = "報名本活動成功"
 			redirect_to event_path(@event)
 		else
-			flash[:warning] = "不在報名期限內或人數已滿"	
+			flash[:warning] = "不在報名期限內或人數已滿"
 			redirect_to event_path(@event)
-		end	
+		end
 	end
 
 	def quit
@@ -34,14 +34,14 @@ class EventsController < ApplicationController
 		end
 	end
 
-	def show_list
+	def show_participants
 		# n+1 queries 修正
-		@participants = @event.participants.includes(:profile)
+		@participants = @event.participants.includes(:profile).order(:id)
 	end
-	
+
 	private
 	def find_event
 		@event = Event.find(params[:id])
 	end
-	
+
 end

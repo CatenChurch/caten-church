@@ -1,20 +1,15 @@
-<br>
+<div class="container">
 
-<div class="col-md-3">
-  
-</div>
-<div class="col-md-9">
-  <div class="row">
-    <h1 class="text-center">佈告欄</h1>
+  <div class="panel panel-success">
+    <div class="panel-heading text-center">佈告欄</div>
     <br>
     <%= render 'announcements/announcements_list', :a => @announcements%>
   </div>
-  <hr>
-  <div class="row">
-    <h1 class="text-center">活動一覽</h1>
+
+  <div class="panel panel-info">
+    <div class="panel-heading text-center">活動一覽</div>
     <br>
     <%= render 'events/events_list', :e => @events %>
   </div>
-  <hr>
-</div>
 
+</div>

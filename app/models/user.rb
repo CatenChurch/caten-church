@@ -47,20 +47,6 @@ class User < ActiveRecord::Base
     self && self.has_any_role?(:admin)
   end
 
-  # 把 group 放入 participated_groups
-  def join_group(group)
-    participated_groups << group
-  end
-  # 把 participated_groups 中的 group 刪除
-  def quit_group(group)
-    participated_groups.delete(group)
-  end
-  # 確認 user 是否為此 group 的 members
-  def is_member_of_group?(group)
-    participated_groups.include?(group)
-  end
-
-
   # 把 event 放入 participated_events
   def join_event(event)
     participated_events << event

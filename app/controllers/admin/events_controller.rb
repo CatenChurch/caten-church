@@ -1,5 +1,5 @@
 class Admin::EventsController < AdminController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :show_list, :download]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :show_participants, :download]
 
   def index
     @events = Event.all.order(id: :desc)
@@ -17,7 +17,7 @@ class Admin::EventsController < AdminController
   def edit
   end
 
-  
+
   def create
     @event = current_user.events.new(resource_params)
     if @event.save
@@ -33,7 +33,7 @@ class Admin::EventsController < AdminController
       redirect_to admin_event_path(@event)
       flash[:success] = "活動修改成功"
     else
-      render :edit 
+      render :edit
     end
   end
 
@@ -43,8 +43,8 @@ class Admin::EventsController < AdminController
     flash[:danger] = "活動已刪除"
   end
 
-  def show_list
-    @participants = @event.participants.includes(:profile)
+  def show_participants
+    @participants = @event.participants.includes(:profile).order(:id)
   end
 
   def download

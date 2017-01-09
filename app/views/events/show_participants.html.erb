@@ -1,0 +1,4 @@
+<%= link_to t(:back_to_event), event_path(@event), class: "btn btn-default"%>
+<div class="container">
+  <%= render 'users/users', :users => @participants %>
+</div>

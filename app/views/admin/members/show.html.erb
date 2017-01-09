@@ -1,15 +1,18 @@
 <%= link_to '所有會員', admin_members_path, class: "btn btn-default" %>
-<h1 class="text-center"><%= @member.profile.name %></h1>
-<div class="col-md-5 col-md-offset-1">
-  <div id="profile">
-    <%= render 'account/profile/profile_table', :p => @member.profile %>
+<div class="container">
+  <h1 class="text-center"><%= @member.email %></h1>
+  <div class="col-xs-6">
+    <div id="profile">
+      <%= render 'account/profile/profile_table', :p => @member.profile %>
+    </div>
   </div>
-</div>
-<div class="col-md-5">
-  <h2>參加的活動</h2>
-  <div class="list-group">
-    <% @member.participated_events.each do |event| %>
-      <%= link_to event.name, admin_event_path(event), class: "list-group-item" %>
-    <% end %>
+  <div class="col-xs-6">
+    <h2>參加的活動</h2>
+    <hr>
+    <div class="list-group">
+      <% @member.participated_events.each do |event| %>
+        <%= link_to event.name, admin_event_path(event), class: "list-group-item" %>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -73,7 +73,7 @@ Rails.application.routes.draw do
     member do
       post 'join'
       post 'quit'
-      get 'show_list'
+      get 'show_participants'
     end
 
   end
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     resources :events do
 
       member do
-        get 'show_list'
+        get 'show_participants'
         get 'download'
       end
 
@@ -111,7 +111,7 @@ Rails.application.routes.draw do
     get 'profile/edit' => 'profile#edit'
     get 'profile/term' => 'profile#term'
     match 'profile/edit' => 'profile#update', via: [:put, :patch]
-    
+
     resources :events, only: [:index]
   end
 
