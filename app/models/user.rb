@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable,
+  :omniauthable, :omniauth_providers => [:facebook]
   # 設定 user 跟 group 之間的資料庫關聯
   has_many :groups
   has_many :posts
@@ -59,7 +60,17 @@ class User < ActiveRecord::Base
   def is_participant_of_event?(event)
     participated_events.include?(event)
   end
+  # omniauth sign up
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
+  # user connect omniauth
+  def connect_omniauth
 
+  end
 
 
 
