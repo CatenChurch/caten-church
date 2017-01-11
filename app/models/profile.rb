@@ -8,7 +8,6 @@
 #  birth      :date
 #  phone      :string
 #  cellphone  :string
-#  email      :string
 #  address    :string
 #  education  :string
 #  user_id    :integer
