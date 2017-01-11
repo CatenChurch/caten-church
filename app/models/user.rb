@@ -19,10 +19,13 @@
 #
 
 class User < ActiveRecord::Base
+  # roles
   rolify
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
+<<<<<<< HEAD
   :recoverable, :rememberable, :trackable, :validatable,
   :omniauthable, :omniauth_providers => [:facebook]
   # 設定 user 跟 group 之間的資料庫關聯
@@ -33,30 +36,31 @@ class User < ActiveRecord::Base
   has_many :group_users
   has_many :participated_groups, through: :group_users, source: :group
   # 一個 user 有一個 user_profile
+=======
+  :recoverable, :rememberable, :trackable, :validatable
+
+
+>>>>>>> refactoring
   has_one :profile, dependent: :destroy
-  # event
-  has_many :events
-  # announcement
+
   has_many :announcements
-  # user has many event_users
-  # user has many participated_events from event, and save in event_user
+
+  has_many :events
   has_many :event_users
   has_many :participated_events, through: :event_users, source: :event
 
-  # 管理人員
+  # check role is admin
   def is_manager?
     self && self.has_any_role?(:admin)
   end
 
-  # 把 event 放入 participated_events
+  # event
   def join_event(event)
     participated_events << event
   end
-  # 把 participated_events 中的 event 刪除
   def quit_event(event)
     participated_events.delete(event)
   end
-  # 確認 user 是否為此 group 的 members
   def is_participant_of_event?(event)
     participated_events.include?(event)
   end
@@ -70,8 +74,11 @@ class User < ActiveRecord::Base
   # user connect omniauth
   def connect_omniauth
 
+<<<<<<< HEAD
   end
 
 
 
+=======
+>>>>>>> refactoring
 end
