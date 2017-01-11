@@ -6,5 +6,8 @@
 $ git push heroku master
 $ heroku run rake db:migrate
 $ figaro heroku:set -e production
-# $ heroku config # 查看heroku環境變數
+# 查看heroku環境變數
+$ heroku config
+# model schema
+$ annotate --exclude tests,fixtures,factories,serializers
 ```
