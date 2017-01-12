@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
   :omniauthable, :omniauth_providers => [:facebook]
-  
+
   has_one :profile, dependent: :destroy
 
   has_many :announcements
@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :event_users
   has_many :participated_events, through: :event_users, source: :event
+
+  has_many :oauths, dependent: :destroy
 
   # check role is admin
   def is_manager?
@@ -53,15 +55,9 @@ class User < ActiveRecord::Base
     participated_events.include?(event)
   end
 
-  # omniauth sign up
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
-    end
-  end
   # user connect omniauth
-  def connect_omniauth
+  def connect_omniauth(auth)
+    oauths << auth
   end
 
 end
