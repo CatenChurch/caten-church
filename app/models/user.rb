@@ -43,6 +43,9 @@ class User < ActiveRecord::Base
   def is_manager?
     self && self.has_any_role?(:admin)
   end
+  def is_first_time_sign_in?
+    sign_in_count <= 1
+  end
 
   # event
   def join_event(event)

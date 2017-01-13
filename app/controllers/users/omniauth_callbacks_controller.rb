@@ -13,7 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     elsif !user_signed_in? && !@oauth.user.blank?
       sign_in_and_redirect @oauth.user, :event => :authentication #this will throw if @user is not activated
       flash[:notice] = "以Facebook帳號登入成功"
-      flash[:info] = "此網站的帳號為Facebook的信箱，密碼隨機產生，可於之後更改密碼。第一次使用Facebook登入者，請填寫個人資料。" if is_first_time_sign_in?
+      flash[:info] = "此網站的帳號為Facebook的信箱，密碼隨機產生，可於之後更改密碼。第一次使用Facebook登入者，請填寫個人資料。" if @oauth.user.is_first_time_sign_in?
     else
       flash[:warning] = "此用戶Facebook email已於此網站註冊過了，請登入後連結Facebook方能使用Facebook登入"
       session["email"] = request.env["omniauth.auth"]["info"]["email"]
@@ -25,8 +25,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to root_path
   end
 
-  private
-  def is_first_time_sign_in?
-    @oauth.user.sign_in_count == 1
-  end
 end
