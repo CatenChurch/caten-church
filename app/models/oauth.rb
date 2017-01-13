@@ -17,4 +17,12 @@ class Oauth < ActiveRecord::Base
   def disconnect
     update!(user: nil)
   end
+
+  def is_connect_to?(u)
+    user == u
+  end
+
+  def no_one_connect_with?
+    user.blank?
+  end
 end
