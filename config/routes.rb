@@ -39,12 +39,12 @@ Rails.application.routes.draw do
   end
 
   namespace :account do
-    get 'profile' => 'profile#show'
-    get 'profile/new' => 'profile#new'
-    post 'profile/new' => 'profile#create'
-    get 'profile/edit' => 'profile#edit'
-    get 'profile/term' => 'profile#term'
-    match 'profile/edit' => 'profile#update', via: [:put, :patch]
+    
+    resource :profile, except: [:destroy] do
+      member do
+        get :term
+      end
+    end
 
     resources :events, only: [:index]
   end

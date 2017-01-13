@@ -1,0 +1,10 @@
+<% if @profile.blank? %>
+<% flash[:notice] = "你還沒填寫個人資料" %>
+<%= link_to(t(:create), new_account_profile_path, class: "btn btn-primary") %>
+<% else %>
+<div class="col-md-10 col-md-offset-1">
+  <%= render 'profile_table', :p => @profile %>
+  <br/>
+  <%= link_to(t(:edit), edit_account_profile_path, class: "btn btn-primary pull-right") %>
+</div>
+<% end %>
