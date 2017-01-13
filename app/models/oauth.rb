@@ -3,7 +3,7 @@ class Oauth < ActiveRecord::Base
 
   def self.find_or_create_user(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |oauth|
-      if oauth.user.blank?
+      if oauth.user.blank? && !User.email_has_been_used?(auth.info.email)
         puts "create user"
         oauth.create_user(email: auth.info.email, password: Devise.friendly_token[0,20])
       end
@@ -25,4 +25,5 @@ class Oauth < ActiveRecord::Base
   def no_one_connect_with?
     user.blank?
   end
+
 end

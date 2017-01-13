@@ -1,7 +1,8 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @oauth = Oauth.find_or_create_user(request.env["omniauth.auth"])
+    oauth_data = request.env["omniauth.auth"]
+    @oauth = Oauth.find_or_create_user(oauth_data)
 
     if user_signed_in? && @oauth.no_one_connect_with?
       @oauth.connect current_user
@@ -16,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:info] = "此網站的帳號為Facebook的信箱，密碼隨機產生，可於之後更改密碼。第一次使用Facebook登入者，請填寫個人資料。" if @oauth.user.is_first_time_sign_in?
     else
       flash[:warning] = "此用戶Facebook email已於此網站註冊過了，請登入後連結Facebook方能使用Facebook登入"
-      session["email"] = request.env["omniauth.auth"]["info"]["email"]
+      session["email"] = oauth_data["info"]["email"]
       redirect_to new_user_session_url
     end
   end

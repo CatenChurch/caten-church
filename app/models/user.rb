@@ -43,10 +43,14 @@ class User < ActiveRecord::Base
   def is_manager?
     self && self.has_any_role?(:admin)
   end
+
   def is_first_time_sign_in?
     sign_in_count <= 1
   end
 
+  def self.email_has_been_used?(email)
+    !where(email: email).blank?
+  end
   # event
   def join_event(event)
     participated_events << event
