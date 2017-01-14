@@ -9,6 +9,6 @@ wb.add_worksheet(name: "報名人員一覽") do |sheet|
   sheet.add_row ["報名人員"]
   sheet.add_row [t(:name), t(:sex), t(:birth), t(:phone), t(:email), t(:address)]
   @participants.each do |p|
-    sheet.add_row [p.profile.name, p.profile.sex, p.profile.birth, p.profile.cellphone, p.profile.email, p.profile.address]
+    sheet.add_row [p.profile.name, p.profile.sex, p.profile.birth, p.profile.cellphone, p.email, p.profile.address]
   end
 end
