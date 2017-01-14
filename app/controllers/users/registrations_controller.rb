@@ -2,6 +2,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
   def after_sign_up_path_for(resource)
-    account_profile_new_path
+    new_account_profile_path
   end
 end
