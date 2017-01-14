@@ -3,14 +3,14 @@ class Ability
 
   def initialize(user)
     if user.blank?  # 訪客
-      cannot :manage, :all   
+      cannot :manage, :all
       can :read, Event
     elsif user.has_role?(:admin) # 管理員
-      can :manage, :all 
+      can :manage, :all
     else # 一般會員
       can :manage, Account
       can :read, Event
-      can [ :join, :quit, :show_list ], Event
+      can [ :join, :quit, :show_participants ], Event
     end
 
     # Define abilities for the passed in user here. For example:
