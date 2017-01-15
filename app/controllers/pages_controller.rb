@@ -6,20 +6,17 @@ class PagesController < ApplicationController
     @events = Event.all.order(id: :desc)
   end
 
-  def history
-  end
+  def history;  end
 
-  def news
-  end
+  def news;  end
 
-  def media
-  end
+  def media;  end
 
-  def fellowship
-  end
+  def fellowship;  end
 
-  def weekly
-  end
+  def weekly;  end
+
+  def term;  end
 
   def youtube
     # Google Api Key in config/application.yml

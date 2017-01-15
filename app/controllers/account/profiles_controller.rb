@@ -35,8 +35,6 @@ class Account::ProfilesController < ApplicationController
     end
   end
 
-  def term;  end
-
   private
 
   def get_profile
