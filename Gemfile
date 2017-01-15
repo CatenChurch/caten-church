@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# puma server
+gem 'puma'
 # omniauth
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -85,8 +87,6 @@ group :development, :test do
 end
 
 group :development do
-
-
   # Use sqlite3 as the database for Active Record
   # gem 'sqlite3'
 
