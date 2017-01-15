@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 	def join
 		if current_user.profile.nil?
 			flash[:notice] = "填寫個人資料後再來報名活動"
-			redirect_to account_profile_new_path
+			redirect_to new_account_profile_path
 		elsif @event.can_join_event?
 			current_user.join_event(@event)
 			flash[:notice] = "報名本活動成功"

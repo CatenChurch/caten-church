@@ -6,7 +6,7 @@ class Account::ProfilesController < ApplicationController
   before_action :get_profile, only: [:show, :edit, :update]
 
   def new
-    @profile = current_user.create_profile
+    @profile = Profile.new
   end
 
   def create
