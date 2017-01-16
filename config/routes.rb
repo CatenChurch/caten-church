@@ -21,7 +21,11 @@ Rails.application.routes.draw do
 
     get '/' => 'pages#index'
 
-    resources :announcements
+    resources :announcements do
+      member do
+        post 'post_to_facebook'
+      end
+    end
 
     resources :members, only: [:index,:show] do
       get 'download', on: :collection
@@ -40,7 +44,7 @@ Rails.application.routes.draw do
 
   namespace :account do
 
-    resource :profile, except: [:destroy] 
+    resource :profile, except: [:destroy]
 
     resources :events, only: [:index]
   end

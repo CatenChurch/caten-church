@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# Facebook Graph API
+gem "koala"
 # puma server
 gem 'puma'
 # omniauth

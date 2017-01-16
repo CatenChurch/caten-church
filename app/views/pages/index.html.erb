@@ -1,5 +1,6 @@
 <div class="container">
-
+  <%= debug session[:facebook_access_token]%>
+  <%= debug session[:oauth_data]%>
   <div class="panel panel-success">
     <div class="panel-heading text-center">佈告欄</div>
     <br>
@@ -11,5 +12,4 @@
     <br>
     <%= render 'events/events_list', :e => @events %>
   </div>
-
 </div>

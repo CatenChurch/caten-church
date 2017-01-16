@@ -1,12 +1,10 @@
-<div class="col-md-8 col-md-offset-2">
-  <h1 class="text-center"><%= a.title %></h1>
-  <p><%= a.description %></p>
-  <div>
-    <span><%= "#{ t(:created_at) } : #{ a.created_at }" %></span>
-    <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
-  </div>
-  <br>
-  <div class="jumbotron markdown-body ">
-    <%= markdown a.content %>
-  </div>
+<h1 class="text-center"><%= a.title %></h1>
+<p><%= a.description %></p>
+<div>
+  <span><%= "#{ t(:created_at) } : #{ a.created_at }" %></span>
+  <span class="pull-right"><%= "#{ t(:updated_at) } : #{ a.updated_at }" %></span>
+</div>
+<br>
+<div class="jumbotron markdown-body ">
+  <%= markdown a.content %>
 </div>
