@@ -4,7 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     oauth_data = request.env["omniauth.auth"]
     access_token = oauth_data[:credentials][:token]
     session[:facebook_access_token] = access_token
-    session[:oauth_data] = oauth_data
 
     @oauth = Oauth.find_or_create_user(oauth_data)
 

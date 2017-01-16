@@ -44,8 +44,8 @@ class Admin::AnnouncementsController < AdminController
     if user_has_facebook_permission?(publish_actions)
       fb_object_id = "244141208966188"
       message = @announcement.content
-      link = "https://www.facebook.com/#{fb_object_id}"
-      # link = announcement_url(@announcement)
+      # link = "https://www.facebook.com/#{fb_object_id}"
+      link = announcement_url(@announcement)
       # post feed
       fb_post = @graph.put_connections(fb_object_id, "feed", message: message, link: link)
       # post photo
