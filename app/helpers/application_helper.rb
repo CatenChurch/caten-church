@@ -24,11 +24,11 @@ module ApplicationHelper
 
 		alerts.join("\n").html_safe
 	end
-	
+
 	# 被選中的巡覽列的class會加入active 做出區別的特效
   # navbar中的li tag 加入class="active"
-  def nav_li text, path
+	def nav_li(text, path, method: :get)
     active = request.path == path ? :active :nil
-    content_tag :li, link_to(text, path), class: active
+    content_tag :li, link_to(text, path, method: method), class: active
   end
 end
