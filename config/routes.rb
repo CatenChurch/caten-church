@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   end
 
   get 'index', 'history', 'news', 'media', 'fellowship', 'weekly', 'youtube','term', controller: 'pages'
+  # google site verification
+  get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
 
   # devise 註冊後custom導向
   devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
