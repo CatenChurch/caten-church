@@ -30,6 +30,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def google_site_verification
+    render layout:false  
+  end
   private
 
   def get_res(api_key,channel_id)

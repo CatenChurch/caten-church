@@ -1,6 +1,8 @@
 class Oauth < ActiveRecord::Base
   belongs_to :user
 
+  validates_presence_of  :provider, :uid
+
   def self.find_or_create_user(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |oauth|
       if oauth.user.blank? && !User.email_has_been_used?(auth.info.email)

@@ -11,6 +11,7 @@ class Ability
       can :manage, Account
       can :read, Event
       can [ :join, :quit, :show_participants ], Event
+      cannot :manage, Admin
     end
 
     # Define abilities for the passed in user here. For example:
