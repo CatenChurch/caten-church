@@ -1,7 +1,10 @@
 'zh-TW':
+  website: "茄典教會"
+  home_page: "首頁"
   # navbar
   admin_system : '管理員後台'
   my_groups : '我的群組'
+
   # common
   id : 'id'
   create : '創建'
@@ -13,22 +16,25 @@
   user_id : '擁有者id'
   download_excel : '下載 Excel'
   youtube : 'YouTube'
+
   # groups
   new_group : '新增討論版'
   new_post : '新增文章'
   join_group : '加入討論區'
   quit_group : '離開討論區'
-  posts : '文章列表' 
+  posts : '文章列表'
   title : '標題'
   post_count : '文章數'
   last_update : '最後更新'
+
   # posts
   my_posts : '我的文章'
   content : '內容'
   group_name : '討論區名稱'
   new_post : '新增文章'
   edit_post : '修改文章'
-  # events  
+
+  # events
   new_event: '新增活動'
   event_name : '活動名稱'
   event_sign_up_time : '活動報名時間'
@@ -53,6 +59,7 @@
   back_to_event : '回到活動'
   my_events : '我的活動'
   sign_up_time : '報名時間'
+
   # profile
   profile : '個人資料'
   name : '姓名'
@@ -70,9 +77,13 @@
   log_out : '登出'
   sign_up : '註冊'
   edit_user_registration : '帳號設定'
+
   # announcement
   announcements : '公告'
   new_announcement : '新增公告'
 
+  # seo
+  seo_description: "大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!"
 
-
+  # pages
+  web_info: "教會資訊"

@@ -5,16 +5,9 @@ class PagesController < ApplicationController
     @announcements = Announcement.all.order(id: :desc)
     @events = Event.all.order(id: :desc)
   end
+  def info;  end
 
   def history;  end
-
-  def news;  end
-
-  def media;  end
-
-  def fellowship;  end
-
-  def weekly;  end
 
   def term;  end
 
@@ -31,7 +24,7 @@ class PagesController < ApplicationController
   end
 
   def google_site_verification
-    render layout:false  
+    render layout:false
   end
   private
 

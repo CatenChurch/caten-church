@@ -119,6 +119,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    meta-tags (2.4.0)
+      actionpack (>= 3.2.0, <= 5.1.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -273,6 +275,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   koala
+  meta-tags
   momentjs-rails
   omniauth
   omniauth-facebook

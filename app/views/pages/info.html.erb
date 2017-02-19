@@ -1,0 +1,66 @@
+<%
+title t(:web_info)
+seo_description = "教會資訊，聚會時間地點與聯絡方式。"
+description seo_description
+set_meta_tags og: {
+  title: "#{t(:website)} | #{t(:web_info)}}",
+  image: "http://i.imgur.com/Kgv2wwl.jpg",
+  description: seo_description
+}
+%>
+<h1 class="text-center"><%= t(:web_info) %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading text-center">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#times" aria-controls="times" role="tab" data-toggle="tab">聚會時間</a></li>
+      <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">聯絡方式</a></li>
+    </ul>
+  </div>
+  <div class="panel-body tab-content">
+    <div role="tabpanel" class="tab-pane active" id="times">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>主日崇拜</th>
+            <td>每週日 09:50 至 11:30</td>
+          </tr>
+          <tr>
+            <th>青少年團契</th>
+            <td>每週六 19:00 至 21:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="contact">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>網站</th>
+            <td><%= link_to root_url, root_path %></td>
+          </tr>
+          <tr>
+            <th>Facebook</th>
+            <td><%= link_to "https://www.facebook.com/caten.church.teens/", "https://www.facebook.com/caten.church.teens/" %></td>
+          </tr>
+          <tr>
+            <th>Youtube頻道</th>
+            <td><%= link_to "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w", "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w" %></td>
+          </tr>
+          <tr>
+            <th>Line</th>
+            <td><%= link_to "https://line.me/R/ti/p/%40kfi8062r", "https://line.me/R/ti/p/%40kfi8062r" %></td>
+          </tr>
+          <tr>
+            <th>地址</th>
+            <td>(826-47)高雄市梓官區茄苳里嘉展路467號</td>
+          </tr>
+          <tr>
+            <th>電話</th>
+            <td>(07)617-8379</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

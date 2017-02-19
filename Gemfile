@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# SEO 
+gem 'meta-tags'
 # Facebook Graph API
 gem "koala"
 # puma server
