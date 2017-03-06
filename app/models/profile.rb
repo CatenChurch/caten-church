@@ -15,7 +15,7 @@
 #  updated_at :datetime         not null
 #
 
-class Profile < ActiveRecord::Base
+class Profile < ApplicationRecord
 	belongs_to :user
 
 	# 必填欄位

@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class EventUser < ActiveRecord::Base
+class EventUser < ApplicationRecord
 	# event有哪些user參加的關聯表
 	belongs_to :user
 	belongs_to :event ,counter_cache: :participants_count

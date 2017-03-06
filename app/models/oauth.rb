@@ -1,4 +1,4 @@
-class Oauth < ActiveRecord::Base
+class Oauth < ApplicationRecord
   belongs_to :user
 
   validates_presence_of  :provider, :uid

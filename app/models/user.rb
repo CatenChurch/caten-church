@@ -19,7 +19,7 @@
 #  uid                    :string
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # roles
   rolify
 

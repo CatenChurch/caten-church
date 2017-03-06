@@ -11,7 +11,7 @@
 #  user_id     :integer
 #
 
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   resourcify
   # 發布公告者
   belongs_to :announcer, class_name: "User", foreign_key: :user_id

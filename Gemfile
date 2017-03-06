@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-# SEO 
+# SEO
 gem 'meta-tags'
 # Facebook Graph API
 gem "koala"
@@ -41,9 +41,14 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 # Bootstrap套件
-gem 'bootstrap-sass'
+# gem 'bootstrap-sass'
+# Bootstrap4
+gem 'bootstrap', '~> 4.0.0.alpha6'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails', '5.0.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -103,9 +108,4 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-end
-
-group :production do
-  # heroku 環境要求使用
-  gem 'rails_12factor'
 end
