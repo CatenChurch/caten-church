@@ -8,59 +8,60 @@ set_meta_tags og: {
   description: seo_description
 }
 %>
-<h1 class="text-center"><%= t(:web_info) %></h1>
-
-<div class="panel panel-default">
-  <div class="panel-heading text-center">
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#times" aria-controls="times" role="tab" data-toggle="tab">聚會時間</a></li>
-      <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">聯絡方式</a></li>
-    </ul>
-  </div>
-  <div class="panel-body tab-content">
-    <div role="tabpanel" class="tab-pane active" id="times">
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>主日崇拜</th>
-            <td>每週日 09:50 至 11:30</td>
-          </tr>
-          <tr>
-            <th>青少年團契</th>
-            <td>每週六 19:00 至 21:00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="contact">
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>網站</th>
-            <td><%= link_to root_url, root_path %></td>
-          </tr>
-          <tr>
-            <th>Facebook</th>
-            <td><%= link_to "https://www.facebook.com/caten.church.teens/", "https://www.facebook.com/caten.church.teens/" %></td>
-          </tr>
-          <tr>
-            <th>Youtube頻道</th>
-            <td><%= link_to "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w", "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w" %></td>
-          </tr>
-          <tr>
-            <th>Line</th>
-            <td><%= link_to "https://line.me/R/ti/p/%40kfi8062r", "https://line.me/R/ti/p/%40kfi8062r" %></td>
-          </tr>
-          <tr>
-            <th>地址</th>
-            <td>(826-47)高雄市梓官區茄苳里嘉展路467號</td>
-          </tr>
-          <tr>
-            <th>電話</th>
-            <td>(07)617-8379</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="row">
+  <div class="col-12 col-md-8 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" role="tab" href="#times">聚會時間</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#contact">聯絡方式</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-block tab-content">
+        <div class="tab-pane active" id="times" role="tabpanel">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h4>主日崇拜</h4>
+              <span class="ml-auto">每週日 09:50 至 11:30</span>
+            </li>
+            <li class="list-group-item">
+              <h4>青少年團契</h4>
+              <span class="ml-auto">每週六 19:00 至 21:00</span>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="contact" role="tabpanel">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h4>網站</h4>
+              <%= link_to root_url, root_path, class: "ml-auto" %></li>
+            <li class="list-group-item">
+              <h4>Facebook</h4>
+              <a class="ml-auto" href="https://www.facebook.com/caten.church.teens/">fb.com/caten.church.teens</a>
+            </li>
+            <li class="list-group-item">
+              <h4>Youtube頻道</h4>
+              <a class="ml-auto" href="https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w">youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w</a>
+            </li>
+            <li class="list-group-item">
+              <h4>Line @</h4>
+              <a class="ml-auto" href="https://line.me/R/ti/p/%40kfi8062r">line.me/R/ti/p/%40kfi8062r</a>
+            </li>
+            <li class="list-group-item">
+              <h4>地址</h4>
+              <span class="ml-auto">(826-47)高雄市梓官區茄苳里嘉展路467號</span>
+            </li>
+            <li class="list-group-item">
+              <h4>電話</h4>
+              <span class="ml-auto">(07)617-8379</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

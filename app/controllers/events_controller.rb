@@ -3,7 +3,16 @@ class EventsController < ApplicationController
 	before_action :find_event, only:[:show, :join, :quit, :show_participants]
 
 	def index
-		@events = Event.all.order(id: :desc)
+		events = Event.all.order(id: :desc)
+		@events = []
+		@expired_events = []
+		events.each do |event|
+			if event.is_expired?
+				@expired_events << event
+			else
+				@events << event
+			end
+		end
 	end
 
 	def show

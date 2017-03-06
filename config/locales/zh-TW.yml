@@ -59,7 +59,7 @@
   back_to_event : '回到活動'
   my_events : '我的活動'
   sign_up_time : '報名時間'
-
+  events: "活動"
   # profile
   profile : '個人資料'
   name : '姓名'
@@ -87,3 +87,6 @@
 
   # pages
   web_info: "教會資訊"
+
+  backstage:  "後台"
+  account: "帳戶"

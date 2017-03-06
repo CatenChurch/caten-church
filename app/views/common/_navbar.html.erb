@@ -1,46 +1,38 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">茄典教會</a>
-    </div>
+<nav class="navbar navbar-toggleable-md navbar-light bg-white">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">茄典教會</a>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <%= nav_li t(:web_info), info_path %>
-        <%= nav_li t(:events_list), events_path %>
-        <%= nav_li t(:announcements), announcements_path %>
-        <%= nav_li t(:youtube), youtube_path %>
-      </ul>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <%= nav_li t(:youtube), youtube_path %>
+      <%= nav_li t(:events), events_path %>
+      <%= nav_li t(:announcements), announcements_path %>
+      <div class="px-2"></div>
+      <% if user_signed_in? %>
+        <%= nav_li( t(:backstage), admin_path) if is_admin? %>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= t(:account) %>
+            <span class="caret"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to t(:my_events), account_events_path, class: "dropdown-item" %>
+            <%= link_to t(:profile), account_profile_path, class: "dropdown-item" %>
+            <%= link_to t(:edit_user_registration), edit_user_registration_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t(:log_out), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
 
-      <ul class="nav navbar-nav navbar-right">
-        <%= nav_li("後台",admin_path) if current_user && current_user.has_role?(:admin) %>
-
-        <% if !current_user %>
-          <%= nav_li t(:sign_up), new_user_registration_path %>
-          <%= nav_li t(:log_in), new_user_session_path %>
-        <% else %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              個人
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <%= nav_li t(:my_events), account_events_path %>
-              <%= nav_li t(:profile), account_profile_path %>
-              <%= nav_li t(:edit_user_registration), edit_user_registration_path %>
-              <li> <%= link_to(t(:log_out), destroy_user_session_path, method: :delete) %> </li>
-            </ul>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+      <% else %>
+        <%= nav_li t(:sign_up), new_user_registration_path %>
+        <%= nav_li t(:log_in), new_user_session_path %>
+      <% end %>
+    </ul>
   </div>
 </nav>

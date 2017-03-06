@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   # Rails 101 中學到的還看不太懂
   # http://courses.growthschool.com/courses/rails-101/lectures/229607
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   # cancancan拒絕後導向
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, alert: "請先登入"

@@ -2,8 +2,6 @@ require 'net/http'
 class PagesController < ApplicationController
   skip_authorization_check # 不需要cancancan授權
   def index
-    @announcements = Announcement.all.order(id: :desc)
-    @events = Event.all.order(id: :desc)
   end
   def info;  end
 

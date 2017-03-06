@@ -27,8 +27,13 @@ module ApplicationHelper
 
 	# 被選中的巡覽列的class會加入active 做出區別的特效
   # navbar中的li tag 加入class="active"
-	def nav_li(text, path, method: :get)
-    active = request.path == path ? :active :nil
-    content_tag :li, link_to(text, path, method: method), class: active
+	def nav_li(text, path, css_class: "", method: :get)
+    active = request.path == path ? "active" : ""
+    css_class += " nav-item"
+    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active}"), class: css_class
+  end
+
+	def is_admin?
+    can? :manage, Admin
   end
 end

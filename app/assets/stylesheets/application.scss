@@ -10,13 +10,63 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  */
-@import "bootstrap-sprockets";
-@import "bootstrap-darkly";
+@import "bootstrap";
 @import "font-awesome";
 @import "pagedown_bootstrap";
 @import "github-markdown";
-@import "custom";
 
-
-
-
+$iframe_width : 500px;
+$iframe_height : $iframe_width * 9 / 16;
+$wood: #672315;
+$sky: #3097D1;
+$caten-blue: #05092E;
+$white: #FCFCFC;
+$purple: #7952b3;
+footer {
+  background-color: #3A3335;
+  letter-spacing: 2px;
+  text-align: center;
+}
+#main-container {
+  min-height: 700px;
+  padding-right: 0;
+  padding-left: 0;
+}
+#home-bk-img{
+  width: 100%;
+  height: 300px;
+}
+#youtube .youtube_video{
+  margin-bottom: 10px;
+}
+.bg-white {
+  background: $white;
+}
+.bg-wood {
+  background: $wood;
+}
+.bg-sky {
+  background: $sky;
+}
+.bg-color{
+  background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
+}
+.outline-wood {
+    background-image: none;
+    background-color: transparent;
+    border-color: $wood;
+}
+.event-card {
+  color: $sky;
+  &:hover {
+    color: $purple;
+  }
+  .card{
+      background-image: none;
+      background-color: transparent;
+      border-color: $sky;
+      &:hover {
+        border-color: $purple;
+      }
+  }
+}

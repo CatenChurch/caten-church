@@ -1,5 +1,5 @@
 <%
-seo_description = "大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!"
+seo_description = "大家好，這裡是茄典長老基督教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!"
 description seo_description
 set_meta_tags og: {
   title: "#{t(:website)}}",
@@ -7,17 +7,64 @@ set_meta_tags og: {
   description: seo_description
 }
 %>
-<div class="container">
+<div id="home-bk-img" class="bg-color">
+  <%= image_tag "caten.png", class: "ml-auto d-block img-fluid" %>
+</div>
 
-  <div class="panel panel-success">
-    <div class="panel-heading text-center">佈告欄</div>
-    <br>
-    <%= render 'announcements/announcements_list', :a => @announcements%>
+<div class="jumbotron">
+  <div class="container-fluid">
+    <h1 class="display-3">歡迎光臨 <%= t(:website) %></h1>
+    <p class="lead my-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
+    <p>歡迎會友透過此網站查看教會最新消息以及報名參加活動!</p>
+  </div>
+</div>
+
+<div class="row mx-4">
+  <div class="col-12 col-md-6 col-lg-3 py-1">
+    <div class="card h-100 outline-wood pb-3">
+      <div class="card-block">
+        <h2 class="card-title">教會資訊</h2>
+        <p class="card-text">點此前往公布欄，查看最新的教會消息</p>
+      </div>
+      <%= link_to "公布欄", announcements_path, class: "btn btn-outline-success mx-auto"%>
+      <div class="card-block">
+        <p class="card-text">或想了解教會的基本訊息，電話地址等，請點此了解更多</p>
+      </div>
+      <%= link_to t(:web_info), info_path, class: "btn btn-outline-success mx-auto"%>
+    </div>
   </div>
 
-  <div class="panel panel-info">
-    <div class="panel-heading text-center">活動一覽</div>
-    <br>
-    <%= render 'events/events_list', :e => @events %>
+  <div class="col-12 col-md-6 col-lg-3 py-1">
+    <div class="card h-100 outline-wood pb-3">
+      <div class="card-block">
+        <h2 class="card-title">活動報名</h2>
+        <p class="card-text">活動報名專區，請先登入再點此前往報名</p>
+      </div>
+      <%= link_to "活動", events_path, class: "btn btn-lg btn-outline-success mx-auto my-auto"%>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 py-1">
+    <div class="card h-100 outline-wood pb-3">
+      <div class="card-block">
+        <h2 class="card-title">網路社群</h2>
+        <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= link_to "Facebook 粉絲專頁", "https://www.facebook.com/caten.church.teens", class: "card-link mx-auto" %></li>
+        <li class="list-group-item"><%= link_to "YouTube 頻道", "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w", class: "card-link mx-auto" %></li>
+        <li class="list-group-item"><%= link_to "Line @", "https://line.me/R/ti/p/%40kfi8062r", class: "card-link mx-auto" %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 col-lg-3 py-1">
+    <div class="card h-100 outline-wood pb-3">
+      <div class="card-block">
+        <h2 class="card-title">個人專區</h2>
+        <p class="card-text">個人資料與帳號密碼設定，曾經參與哪些活動</p>
+      </div>
+      <%= link_to "個人", account_dashboard_path, class: "btn btn-lg btn-outline-success mx-auto"%>
+    </div>
   </div>
 </div>

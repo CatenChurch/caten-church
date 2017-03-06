@@ -1,4 +1,55 @@
-<%= render 'events_list', :e =>@events %>
+<div class="jumbotron bg-color">
+  <div class="container-fluid">
+    <h1 class="display-3">活動報名專區</h1>
+    <p class="lead my-4">以下是活動一覽，點選活動查看詳情與報名。</p>
+  </div>
+</div>
 
+<div class="container">
+  <h2>當前的活動<span class="badge badge-primary ml-2">New</span></h2>
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-12 col-md-4 col-lg-3 py-1">
+        <%= link_to event_path(event), class: "card-link event-card" do %>
+        <div class="card h-100 pb-1">
+          <div class="card-block">
+            <h3 class="card-title"><%= event.name %></h3>
+            <p class="card-text"><%= event.description %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          </ul>
+          <div class="card-footer">
+            <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-
+<hr>
+<div class="container">
+  <h2>過期的活動</h2>
+  <div class="row">
+    <% @expired_events.each do |event| %>
+      <div class="col-12 col-md-4 col-lg-3 py-1">
+        <%= link_to event_path(event), class: "card-link event-card" do %>
+        <div class="card h-100 pb-1">
+          <div class="card-block">
+            <h3 class="card-title"><%= event.name %></h3>
+            <p class="card-text"><%= event.description %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          </ul>
+          <div class="card-footer">
+            <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -2,16 +2,20 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+
     if user.blank?  # 訪客
+      user = User.new
       cannot :manage, :all
       can :read, Event
-    elsif user.has_role?(:admin) # 管理員
-      can :manage, :all
-    else # 一般會員
+    else
       can :manage, Account
       can :read, Event
       can [ :join, :quit, :show_participants ], Event
-      cannot :manage, Admin
+    end
+
+    user.roles
+    if user.has_cached_role?(:admin) # 管理員
+      can :manage, Admin
     end
 
     # Define abilities for the passed in user here. For example:

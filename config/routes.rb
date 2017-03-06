@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     resource :profile, except: [:destroy]
 
     resources :events, only: [:index]
+
+    get 'dashboard', controller: 'pages'
   end
 
   # 首頁

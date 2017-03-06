@@ -1,7 +1,4 @@
-class Account::ProfilesController < ApplicationController
-  # 先確認登入
-  # before_action :authenticate_user!
-  # 瀏覽權限統一使用cancancan管理
+class Account::ProfilesController < AccountController
   authorize_resource :account
   before_action :get_profile, only: [:show, :edit, :update]
 
