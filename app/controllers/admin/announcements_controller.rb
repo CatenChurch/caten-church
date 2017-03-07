@@ -47,7 +47,7 @@ class Admin::AnnouncementsController < AdminController
       # link = "https://www.facebook.com/#{fb_object_id}"
       link = announcement_url(@announcement)
       # post feed
-      fb_post = @graph.put_connections(fb_object_id, "feed", message: message, link: link)
+      fb_post = @graph.put_connections(fb_object_id, "feed", message: message)
       # post photo
       # @graph.put_connections("244141208966188", "photos", url: "", caption: "")
       redirect_to admin_announcement_url(@announcement), notice: "此公告已成功發至FB，前往觀看: https://www.facebook.com/#{fb_post["id"]}"
