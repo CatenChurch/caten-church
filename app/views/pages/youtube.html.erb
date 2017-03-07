@@ -1,18 +1,18 @@
-<div id="youtube" class="pt-2">
-  <div class="row">
-    <a class="btn btn-outline-info mx-auto" :href="channel.url"><h1>{{ channel.title }}</h1></a>
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <h1 class="display-3">YouTube 頻道</h1>
+    <p class="lead my-4">以下是我們的YouTube影片，點選下一部觀看我們的其他影片，或前往YouTube觀看。
+      <%= link_to "頻道", "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w", class: "btn btn-danger" %>
+    </p>
   </div>
-
-  <div class="row">
-    <div class="col-12 col-md-10 col-lg-8 mx-auto">
-      <div class="row p-2">
-        <div class="btn btn-outline-primary mr-auto" v-show="currentVideo!=0" @click="currentVideo--">上一部</div>
-        <div class="btn btn-outline-primary ml-auto" v-show="currentVideo!=numOfVidoes-1" @click="currentVideo++">下一部</div>
-      </div>
-      <div v-for="(index, video) in channel.videos | orderBy video.published_at 1" v-show="index==currentVideo"  class="embed-responsive embed-responsive-16by9 youtube_video">
-        <iframe :src="video.embed_url" class="embed-responsive-item" frameborder="0"; allowfullscreen></iframe>
-      </div>
-    </div>
+</div>
+<div id="youtube" class="container">
+  <div class="row my-4">
+    <div class="btn btn-outline-primary mr-auto" v-show="currentVideo!=0" @click="currentVideo--">上一部</div>
+    <div class="btn btn-outline-primary ml-auto" v-show="currentVideo!=numOfVidoes-1" @click="currentVideo++">下一部</div>
+  </div>
+  <div v-for="(index, video) in channel.videos | orderBy video.published_at 1" v-show="index==currentVideo"  class="embed-responsive embed-responsive-16by9 youtube_video">
+    <iframe :src="video.embed_url" class="embed-responsive-item" frameborder="0"; allowfullscreen></iframe>
   </div>
 </div>
 

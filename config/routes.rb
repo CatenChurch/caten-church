@@ -30,16 +30,14 @@ Rails.application.routes.draw do
     end
 
     resources :members, only: [:index,:show] do
-      get 'download', on: :collection
+      post 'download', on: :collection
     end
 
     resources :events do
-
       member do
         get 'show_participants'
-        get 'download'
+        post 'download'
       end
-
     end
 
   end
@@ -50,7 +48,7 @@ Rails.application.routes.draw do
 
     resources :events, only: [:index]
 
-    get 'dashboard', controller: 'pages'
+    # get 'dashboard', controller: 'pages'
   end
 
   # 首頁

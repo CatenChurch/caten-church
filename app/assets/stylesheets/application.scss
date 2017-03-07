@@ -14,6 +14,7 @@
 @import "font-awesome";
 @import "pagedown_bootstrap";
 @import "github-markdown";
+@import "sidebar";
 
 $iframe_width : 500px;
 $iframe_height : $iframe_width * 9 / 16;
@@ -22,15 +23,14 @@ $sky: #3097D1;
 $caten-blue: #05092E;
 $white: #FCFCFC;
 $purple: #7952b3;
+$silver: #ECEEEF;
 footer {
   background-color: #3A3335;
   letter-spacing: 2px;
   text-align: center;
 }
-#main-container {
+main {
   min-height: 700px;
-  padding-right: 0;
-  padding-left: 0;
 }
 #home-bk-img{
   width: 100%;
@@ -56,6 +56,21 @@ footer {
     background-color: transparent;
     border-color: $wood;
 }
+.outline-purple {
+    background-image: none;
+    background-color: transparent;
+    border-color: $purple;
+}
+.outline-caten-blue {
+    background-image: none;
+    background-color: transparent;
+    border-color: $caten-blue;
+}
+.outline-sky {
+    background-image: none;
+    background-color: transparent;
+    border-color: $sky;
+}
 .event-card {
   color: $sky;
   &:hover {
@@ -69,4 +84,14 @@ footer {
         border-color: $purple;
       }
   }
+}
+.jumbotron-color{
+  color: $white;
+  background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
+}
+.bg-silver {
+  background-color: $silver;
+}
+#admin-main{
+  padding-top: 60px;
 }

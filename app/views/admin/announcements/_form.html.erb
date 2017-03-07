@@ -5,8 +5,8 @@
     <%= f.input :title, label: "標題" %>
     <%= f.input :description, label: "簡述" %>
     <%= f.input :content, label: "內文", as: :pagedown, input_html: { preview: false, rows: 20 } %>
-    
+
   </div>
 
-  <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+  <%= f.submit t(:submit), class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
 <% end %>

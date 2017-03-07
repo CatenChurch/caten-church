@@ -1,0 +1,89 @@
+<% render_for_admin = render_for_admin || false %>
+<div class="card">
+	<div class="card-block">
+		<h3 class="card-title"><%= event.name %></h3>
+		<p class="card-text my-4"><%= simple_format event.description %></p>
+		<table class="table table-bordered hidden-xs-down">
+			<thead class="thead-default">
+				<tr>
+					<th><%= t(:nature)%></th>
+					<th><%= t(:event_participants_number)%></th>
+					<th><%= t(:min_sign_up_number)%></th>
+					<th><%= t(:max_sign_up_number)%></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= event.nature %></td>
+					<td><%= event.participants_count %></td>
+					<td><%= event.min_sign_up_number %></td>
+					<td><%= event.max_sign_up_number %></td>
+				</tr>
+			</tbody>
+			<thead class="thead-default">
+				<tr>
+					<th><%= t(:event_sign_up_begin)%></th>
+					<th><%= t(:event_sign_up_end)%></th>
+					<th><%= t(:event_start)%></th>
+					<th><%= t(:event_over)%></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= event.sign_up_begin.strftime("%Y/%m/%d %H:%M") %></td>
+					<td><%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></td>
+					<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
+					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered hidden-sm-up">
+			<tbody>
+				<tr>
+					<th class="bg-silver"><%= t(:nature)%></th>
+					<td><%= event.nature %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:event_participants_number)%></th>
+					<td><%= event.participants_count %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:min_sign_up_number)%></th>
+					<td><%= event.min_sign_up_number %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:max_sign_up_number)%></th>
+					<td><%= event.max_sign_up_number %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:event_sign_up_begin)%></th>
+					<td><%= event.sign_up_begin.strftime("%Y/%m/%d %H:%M") %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:event_sign_up_end)%></th>
+					<td><%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:event_start)%></th>
+					<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t(:event_over)%></th>
+					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<% if !render_for_admin %>
+	<div class="card-block">
+		<% if user_signed_in? %>
+			<% if current_user.is_participant_of_event?(@event) %>
+				<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
+				<%= link_to t(:event_participants_list), show_participants_event_path(@event), class: "btn btn-info" %>
+			<% else %>
+				<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
+			<% end %>
+		<% end %>
+	</div>
+	<% end %>
+</div>

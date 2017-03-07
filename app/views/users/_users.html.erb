@@ -1,51 +1,46 @@
-<table class="table table-hover">
-  <% if admin||=false %>
-  <thead>
+<% render_for_admin = render_for_admin || false %>
+<table class="table">
+  <% if render_for_admin %>
+  <thead class="thead-default">
     <tr>
-      <td>id</td>
-      <td><%= t(:name) %></td>
-      <td><%= t(:sex) %></td>
-      <td><%= t(:birth) %></td>
-      <td><%= t(:email) %></td>
-      <td><%= t(:phone) %></td>
-      <td><%= t(:cellphone) %></td>
-      <td><%= t(:address) %></td>
+      <th>id</th>
+      <th><%= t(:name) %></th>
+      <th><%= t(:sex) %></th>
+      <th><%= t(:birth) %></th>
+      <th><%= t(:email) %></th>
+      <th><%= t(:phone) %></th>
+      <th><%= t(:cellphone) %></th>
+      <th><%= t(:address) %></th>
     </tr>
   </thead>
-  <tbody >
-    <% users.each do |user| %>
-    <tr onclick="window.document.location='<%= admin_member_path(user) %>';">
-      <% if user.profile.nil? %>
-      <td><%= user.id %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><%= user.email %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <% else %>
-      <td><%= user.id %></td>
-      <td><%= user.profile.name %></td>
-      <td><%= user.profile.sex %></td>
-      <td><%= user.profile.birth %></td>
-      <td><%= user.email %></td>
-      <td><%= user.profile.phone %></td>
-      <td><%= user.profile.cellphone %></td>
-      <td><%= user.profile.address %></td>
-      <% end %>
-    </tr>
+  <tbody>
+  <% users.each do |user| %>
+    <% if user.profile.nil? %>
+      <% profile = Profile.new %>
+    <% else %>
+      <% profile = user.profile %>
     <% end %>
+    <tr onclick="window.document.location='<%= admin_member_path(user) %>';">
+      <td><%= user.id %></td>
+      <td><%= profile.name %></td>
+      <td><%= profile.sex %></td>
+      <td><%= profile.birth %></td>
+      <td><%= user.email %></td>
+      <td><%= profile.phone %></td>
+      <td><%= profile.cellphone %></td>
+      <td><%= profile.address %></td>
+    </tr>
+  <% end %>
   </tbody>
 
-  <% else %>
-  <thead>
+  <% else #render for non-admin %>
+  <thead class="thead-default">
     <tr>
-      <td @click="orderByWhat('profile.name')"><%= t(:name) %></td>
-      <td @click="orderByWhat('profile.sex')"><%= t(:sex) %></td>
+      <th><%= t(:name) %></th>
+      <th><%= t(:sex) %></th>
     </tr>
   </thead>
-  <tbody >
+  <tbody>
     <% users.each do |user| %>
     <tr>
       <td><%= user.profile.name %></td>

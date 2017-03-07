@@ -1,4 +1,28 @@
-<%= link_to t(:download_excel), download_admin_members_path(@members,format: :xlsx), class: "btn btn-success pull-right" %>
-<div class="container">
-  <%= render 'users/users', :users => @members, :admin => true %>
-</div>
+<h2>會員一覽<span class="p-2"><%= link_to t(:download_excel), download_admin_members_path(@members,format: :xlsx), class: "btn btn-success", method: :post %></span></h2>
+<table class="table my-4">
+  <thead class="thead-default">
+    <tr>
+      <th>ID</th>
+      <th>姓名</th>
+      <th>Email</th>
+      <th>聯絡電話</th>
+      <th>詳細資訊</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |u| %>
+    <% if u.profile.blank? %>
+      <% profile = Profile.new %>
+    <% else %>
+      <% profile = u.profile %>
+    <% end %>
+    <tr>
+      <td><%= u.id %></td>
+      <td><%= profile.name %></td>
+      <td><%= u.email %></td>
+      <td><%= profile.phone %><br><%= profile.cellphone %></td>
+      <td><%= link_to "更多", admin_member_path(u), class: "btn btn-info" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

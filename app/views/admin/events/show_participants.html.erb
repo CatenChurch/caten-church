@@ -1,4 +1,4 @@
-<%= link_to t(:back_to_event), admin_event_path(@event), class: "btn btn-default pull-left"%>
-<div class="container">
-  <%= render 'users/users', :users => @participants, :admin => true %>
+<div class="d-flex my-4">
+  <%= link_to t(:back_to_event), admin_event_path(@event), class: "btn btn-secondary ml-1"%>
 </div>
+<%= render 'users/users', :users => @participants, render_for_admin: true %>

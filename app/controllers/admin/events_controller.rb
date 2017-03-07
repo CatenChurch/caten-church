@@ -2,7 +2,16 @@ class Admin::EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :show_participants, :download]
 
   def index
-    @events = Event.all.order(id: :desc)
+    events = Event.all.order(id: :desc)
+    @events = []
+		@expired_events = []
+    events.each do |event|
+			if event.is_expired?
+				@expired_events << event
+			else
+				@events << event
+			end
+		end
   end
 
   def show

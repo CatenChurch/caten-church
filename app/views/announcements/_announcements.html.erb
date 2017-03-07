@@ -1,0 +1,30 @@
+<% render_from_admin = render_from_admin || false %>
+<h2>消息一覽
+  <% if render_from_admin %>
+  <%= link_to t(:new_announcement), new_admin_announcement_path, class: "btn btn-primary ml-2" %>
+  <% end %>
+</h2>
+<table class="table">
+  <thead class="thead-default">
+      <tr>
+        <th><%= t(:title) %></th>
+        <th><%= t(:description) %></th>
+        <th><%= t(:updated_at) %></th>
+        <th>詳細資訊</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% announcements.each do |announcement| %>
+    <tr>
+      <td><%= announcement.title %></td>
+      <td><%= announcement.description %></td>
+      <td><%= announcement.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+      <% if render_from_admin %>
+      <td><%= link_to "查看", admin_announcement_path(announcement), class: "btn btn-info" %></td>
+      <% else %>
+      <td><%= link_to "查看", announcement_path(announcement), class: "btn btn-info" %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

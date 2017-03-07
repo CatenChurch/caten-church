@@ -5,10 +5,10 @@
 </head>
 <body>
   <%= render 'common/navbar'%>
-  <div class="container-fluid" id="main-container">
-    <%= notice_message %>
+  <%= notice_message %>
+  <main>
     <%= yield %>
-  </div>
+  </main>
   <%= render 'common/footer'%>
 </body>
 </html>

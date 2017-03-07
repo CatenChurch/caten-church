@@ -1,10 +1,11 @@
-<%= link_to "活動列表", events_path, class: "btn btn-default"%>
-<% if current_user.present? %>
-	<% if current_user.is_participant_of_event?(@event) %>
-		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
-		<%= link_to t(:event_participants_list), show_participants_event_path(@event), class: "btn btn-info" %>
-	<% else %>
-		<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
-	<% end %>
-<% end %>
-<%= render 'event_table', :e => @event %>
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <h1 class="display-3">活動詳情</h1>
+    <p class="lead my-4">以下是活動詳細資訊，報名者請於報名期限內點選"我要報名"，報名後可以查看有哪些人也報名了此活動喔。</p>
+    <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary pull-right"%>
+	</div>
+</div>
+<div class="container">
+  <%= link_to "活動列表", events_path, class: "btn btn-secondary mb-4"%>
+	<%= render 'event', :event => @event %>
+</div>

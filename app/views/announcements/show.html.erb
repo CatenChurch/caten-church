@@ -1,4 +1,10 @@
-<%= link_to 'Back', announcements_path, class:'btn btn-default' %>
-<br>
-
-<%= render 'announcement_table', :a => @announcement %>
+<div class="jumbotron jumbotron-color">
+  <div class="container">
+    <h1 class="display-3">教會消息</h1>
+    <p class="lead my-4">以下是完整的教會消息。</p>
+		<%= link_to '消息列表', announcements_path, class:"btn btn-secondary pull-right" %>
+	</div>
+</div>
+<div class="container">
+  <%= render 'announcement', :announcement => @announcement %>
+</div>

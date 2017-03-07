@@ -1,26 +1,15 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "後台管理", admin_path, class: "navbar-brand" %>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-color fixed-top">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <%= link_to "後台管理", admin_path, class: "navbar-brand" %>
 
-      <ul class="nav navbar-nav">
-        <%= nav_li "會員", admin_members_path %>
-        <%= nav_li "活動", admin_events_path %>
-        <%= nav_li "佈告欄", admin_announcements_path %>
-      </ul>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
 
-      <ul class="nav navbar-nav navbar-right">
-        <%= nav_li "回到前台", root_path %>
-      </ul>
-
-    </div>    
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <%= nav_li "回到前台", root_path %>
+    </ul>
   </div>
 </nav>

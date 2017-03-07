@@ -1,11 +1,13 @@
-<div class="jumbotron bg-color">
+<div class="jumbotron jumbotron-color">
   <div class="container-fluid">
     <h1 class="display-3">活動報名專區</h1>
     <p class="lead my-4">以下是活動一覽，點選活動查看詳情與報名。</p>
+    <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary pull-right"%>
   </div>
 </div>
 
 <div class="container">
+
   <h2>當前的活動<span class="badge badge-primary ml-2">New</span></h2>
   <div class="row">
     <% @events.each do |event| %>
@@ -27,10 +29,9 @@
       </div>
     <% end %>
   </div>
-</div>
 
-<hr>
-<div class="container">
+  <hr>
+
   <h2>過期的活動</h2>
   <div class="row">
     <% @expired_events.each do |event| %>
@@ -52,4 +53,5 @@
       </div>
     <% end %>
   </div>
+
 </div>

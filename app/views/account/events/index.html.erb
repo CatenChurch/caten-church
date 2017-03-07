@@ -1,25 +1,31 @@
-<h2 class="text-center"> 我報名的活動 </h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th> # </th>
-      <th> 名稱 </th>
-      <th> 性質 </th>
-      <th> 報名人數</th>
-      <th> 活動時間 </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% i = 0 %>
-    <% @events.each do |event| %>
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <h1 class="display-3">個人活動管理</h1>
+    <p class="lead my-4">顯示曾經報名了哪些活動。
+      前往<%= link_to "活動", events_path, class: "btn btn-success mx-2" %>查看其他活動
+    </p>
+  </div>
+</div>
+<div class="container">
+  <table class="table">
+    <thead class="thead-default">
       <tr>
-        <td> <%= i+=1 %> </td>
-        <td> <%= link_to(event.name, event_path(event)) %> </td>
-        <td> <%= event.nature %> </td>
-        <td> <%= event.participants_count %> / <%= event.max_sign_up_number %> </td>
-        <td> <%= event.start.to_s(:Ymd_HM) %> - <%= event.over.to_s(:Ymd_HM) %> </td>
+        <th>活動名稱</th>
+        <th>性質</th>
+        <th>報名人數</th>
+        <th>活動時間</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td> <%= link_to(event.name, event_path(event)) %> </td>
+          <td> <%= event.nature %> </td>
+          <td> <%= event.participants_count %> / <%= event.max_sign_up_number %> </td>
+          <td> <%= event.start.strftime("%Y/%m/%d %H:%M") %> 至 <%= event.over.strftime("%Y/%m/%d %H:%M") %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

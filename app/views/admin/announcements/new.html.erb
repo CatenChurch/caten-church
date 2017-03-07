@@ -1,9 +1,2 @@
-<h1>New Announcement</h1>
-<%= link_to 'Back', admin_announcements_path, class: "btn btn-default"  %>
-<br>
-<div class="col-md-8 col-md-offset-2">
-  <%= render 'form' %>
-</div>
-
-
-
+<h2><%= "#{t(:create)}#{t(:announcements)}" %><%= link_to t(:back), admin_announcements_path, class: "btn btn-secondary ml-2" %></h2>
+<%= render 'form' %>

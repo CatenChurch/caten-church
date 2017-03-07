@@ -1,1 +1,9 @@
-<%= render 'announcements_list', :a => @announcements %>
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <h1 class="display-3">教會消息</h1>
+    <p class="lead my-4">以下是教會消息一覽，點選消息查看詳細內容。</p>
+  </div>
+</div>
+<div class="container">
+  <%= render 'announcements', :announcements => @announcements %>
+</div>

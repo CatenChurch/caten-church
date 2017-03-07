@@ -1,15 +1,44 @@
-<h2>Forgot your password?</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <h1 class="display-3">會員中心</h1>
+    <p class="lead my-4">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="card h-100">
+        <div class="card-block">
+          <p class="card-text text-center lead my-4">
+            已經註冊過了嗎?
+            <%= link_to "登入", new_session_path(resource_name), class: "btn btn-info" %>
+            網站吧!
+          </p>
+          <hr>
+          <p class="card-text text-center lead my-4">
+            或透過
+            <%= link_to "Facebook", omniauth_authorize_path(resource_name, :facebook), class: "btn btn-lg btn-primary" %>
+            帳號登入本網站
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="card h-100">
+        <div class="card-block">
+          <h2 class="card-title text-center">忘記密碼了?</h2>
+          <p class="card-text">輸入當初註冊的Email，系統將會寄送重設密碼的鏈結至你的Email</p>
+          <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-inputs">
+              <%= f.input :email, required: true, autofocus: true %>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, "送出" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

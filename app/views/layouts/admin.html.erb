@@ -6,9 +6,16 @@
 <body>
   <%= render 'admin/common/navbar'%>
   <%= notice_message %>
-  <div class="container-fluid" id="main-container">
-    <%= yield %>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-sm-2 hidden-xs-down bg-faded sidebar">
+        <%= render 'admin/common/sidebar'%>
+      </nav>
+      <main class="col-12 col-sm-10 offset-sm-2" id="admin-main">
+        <%= notice_message %>
+        <%= yield %>
+      </main>
+    </div>
   </div>
-  <%= render 'common/footer'%>
 </body>
 </html>
