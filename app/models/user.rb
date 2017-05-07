@@ -26,8 +26,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :trackable, :validatable,
-  :omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook]
 
   has_one :profile, dependent: :destroy
 
@@ -39,9 +39,14 @@ class User < ApplicationRecord
 
   has_many :oauths, dependent: :destroy
 
+  # user has profile
+  def has_profile?
+    !profile.blank?
+  end
+
   # check role is admin
   def is_manager?
-    self && self.has_any_role?(:admin)
+    self && has_any_role?(:admin)
   end
 
   def is_first_time_sign_in?
@@ -51,13 +56,16 @@ class User < ApplicationRecord
   def self.email_has_been_used?(email)
     !where(email: email).blank?
   end
+
   # event
   def join_event(event)
     participated_events << event
   end
+
   def quit_event(event)
-    participated_events.delete(event)
+    participated_events.destroy(event)
   end
+
   def is_participant_of_event?(event)
     participated_events.include?(event)
   end
@@ -66,5 +74,4 @@ class User < ApplicationRecord
   def connect_omniauth(auth)
     oauths << auth
   end
-
 end
