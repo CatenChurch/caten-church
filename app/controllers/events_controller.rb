@@ -5,16 +5,8 @@ class EventsController < ApplicationController
   before_action :check_event_can_be_join, only: [:join]
   before_action :check_user_already_join_event, only: [:quit]
   def index
-    events = Event.all
-    @events = []
-    @expired_events = []
-    events.each do |event|
-      if event.is_expired?
-        @expired_events << event
-      else
-        @events << event
-      end
-    end
+    @events = Event.in_registration_time
+    @expired_events = Event.sign_up_expired.page(params[:page])
   end
 
   def show; end
@@ -56,7 +48,7 @@ class EventsController < ApplicationController
   end
 
   def check_event_can_be_join
-    unless @event.in_the_registration_time?
+    unless @event.in_registration_time?
       flash[:warning] = '不在報名期限內'
       redirect_to event_path(@event)
     end

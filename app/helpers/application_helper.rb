@@ -1,39 +1,42 @@
 module ApplicationHelper
-	# 參考以下網頁:
-	# http://courses.growthschool.com/courses/rails-101/lectures/229433
-	# 用法:把 <%= notice_message %> 放進 application.html.erb 裡面
-	# 在 controller 的方法中放入 flash[:success] = "訊息"
-	# 或是 flash[:info] = "訊息"
-	# 或是 flash[:warning] = "訊息"
-	# 或是 flash[:danger] = "訊息"
-	def notice_message
-		#參考Bootstrap的警告元件
-		alert_types = { notice: :success, alert: :danger, success: :success, info: :info, warning: :warning, danger: :danger }
+  def notice_message
+    # 參考以下網頁:
+    # http://courses.growthschool.com/courses/rails-101/lectures/229433
+    # 用法:把 <%= notice_message %> 放進 application.html.erb 裡面
+    # 在 controller 的方法中放入 flash[:success] = "訊息"
+    # 或是 flash[:info] = "訊息"
+    # 或是 flash[:warning] = "訊息"
+    # 或是 flash[:danger] = "訊息"
 
-		close_button_options = { class: "close", "data-dismiss" => "alert", "aria-hidden" => true }
-		close_button = content_tag(:button, "×", close_button_options)
+    # 參考Bootstrap的警告元件
+    alert_types = { notice: :success, alert: :danger, success: :success, info: :info, warning: :warning, danger: :danger }
 
-		alerts = flash.map do |type, message|
-			alert_content = close_button + message
+    close_button_options = { class: 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true }
+    close_button = content_tag(:button, '×', close_button_options)
 
-			alert_type = alert_types[type.to_sym] || type
-			alert_class = "alert alert-#{alert_type} alert-dismissable"
+    alerts = flash.map do |type, message|
+      alert_content = close_button + message
 
-			content_tag(:div, alert_content, class: alert_class)
-		end
+      alert_type = alert_types[type.to_sym] || type
+      alert_class = "alert alert-#{alert_type} alert-dismissable"
 
-		alerts.join("\n").html_safe
-	end
+      content_tag(:div, alert_content, class: alert_class)
+    end
 
-	# 被選中的巡覽列的class會加入active 做出區別的特效
-  # navbar中的li tag 加入class="active"
-	def nav_li(text, path, css_class: "", method: :get)
-    active = request.path == path ? "active" : ""
-    css_class += " nav-item"
-    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active}"), class: css_class
+    alerts.join("\n").html_safe
   end
 
-	def is_admin?
+  def nav_li(text, path, css_class: '', method: :get, inner_class: '')
+    # 被選中的巡覽列的class會加入active 做出區別的特效
+    # navbar中的li tag 加入class="active"
+    active = request.path == path ? 'active' : ''
+    css_class += ' nav-item'
+    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: css_class
+  end
+
+  # TODO: 新增一個 nav_params_li 讓 nav 隨著目前對應到的 params class 加上 active
+
+  def is_admin?
     can? :manage, Admin
   end
 end

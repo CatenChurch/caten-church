@@ -1,6 +1,14 @@
 <h2>活動一覽<%= link_to(t(:new_event), new_admin_event_path, class: "btn btn-primary ml-2") %></h2>
+<ul class="nav nav-tabs my-4" role="tablist">
+  <%# TODO: 使用 nav_params_li %>
+  <%= nav_li "所有活動", admin_events_path %>
+  <%= nav_li "報名期間", admin_events_path(status:"registration") %>
+  <%= nav_li "活動期間", admin_events_path(status:"running") %>
+  <%= nav_li "過期活動", admin_events_path(status:"closed") %>
+</ul>
+<%= paginate @events %>
 <table class="table">
-  <thead class="thead-inverse">
+  <thead class="thead-default">
     <tr>
       <th><%= t(:title) %></th>
       <th><%= t(:nature) %></th>
@@ -9,21 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="table-success">
-      <th colspan="4" class="text-center">當前的活動</th>
-    </tr>
     <% @events.each do |event| %>
-    <tr>
-      <td><%= event.name %></td>
-      <td><%= event.nature %></td>
-      <td><%= event.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
-      <td><%= link_to "查看", admin_event_path(event), class: "btn btn-info" %></td>
-    </tr>
-    <% end %>
-    <tr class="table-warning">
-      <th colspan="4" class="text-center">過期的活動</th>
-    </tr>
-    <% @expired_events.each do |event| %>
     <tr>
       <td><%= event.name %></td>
       <td><%= event.nature %></td>
@@ -33,3 +27,4 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @events %>

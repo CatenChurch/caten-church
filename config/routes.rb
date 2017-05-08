@@ -1,26 +1,22 @@
 Rails.application.routes.draw do
-
-  resources :announcements, only: [:index,:show]
+  resources :announcements, only: [:index, :show]
 
   resources :events, only: [:index, :show] do
-
     member do
       post 'join'
       post 'quit'
       get 'show_participants'
     end
-
   end
 
-  get 'index', 'info', 'history', 'youtube','term', controller: 'pages'
+  get 'index', 'info', 'history', 'youtube', 'term', controller: 'pages'
   # google site verification
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
 
   # devise 註冊後custom導向
-  devise_for :users, controllers: { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
 
   namespace :admin do
-
     get '/' => 'pages#index'
 
     resources :announcements do
@@ -29,7 +25,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :members, only: [:index,:show] do
+    resources :members, only: [:index, :show] do
       post 'download', on: :collection
     end
 
@@ -39,11 +35,9 @@ Rails.application.routes.draw do
         post 'download'
       end
     end
-
   end
 
   namespace :account do
-
     resource :profile, except: [:destroy]
 
     resources :events, only: [:index]
@@ -53,5 +47,4 @@ Rails.application.routes.draw do
 
   # 首頁
   root 'pages#index'
-
 end

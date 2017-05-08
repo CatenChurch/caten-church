@@ -20,36 +20,33 @@
 
 class Event < ApplicationRecord
   resourcify
-  # 活動發起者
-  belongs_to :organizer, class_name: 'User', foreign_key: :user_id
 
-  # event has many event_users
-  # event has many participants from user, and save in event_users
-  # 刪除 event 會清空報名event的人的資料(participants)
+  # scope
+  scope :running, -> { where('start < :now and over > :now', now: DateTime.now) }
+  scope :sign_up_expired, -> { where('sign_up_end < :now', now: DateTime.now) }
+  scope :in_registration_time, -> { where('sign_up_end >= :now and sign_up_begin <= :now', now: DateTime.now) }
+  scope :closed, -> { where('over < :now', now: DateTime.now) }
+
+  # relation
+
+  belongs_to :organizer, class_name: 'User', foreign_key: :user_id
   has_many :event_users
   has_many :participants, through: :event_users, source: :user, dependent: :destroy
 
-  # 驗證
+  # valid
+
   validates_presence_of :name, :max_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over
   validate :myValid
 
-  # 修改權限 哪些role有權限(目前使用cancancan)
-  def manage_by?(user)
-    user && user.has_any_role?(:admin, :manager)
-  end
+  # method
 
-  # 檢查 event 報名人數是否已滿
   def is_full?
     participants_count >= max_sign_up_number
   end
 
-  # 檢查 event 是否在報名期間
-  def in_the_registration_time?
-    current_time = DateTime.now.to_i
-    reg_start = sign_up_begin.to_i
-    reg_end = sign_up_end.to_i
-    # return
-    (reg_start <= current_time && current_time <= reg_end)
+  def in_registration_time?
+    now = DateTime.now.to_i
+    (sign_up_begin.to_i <= now && now <= sign_up_end.to_i)
   end
 
   def is_expired?
@@ -57,7 +54,7 @@ class Event < ApplicationRecord
   end
 
   def can_be_join?
-    in_the_registration_time? && !is_full?
+    in_registration_time? && !is_full?
   end
 
   def join_by(user)
