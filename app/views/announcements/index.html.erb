@@ -4,6 +4,8 @@
     <p class="lead my-4">以下是教會消息一覽，點選消息查看詳細內容。</p>
   </div>
 </div>
+<%= paginate @announcements %>
 <div class="container">
   <%= render 'announcements', :announcements => @announcements %>
 </div>
+<%= paginate @announcements %>

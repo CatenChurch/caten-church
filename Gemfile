@@ -1,15 +1,20 @@
 source 'https://rubygems.org'
+# kaminari 分頁
+# $rails g kaminari:views bootstrap4
+gem 'kaminari'
+# ransack 搜索
+gem 'ransack'
 # SEO
 gem 'meta-tags'
 # Facebook Graph API
-gem "koala"
+gem 'koala'
 # puma server
 gem 'puma'
 # omniauth
 gem 'omniauth'
 gem 'omniauth-facebook'
 # 密碼等 ENV value 保護
-gem "figaro"
+gem 'figaro'
 # model schema comment
 gem 'annotate'
 # markdown語法轉成html
@@ -19,7 +24,7 @@ gem 'redcarpet'
 # https://github.com/hughevans/pagedown-bootstrap-rails
 gem 'font-awesome-rails'
 gem 'pagedown-bootstrap-rails'
-# switch Database from sqlite to pg
+# Database
 gem 'pg'
 # excel file axlsx
 gem 'rubyzip', '~> 1.1.0'
@@ -31,10 +36,10 @@ gem 'momentjs-rails'
 gem 'vuejs-rails', '1.0.26'
 # vue 2 請搭配 gem 'lodash-rails'
 # 多國語言 i18n
-gem "rails-i18n"
+gem 'rails-i18n'
 gem 'devise-i18n'
 # 表單
-gem "simple_form"
+gem 'simple_form'
 # 建立會員使用者套件
 gem 'devise'
 # 會員功能 權限 任務分配
@@ -85,14 +90,13 @@ group :development, :test do
   gem 'byebug'
 
   # better error
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   # 畫出 Rails 專案中的 ER-Model https://github.com/voormedia/rails-erd
-  gem "rails-erd"
+  gem 'rails-erd'
   # 畫 UML https://github.com/preston/railroady
   gem 'railroady'
-
 end
 
 group :development do
@@ -107,5 +111,4 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
 end

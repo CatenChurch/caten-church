@@ -1,1 +1,7 @@
+<h2>
+  消息一覽
+  <%= link_to t(:new_announcement), new_admin_announcement_path, class: "btn btn-primary ml-2" %>
+</h2>
+<%= paginate @announcements %>
 <%= render 'announcements/announcements', :announcements => @announcements, :render_from_admin => true %>
+<%= paginate @announcements %>

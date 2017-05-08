@@ -1,4 +1,6 @@
-<h2>會員一覽<span class="p-2"><%= link_to t(:download_excel), download_admin_members_path(@members,format: :xlsx), class: "btn btn-success", method: :post %></span></h2>
+<h2>會員一覽<span class="p-2"><%= link_to t(:download_excel), download_admin_members_path(@members,format: :xlsx), class: "btn btn-success", method: :post %></span>
+</h2>
+<%= paginate @members %>
 <table class="table my-4">
   <thead class="thead-default">
     <tr>
@@ -12,9 +14,9 @@
   <tbody>
     <% @members.each do |u| %>
     <% if u.profile.blank? %>
-      <% profile = Profile.new %>
-    <% else %>
-      <% profile = u.profile %>
+    <% profile = Profile.new %>
+  <% else %>
+    <% profile = u.profile %>
     <% end %>
     <tr>
       <td><%= u.id %></td>
@@ -26,3 +28,4 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @members %>
