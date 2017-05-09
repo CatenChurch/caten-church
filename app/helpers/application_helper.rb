@@ -34,7 +34,24 @@ module ApplicationHelper
     content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: css_class
   end
 
-  # TODO: 新增一個 nav_params_li 讓 nav 隨著目前對應到的 params class 加上 active
+  def nav_params_li(text, path, check_params: {}, css_class: '', method: :get, inner_class: '')
+    # 比對 path 與 params
+    check = true
+    check_params.each do |key, value|
+      check = false if request.GET.fetch(key, '').to_sym != value.to_sym
+    end
+    base_path = if n = path.index('?')
+                  path.byteslice(0..(n - 1))
+                else
+                  path
+                end
+    active = if check && request.path == base_path
+               'active'
+             else
+               ''
+             end
+    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: "#{css_class} nav-item"
+  end
 
   def is_admin?
     can? :manage, Admin
