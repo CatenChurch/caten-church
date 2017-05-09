@@ -38,7 +38,7 @@ class Event < ApplicationRecord
   validates_presence_of :name, :max_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over
   validate :myValid
 
-  # method
+  # instance method
 
   def is_full?
     participants_count >= max_sign_up_number
