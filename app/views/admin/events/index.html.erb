@@ -5,13 +5,27 @@
   <%= nav_params_li "活動期間", admin_events_path(status: :running), check_params: {status: :running} %>
   <%= nav_params_li "過期活動", admin_events_path(status: :closed), check_params: {status: :closed} %>
 </ul>
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('web.search_conditions') %></a>
+<div class="collapse" id="collapseSearch">
+  <div class="card my-2">
+    <div class="card-block">
+      <%= search_form_for @q, url: admin_events_url, class: "form-inline mx-5" do |f| %>
+      <%= hidden_field_tag :status, params[:status] %>
+      <%= f.label t('event.name'), class: "mr-1" %>
+      <%= f.search_field :name_cont, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
+      <%= f.submit class: "btn btn-secondary mx-2 ml-auto" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 <%= paginate @events %>
 <table class="table">
   <thead class="thead-default">
     <tr>
-      <th><%= t(:title) %></th>
+      <th><%= t("event.name") %></th>
       <th><%= t(:nature) %></th>
-      <th><%= t(:updated_at) %></th>
+      <th><%= t('event.registration_time') %></th>
       <th>詳細資訊</th>
     </tr>
   </thead>
@@ -20,7 +34,11 @@
     <tr>
       <td><%= event.name %></td>
       <td><%= event.nature %></td>
-      <td><%= event.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+      <td>
+        <%= event.sign_up_begin.strftime("%Y/%m/%d") %>
+        ~
+        <%= event.sign_up_end.strftime("%Y/%m/%d") %>
+      </td>
       <td><%= link_to "查看", admin_event_path(event), class: "btn btn-info" %></td>
     </tr>
     <% end %>
