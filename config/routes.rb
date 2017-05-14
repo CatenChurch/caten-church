@@ -26,13 +26,13 @@ Rails.application.routes.draw do
     end
 
     resources :members, only: [:index, :show] do
-      post 'download', on: :collection
+      get 'download', on: :collection
     end
 
     resources :events do
       member do
         get 'show_participants'
-        post 'download'
+        get 'download'
       end
     end
   end
