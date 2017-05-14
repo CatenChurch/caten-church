@@ -2,16 +2,18 @@ class Admin::EventsController < AdminController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :show_participants, :download]
 
   def index
-    @events = case params[:status]
-              when 'running'
-                Event.running.order(id: :desc).page(params[:page])
-              when 'registration'
-                Event.in_registration_time.order(id: :desc).page(params[:page])
-              when 'closed'
-                Event.closed.order(id: :desc).page(params[:page])
-              else
-                Event.all.order(id: :desc).page(params[:page])
+    @q = Event.ransack(params[:q])
+    events = case params[:status]
+             when 'running'
+               @q.result(distinct: true).running
+             when 'registration'
+               @q.result(distinct: true).in_registration_time
+             when 'closed'
+               @q.result(distinct: true).closed
+             else
+               @q.result(distinct: true)
               end
+    @events = events.order(id: :desc).page(params[:page])
   end
 
   def show; end

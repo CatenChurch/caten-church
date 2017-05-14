@@ -1,4 +1,8 @@
 'zh-TW':
+  from: "從"
+  to: "至"
+  web:
+    search_conditions: "搜尋條件"
   website: "茄典教會"
   home_page: "首頁"
   # navbar
@@ -60,6 +64,11 @@
   my_events : '我的活動'
   sign_up_time : '報名時間'
   events: "活動"
+  event:
+    name: "活動名稱"
+    registration_time: "報名時間"
+    sign_up_begin: "報名開始"
+    sign_up_end: "報名截止"
   # profile
   profile : '個人資料'
   name : '姓名'
