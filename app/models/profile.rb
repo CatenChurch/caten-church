@@ -16,18 +16,22 @@
 #
 
 class Profile < ApplicationRecord
-	belongs_to :user
+  scope :birth_month, ->(month) {
+                        return all if month.blank?
+                        month = Integer(month)
+                        where('extract(month from birth) = ?', month)
+                      }
 
-	# 必填欄位
-	validates_presence_of  :name, :sex, :birth
-	# 同意規範
-	validates :terms_of_service, acceptance: true
-	# 自訂驗證
-	validate :myValid
+  belongs_to :user
 
-	private
-	def myValid
+  # 必填欄位
+  validates_presence_of :name, :sex, :birth
+  # 同意規範
+  validates :terms_of_service, acceptance: true
+  # 自訂驗證
+  validate :myValid
 
-	end
+  private
 
+  def myValid; end
 end

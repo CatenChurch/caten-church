@@ -20,6 +20,12 @@
 #
 
 class User < ApplicationRecord
+  scope :birth_month, ->(month = '') {
+    return all if month.blank?
+    user_ids = Profile.birth_month(month).map(&:user_id)
+    where(id: user_ids)
+  }
+
   # roles
   rolify
 
@@ -38,6 +44,11 @@ class User < ApplicationRecord
   has_many :participated_events, through: :event_users, source: :event
 
   has_many :oauths, dependent: :destroy
+
+  # ransackable_scopes https://github.com/activerecord-hackery/ransack#using-scopesclass-methods
+  def self.ransackable_scopes(_auth_object = nil)
+    [:birth_month]
+  end
 
   # user has profile
   def has_profile?
