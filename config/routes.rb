@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :members, only: [:index, :show] do
+    resources :members, only: [:index, :show, :edit, :update] do
       get 'download', on: :collection
     end
 
@@ -34,14 +34,13 @@ Rails.application.routes.draw do
         get 'show_participants'
         get 'download'
       end
+      resource :event_users, path: :users
     end
   end
 
   namespace :account do
     resource :profile, except: [:destroy]
-
     resources :events, only: [:index]
-
     # get 'dashboard', controller: 'pages'
   end
 
