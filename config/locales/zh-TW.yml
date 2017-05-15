@@ -1,10 +1,27 @@
 'zh-TW':
-  from: "從"
-  to: "至"
+  button:
+    back: "返回"
+    edit: "編輯"
+    cancel: "取消"
+
   web:
     search_conditions: "搜尋條件"
+
+  user:
+    all: "會員一覽"
+    download_excel: "下載所有會員的 Excel 報表"
+    email: "Email"
+
+  profile:
+    _: "個人資料"
+    name: "姓名"
+    phone: "聯絡電話"
+    sex: "性別"
+    birth_month: "生日月份"
+
   website: "茄典教會"
   home_page: "首頁"
+
   # navbar
   admin_system : '管理員後台'
   my_groups : '我的群組'
@@ -20,6 +37,8 @@
   user_id : '擁有者id'
   download_excel : '下載 Excel'
   youtube : 'YouTube'
+  from: "從"
+  to: "至"
 
   # groups
   new_group : '新增討論版'
@@ -65,12 +84,17 @@
   sign_up_time : '報名時間'
   events: "活動"
   event:
+    all: "活動一覽"
     name: "活動名稱"
     registration_time: "報名時間"
     sign_up_begin: "報名開始"
     sign_up_end: "報名截止"
-  # profile
-  profile : '個人資料'
+    participants: "報名者"
+    nature: "性質"
+    create: "新增活動"
+  event_user:
+    activated: "確認報名"
+
   name : '姓名'
   sex : '性別'
   birth : '生日'

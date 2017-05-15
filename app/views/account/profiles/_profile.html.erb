@@ -2,7 +2,7 @@
 <div class="card">
 	<div class="card-block">
 		<h3 class="card-title text-center">
-			<%= t(:profile) %>
+			<%= t('profile._') %>
 			<% if !render_for_admin && !profile.blank? %>
 				<%= link_to(t(:edit), edit_account_profile_path, class: "btn btn-warning ml-2") %>
 			<% end %>

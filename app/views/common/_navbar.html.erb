@@ -22,7 +22,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <%= link_to t(:my_events), account_events_path, class: "dropdown-item" %>
-            <%= link_to t(:profile), account_profile_path, class: "dropdown-item" %>
+            <%= link_to t('profile._'), account_profile_path, class: "dropdown-item" %>
             <%= link_to t(:edit_user_registration), edit_user_registration_path, class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
             <%= link_to t(:log_out), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
