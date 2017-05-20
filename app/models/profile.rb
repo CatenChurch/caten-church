@@ -24,14 +24,12 @@ class Profile < ApplicationRecord
 
   belongs_to :user
 
-  # 必填欄位
-  validates_presence_of :name, :sex, :birth
-  # 同意規範
+  validates_presence_of :name, :sex, :birth, :emergency_contact
+  validates_format_of :id_number, with: /\A[a-z][1-2]\d{8}\z/i, message: I18n.t('profile.error.id_number')
   validates :terms_of_service, acceptance: true
-  # 自訂驗證
-  validate :myValid
+  # validate :myValid
 
   private
 
-  def myValid; end
+  # def myValid; end
 end

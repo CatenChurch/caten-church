@@ -51,8 +51,8 @@ class User < ApplicationRecord
   end
 
   # user has profile
-  def has_profile?
-    !profile.blank?
+  def has_valid_profile?
+    profile.present? && profile.valid?
   end
 
   # check role is admin

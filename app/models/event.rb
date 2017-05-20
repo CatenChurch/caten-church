@@ -39,7 +39,6 @@ class Event < ApplicationRecord
   validate :myValid
 
   # instance method
-
   def is_full?
     participants_count >= max_sign_up_number
   end

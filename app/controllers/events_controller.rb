@@ -41,9 +41,9 @@ class EventsController < ApplicationController
   end
 
   def check_user_has_profile
-    unless current_user.has_profile?
-      flash[:warning] = '填寫個人資料後再來報名活動'
-      redirect_to new_account_profile_path
+    unless current_user.has_valid_profile?
+      flash[:warning] = '填寫尚未完成的個人資料後再來報名活動'
+      redirect_to edit_account_profile_path
     end
   end
 
