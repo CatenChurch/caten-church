@@ -43,6 +43,6 @@ class Account::ProfilesController < AccountController
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :sex, :birth, :phone, :cellphone, :address, :education, :terms_of_service)
+    params.require(:profile).permit(:name, :sex, :birth, :phone, :cellphone, :address, :education, :terms_of_service, :id_number, :emergency_contact)
   end
 end
