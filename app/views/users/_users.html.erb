@@ -7,33 +7,37 @@
       <th><%= t(:name) %></th>
       <th><%= t(:sex) %></th>
       <th><%= t(:birth) %></th>
+      <th><%= t('profile.id_number') %></th>
       <th><%= t(:email) %></th>
       <th><%= t(:phone) %></th>
       <th><%= t(:cellphone) %></th>
+      <th><%= t('profile.emergency_contact') %></th>
       <th><%= t(:address) %></th>
     </tr>
   </thead>
   <tbody>
-  <% users.each do |user| %>
+    <% users.each do |user| %>
     <% if user.profile.nil? %>
-      <% profile = Profile.new %>
-    <% else %>
-      <% profile = user.profile %>
+    <% profile = Profile.new %>
+  <% else %>
+    <% profile = user.profile %>
     <% end %>
     <tr onclick="window.document.location='<%= admin_member_path(user) %>';">
       <td><%= user.id %></td>
       <td><%= profile.name %></td>
       <td><%= profile.sex %></td>
       <td><%= profile.birth %></td>
+      <td><%= profile.id_number %></td>
       <td><%= user.email %></td>
       <td><%= profile.phone %></td>
       <td><%= profile.cellphone %></td>
+      <td><%= profile.emergency_contact %></td>
       <td><%= profile.address %></td>
     </tr>
-  <% end %>
+    <% end %>
   </tbody>
 
-  <% else #render for non-admin %>
+<% else #render for non-admin %>
   <thead class="thead-default">
     <tr>
       <th><%= t(:name) %></th>

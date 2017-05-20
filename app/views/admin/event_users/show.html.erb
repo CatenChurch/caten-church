@@ -8,10 +8,10 @@
       <th><%= t(:name) %></th>
       <th><%= t(:sex) %></th>
       <th><%= t(:birth) %></th>
+      <th><%= t('profile.id_number') %></th>
       <th><%= t(:email) %></th>
-      <th><%= t(:phone) %></th>
-      <th><%= t(:cellphone) %></th>
-      <th><%= t(:address) %></th>
+      <th><%= t('profile.phone') %></th>
+      <th><%= t('profile.emergency_contact') %></th>
       <th><%= t('event_user.activated') %></th>
     </tr>
   </thead>
@@ -23,10 +23,14 @@
       <td><%= profile.name %></td>
       <td><%= profile.sex %></td>
       <td><%= profile.birth %></td>
+      <td><%= profile.id_number %></td>
       <td><%= user.email %></td>
-      <td><%= profile.phone %></td>
-      <td><%= profile.cellphone %></td>
-      <td><%= profile.address %></td>
+      <td>
+        <%= profile.phone %>
+        <br>
+        <%= profile.cellphone %>
+      </td>
+      <td><%= profile.emergency_contact %></td>
       <td><%= event_user.activated %></td>
     </tr>
     <% end %>

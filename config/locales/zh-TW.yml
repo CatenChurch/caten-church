@@ -16,6 +16,7 @@
     _: "個人資料"
     name: "姓名"
     phone: "聯絡電話"
+    cellphone: "行動電話"
     sex: "性別"
     birth_month: "生日月份"
     id_number: "身分證字號"
