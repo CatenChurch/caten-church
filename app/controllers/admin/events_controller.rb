@@ -1,5 +1,5 @@
 class Admin::EventsController < AdminController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :show_participants, :download]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :download]
 
   def index
     @q = Event.ransack(params[:q])
@@ -49,10 +49,6 @@ class Admin::EventsController < AdminController
     flash[:danger] = '活動已刪除'
   end
 
-  def show_participants
-    @participants = @event.participants.includes(:profile).order(:id)
-  end
-
   def download
     @participants = @event.participants.includes(:profile)
     render xlsx: 'download', filename: "#{@event.name}.xlsx", disposition: 'inline'
@@ -65,6 +61,18 @@ class Admin::EventsController < AdminController
   end
 
   def resource_params
-    params.require(:event).permit(:name, :nature, :description, :max_sign_up_number, :min_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over)
+    params.require(:event).permit(
+      :name,
+      :nature,
+      :description,
+      :max_sign_up_number,
+      :min_sign_up_number,
+      :sign_up_begin,
+      :sign_up_end,
+      :start,
+      :over,
+      :check_arrival,
+      :registery_fee
+    )
   end
 end

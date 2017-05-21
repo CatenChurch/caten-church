@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   authorize_resource # cancancan
-  before_action :find_event, only: [:show, :join, :quit, :show_participants]
+  before_action :find_event, only: [:show, :join, :quit, :participants]
   before_action :check_user_has_profile, only: [:join]
   before_action :check_event_can_be_join, only: [:join]
   before_action :check_user_already_join_event, only: [:quit]
@@ -29,7 +29,8 @@ class EventsController < ApplicationController
     redirect_to event_path(@event)
   end
 
-  def show_participants
+  def participants
+    @event_users = EventUser.where(event: @event).includes(user: :profile).order(:id)
     # n+1 queries 修正
     @participants = @event.participants.includes(:profile).order(:id)
   end

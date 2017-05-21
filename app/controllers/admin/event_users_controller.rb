@@ -6,19 +6,30 @@ class Admin::EventUsersController < AdminController
 
   def update
     query_success = true
+
     @event_users.each do |e|
       id = e.id.to_s
-      dig_result = event_users_params.dig(id, 'activated')
-      if dig_result == '1' && !e.activated
-        e.activated = true
-        query_success = (e.save || query_success)
-      elsif dig_result == '0' && e.activated
-        e.activated = false
-        query_success = (e.save || query_success)
+      change = false
+      paid = event_users_params.dig(id, 'paid')
+      arrival = event_users_params.dig(id, 'arrival')
+
+      if paid == '1' && !e.paid
+        e.paid = true
+        change = true
+      elsif paid == '0' && e.paid
+        e.paid = false
+        change = true
       end
+      if arrival == '1' && !e.arrival
+        e.arrival = true
+        change = true
+      elsif arrival == '0' && e.arrival
+        e.arrival = false
+        change = true
+      end
+
+      query_success = (e.save || query_success) if change
     end
-    # 這行會執行每個EventUser的SQL，即使沒有更新
-    # query_success = @event_users.update(event_users_params.keys, event_users_params.values)
     if query_success
       flash[:notice] = 'Successfully updated event_users.'
       redirect_to admin_event_event_users_url

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520142713) do
+ActiveRecord::Schema.define(version: 20170521070548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,8 @@ ActiveRecord::Schema.define(version: 20170520142713) do
     t.integer  "user_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.boolean  "activated",  default: false
+    t.boolean  "paid",       default: false
+    t.boolean  "arrival",    default: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -42,10 +43,13 @@ ActiveRecord::Schema.define(version: 20170520142713) do
     t.datetime "sign_up_end"
     t.datetime "start"
     t.datetime "over"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "user_id"
     t.integer  "participants_count", default: 0
+    t.integer  "registery_fee"
+    t.boolean  "check_arrival",      default: false
+    t.index ["check_arrival"], name: "index_events_on_check_arrival", using: :btree
   end
 
   create_table "oauths", force: :cascade do |t|

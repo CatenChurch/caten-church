@@ -34,8 +34,8 @@ class Event < ApplicationRecord
   has_many :participants, through: :event_users, source: :user, dependent: :destroy
 
   # valid
-
   validates_presence_of :name, :max_sign_up_number, :sign_up_begin, :sign_up_end, :start, :over
+  validates_numericality_of :registery_fee, allow_nil: true
   validate :myValid
 
   # instance method

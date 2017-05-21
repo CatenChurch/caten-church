@@ -36,6 +36,18 @@
 					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 			</tbody>
+			<thead class="thead-default">
+				<tr>
+					<th><%= t('event.check_arrival')%></th>
+					<th><%= t('event.registery_fee')%></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= need(event.check_arrival) %></td>
+					<td><%= fee(event.registery_fee) %></td>
+				</tr>
+			</tbody>
 		</table>
 		<table class="table table-bordered hidden-sm-up">
 			<tbody>
@@ -71,18 +83,26 @@
 					<th class="bg-silver"><%= t(:event_over)%></th>
 					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
+				<tr>
+					<th class="bg-silver"><%= t('event.check_arrival')%></th>
+					<td><%= need(event.check_arrival) %></td>
+				</tr>
+				<tr>
+					<th class="bg-silver"><%= t('event.registery_fee')%></th>
+					<td><%= fee(event.registery_fee) %></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
 	<% if !render_for_admin %>
 	<div class="card-block">
 		<% if user_signed_in? %>
-			<% if current_user.is_participant_of_event?(@event) %>
-				<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
-				<%= link_to t(:event_participants_list), show_participants_event_path(@event), class: "btn btn-info" %>
-			<% else %>
-				<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
-			<% end %>
+		<% if current_user.is_participant_of_event?(@event) %>
+		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
+		<%= link_to t(:event_participants_list), participants_event_path(@event), class: "btn btn-info" %>
+	<% else %>
+		<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
+		<% end %>
 		<% end %>
 	</div>
 	<% end %>

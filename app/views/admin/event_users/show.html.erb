@@ -2,37 +2,4 @@
   <%= link_to t('button.back'), admin_event_path(params[:event_id]), class: "btn btn-secondary" %>
   <%= link_to t('button.edit'), edit_admin_event_event_users_path(params[:event_id]), class: "btn btn-primary ml-2" %>
 </div>
-<table class="table">
-  <thead class="thead-default">
-    <tr>
-      <th><%= t(:name) %></th>
-      <th><%= t(:sex) %></th>
-      <th><%= t(:birth) %></th>
-      <th><%= t('profile.id_number') %></th>
-      <th><%= t(:email) %></th>
-      <th><%= t('profile.phone') %></th>
-      <th><%= t('profile.emergency_contact') %></th>
-      <th><%= t('event_user.activated') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @event_users.each do |event_user| %>
-    <% user = event_user.user
-    profile = (user.profile.blank? ? Profile.new : user.profile) %>
-    <tr>
-      <td><%= profile.name %></td>
-      <td><%= profile.sex %></td>
-      <td><%= profile.birth %></td>
-      <td><%= profile.id_number %></td>
-      <td><%= user.email %></td>
-      <td>
-        <%= profile.phone %>
-        <br>
-        <%= profile.cellphone %>
-      </td>
-      <td><%= profile.emergency_contact %></td>
-      <td><%= event_user.activated %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'event_users/index', event_users: @event_users, backstage: true %>

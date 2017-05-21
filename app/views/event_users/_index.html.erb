@@ -1,0 +1,41 @@
+<% backstage = backstage || false %>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th><%= t(:name) %></th>
+      <th><%= t(:sex) %></th>
+      <% if backstage %>
+      <th><%= t(:birth) %></th>
+      <th><%= t('profile.id_number') %></th>
+      <th><%= t(:email) %></th>
+      <th><%= t('profile.phone') %></th>
+      <th><%= t('profile.emergency_contact') %></th>
+      <% end %>
+      <th><%= t('event_user.paid.check') %></th>
+      <th><%= t('event_user.arrival.check') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% event_users.each do |event_user| %>
+    <% user = event_user.user
+    profile = (user.profile.blank? ? Profile.new : user.profile) %>
+    <tr>
+      <td><%= profile.name %></td>
+      <td><%= profile.sex %></td>
+      <% if backstage %>
+      <td><%= profile.birth %></td>
+      <td><%= profile.id_number %></td>
+      <td><%= user.email %></td>
+      <td>
+        <%= profile.phone %>
+        <br>
+        <%= profile.cellphone %>
+      </td>
+      <td><%= profile.emergency_contact %></td>
+      <% end %>
+      <td><%= paid(event_user.paid) %></td>
+      <td><%= arrival(event_user.arrival) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

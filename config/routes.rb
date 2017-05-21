@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     member do
       post 'join'
       post 'quit'
-      get 'show_participants'
+      get 'participants'
     end
   end
 
@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
     resources :events do
       member do
-        get 'show_participants'
         get 'download'
       end
       resource :event_users, path: :users
