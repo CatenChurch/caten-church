@@ -8,9 +8,7 @@ class Admin::EventUsersController < AdminController
     query_success = true
     @event_users.each do |e|
       id = e.id.to_s
-      # FIXME: heroku use ruby 2.2, so dig no work.
-      # dig_result = event_users_params.dig(id, 'activated')
-      dig_result = event_users_params[id]['activated']
+      dig_result = event_users_params.dig(id, 'activated')
       if dig_result == '1' && !e.activated
         e.activated = true
         query_success = (e.save || query_success)
