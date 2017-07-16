@@ -2,6 +2,7 @@
   button:
     back: "返回"
     edit: "編輯"
+    join: "報名"
     cancel: "取消"
   web:
     search_conditions: "搜尋條件"
@@ -97,6 +98,7 @@
     registery_fee: "報名費用"
 
   event_user:
+    remark: "備註"
     paid:
       check: "確認繳費"
       y: "已繳費"

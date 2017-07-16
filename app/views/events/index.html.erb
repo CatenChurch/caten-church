@@ -18,7 +18,7 @@
       <div class="card h-100 pb-1">
         <div class="card-block">
           <h3 class="card-title"><%= event.name %></h3>
-          <p class="card-text"><%= event.description %></p>
+          <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">報名人數:<%= event.participants_count %></li>
@@ -43,7 +43,7 @@
       <div class="card h-100 pb-1">
         <div class="card-block">
           <h3 class="card-title"><%= event.name %></h3>
-          <p class="card-text"><%= event.description %></p>
+          <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">報名人數:<%= event.participants_count %></li>
