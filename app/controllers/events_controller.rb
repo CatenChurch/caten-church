@@ -12,7 +12,11 @@ class EventsController < ApplicationController
   def show; end
 
   def join
-    if @event.join_by current_user
+    @event_user = EventUser.new(join_params)
+    @event_user.user = current_user
+    @event_user.event = @event
+
+    if @event_user.save
       flash[:notice] = '報名活動操作成功'
     else
       flash[:danger] = '本次報名操作失敗'
@@ -36,6 +40,10 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def join_params
+    params.permit(:remark)
+  end
 
   def find_event
     @event = Event.find(params[:id])

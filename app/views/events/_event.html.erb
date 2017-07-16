@@ -101,7 +101,11 @@
 		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
 		<%= link_to t(:event_participants_list), participants_event_path(@event), class: "btn btn-info" %>
 	<% else %>
-		<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
+		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
+		<label class="mr-2"><%= t('event_user.remark') %></label>
+		<%= text_field_tag :remark, nil, class: "form-control" %>
+		<%= submit_tag t('button.join'), class: "ml-auto btn btn-success", data: { disable_with: "Submitting..." } %>
+		<% end %>
 		<% end %>
 		<% end %>
 	</div>
