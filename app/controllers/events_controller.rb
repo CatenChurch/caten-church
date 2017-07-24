@@ -2,8 +2,9 @@ class EventsController < ApplicationController
   authorize_resource # cancancan
   before_action :find_event, only: [:show, :join, :quit, :participants]
   before_action :check_user_has_profile, only: [:join]
-  before_action :check_event_can_be_join, only: [:join]
+  before_action :check_event_can_be_join, only: [:join, :quit]
   before_action :check_user_already_join_event, only: [:quit]
+  before_action :check_event_can_show_participants, only: [:participants]
   def index
     @events = Event.in_registration_time
     @expired_events = Event.sign_up_expired.page(params[:page])
@@ -47,6 +48,13 @@ class EventsController < ApplicationController
 
   def find_event
     @event = Event.find(params[:id])
+  end
+
+  def check_event_can_show_participants
+    unless @event.show_participants
+      flash[:warning] = '無法查看報名情況'
+      redirect_to event_path(@event)
+    end
   end
 
   def check_user_has_profile

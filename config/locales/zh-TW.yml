@@ -1,4 +1,6 @@
 'zh-TW':
+  y: "是"
+  n: "否"
   button:
     back: "返回"
     edit: "編輯"
@@ -92,13 +94,15 @@
     sign_up_begin: "報名開始"
     sign_up_end: "報名截止"
     participants: "報名者"
+    show_participants: "顯示報名人數"
+    participants_count: "報名人數"
     nature: "性質"
     create: "新增活動"
     check_arrival: "需要確認報到"
     registery_fee: "報名費用"
 
   event_user:
-    remark: "填寫組隊報名好友"
+    remark: "備註"
     paid:
       check: "確認繳費"
       y: "已繳費"
