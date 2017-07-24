@@ -6,8 +6,8 @@ class EventsController < ApplicationController
   before_action :check_user_already_join_event, only: [:quit]
   before_action :check_event_can_show_participants, only: [:participants]
   def index
-    @events = Event.in_registration_time
-    @expired_events = Event.sign_up_expired.page(params[:page])
+    @events = Event.in_registration_time.order(id: :desc)
+    @expired_events = Event.sign_up_expired.order(id: :desc).page(params[:page])
   end
 
   def show; end
