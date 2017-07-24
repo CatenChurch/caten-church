@@ -37,3 +37,25 @@ $kill -9 $(lsof -t -i:3000)
 ```bash
 $ annotate --exclude tests,fixtures,factories,serializers
 ```
+
+## sitemap
+add below line in Gemfile
+
+```ruby
+gem 'sitemap_generator'
+```
+
+usage
+
+```bash
+# init config/sitemap.rb
+rake sitemap:install
+# generate public/sitmap.xml.gz
+rake sitemap:refresh
+```
+
+add sitemap in public/robots.txt
+
+```
+sitemap: caten-church.herokuapp.com/sitemap.xml.gz
+```
