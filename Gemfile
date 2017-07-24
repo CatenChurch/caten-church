@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# SEO sitemap
+gem 'sitemap_generator'
 # kaminari 分頁
 # $rails g kaminari:views bootstrap4
 gem 'kaminari'
