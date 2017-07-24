@@ -7,6 +7,6 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /account/
-allow: /
+Allow: /
 
-sitemap: caten-church.herokuapp.com/sitemap.xml.gz
+Sitemap: https://caten-church.herokuapp.com/sitemap.xml.gz
