@@ -21,7 +21,7 @@
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          <li class="list-group-item"><%= t('event.participants_count') %>:<%= event.show_participants_count %></li>
         </ul>
         <div class="card-footer">
           <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>
@@ -46,7 +46,7 @@
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          <li class="list-group-item"><%= t('event.participants_count') %>:<%= event.show_participants_count %></li>
         </ul>
         <div class="card-footer">
           <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>

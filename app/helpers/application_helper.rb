@@ -56,4 +56,8 @@ module ApplicationHelper
   def is_admin?
     can? :manage, Admin
   end
+
+  def boolean_to_y_or_n(boolean)
+    boolean ? t(:y) : t(:n)
+  end
 end

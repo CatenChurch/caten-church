@@ -72,7 +72,8 @@ class Admin::EventsController < AdminController
       :start,
       :over,
       :check_arrival,
-      :registery_fee
+      :registery_fee,
+      :show_participants
     )
   end
 end

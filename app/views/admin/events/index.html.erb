@@ -32,7 +32,7 @@
   <thead class="thead-default">
     <tr>
       <th><%= t("event.name") %></th>
-      <th><%= t(:nature) %></th>
+      <th><%= t('event.participants_count') %></th>
       <th><%= t('event.registration_time') %></th>
       <th>詳細資訊</th>
     </tr>
@@ -41,7 +41,7 @@
     <% @events.each do |event| %>
     <tr>
       <td><%= event.name %></td>
-      <td><%= event.nature %></td>
+      <td><%= event.participants_count %>/<%= event.max_sign_up_number %></td>
       <td>
         <%= event.sign_up_begin.strftime("%Y/%m/%d") %>
         ~
