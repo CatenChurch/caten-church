@@ -146,6 +146,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    newrelic_rpm (4.3.0.335)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -299,6 +300,7 @@ DEPENDENCIES
   koala
   meta-tags
   momentjs-rails
+  newrelic_rpm
   omniauth
   omniauth-facebook
   pagedown-bootstrap-rails
