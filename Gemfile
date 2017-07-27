@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# new relic
+gem 'newrelic_rpm'
 # SEO sitemap
 gem 'sitemap_generator'
 # kaminari 分頁
