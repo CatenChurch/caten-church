@@ -11,6 +11,10 @@ $ heroku config
 # 備份db到local pg 的 localDbName資料庫
 $ heroku pg:pull DATABASE_URL localDbName --app caten-church
 ```
+### heroku app 加上 newrelic
+參考
+https://docs.newrelic.com/docs/agents/ruby-agent/installation/install-new-relic-ruby-agent#Installing_the_Gem
+
 ## Reset counter cache
 如果counter cache出錯了，則進入rails console用此方法重整  
 
