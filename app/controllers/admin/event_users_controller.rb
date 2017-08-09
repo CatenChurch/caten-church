@@ -1,4 +1,4 @@
-class Admin::EventUsersController < AdminController
+class Admin::EventUsersController < Admin::BaseController
   before_action :set_event_users, only: [:edit, :show, :update]
   def edit; end
 

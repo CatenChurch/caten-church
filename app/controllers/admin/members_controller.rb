@@ -1,4 +1,4 @@
-class Admin::MembersController < AdminController
+class Admin::MembersController < Admin::BaseController
   before_action :set_member, only: [:show]
 
   def index

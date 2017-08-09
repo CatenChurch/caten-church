@@ -1,4 +1,4 @@
-class Admin::EventsController < AdminController
+class Admin::EventsController < Admin::BaseController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :download]
 
   def index
