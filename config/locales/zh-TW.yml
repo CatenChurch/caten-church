@@ -1,4 +1,28 @@
 'zh-TW':
+  pages:
+    root: "首頁"
+    about: "關於茄典"
+    info: "教會資訊"
+    contact: "聯絡我們"
+    events: "活動專區"
+    sign_in: "登入"
+    sign_up: "註冊"
+  contact:
+    name: "姓名"
+    phone: "電話"
+    email: "E-mail"
+    message: "訊息"
+  my_contact:
+    facebook: "https://www.facebook.com/caten.church.teens"
+    github: "https://github.com/CatenChurch"
+    youtube: "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w"
+    tel: "07-617-8379"
+    fax: "07-619-1553"
+    tax: "20252897"
+    address: "826-47 高雄市梓官區茄苳里嘉展路 467 號"
+    email: "catenforjesus@gmail.com"
+    office_hour: "二 - 日 / 09:30 - 18:00"
+    line@: "line.me/R/ti/p/%40kfi8062r"
   y: "是"
   n: "否"
   button:
@@ -6,6 +30,9 @@
     edit: "編輯"
     join: "報名"
     cancel: "取消"
+    submit: "送出"
+    sign_in: "登入"
+    sign_up: "註冊"
   web:
     search_conditions: "搜尋條件"
   user:
@@ -134,8 +161,7 @@
   # seo
   seo_description: "大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!"
 
-  # pages
-  web_info: "教會資訊"
+
 
   backstage:  "後台"
   account: "帳戶"

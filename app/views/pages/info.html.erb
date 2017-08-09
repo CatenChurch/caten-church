@@ -1,9 +1,9 @@
 <%
-title t(:web_info)
+title t('pages.info')
 seo_description = "教會資訊，聚會時間地點與聯絡方式。"
 description seo_description
 set_meta_tags og: {
-  title: "#{t(:website)} | #{t(:web_info)}}",
+  title: "#{t(:website)} | #{t('pages.info')}}",
   image: "http://i.imgur.com/Kgv2wwl.jpg",
   description: seo_description
 }
@@ -46,23 +46,23 @@ set_meta_tags og: {
             <%= link_to root_url, root_path, class: "ml-auto" %></li>
           <li class="list-group-item">
             <h4>Facebook</h4>
-            <a class="ml-auto" href="https://www.facebook.com/caten.church.teens/">fb.com/caten.church.teens</a>
+            <a class="ml-auto" href="<%= t('my_contact.facebook') %>"><%= t('my_contact.facebook') %></a>
           </li>
           <li class="list-group-item">
             <h4>Youtube頻道</h4>
-            <a class="ml-auto" href="https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w">youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w</a>
+            <a class="ml-auto" href="<%= t('my_contact.youtube') %>"><%= t('my_contact.youtube') %></a>
           </li>
           <li class="list-group-item">
             <h4>Line @</h4>
-            <a class="ml-auto" href="https://line.me/R/ti/p/%40kfi8062r">line.me/R/ti/p/%40kfi8062r</a>
+            <a class="ml-auto" href="<%= t('my_contact.line@') %>"><%= t('my_contact.line@') %></a>
           </li>
           <li class="list-group-item">
             <h4>地址</h4>
-            <span class="ml-auto">(826-47)高雄市梓官區茄苳里嘉展路467號</span>
+            <span class="ml-auto"><%= t('my_contact.address') %></span>
           </li>
           <li class="list-group-item">
             <h4>電話</h4>
-            <span class="ml-auto">(07)617-8379</span>
+            <span class="ml-auto"><%= t('my_contact.tel') %></span>
           </li>
         </ul>
       </div>

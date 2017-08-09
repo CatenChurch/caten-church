@@ -1,7 +1,12 @@
 <div class="jumbotron jumbotron-color">
   <div class="container-fluid">
-    <h1 class="display-3">會員中心</h1>
-    <p class="lead my-4">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
+    <p>
+      <%= link_to t('pages.root'), root_path %>
+      >
+      <%= t('pages.sign_up') %>
+    </p>
+    <h1 class="display-4 text-center">會員中心</h1>
+    <p class="lead my-4 text-center">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
   </div>
 </div>
 <div class="container">
@@ -11,14 +16,16 @@
         <div class="card-block">
           <p class="card-text text-center lead my-4">
             已經註冊過了嗎?
-            <%= link_to "登入", new_session_path(resource_name), class: "btn btn-info" %>
+            <%= link_to t('button.sign_in'), new_session_path(resource_name), class: "btn btn-outline-primary" %>
             網站吧!
           </p>
           <hr>
           <p class="card-text text-center lead my-4">
             或透過
-            <%= link_to "Facebook", omniauth_authorize_path(resource_name, :facebook), class: "btn btn-lg btn-primary" %>
-            帳號登入本網站
+            <%= link_to omniauth_authorize_path(resource_name, :facebook) do %>
+            <%= fa_icon('facebook-official 3x') %>
+            <% end %>
+            登入本網站
           </p>
         </div>
       </div>
@@ -27,15 +34,15 @@
       <div class="card h-100">
         <div class="card-block">
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs">
-              <%= f.input :email, required: true, autofocus: true %>
-              <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-              <%= f.input :password_confirmation, required: true %>
-            </div>
-            <div class="form-actions">
-              <%= f.button :submit, "註冊", class: "btn btn-outline-success" %>
-            </div>
+          <%= f.error_notification %>
+          <div class="form-inputs">
+            <%= f.input :email, required: true, autofocus: true %>
+            <%= f.input :password, required: true, hint: ("至少要有 #{@minimum_password_length} 個字元" if @minimum_password_length) %>
+            <%= f.input :password_confirmation, required: true %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, "註冊", class: "btn btn-purple w-100" %>
+          </div>
           <% end %>
         </div>
       </div>

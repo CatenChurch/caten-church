@@ -13,7 +13,8 @@ set_meta_tags og: {
 
 <div class="jumbotron">
   <div class="container-fluid">
-    <h1 class="display-3">歡迎光臨 <%= t(:website) %></h1>
+    <h1 class="display-3">歡迎光臨
+      <%= t(:website) %></h1>
     <p class="lead my-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
     <p>歡迎會友透過此網站查看教會最新消息以及報名參加活動!</p>
   </div>
@@ -30,7 +31,7 @@ set_meta_tags og: {
       <div class="card-block">
         <p class="card-text">或想了解教會的基本訊息，電話地址等，請點此了解更多</p>
       </div>
-      <%= link_to t(:web_info), info_path, class: "btn btn-outline-success mx-auto"%>
+      <%= link_to t('pages.info'), info_path, class: "btn btn-outline-success mx-auto"%>
     </div>
   </div>
 

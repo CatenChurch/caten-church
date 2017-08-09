@@ -1,0 +1,56 @@
+<div class="jumbotron jumbotron-color">
+  <div class="container-fluid">
+    <p>
+      <%= link_to t('pages.root'), root_path %>
+      >
+      <%= t('pages.contact') %>
+    </p>
+    <h1 class="display-4 text-center">有任何問題嗎？馬上聯絡我們！</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h2 class="my-2">茄典長老教會</h2>
+      <address><%= t('my_contact.address') %></address>
+      <div class="d-flex flex-wrap justify-content-between my-4">
+        <div class="pr-2">
+          <%= t(:tel) %>
+          :
+          <%= t('my_contact.tel') %>
+        </div>
+        <div class="pr-2">
+          <%= t(:fax) %>
+          :
+          <%= t('my_contact.fax') %>
+        </div>
+        <div class="pr-2">
+          <%= t(:tax) %>
+          :
+          <%= t('my_contact.tax') %>
+        </div>
+        <div class="pr-2">
+          <%= t(:email) %>
+          :
+          <%= mail_to t('my_contact.email'), t('my_contact.email'), class: "caten-link purple" %>
+        </div>
+      </div>
+      <div class="d-flex p-2">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3822.8183443691373!2d120.25129795923615!3d22.734788517827976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0f351291d611%3A0x875c9a5e732e89d4!2z6Ie654Gj5Z-6552j6ZW36ICB5pWZ5pyDIOiMhOWFuOaVmeacgw!5e0!3m2!1szh-TW!2stw!4v1501388342293"
+          width="100%"
+          height="450"
+          frameborder="0"
+          style="border:0"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <p class="pb-4">任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！</p>
+      <%= render 'contacts/form' %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
