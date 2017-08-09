@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts, only: [:create]
   resources :announcements, only: [:index, :show]
 
   resources :events, only: [:index, :show] do
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'index', 'info', 'history', 'youtube', 'term', controller: 'pages'
+  get 'index', 'info', 'history', 'youtube', 'term', 'about', 'contact', controller: 'pages'
   # google site verification
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
 
