@@ -1,0 +1,52 @@
+<div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
+  <h1><%= t('contact.all') %></h1>
+</div>
+
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('web.search_conditions') %></a>
+<div class="collapse" id="collapseSearch">
+  <div class="card my-2">
+    <div class="card-block">
+      <%= search_form_for @q, url: admin_contacts_url, class: "form-inline my-2 mx-5" do |f| %>
+      <%= f.label t('contact.name'), class: "mr-1" %>
+      <%= f.search_field :name_cont, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
+      <%= f.label t('contact.phone'), class: "mr-1" %>
+      <%= f.search_field :phone_cont, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
+      <%= f.label t('contact.email'), class: "mr-1" %>
+      <%= f.search_field :email_cont, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
+      <%= f.submit class: "btn btn-secondary mx-2 ml-auto" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= paginate @contacts %>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th><%= t("contact.name") %></th>
+      <th><%= t('contact.phone') %></th>
+      <th><%= t('contact.email') %></th>
+      <th><%= t('contact.message') %></th>
+      <th><%= t('contact.created_at') %></th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.name %></td>
+      <td><%= contact.phone %></td>
+      <td><%= contact.email %></td>
+      <td><%= truncate(contact.message, length: 20) %></td>
+      <td><%= my_time(contact.created_at) %></td>
+      <td>
+        <%= link_to t('button.more'), admin_contact_path(contact), class: "btn btn-info" %>
+        <%= link_to t('button.destroy'), admin_contact_path(contact), class: "btn btn-danger", method: :delete, data: { confirm: t('sure?') } %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @contacts %>

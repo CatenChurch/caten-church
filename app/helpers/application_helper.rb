@@ -60,4 +60,8 @@ module ApplicationHelper
   def boolean_to_y_or_n(boolean)
     boolean ? t(:y) : t(:n)
   end
+
+  def my_time(time)
+    time.strftime("%Y/%m/%d %H:%M:%S")
+  end
 end

@@ -1,4 +1,7 @@
 'zh-TW':
+  y: "是"
+  n: "否"
+  sure?: "確定執行動作嗎?"
   pages:
     root: "首頁"
     about: "關於茄典"
@@ -8,10 +11,14 @@
     sign_in: "登入"
     sign_up: "註冊"
   contact:
+    _: "聯絡訊息"
+    all: "所有聯絡訊息"
     name: "姓名"
     phone: "電話"
     email: "E-mail"
     message: "訊息"
+    created: "您的訊息已成功送出，請稍候等待我們的回覆。"
+    created_at: "建立於"
   my_contact:
     facebook: "https://www.facebook.com/caten.church.teens"
     github: "https://github.com/CatenChurch"
@@ -23,8 +30,6 @@
     email: "catenforjesus@gmail.com"
     office_hour: "二 - 日 / 09:30 - 18:00"
     line@: "line.me/R/ti/p/%40kfi8062r"
-  y: "是"
-  n: "否"
   button:
     back: "返回"
     edit: "編輯"
@@ -33,9 +38,12 @@
     submit: "送出"
     sign_in: "登入"
     sign_up: "註冊"
+    more: "詳情"
+    destroy: "刪除"
   web:
     search_conditions: "搜尋條件"
   user:
+    _: "會員"
     all: "會員一覽"
     download_excel: "下載所有會員的 Excel 報表"
     email: "Email"
@@ -115,6 +123,7 @@
   sign_up_time : '報名時間'
   events: "活動"
   event:
+    _: "活動"
     all: "活動一覽"
     name: "活動名稱"
     registration_time: "報名時間"
@@ -155,6 +164,8 @@
   edit_user_registration : '帳號設定'
 
   # announcement
+  announcement:
+    _: "公告"
   announcements : '公告'
   new_announcement : '新增公告'
 

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'pages#index'
 
+    resources :contacts, except: [:new, :create]
+    
     resources :announcements do
       member do
         post 'post_to_facebook'
