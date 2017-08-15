@@ -1,11 +1,9 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">活動詳情</h1>
-    <p class="lead my-4">以下是活動詳細資訊，報名者請於報名期限內點選"我要報名"，報名後可以查看有哪些人也報名了此活動喔。</p>
-    <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary pull-right"%>
-	</div>
-</div>
+<%= render 'jumbotron' %>
+<% content_for :breadcrumb do %>
+>
+<%= link_to @event.name, event_path(@event) %>
+<% end %>
 <div class="container">
   <%= link_to "活動列表", events_path, class: "btn btn-secondary mb-4"%>
-	<%= render 'event', :event => @event %>
+  <%= render 'event', :event => @event %>
 </div>

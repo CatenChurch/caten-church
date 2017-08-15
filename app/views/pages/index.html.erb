@@ -7,18 +7,19 @@ set_meta_tags og: {
   description: seo_description
 }
 %>
-<div id="home-bk-img" class="bg-color">
-  <%= image_tag "caten.png", class: "ml-auto d-block img-fluid" %>
-</div>
-
-<div class="jumbotron">
-  <div class="container-fluid">
-    <h1 class="display-3">歡迎光臨
+<% content_for :jumbotron do %>
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+  <div>
+    <%= image_tag "caten.png", class: "img-fluid", style:"max-height: 400px;" %>
+  </div>
+  <div>
+    <h1 class="display-4">歡迎光臨
       <%= t(:website) %></h1>
-    <p class="lead my-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
+    <p class="lead mt-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
     <p>歡迎會友透過此網站查看教會最新消息以及報名參加活動!</p>
   </div>
 </div>
+<% end %>
 
 <div class="row mx-4">
   <div class="col-12 col-md-6 col-lg-3 py-1">
@@ -27,11 +28,7 @@ set_meta_tags og: {
         <h2 class="card-title">教會資訊</h2>
         <p class="card-text">點此前往公布欄，查看最新的教會消息</p>
       </div>
-      <%= link_to "公布欄", announcements_path, class: "btn btn-outline-success mx-auto"%>
-      <div class="card-block">
-        <p class="card-text">或想了解教會的基本訊息，電話地址等，請點此了解更多</p>
-      </div>
-      <%= link_to t('pages.info'), info_path, class: "btn btn-outline-success mx-auto"%>
+      <%= link_to "公布欄", announcements_path, class: "btn btn-lg btn-outline-success mx-auto"%>
     </div>
   </div>
 

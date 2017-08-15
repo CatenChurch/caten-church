@@ -1,4 +1,4 @@
-class Admin::EventsController < AdminController
+class Admin::EventsController < Admin::BaseController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :download]
 
   def index
@@ -45,7 +45,7 @@ class Admin::EventsController < AdminController
 
   def destroy
     @event.destroy
-    redirect_to admin_events_path
+    redirect_to admin_events_url
     flash[:danger] = '活動已刪除'
   end
 

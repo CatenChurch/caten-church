@@ -1,0 +1,17 @@
+<%= link_to t('button.back'), admin_contacts_path, class: "btn btn-secondary mr-auto" %>
+<h1 class="text-center"><%= t('contact.edit') %></h1>
+<%= simple_form_for(@contact, url: admin_contact_url(@contact)) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.input :name, label: t('contact.name') %>
+  <%= f.input :email, label: t('contact.email') %>
+  <%= f.input :phone, label: t('contact.phone') %>
+  <%= f.input :message, label: t('contact.message'), as: :text, input_html: {rows: 8} %>
+  <%= f.input :handled, label: t('contact.handle_status') %>
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, t('button.submit'), class: "btn btn-primary" %>
+</div>
+<% end %>

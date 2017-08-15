@@ -1,13 +1,13 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <p>
-      <%= link_to t('pages.root'), root_path %>
-      >
-      <%= t('pages.about') %>
-    </p>
-    <h1 class="display-4 text-center">像耶穌一樣愛人</h1>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= link_to t('pages.about'), about_path %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.about') %></h1>
+<p class="lead text-center">像耶穌一樣愛人</p>
+<% end %>
 
 <div class="container">
   <p>茄典教會位於一個在高雄名叫蚵仔寮的小漁村，這裡沒有都市的繁華，沒有太多高級物質的生活，但在這裡信仰耶穌基督的人們內心卻富有無比。</p>
