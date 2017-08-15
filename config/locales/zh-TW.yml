@@ -1,65 +1,84 @@
 'zh-TW':
-  y: "是"
-  n: "否"
-  sure?: "確定執行動作嗎?"
+  y: '是'
+  n: '否'
+  sure?: '確定執行動作嗎?'
+  success: '成功'
+  failed: '失敗'
   pages:
-    root: "首頁"
-    about: "關於茄典"
-    info: "教會資訊"
-    contact: "聯絡我們"
-    events: "活動專區"
-    sign_in: "登入"
-    sign_up: "註冊"
+    root: '首頁'
+    account: '會員中心'
+    account_events: '我的活動'
+    account_profile: '個人資料'
+    edit_user: '帳號設定'
+    youtube: 'Youtube'
+    term: '隱私條款'
+    about: '關於茄典'
+    info: '教會資訊'
+    contact: '聯絡我們'
+    announcements: '教會公告'
+    events: '活動專區'
+    sign_in: '登入'
+    sign_up: '註冊'
   contact:
-    _: "聯絡訊息"
-    all: "所有聯絡訊息"
-    name: "姓名"
-    phone: "電話"
-    email: "E-mail"
-    message: "訊息"
-    created: "您的訊息已成功送出，請稍候等待我們的回覆。"
-    created_at: "建立於"
+    _: '聯絡訊息'
+    all: '所有聯絡訊息'
+    edit: '編輯聯絡訊息'
+    name: '姓名'
+    phone: '電話'
+    email: 'E-mail'
+    message: '訊息'
+    created: '您的訊息已成功送出，請稍候等待我們的回覆。'
+    created_at: '建立於'
+    handle_status: '處理進度'
+    handle:
+      y: '已處理'
+      n: '待處理'
   my_contact:
-    facebook: "https://www.facebook.com/caten.church.teens"
-    github: "https://github.com/CatenChurch"
-    youtube: "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w"
-    tel: "07-617-8379"
-    fax: "07-619-1553"
-    tax: "20252897"
-    address: "826-47 高雄市梓官區茄苳里嘉展路 467 號"
-    email: "catenforjesus@gmail.com"
-    office_hour: "二 - 日 / 09:30 - 18:00"
-    line@: "line.me/R/ti/p/%40kfi8062r"
+    facebook: 'facebook.com/caten.church.teens'
+    github: 'github.com/CatenChurch'
+    youtube: 'youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w'
+    tel: '07-617-8379'
+    fax: '07-619-1553'
+    tax: '20252897'
+    address: '826-47 高雄市梓官區茄苳里嘉展路 467 號'
+    email: 'catenforjesus@gmail.com'
+    office_hour: '上班時間：二 - 日 / 09:30 - 18:00'
+    worship_time: '主日崇拜：日 09:50 - 11:30'
+    line@: 'line.me/R/ti/p/%40kfi8062r'
   button:
-    back: "返回"
-    edit: "編輯"
-    join: "報名"
-    cancel: "取消"
-    submit: "送出"
-    sign_in: "登入"
-    sign_up: "註冊"
-    more: "詳情"
-    destroy: "刪除"
+    back: '返回'
+    edit: '編輯'
+    join: '報名'
+    cancel: '取消'
+    submit: '送出'
+    sign_in: '登入'
+    sign_up: '註冊'
+    more: '詳情'
+    destroy: '刪除'
+    clear: '清除條件'
+    handle:
+      y: '處理'
+      n: '待處理'
   web:
-    search_conditions: "搜尋條件"
+    search_conditions: '搜尋條件'
   user:
-    _: "會員"
-    all: "會員一覽"
-    download_excel: "下載所有會員的 Excel 報表"
-    email: "Email"
+    _: '會員'
+    all: '會員一覽'
+    download_excel: '下載所有會員的 Excel 報表'
+    email: 'Email'
   profile:
-    _: "個人資料"
-    name: "姓名"
-    phone: "聯絡電話"
-    cellphone: "行動電話"
-    sex: "性別"
-    birth_month: "生日月份"
-    id_number: "身分證字號"
-    emergency_contact: "緊急聯絡人電話"
+    _: '個人資料'
+    name: '姓名'
+    phone: '聯絡電話'
+    cellphone: '行動電話'
+    sex: '性別'
+    birth_month: '生日月份'
+    id_number: '身分證字號'
+    emergency_contact: '緊急聯絡人電話'
     error:
-      id_number: "必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字"
-  website: "茄典教會"
-  home_page: "首頁"
+      id_number: '必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字'
+  website: '茄典教會'
+  home_page: '首頁'
   # navbar
   admin_system : '管理員後台'
   my_groups : '我的群組'
@@ -74,11 +93,11 @@
   user_id : '擁有者id'
   download_excel : '下載 Excel'
   youtube : 'YouTube'
-  from: "從"
-  to: "至"
-  need: "需要"
-  no_need: "不需要"
-  free: "免費"
+  from: '從'
+  to: '至'
+  need: '需要'
+  no_need: '不需要'
+  free: '免費'
   # groups
   new_group : '新增討論版'
   new_post : '新增文章'
@@ -121,32 +140,32 @@
   back_to_event : '回到活動'
   my_events : '我的活動'
   sign_up_time : '報名時間'
-  events: "活動"
+  events: '活動'
   event:
-    _: "活動"
-    all: "活動一覽"
-    name: "活動名稱"
-    registration_time: "報名時間"
-    sign_up_begin: "報名開始"
-    sign_up_end: "報名截止"
-    participants: "報名者"
-    show_participants: "顯示報名人數"
-    participants_count: "報名人數"
-    nature: "性質"
-    create: "新增活動"
-    check_arrival: "需要確認報到"
-    registery_fee: "報名費用"
+    _: '活動'
+    all: '活動一覽'
+    name: '活動名稱'
+    registration_time: '報名時間'
+    sign_up_begin: '報名開始'
+    sign_up_end: '報名截止'
+    participants: '報名者'
+    show_participants: '顯示報名人數'
+    participants_count: '報名人數'
+    nature: '性質'
+    create: '新增活動'
+    check_arrival: '需要確認報到'
+    registery_fee: '報名費用'
 
   event_user:
-    remark: "填寫組隊報名好友"
+    remark: '填寫組隊報名好友'
     paid:
-      check: "確認繳費"
-      y: "已繳費"
-      n: "尚未繳費"
+      check: '確認繳費'
+      y: '已繳費'
+      n: '尚未繳費'
     arrival:
-      check: "確認報到"
-      y: "已報到"
-      n: "尚未報到"
+      check: '確認報到'
+      y: '已報到'
+      n: '尚未報到'
   name : '姓名'
   sex : '性別'
   birth : '生日'
@@ -165,14 +184,14 @@
 
   # announcement
   announcement:
-    _: "公告"
+    _: '公告'
   announcements : '公告'
   new_announcement : '新增公告'
 
   # seo
-  seo_description: "大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!"
+  seo_description: '大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!'
 
 
 
-  backstage:  "後台"
-  account: "帳戶"
+  backstage:  '後台'
+  account: '帳戶'
