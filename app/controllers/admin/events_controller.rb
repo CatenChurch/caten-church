@@ -45,7 +45,7 @@ class Admin::EventsController < Admin::BaseController
 
   def destroy
     @event.destroy
-    redirect_to admin_events_path
+    redirect_to admin_events_url
     flash[:danger] = '活動已刪除'
   end
 
