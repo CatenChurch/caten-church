@@ -27,7 +27,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: mylocaldb
+  database: caten_church_dev
   pool: 5
   username: Xin
   password:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521070548) do
+ActiveRecord::Schema.define(version: 20170815020908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20170521070548) do
     t.integer  "user_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.text     "message"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "handled",    default: false
+  end
+
   create_table "event_users", force: :cascade do |t|
     t.integer  "event_id"
     t.integer  "user_id"
@@ -31,6 +41,10 @@ ActiveRecord::Schema.define(version: 20170521070548) do
     t.datetime "updated_at",                 null: false
     t.boolean  "paid",       default: false
     t.boolean  "arrival",    default: false
+    t.string   "remark"
+    t.index ["event_id", "user_id"], name: "index_event_users_on_event_id_and_user_id", unique: true, using: :btree
+    t.index ["event_id"], name: "index_event_users_on_event_id", using: :btree
+    t.index ["user_id"], name: "index_event_users_on_user_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -49,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170521070548) do
     t.integer  "participants_count", default: 0
     t.integer  "registery_fee"
     t.boolean  "check_arrival",      default: false
+    t.boolean  "show_participants",  default: true
     t.index ["check_arrival"], name: "index_events_on_check_arrival", using: :btree
   end
 

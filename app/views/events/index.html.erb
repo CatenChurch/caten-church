@@ -1,11 +1,16 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">活動報名專區</h1>
-    <p class="lead my-4">以下是活動一覽，點選活動查看詳情與報名。</p>
-    <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary pull-right"%>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= link_to t('pages.events'), events_path %>
+<% end %>
 
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.events') %></h1>
+<p class="lead text-center">點選活動以報名與查看詳情。</p>
+<div class="d-flex">
+  <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary ml-auto"%>
+</div>
+<% end %>
 <div class="container">
 
   <h2>
@@ -18,10 +23,10 @@
       <div class="card h-100 pb-1">
         <div class="card-block">
           <h3 class="card-title"><%= event.name %></h3>
-          <p class="card-text"><%= event.description %></p>
+          <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          <li class="list-group-item"><%= t('event.participants_count') %>:<%= event.show_participants_count %></li>
         </ul>
         <div class="card-footer">
           <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>
@@ -43,10 +48,10 @@
       <div class="card h-100 pb-1">
         <div class="card-block">
           <h3 class="card-title"><%= event.name %></h3>
-          <p class="card-text"><%= event.description %></p>
+          <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">報名人數:<%= event.participants_count %></li>
+          <li class="list-group-item"><%= t('event.participants_count') %>:<%= event.show_participants_count %></li>
         </ul>
         <div class="card-footer">
           <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>

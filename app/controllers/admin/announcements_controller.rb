@@ -1,4 +1,4 @@
-class Admin::AnnouncementsController < AdminController
+class Admin::AnnouncementsController < Admin::BaseController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy, :post_to_facebook]
 
   def index

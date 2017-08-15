@@ -10,9 +10,10 @@
       <th><%= t(:email) %></th>
       <th><%= t('profile.phone') %></th>
       <th><%= t('profile.emergency_contact') %></th>
-      <% end %>
       <th><%= t('event_user.paid.check') %></th>
       <th><%= t('event_user.arrival.check') %></th>
+      <th><%= t('event_user.remark') %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -32,9 +33,10 @@
         <%= profile.cellphone %>
       </td>
       <td><%= profile.emergency_contact %></td>
-      <% end %>
       <td><%= paid(event_user.paid) %></td>
       <td><%= arrival(event_user.arrival) %></td>
+      <td><%= event_user.remark %></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

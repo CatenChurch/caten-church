@@ -24,21 +24,17 @@ $caten-blue: #05092E;
 $white: #FCFCFC;
 $purple: #7952b3;
 $silver: #ECEEEF;
+$black: #000000;
 footer {
   background-color: #3A3335;
   letter-spacing: 2px;
   text-align: center;
 }
-main {
-  min-height: 700px;
+
+main{
+  min-height: 300px;
 }
-#home-bk-img{
-  width: 100%;
-  height: 300px;
-}
-#youtube .youtube_video{
-  margin-bottom: 10px;
-}
+
 .bg-white {
   background: $white;
 }
@@ -80,18 +76,60 @@ main {
       background-image: none;
       background-color: transparent;
       border-color: $sky;
+      @include media-breakpoint-up(md) {
+        min-height: 350px;
+      }
       &:hover {
         border-color: $purple;
       }
   }
 }
 .jumbotron-color{
-  color: $white;
+  border-radius: 0px;
   background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
+  *{
+    color: $white;
+  }
+  a{
+    &:hover{
+      color: $white;
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    h1 {
+      font-size: 36px;
+    }
+  }
 }
 .bg-silver {
   background-color: $silver;
 }
 #admin-main{
-  padding-top: 60px;
+  margin-top: 54px;
+}
+.caten-link{
+  text-decoration: none;
+  color: $black;
+  &:hover {
+    color: $purple;
+    text-decoration: none;
+  }
+}
+.purple{
+  color: $purple;
+}
+.btn-purple{
+  color: $white;
+  background-color: $purple;
+}
+
+.btn-outline-purple{
+  color: $purple;
+  background-color: transparent;
+  border-color: $purple;
+  &:hover{
+    color: $white;
+    background-color: $purple;
+  }
+
 }

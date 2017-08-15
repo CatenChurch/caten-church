@@ -1,0 +1,10 @@
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= link_to t('pages.announcements'), announcements_path %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.announcements') %></h1>
+<p class="lead text-center">以下是教會消息一覽，點選消息查看詳細內容。</p>
+<% end %>

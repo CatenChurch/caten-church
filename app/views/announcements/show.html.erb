@@ -1,10 +1,9 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container">
-    <h1 class="display-3">教會消息</h1>
-    <p class="lead my-4">以下是完整的教會消息。</p>
-		<%= link_to '消息列表', announcements_path, class:"btn btn-secondary pull-right" %>
-	</div>
-</div>
+<%= render 'jumbotron' %>
+<% content_for :breadcrumb do %>
+>
+<%= link_to @announcement.title, announcement_path(@announcement) %>
+<% end %>
+
 <div class="container">
   <%= render 'announcement', :announcement => @announcement %>
 </div>

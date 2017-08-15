@@ -3,7 +3,7 @@
 	<div class="card-block">
 		<h3 class="card-title"><%= event.name %></h3>
 		<p class="card-text my-4"><%= simple_format event.description %></p>
-		<table class="table table-bordered hidden-xs-down">
+		<table class="table table-bordered d-none d-sm-table">
 			<thead class="thead-default">
 				<tr>
 					<th><%= t(:nature)%></th>
@@ -15,7 +15,7 @@
 			<tbody>
 				<tr>
 					<td><%= event.nature %></td>
-					<td><%= event.participants_count %></td>
+					<td><%= event.show_participants_count %></td>
 					<td><%= event.min_sign_up_number %></td>
 					<td><%= event.max_sign_up_number %></td>
 				</tr>
@@ -38,18 +38,24 @@
 			</tbody>
 			<thead class="thead-default">
 				<tr>
-					<th><%= t('event.check_arrival')%></th>
-					<th><%= t('event.registery_fee')%></th>
+					<th><%= t('event.check_arrival') %></th>
+					<th><%= t('event.registery_fee') %></th>
+					<% if render_for_admin %>
+					<th><%= t('event.show_participants') %></th>
+					<% end %>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td><%= need(event.check_arrival) %></td>
 					<td><%= fee(event.registery_fee) %></td>
+					<% if render_for_admin %>
+					<td><%= boolean_to_y_or_n(event.show_participants) %></td>
+					<% end %>
 				</tr>
 			</tbody>
 		</table>
-		<table class="table table-bordered hidden-sm-up">
+		<table class="table table-bordered d-sm-none">
 			<tbody>
 				<tr>
 					<th class="bg-silver"><%= t(:nature)%></th>
@@ -57,7 +63,7 @@
 				</tr>
 				<tr>
 					<th class="bg-silver"><%= t(:event_participants_number)%></th>
-					<td><%= event.participants_count %></td>
+					<td><%= event.show_participants_count %></td>
 				</tr>
 				<tr>
 					<th class="bg-silver"><%= t(:min_sign_up_number)%></th>
@@ -91,6 +97,10 @@
 					<th class="bg-silver"><%= t('event.registery_fee')%></th>
 					<td><%= fee(event.registery_fee) %></td>
 				</tr>
+				<% if render_for_admin %>
+				<th class="bg-silver"><%= t('event.show_participants')%></th>
+				<td><%= boolean_to_y_or_n(event.show_participants) %></td>
+				<% end %>
 			</tbody>
 		</table>
 	</div>
@@ -98,10 +108,14 @@
 	<div class="card-block">
 		<% if user_signed_in? %>
 		<% if current_user.is_participant_of_event?(@event) %>
-		<%= link_to( t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning") %>
-		<%= link_to t(:event_participants_list), participants_event_path(@event), class: "btn btn-info" %>
+		<%= link_to t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning" %>
+		<%= link_to t(:event_participants_list), participants_event_path(@event), class: "btn btn-info" if @event.show_participants%>
 	<% else %>
-		<%= link_to("報名活動", join_event_path(@event), method: :post, class: "btn btn-success") %>
+		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
+		<label class="mr-2"><%= t('event_user.remark') %></label>
+		<%= text_field_tag :remark, nil, class: "form-control" %>
+		<%= submit_tag t('button.join'), class: "ml-auto btn btn-success", data: { disable_with: "Submitting..." } %>
+		<% end %>
 		<% end %>
 		<% end %>
 	</div>

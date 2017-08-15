@@ -3,7 +3,7 @@
 <div class="form-group">
   <%= f.input :name, label: t(:event_name) %>
   <%= f.input :nature, label: t(:nature) %>
-  <%= f.input :description, label: t(:description) %>
+  <%= f.input :description, label: t(:description), as: :text, input_html: {rows: 8} %>
   <%= f.input :max_sign_up_number, label: t(:max_sign_up_number) %>
   <%= f.input :min_sign_up_number, label: t(:min_sign_up_number) %>
   <%= f.input :sign_up_begin, label: t(:sign_up_begin) %>
@@ -12,6 +12,7 @@
   <%= f.input :over, label: t(:event_over) %>
   <%= f.input :check_arrival, label: t('event.check_arrival') %>
   <%= f.input :registery_fee, label: t('event.registery_fee') %>
+  <%= f.input :show_participants, label: t('event.show_participants') %>
 </div>
 <%= f.submit t(:submit), class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
 <% end %>

@@ -1,4 +1,8 @@
 source 'https://rubygems.org'
+# new relic
+gem 'newrelic_rpm'
+# SEO sitemap
+gem 'sitemap_generator'
 # kaminari 分頁
 # $rails g kaminari:views bootstrap4
 gem 'kaminari'
@@ -82,6 +86,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # Rspec
+  gem 'rspec-rails', '~> 3.5'
   # factory_girl
   gem 'factory_girl_rails'
   # 假資料

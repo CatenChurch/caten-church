@@ -78,6 +78,10 @@ class Event < ApplicationRecord
     end
   end
 
+  def show_participants_count
+    show_participants ? participants_count : '?'
+  end
+
   private
 
   def myValid
