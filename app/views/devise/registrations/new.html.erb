@@ -1,14 +1,14 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <p>
-      <%= link_to t('pages.root'), root_path %>
-      >
-      <%= t('pages.sign_up') %>
-    </p>
-    <h1 class="display-4 text-center">會員中心</h1>
-    <p class="lead my-4 text-center">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= t('pages.sign_up') %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.sign_up') %></h1>
+<p class="lead text-center">註冊會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-6">

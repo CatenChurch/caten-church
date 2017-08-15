@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'index', 'info', 'history', 'youtube', 'term', 'about', 'contact', controller: 'pages'
+  get 'index', 'youtube', 'term', 'about', 'contact', controller: 'pages'
   # google site verification
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
 

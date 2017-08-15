@@ -1,10 +1,16 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">個人活動管理</h1>
-    <p class="lead my-4">顯示曾經報名了哪些活動。 前往<%= link_to "活動", events_path, class: "btn btn-success mx-2" %>查看其他活動
-    </p>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= t('pages.account') %>
+>
+<%= t('pages.account_events') %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.account_events') %></h1>
+<p class="lead text-center">顯示曾經報名了哪些活動。 前往<%= link_to t('pages.events'), events_path, class: "btn btn-info mx-2" %>查看與報名其他活動。</p>
+<% end %>
+
 <div class="container">
   <table class="table">
     <thead class="thead-default">

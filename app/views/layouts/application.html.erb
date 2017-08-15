@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <%= render 'common/header'%>
-</head>
-<body>
-  <%= render 'common/navbar'%>
-  <%= notice_message %>
-  <main>
-    <%= yield %>
-  </main>
-  <%= render 'common/footer'%>
-</body>
+  <head>
+    <%= render 'common/header'%>
+  </head>
+  <body>
+    <%= render 'common/navbar'%>
+    <%= notice_message %>
+    <%= render 'common/jumbotron'%>
+    <main class="p-4">
+      <%= yield %>
+    </main>
+    <%= render 'common/footer'%>
+  </body>
 </html>

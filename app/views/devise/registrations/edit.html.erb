@@ -1,36 +1,44 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">帳號設定</h1>
-    <p class="lead my-4">更改帳號或密碼，以及綁定社群帳號以使用社群帳號登入網站等功能。</p>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= t('pages.account') %>
+>
+<%= t('pages.edit_user') %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.edit_user') %></h1>
+<p class="lead text-center">更改帳號或密碼，以及綁定社群帳號以使用社群帳號登入網站等功能。</p>
+<% end %>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-sm-12 my-2">
+    <div class="col-md-6 col-12 my-2">
       <div class="card h-100 my-2">
         <div class="card-block">
           <h2>更改帳號密碼</h2>
           <br>
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs">
-              <%= f.input :email, required: true, autofocus: true %>
-              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-              <% end %>
-              <%= f.input :password, autocomplete: "off", hint: "如果沒有要更改密碼，本行請留空", required: false, label: "新密碼" %>
-              <%= f.input :password_confirmation, required: false, label: "新密碼確認" %>
-              <%= f.input :current_password, hint: "請輸入舊密碼，來生效本次帳密設定。", required: true %>
-            </div>
-            <div class="form-actions">
-              <%= f.button :submit, "更改密碼", class: "btn btn-warning" %>
-            </div>
+          <%= f.error_notification %>
+          <div class="form-inputs">
+            <%= f.input :email, required: true, autofocus: true %>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>Currently waiting confirmation for:
+              <%= resource.unconfirmed_email %></p>
+            <% end %>
+            <%= f.input :password, autocomplete: "off", hint: "如果沒有要更改密碼，本行請留空", required: false, label: "新密碼" %>
+            <%= f.input :password_confirmation, required: false, label: "新密碼確認" %>
+            <%= f.input :current_password, hint: "請輸入舊密碼，來生效本次帳密設定。", required: true %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, "更改密碼", class: "btn btn-warning" %>
+          </div>
           <% end %>
         </div>
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-12 my-2">
+    <div class="col-md-6 col-12 my-2">
       <div class="card h-100 my-2">
         <div class="card-block">
           <h2>社群帳號</h2>

@@ -10,18 +10,17 @@
       <%= nav_li t(:youtube), youtube_path %>
       <%= nav_li t('pages.events'), events_path %>
       <%= nav_li t(:announcements), announcements_path %>
-      <div class="px-2"></div>
       <% if user_signed_in? %>
       <%= nav_li( t(:backstage), admin_path) if is_admin? %>
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= t(:account) %>
+          <%= t('pages.account') %>
           <span class="caret"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
           <%= link_to t(:my_events), account_events_path, class: "dropdown-item" %>
           <%= link_to t('profile._'), account_profile_path, class: "dropdown-item" %>
-          <%= link_to t(:edit_user_registration), edit_user_registration_path, class: "dropdown-item" %>
+          <%= link_to t('pages.edit_user'), edit_user_registration_path, class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
           <%= link_to t(:log_out), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
         </div>

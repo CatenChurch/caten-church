@@ -1,29 +1,32 @@
-<footer class="mt-5 footer bg-faded py-5">
+<footer class="footer bg-faded pt-4 pb-1">
   <div class="container">
-    <div class="row d-flex align-items-center justify-content-between">
-      <h5><%= link_to "關於茄典", about_path, class: "caten-link" %></h5>
-      <h5><%= link_to "聯絡我們", contact_path, class: "caten-link" %></h5>
-      <%= link_to t('my_contact.facebook'), class: "caten-link" do %>
+    <div class="d-flex flex-wrap align-items-center justify-content-between ">
+      <h5><%= link_to t('pages.about'), about_path, class: "caten-link" %></h5>
+      <h5><%= link_to t('pages.contact'), contact_path, class: "caten-link" %></h5>
+      <h5><%= link_to t('pages.term'), term_path, class: "caten-link" %></h5>
+      <div class="w-100 d-sm-none"></div>
+      <%= link_to "https://#{t('my_contact.facebook')}", class: "caten-link" do %>
       <%= fa_stacked_icon "facebook", base: "circle-thin", class: "fa-2x" %>
       <% end %>
-      <%= link_to t('my_contact.youtube'), class: "caten-link" do %>
+      <%= link_to "https://#{t('my_contact.youtube')}", class: "caten-link" do %>
       <%= fa_stacked_icon "youtube", base: "circle-thin", class: "fa-2x" %>
       <% end %>
-      <%= link_to t('my_contact.github'), class: "caten-link" do %>
+      <%= link_to "https://#{t('my_contact.github')}", class: "caten-link" do %>
       <%= fa_stacked_icon "github", base: "circle-thin", class: "fa-2x" %>
       <% end %>
     </div>
-    <div class="row mt-4 d-flex align-items-baseline justify-content-around">
-      <div>
-        <tel class="lead purple"><%= t('my_contact.tel') %></tel>
-        <p class="small"><%= t('my_contact.office_hour') %></p>
+    <div class="d-flex flex-wrap align-items-baseline justify-content-around">
+      <div class="pt-4">
+        <div class="text-muted"><%= t('my_contact.worship_time') %></div>
+        <div class="text-muted"><%= t('my_contact.office_hour') %></div>
       </div>
-      <div>
+      <div class="pt-4">
+        <div class="lead purple"><%= t('my_contact.tel') %></div>
         <%= mail_to t('my_contact.email'), t('my_contact.email'), class: "caten-link" %>
-        <address><%= t('my_contact.address') %></address>
+        <div><%= t('my_contact.address') %></div>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="mt-4">
       <div class="mx-auto">
         ©
         <%= Date.today.year %>

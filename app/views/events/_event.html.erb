@@ -3,7 +3,7 @@
 	<div class="card-block">
 		<h3 class="card-title"><%= event.name %></h3>
 		<p class="card-text my-4"><%= simple_format event.description %></p>
-		<table class="table table-bordered hidden-xs-down">
+		<table class="table table-bordered d-none d-sm-table">
 			<thead class="thead-default">
 				<tr>
 					<th><%= t(:nature)%></th>
@@ -38,10 +38,10 @@
 			</tbody>
 			<thead class="thead-default">
 				<tr>
-					<th><%= t('event.check_arrival')%></th>
-					<th><%= t('event.registery_fee')%></th>
+					<th><%= t('event.check_arrival') %></th>
+					<th><%= t('event.registery_fee') %></th>
 					<% if render_for_admin %>
-					<th><%= t('event.show_participants')%></th>
+					<th><%= t('event.show_participants') %></th>
 					<% end %>
 				</tr>
 			</thead>
@@ -55,7 +55,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="table table-bordered hidden-sm-up">
+		<table class="table table-bordered d-sm-none">
 			<tbody>
 				<tr>
 					<th class="bg-silver"><%= t(:nature)%></th>

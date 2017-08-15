@@ -5,10 +5,10 @@
   <%= link_to "後台管理", admin_path, class: "navbar-brand" %>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto hidden-sm-up">
-      <%= nav_li "會員", admin_members_path %>
-      <%= nav_li "活動", admin_events_path %>
-      <%= nav_li "佈告欄", admin_announcements_path %>
+    <ul class="navbar-nav mr-auto d-sm-none">
+      <%= nav_li t('user._'), admin_members_path %>
+      <%= nav_li t('event._'), admin_events_path %>
+      <%= nav_li t('announcement._'), admin_announcements_path %>
     </ul>
     <ul class="navbar-nav ml-auto">
       <%= nav_li "回到前台", root_path %>
