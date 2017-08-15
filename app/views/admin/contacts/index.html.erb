@@ -7,6 +7,9 @@
   <div class="card my-2">
     <div class="card-block">
       <%= search_form_for @q, url: admin_contacts_url, class: "form-inline my-2 mx-5" do |f| %>
+      <%= f.label t('contact.handle.y'), class: "mr-1" %>
+      <%= f.check_box :handled_eq, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
       <%= f.label t('contact.name'), class: "mr-1" %>
       <%= f.search_field :name_cont, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
@@ -16,7 +19,8 @@
       <%= f.label t('contact.email'), class: "mr-1" %>
       <%= f.search_field :email_cont, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
-      <%= f.submit class: "btn btn-secondary mx-2 ml-auto" %>
+      <%= link_to t('button.clear'), admin_contacts_path, class: "btn btn-secondary ml-auto" %>
+      <%= f.submit class: "btn btn-secondary mx-2 ml-1" %>
       <% end %>
     </div>
   </div>
@@ -30,6 +34,7 @@
       <th><%= t('contact.email') %></th>
       <th><%= t('contact.message') %></th>
       <th><%= t('contact.created_at') %></th>
+      <th><%= t('contact.handle_status') %></th>
       <th>#</th>
     </tr>
   </thead>
@@ -38,9 +43,10 @@
     <tr>
       <td><%= contact.name %></td>
       <td><%= contact.phone %></td>
-      <td><%= contact.email %></td>
+      <td><%= mail_to contact.email %></td>
       <td><%= truncate(contact.message, length: 20) %></td>
       <td><%= my_time(contact.created_at) %></td>
+      <td><%= handle_status(contact.handled) %></td>
       <td>
         <%= link_to t('button.more'), admin_contact_path(contact), class: "btn btn-info" %>
         <%= link_to t('button.destroy'), admin_contact_path(contact), class: "btn btn-danger", method: :delete, data: { confirm: t('sure?') } %>
