@@ -19,8 +19,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 # 密碼等 ENV value 保護
 gem 'figaro'
-# model schema comment
-gem 'annotate'
 # markdown語法轉成html
 # 參考：https://ruby-china.org/topics/474
 gem 'redcarpet'
