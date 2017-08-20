@@ -45,9 +45,15 @@ sitemap: caten-church.herokuapp.com/sitemap.xml.gz
 
 如果counter cache出錯了，則進入rails console用此方法重整
 
-```bash
+```ruby
 # 例如想重整 event.id = 15 的 participants_count
 Event.reset_counters 15, :participants
+```
+
+或使用 lib/tasks/counter_cache.rake 重整
+
+```bash
+$ rake counter_cache:reset_all
 ```
 
 ## Heroku
