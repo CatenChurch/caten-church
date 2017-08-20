@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815020908) do
+ActiveRecord::Schema.define(version: 20170820123718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,36 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
+  create_table "service_schedules", force: :cascade do |t|
+    t.integer  "service_team_id"
+    t.datetime "service_time"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["service_team_id"], name: "index_service_schedules_on_service_team_id", using: :btree
+    t.index ["service_time"], name: "index_service_schedules_on_service_time", using: :btree
+  end
+
+  create_table "service_team_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.integer  "service_team_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["role_id"], name: "index_service_team_users_on_role_id", using: :btree
+    t.index ["service_team_id"], name: "index_service_team_users_on_service_team_id", using: :btree
+    t.index ["user_id"], name: "index_service_team_users_on_user_id", using: :btree
+  end
+
+  create_table "service_teams", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "schedules_count", default: 0, null: false
+    t.integer  "users_count",     default: 0, null: false
+    t.index ["user_id"], name: "index_service_teams_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -129,4 +159,9 @@ ActiveRecord::Schema.define(version: 20170815020908) do
   add_foreign_key "announcements", "users"
   add_foreign_key "oauths", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "service_schedules", "service_teams"
+  add_foreign_key "service_team_users", "roles"
+  add_foreign_key "service_team_users", "service_teams"
+  add_foreign_key "service_team_users", "users"
+  add_foreign_key "service_teams", "users"
 end
