@@ -1,5 +1,4 @@
-class Account::ProfilesController < AccountController
-  authorize_resource :account
+class Account::ProfilesController < Account::BaseController
   before_action :get_profile, only: [:show, :edit, :update]
 
   def new
