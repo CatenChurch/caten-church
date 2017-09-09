@@ -33,11 +33,6 @@ class User < ApplicationRecord
     profile.present? && profile.valid?
   end
 
-  # check role is admin
-  def is_manager?
-    self && has_any_role?(:admin)
-  end
-
   def is_first_time_sign_in?
     sign_in_count <= 1
   end

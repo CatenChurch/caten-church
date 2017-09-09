@@ -4,6 +4,9 @@
   sure?: '確定執行動作嗎?'
   success: '成功'
   failed: '失敗'
+  cancancan:
+    login_first: '請先登入'
+    not_admin: '需要管理員權限'
   pages:
     root: '首頁'
     account: '會員中心'
