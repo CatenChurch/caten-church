@@ -104,20 +104,15 @@
 			</tbody>
 		</table>
 	</div>
-	<% if !render_for_admin %>
+	<% unless render_for_admin %>
 	<div class="card-block">
-		<% if user_signed_in? %>
-		<% if current_user.is_participant_of_event?(@event) %>
-		<%= link_to t(:quit_event), quit_event_path(@event), method: :post, class: "btn btn-warning" %>
-		<%= link_to t(:event_participants_list), participants_event_path(@event), class: "btn btn-info" if @event.show_participants%>
-	<% else %>
+		<%= link_to t('event.quit'), quit_event_path(@event), method: :post, class: "btn btn-warning" if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
+		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-info" if @event.show_participants && current_user.joined?(@event) %>
 		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
-		<label class="mr-2"><%= t('event_user.remark') %></label>
-		<%= text_field_tag :remark, nil, class: "form-control" %>
-		<%= submit_tag t('button.join'), class: "ml-auto btn btn-success", data: { disable_with: "Submitting..." } %>
-		<% end %>
-		<% end %>
-		<% end %>
+			<label class="mr-2"><%= t('event_user.remark') %></label>
+			<%= text_field_tag :remark, nil, class: "form-control" %>
+			<%= submit_tag t('event.join'), class: "ml-auto btn btn-success", data: { disable_with: t('button.submitting') } %>
+		<% end if user_signed_in? && !current_user.joined?(@event) && @event.on_registration? %>
 	</div>
 	<% end %>
 </div>

@@ -33,25 +33,26 @@ class User < ApplicationRecord
     profile.present? && profile.valid?
   end
 
-  def is_first_time_sign_in?
+  def first_time_sign_in?
     sign_in_count <= 1
   end
 
-  def self.email_has_been_used?(email)
-    !where(email: email).blank?
-  end
-
   # event
-  def join_event(event)
-    participated_events << event
+  def joined?(event)
+    EventUser.find_by(user: self, event: event).present?
   end
 
-  def quit_event(event)
-    participated_events.destroy(event)
+  def join(event, params = {})
+    event_user = EventUser.new(params)
+    event_user.user = self
+    event_user.event = event
+    event_user.save!
   end
 
-  def is_participant_of_event?(event)
-    participated_events.include?(event)
+  def quit(event)
+    event_user = EventUser.find_by(user: self, event: event)
+    raise ActiveRecord::RecordNotFound unless event_user
+    event_user.destroy
   end
 
   # user connect omniauth
