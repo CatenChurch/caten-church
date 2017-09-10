@@ -30,7 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   protected
   def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && resource.is_first_time_sign_in?
+    if resource.is_a?(User) && resource.first_time_sign_in?
       flash[:info] = "此網站的帳號為Facebook的信箱，密碼隨機產生，可於之後更改密碼。第一次使用Facebook登入者，請填寫個人資料。"
       new_account_profile_path
     else
