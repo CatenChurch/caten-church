@@ -11,7 +11,9 @@
     root: '首頁'
     account: '會員中心'
     account_events: '我的活動'
-    account_profile: '個人資料'
+    profile: '個人資料'
+    edit_profile: '編輯個人資料'
+    new_profile: '新增個人資料'
     edit_user: '帳號設定'
     youtube: 'Youtube'
     term: '隱私條款'
@@ -79,6 +81,11 @@
     birth_month: '生日月份'
     id_number: '身分證字號'
     emergency_contact: '緊急聯絡人電話'
+    created: '建立個人資料成功'
+    create_failed: '建立個人資料失敗'
+    updated: '更新個人資料成功'
+    update_failed: '更新個人資料失敗'
+    no_profile: '尚未建立個人資料'
     error:
       id_number: '必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字'
   website: '茄典教會'
@@ -192,7 +199,6 @@
   email : 'Email'
   address : '地址'
   education : '學歷'
-  no_profile : '沒有建立個人資料'
 
   # devise
   log_in : '登入'

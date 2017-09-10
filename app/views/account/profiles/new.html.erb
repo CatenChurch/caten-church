@@ -1,10 +1,9 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">個人資料</h1>
-    <p class="lead my-4">填寫個人資料以報名活動，使用者的個人資料本網站會妥善保護。詳細請參閱
-      <%= link_to "隱私條款", term_path, class: "btn btn-secondary" %></p>
-  </div>
-</div>
+<%= render 'jumbotron' %>
+
+<% content_for :breadcrumb do %>
+> <%= t('pages.new_profile') %>
+<% end %>
+
 <div class="container">
   <h1>填寫個人資料<%= link_to t(:back), account_profile_path, class: "btn btn-secondary ml-2" %></h1>
   <%= render 'form' %>
