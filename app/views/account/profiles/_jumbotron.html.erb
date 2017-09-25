@@ -1,0 +1,12 @@
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= t('pages.account') %>
+>
+<%= link_to t('pages.profile'), account_profile_path %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.profile') %></h1>
+<p class="lead text-center">填寫個人資料以報名活動，使用者的個人資料本網站會妥善保護。詳細請參閱<%= link_to t('pages.term'), term_path, class: "mx-2 btn btn-info" %>。</p>
+<% end %>

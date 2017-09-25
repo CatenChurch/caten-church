@@ -23,7 +23,8 @@
       <%= f.label t('profile.birth_month'), class: "mr-1" %>
       <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
-      <%= f.submit class: "btn btn-secondary mx-2 ml-auto" %>
+      <%= link_to t('button.clear'), admin_members_path, class: 'btn btn-secondary ml-auto' %>
+      <%= f.submit class: "btn btn-secondary mx-2" %>
       <% end %>
     </div>
   </div>

@@ -5,9 +5,9 @@ class Oauth < ApplicationRecord
 
   def self.find_or_create_user(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |oauth|
-      if oauth.user.blank? && !User.email_has_been_used?(auth.info.email)
-        puts "create user"
+      if !oauth.user_id? && !User.exists?(email: auth.info.email)
         oauth.create_user(email: auth.info.email, password: Devise.friendly_token[0,20])
+        Rails.logger.info "User #{oauth.user.id} created."
       end
     end
   end

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-color fixed-top">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-purple fixed-top">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -11,6 +11,13 @@
       <%= nav_li t('announcement._'), admin_announcements_path %>
       <%= nav_li t('contact._'), admin_contacts_path %>
     </ul>
+    <hr>
+    <ul class="navbar-nav mr-auto d-sm-none">
+      <%= nav_li t('service_team._'), admin_service_teams_path %>
+      <%= nav_li t('service_role._'), admin_service_roles_path %>
+      <%= nav_li t('service_schedule._'), admin_service_schedules_path %>
+    </ul>
+    <hr>
     <ul class="navbar-nav ml-auto">
       <%= nav_li "回到前台", root_path %>
     </ul>

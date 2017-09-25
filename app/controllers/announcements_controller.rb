@@ -1,5 +1,4 @@
 class AnnouncementsController < ApplicationController
-  skip_authorization_check
 
   def index
     @announcements = Announcement.all.order(id: :desc).page(params[:page])
@@ -8,4 +7,5 @@ class AnnouncementsController < ApplicationController
   def show
     @announcement = Announcement.find(params[:id])
   end
+  
 end
