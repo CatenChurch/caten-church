@@ -7,5 +7,7 @@ class Service::Team < ApplicationRecord
   has_many :users, through: :team_users, source: :user, counter_cache: :users_count
   has_many :schedules, foreign_key: 'service_team_id', counter_cache: :schedules_count, dependent: :destroy
 
-  validates_presence_of :name
+  accepts_nested_attributes_for :team_users, allow_destroy: true, reject_if: :all_blank
+
+  validates_presence_of :name, :user_id
 end

@@ -10,4 +10,6 @@ class Role < ApplicationRecord
             :allow_nil => true
 
   scopify
+
+  has_many :service_team_users, class_name: 'Service::TeamUser', dependent: :nullify
 end
