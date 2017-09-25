@@ -1,0 +1,135 @@
+<p class="text-muted">先點擊要輸入的框框，再利用成員搜尋器搜尋會員</p>
+<%= simple_form_for [:admin,@team] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name, label: t('service_team.name') %>
+  <div class="form-group">
+    <label for="leader-name"><%= t('service_team.leader') %></label>
+    <input id="leader-name" type="text" class="form-control" value="<%= f.object.try(:leader).try(:profile).try(:name) %>" onfocus="targetSearchInput($('#service_team_user_id'), $(this));">
+  </div>
+  <%= f.input :user_id, as: :hidden %>
+  <h3>成員</h3>
+  <%= f.fields_for :team_users do |tuf| %>
+    <div id="member-<%= tuf.index %>" class="d-flex flex-wrap" data-member="<%= tuf.index %>">
+      <div class="form-group">
+        <input id="member-#{tuf.index}-user" type="text" class="form-control" value="<%= tuf.object.try(:user).try(:profile).try(:name) %>" onfocus="targetSearchInput($(this).closest('div[id^=member]').children('input[id$=user-id]'), $(this));">
+      </div>
+      <div class="form-group ml-2">
+        <%= tuf.select :role_id, @roles, { include_blank: '角色' },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
+      </div>
+      <%= tuf.hidden_field :user_id, id: "member-#{tuf.index}-user-id" %>
+      <%= tuf.hidden_field :_destroy, id: "member-#{tuf.index}-destroy" %>
+      <%= link_to fa_icon('trash', text: '刪除成員'), '#delete-member', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
+      <div class="w-100"></div>
+    </div>
+  <% end %>
+  <%= link_to fa_icon('plus', text: '新成員'), '#add-member', onclick: 'addMember();', id: 'add-member' %>
+  <br>
+  <%= f.submit t('button.submit'), class: 'btn btn-primary', data: { disable_with: t('button.submitting') } %>
+<% end %>
+<hr>
+<h3>成員搜尋器</h3>
+<p class="text-muted ml-auto">點擊藍色標籤選擇會員</p>
+<div id="search-form" class="form-inline mb-2">
+  <label><%= "#{t('search')}#{t('user._')}" %></label>
+  <input id="search-name" type="text" class="form-control mx-2">
+  <button id="search-button" type="button" class="btn btn-secondary"><%= t('button.search') %></button>
+</div>
+<div id="search-result" class="d-none"></div>
+<script type="text/javascript">
+  var idDom;
+  var nameDom;
+  var teamUsersCount = <%= @team.users.size %>;
+  var classAttr = '';
+
+  function targetSearchInput(id, name) {
+    idDom = id;
+    nameDom = name;
+    $('input').removeClass('outline-purple');
+    nameDom.addClass('outline-purple');
+  }
+
+  function closeSearchResult() {
+    $('#search-result').attr('class', 'd-none');
+    $('input').removeClass('outline-purple');
+    nameDom.removeClass('outline-purple');
+  }
+
+  function addMember() {
+    if (teamUsersCount == 0) {
+      teamUsersCount++;
+    }
+    var lastMember = $(`#member-${teamUsersCount-1}`);
+    var newMember = lastMember.clone();
+    var user = newMember.find('input[id$=user]');
+    var role = newMember.find('select[id$=role-id]');
+    var user_id = newMember.find('input[id$=user-id]');
+    var destroy = newMember.find('input[id$=destroy]');
+    newMember.attr('id', `member-${teamUsersCount}`);
+    newMember.attr('data-member', `${teamUsersCount}`);
+    user.attr('id', `member-${teamUsersCount}-user`);
+    user.val(null);
+    role.attr('id', `member-${teamUsersCount}-role-id`);
+    role.attr('name', `service_team[team_users_attributes][${teamUsersCount}][role_id]`);
+    role.val(null);
+    user_id.attr('id', `member-${teamUsersCount}-user-id`);
+    user_id.attr('name', `service_team[team_users_attributes][${teamUsersCount}][user_id]`);
+    user_id.val(null);
+    destroy.attr('id', `member-${teamUsersCount}-destroy`);
+    destroy.attr('name', `service_team[team_users_attributes][${teamUsersCount}][_destroy]`);
+    destroy.val(null);
+    teamUsersCount++;
+    $('#add-member').before(newMember);
+  }
+
+  function deleteMember(id) {
+    var member = $(`#member-${id}`);
+    var redoHtml = `<div id="redo-member-${id}"><a href="#redo-member-${id}" onclick="redoMember(${id});"><%= fa_icon 'repeat', text: t('button.redo') %></a><div>`;
+
+    classAttr = member.attr('class');
+    member.attr('class','d-none');
+    member.children('input[id$=destroy]').val(true)
+    member.after(redoHtml);
+  }
+
+  function redoMember(id) {
+    var member = $(`#member-${id}`);
+    member.attr('class', classAttr);
+    member.find('input[id$=destroy]').val(false)
+    $(`#redo-member-${id}`).remove();
+  }
+
+  // 每當點擊 #search-button 會發出查詢至 /admin/members.json 以 #search-name 中填入的名字查詢哪些 users 的 profile.name 符合
+  // 根據回傳的符合者製成標籤，點選人名標籤即可填寫 user.id 至隱藏的表單 #service_team_user_id
+  $("#search-button").on("click", function(event) {
+    var name = $("#search-name").val();
+    $.ajax({
+      url: '<%= admin_members_url %>.json',
+      data: {
+        q: { profile_name_cont: name}
+      },
+      success: function(result) {
+        var searchResult = '';
+        var searchResultDom = $("#search-result");
+        var show = 'd-flex flex-wrap h5 bg-gray p-2 rounded';
+
+        if (result.users.length < 1) {
+          searchResult = '<div><%= t('no_result') %></div>'
+        }
+        for (i = 0; i < result.users.length; i++) {
+          if (result.users[i].name) {
+            searchResult += `<span href="#" data-id="${result.users[i].id}" class="badge badge-primary m-1 member">${result.users[i].name}</span>`;
+          }
+        }
+
+        searchResultDom.attr('class', show);
+        searchResultDom.html(searchResult);
+
+        $(".member").on("click", function(event) {
+          idDom.val($(this).data('id'));
+          nameDom.val($(this).html());
+          closeSearchResult();
+        });
+      }
+    });
+  });
+</script>

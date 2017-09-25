@@ -64,4 +64,8 @@ module ApplicationHelper
   def my_time(time)
     time.strftime("%Y/%m/%d %H:%M:%S")
   end
+
+  def bootstrap_time(time)
+    time.strftime "%Y-%m-%dT%H:%M"
+  end
 end
