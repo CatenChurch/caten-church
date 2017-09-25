@@ -7,7 +7,7 @@ class Admin::ServiceSchedulesController < Admin::BaseController
   end
 
   def new
-    @schedule = Service::Schedule.new
+    @schedule = Service::Schedule.new(service_time: Time.now)
   end
 
   def create
