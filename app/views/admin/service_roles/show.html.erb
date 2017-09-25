@@ -1,0 +1,25 @@
+<%= link_to t('service_role.all'), admin_service_roles_path, class: "btn btn-secondary mr-auto" %>
+<h1 class="text-center"><%= "#{t('service_role._')} : #{@role.name}"  %></h1>
+<div class="d-flex align-items-center">
+  <div class="mr-auto"></div>
+  <%= link_to t('button.edit'), edit_admin_service_role_path, class: "btn btn-primary mr-1" %>
+  <%= link_to t('button.destroy'), admin_service_role_path, method: :delete, class: "btn btn-danger", data: { confirm: t('sure?') } %>
+</div>
+<%= paginate @team_users %>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th><%= t('profile.name') %></th>
+      <th><%= t('service_team.name') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @team_users.each do |team_user| %>
+      <tr>
+        <td><%= link_to team_user.try(:user).try(:profile).try(:name), admin_member_path(team_user.user) %></td>
+        <td><%= link_to team_user.team.name, admin_service_team_path(team_user.team) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @team_users %>

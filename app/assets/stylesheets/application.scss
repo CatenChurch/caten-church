@@ -25,6 +25,7 @@ $white: #FCFCFC;
 $purple: #7952b3;
 $silver: #ECEEEF;
 $black: #000000;
+$gray: #bababa;
 footer {
   background-color: #3A3335;
   letter-spacing: 2px;
@@ -34,7 +35,9 @@ footer {
 main{
   min-height: 300px;
 }
-
+.bg-gray {
+  background: $gray;
+}
 .bg-white {
   background: $white;
 }
@@ -43,6 +46,9 @@ main{
 }
 .bg-sky {
   background: $sky;
+}
+.bg-purple {
+  background: $purple;
 }
 .bg-color{
   background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);

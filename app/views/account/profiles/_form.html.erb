@@ -14,5 +14,5 @@
 	<%= f.input :education, label:t(:education) %>
 </div>
 <%= f.input :terms_of_service, as: :boolean, label: sanitize("我已閱讀並且接受#{link_to('個資隱私保護條款',term_path).html_safe }的內容") %>
-<%= f.button :submit, class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+<%= f.button :submit, class: "btn btn-primary", data: { disable_with: t('button.submitting') } %>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815020908) do
+ActiveRecord::Schema.define(version: 20170913140739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "handled",    default: false
+    t.index ["handled"], name: "index_contacts_on_handled", using: :btree
   end
 
   create_table "event_users", force: :cascade do |t|
@@ -61,10 +62,15 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.datetime "updated_at",                         null: false
     t.integer  "user_id"
     t.integer  "participants_count", default: 0
-    t.integer  "registery_fee"
+    t.integer  "registery_fee",      default: 0
     t.boolean  "check_arrival",      default: false
     t.boolean  "show_participants",  default: true
     t.index ["check_arrival"], name: "index_events_on_check_arrival", using: :btree
+    t.index ["name"], name: "index_events_on_name", using: :btree
+    t.index ["over"], name: "index_events_on_over", using: :btree
+    t.index ["sign_up_begin"], name: "index_events_on_sign_up_begin", using: :btree
+    t.index ["sign_up_end"], name: "index_events_on_sign_up_end", using: :btree
+    t.index ["start"], name: "index_events_on_start", using: :btree
   end
 
   create_table "oauths", force: :cascade do |t|
@@ -73,6 +79,8 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.string   "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "token"
+    t.index ["provider", "uid"], name: "index_oauths_on_provider_and_uid", unique: true, using: :btree
     t.index ["user_id"], name: "index_oauths_on_user_id", using: :btree
   end
 
@@ -89,7 +97,12 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.datetime "updated_at",        null: false
     t.string   "id_number"
     t.string   "emergency_contact"
+    t.index ["birth"], name: "index_profiles_on_birth", using: :btree
+    t.index ["cellphone"], name: "index_profiles_on_cellphone", using: :btree
     t.index ["id_number"], name: "index_profiles_on_id_number", unique: true, using: :btree
+    t.index ["name"], name: "index_profiles_on_name", using: :btree
+    t.index ["phone"], name: "index_profiles_on_phone", using: :btree
+    t.index ["sex"], name: "index_profiles_on_sex", using: :btree
     t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
   end
 
@@ -101,6 +114,37 @@ ActiveRecord::Schema.define(version: 20170815020908) do
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
     t.index ["name"], name: "index_roles_on_name", using: :btree
+  end
+
+  create_table "service_schedules", force: :cascade do |t|
+    t.integer  "service_team_id"
+    t.datetime "service_time"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["service_team_id"], name: "index_service_schedules_on_service_team_id", using: :btree
+    t.index ["service_time"], name: "index_service_schedules_on_service_time", using: :btree
+  end
+
+  create_table "service_team_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.integer  "service_team_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["role_id"], name: "index_service_team_users_on_role_id", using: :btree
+    t.index ["service_team_id"], name: "index_service_team_users_on_service_team_id", using: :btree
+    t.index ["user_id"], name: "index_service_team_users_on_user_id", using: :btree
+  end
+
+  create_table "service_teams", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "schedules_count", default: 0, null: false
+    t.integer  "users_count",     default: 0, null: false
+    t.index ["name"], name: "index_service_teams_on_name", using: :btree
+    t.index ["user_id"], name: "index_service_teams_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -129,4 +173,9 @@ ActiveRecord::Schema.define(version: 20170815020908) do
   add_foreign_key "announcements", "users"
   add_foreign_key "oauths", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "service_schedules", "service_teams"
+  add_foreign_key "service_team_users", "roles"
+  add_foreign_key "service_team_users", "service_teams"
+  add_foreign_key "service_team_users", "users"
+  add_foreign_key "service_teams", "users"
 end

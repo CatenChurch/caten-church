@@ -1,16 +1,5 @@
-<% content_for :breadcrumb do %>
-<%= link_to t('pages.root'), root_path %>
->
-<%= link_to t('pages.events'), events_path %>
-<% end %>
+<%= render 'jumbotron' %>
 
-<% content_for :jumbotron do %>
-<h1 class="display-4 text-center"><%= t('pages.events') %></h1>
-<p class="lead text-center">點選活動以報名與查看詳情。</p>
-<div class="d-flex">
-  <%= link_to "我報名的活動", account_events_path, class: "btn btn-outline-secondary ml-auto"%>
-</div>
-<% end %>
 <div class="container">
 
   <h2>

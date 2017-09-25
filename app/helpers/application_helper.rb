@@ -54,7 +54,7 @@ module ApplicationHelper
   end
 
   def is_admin?
-    can? :manage, Admin
+    can? :manage, :admin
   end
 
   def boolean_to_y_or_n(boolean)
@@ -63,5 +63,9 @@ module ApplicationHelper
 
   def my_time(time)
     time.strftime("%Y/%m/%d %H:%M:%S")
+  end
+
+  def bootstrap_time(time)
+    time.strftime "%Y-%m-%dT%H:%M"
   end
 end

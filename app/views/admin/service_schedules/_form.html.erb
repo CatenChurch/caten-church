@@ -1,0 +1,6 @@
+<%= simple_form_for [:admin,@schedule] do |f| %>
+  <%= f.error_notification %>
+  <%= f.association :team, collection: Service::Team.all, label: t('service_team.name'), include_blank: '選擇一個服事團隊' %>
+  <%= f.text_field :service_time, label: t('service_schedule.service_time'), type: 'datetime-local', value: bootstrap_time(f.object.service_time) %>
+  <%= f.submit t('button.submit'), class: 'btn btn-primary', data: { disable_with: t('button.submitting') } %>
+<% end %>

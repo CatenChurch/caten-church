@@ -1,20 +1,19 @@
-class Account::ProfilesController < AccountController
-  authorize_resource :account
+class Account::ProfilesController < Account::BaseController
   before_action :get_profile, only: [:show, :edit, :update]
 
   def new
+    redirect_to edit_account_profile_url if current_user.profile.present?
     @profile = Profile.new
   end
 
   def create
-    @profile = current_user.create_profile(profile_params)
+    @profile = current_user.profile.new(profile_params)
     if @profile.save
-      # 會重新通過Routes，回到show頁面
-      redirect_to action: 'show'
-      flash[:notice] = 'Profile successfully created.'
+      flash[:notice] = t('profile.created')
+      redirect_to account_profile_url
     else
-      render action: 'new'
-      flash[:alert] = 'fail to create a profile.'
+      flash[:alert] = t('profile.create_failed')
+      render :new
     end
   end
 
@@ -24,11 +23,11 @@ class Account::ProfilesController < AccountController
 
   def update
     if @profile.update(profile_params)
-      redirect_to action: 'show'
-      flash[:notice] = 'Profile successfully updated.'
+      flash[:notice] = t('profile.updated')
+      redirect_to account_profile_url
     else
-      render action: 'edit'
-      flash[:alert] = 'fail to edit the profile.'
+      flash[:alert] = t('profile.update_failed')
+      render :edit
     end
   end
 
@@ -37,8 +36,8 @@ class Account::ProfilesController < AccountController
   def get_profile
     @profile = current_user.profile
     if @profile.blank?
-      flash[:warning] = '尚未建立個人資料，請填寫以下基本資料'
-      redirect_to new_account_profile_path
+      flash[:warning] = t('profile.no_profile')
+      redirect_to new_account_profile_url
     end
   end
 

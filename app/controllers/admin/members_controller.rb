@@ -4,6 +4,11 @@ class Admin::MembersController < Admin::BaseController
   def index
     @q = User.ransack(params[:q])
     @members = @q.result(distinct: true).includes(:profile).order(:id).page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def show; end

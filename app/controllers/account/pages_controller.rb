@@ -1,5 +1,3 @@
-class Account::PagesController < AccountController
-	def dashboard
-
-	end
+class Account::PagesController < Account::BaseController
+  def dashboard; end
 end
