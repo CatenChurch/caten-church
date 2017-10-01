@@ -1,9 +1,14 @@
-<div class="jumbotron jumbotron-color">
-  <div class="container-fluid">
-    <h1 class="display-3">會員中心</h1>
-    <p class="lead my-4">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
-  </div>
-</div>
+<% content_for :breadcrumb do %>
+<%= link_to t('pages.root'), root_path %>
+>
+<%= t('pages.reset_password') %>
+<% end %>
+
+<% content_for :jumbotron do %>
+<h1 class="display-4 text-center"><%= t('pages.reset_password') %></h1>
+<p class="lead text-center">輸入當初註冊的Email，系統將會寄送重設密碼的鏈結至你的Email</p>
+<% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-6">
@@ -17,8 +22,10 @@
           <hr>
           <p class="card-text text-center lead my-4">
             或透過
-            <%= link_to "Facebook", omniauth_authorize_path(resource_name, :facebook), class: "btn btn-lg btn-primary" %>
-            帳號登入本網站
+            <%= link_to omniauth_authorize_path(resource_name, :facebook) do %>
+            <%= fa_icon('facebook-official 3x') %>
+            <% end %>
+            登入本網站
           </p>
         </div>
       </div>
@@ -27,7 +34,6 @@
       <div class="card h-100">
         <div class="card-block">
           <h2 class="card-title text-center">忘記密碼了?</h2>
-          <p class="card-text">輸入當初註冊的Email，系統將會寄送重設密碼的鏈結至你的Email</p>
           <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
             <%= f.error_notification %>
             <div class="form-inputs">

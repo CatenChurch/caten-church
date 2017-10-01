@@ -64,6 +64,7 @@
     events: '活動專區'
     sign_in: '登入'
     sign_up: '註冊'
+    reset_password: '重設密碼'
   contact:
     _: '聯絡訊息'
     all: '所有聯絡訊息'
