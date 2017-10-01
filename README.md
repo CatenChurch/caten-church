@@ -80,7 +80,41 @@ $ heroku pg:pull DATABASE_URL localDbName --app caten-church
 
 ### heroku app 加上 newrelic
 
-參考 <https://docs.newrelic.com/docs/agents/ruby-agent/installation/install-new-relic-ruby-agent#Installing_the_Gem>
+參考 https://docs.newrelic.com/docs/agents/ruby-agent/installation/install-new-relic-ruby-agent#Installing_the_Gem
+
+### sendgrid
+在 config/environments/production.rb 設定  
+用 smtp 連結 sendgrid 寄信  
+
+```ruby
+# heroku sendgrid mailer
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.perform_deliveries = true
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.default_url_options = { host: 'caten-church.herokuapp.com' }
+config.action_mailer.smtp_settings = {
+  :user_name => ENV['SENDGRID_USERNAME'],
+  :password => ENV['SENDGRID_PASSWORD'],
+  :domain => 'heroku.com',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
+}
+```
+
+到 config/application.yml 加上
+```ruby
+production:
+  MAIL_USERNAME: "MAIL_USERNAME"
+  SENDGRID_USERNAME: "SENDGRID_USERNAME"
+  SENDGRID_PASSWORD: "SENDGRID_PASSWORD"
+  SENDGRID_API_KEY: "SENDGRID_API_KEY"
+```
+
+> 也可以不用 sendgrid 的 smtp 改用 api 寄信參考  
+> https://devcenter.heroku.com/articles/sendgrid#ruby
+> https://github.com/sendgrid/sendgrid-ruby
 
 ## Linux
 
