@@ -19,7 +19,7 @@
     <% @team_users.each do |team_user| %>
       <tr>
         <td><%= link_to team_user.user.profile.try(:name), admin_member_path(team_user.user) if team_user.user.present? %></td>
-        <td><%= link_to team_user.role.name, admin_service_role_path(team_user.role) %></td>
+        <td><%= link_to team_user.role.try(:name), admin_service_role_path(team_user.role) %></td>
       </tr>
     <% end %>
   </tbody>
