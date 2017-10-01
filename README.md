@@ -30,14 +30,14 @@ usage
 
 ```bash
 # init config/sitemap.rb
-rake sitemap:install
+$ rake sitemap:install
 # generate public/sitmap.xml.gz
-rake sitemap:refresh
+$ rake sitemap:refresh
 ```
 
 add sitemap in public/robots.txt
 
-```
+```txt
 sitemap: caten-church.herokuapp.com/sitemap.xml.gz
 ```
 
@@ -90,11 +90,11 @@ $ heroku pg:pull DATABASE_URL localDbName --app caten-church
 
 ```bash
 # 列出 port 3000 的行程
-$lsof -i:3000
+$ lsof -i:3000
 # 列出 port 3000 行程的 pid
-$lsof -t -i:3000
+$ lsof -t -i:3000
 # 透過 pid 清除行程
-$kill $(lsof -t -i:3000)
+$ kill $(lsof -t -i:3000)
 # or 使用 -9 option
-$kill -9 $(lsof -t -i:3000)
+$ kill -9 $(lsof -t -i:3000)
 ```
