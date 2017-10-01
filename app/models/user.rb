@@ -28,6 +28,12 @@ class User < ApplicationRecord
     where(id: user_ids)
   end
 
+  # devise 異步發送郵件
+  # https://github.com/plataformatec/devise#activejob-integration
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   # user has profile
   def has_valid_profile?
     profile.present? && profile.valid?
