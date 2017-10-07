@@ -1,16 +1,36 @@
-<h2>Resend confirmation instructions</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
+<% content_for :breadcrumb do %>
+  <%= link_to t('pages.root'), root_path %>
+  >
+  <%= t('pages.confirmation') %>
 <% end %>
-
-<%= render "devise/shared/links" %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= t('pages.confirmation') %></h1>
+  <p class="lead text-center">沒有收到驗證信嗎，輸入Email重新寄送驗證信</p>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="card h-100">
+        <div class="card-block">
+          <%= render 'devise/shared/links' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6">
+      <div class="card h-100">
+        <div class="card-block">
+          <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+            <%= f.error_notification %>
+            <%= f.full_error :confirmation_token %>
+            <div class="form-inputs">
+              <%= f.input :email, required: true, autofocus: true %>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, t('pages.confirmation'), class: 'btn btn-block' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

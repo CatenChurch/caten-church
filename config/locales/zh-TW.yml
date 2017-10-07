@@ -1,9 +1,4 @@
 'zh-TW':
-  y: '是'
-  n: '否'
-  sure?: '確定執行動作嗎?'
-  success: '成功'
-  failed: '失敗'
   service_team:
     _: '服事團隊'
     all: '所有服事團隊'
@@ -64,6 +59,8 @@
     events: '活動專區'
     sign_in: '登入'
     sign_up: '註冊'
+    confirmation: '驗證信箱'
+    reset_password: '重設密碼'
   contact:
     _: '聯絡訊息'
     all: '所有聯絡訊息'
@@ -107,8 +104,6 @@
     handle:
       y: '處理'
       n: '待處理'
-  web:
-    search_conditions: '搜尋條件'
   user:
     _: '會員'
     all: '會員一覽'
@@ -130,70 +125,8 @@
     no_profile: '尚未建立個人資料'
     error:
       id_number: '必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字'
-  website: '茄典教會'
-  home_page: '首頁'
-  # navbar
-  admin_system : '管理員後台'
-  my_groups : '我的群組'
-  # common
-  id : 'id'
-  create : '創建'
-  submit : '送出'
-  edit : '編輯'
-  delete : '刪除'
-  created_at : '建立於'
-  updated_at : '更新於'
-  user_id : '擁有者id'
-  download_excel : '下載 Excel'
-  youtube : 'YouTube'
-  from: '從'
-  to: '至'
-  need: '需要'
-  no_need: '不需要'
-  free: '免費'
-  # groups
-  new_group : '新增討論版'
-  new_post : '新增文章'
-  join_group : '加入討論區'
-  quit_group : '離開討論區'
-  posts : '文章列表'
-  title : '標題'
-  post_count : '文章數'
-  last_update : '最後更新'
-
-  # posts
-  my_posts : '我的文章'
-  content : '內容'
-  group_name : '討論區名稱'
-  new_post : '新增文章'
-  edit_post : '修改文章'
-
-  # events
-  new_event: '新增活動'
-  event_name : '活動名稱'
-  event_sign_up_time : '活動報名時間'
-  event_sign_up_begin : '報名開始'
-  sign_up_begin : '報名開始'
-  event_sign_up_end : '報名結束'
-  sign_up_end : '報名結束'
-  event_time : '活動時間'
-  event_start : '活動開始'
-  start : '開始'
-  event_over : '活動結束'
-  over : '結束'
-  event_participants_number : '報名人數'
-  participants_count : '報名人數'
-  events_list : '活動一覽'
-  quit_event : '取消報名'
-  event_participants_list : '報名者一覽'
-  nature : '性質'
-  description : '描述'
-  min_sign_up_number : '活動成立人數'
-  max_sign_up_number : '活動人數上限'
-  back_to_event : '回到活動'
-  my_events : '我的活動'
-  sign_up_time : '報名時間'
-  events: '活動'
+  announcement:
+    _: '公告'
   event:
     _: '活動'
     all: '活動一覽'
@@ -222,7 +155,6 @@
     is_full: '報名人數已滿'
     did_not_join: ''
     already_joined: '你已經報名過此活動了'
-
   event_user:
     remark: '備註'
     paid:
@@ -233,6 +165,13 @@
       check: '確認報到'
       y: '已報到'
       n: '尚未報到'
+  oauth:
+    link: '社群帳號連結'
+  devise:
+    confirmations:
+      canceled: '取消申請更改 Email 成功'
+      cancel_failed: "取消申請更改 Email 失敗，流程中出了些錯誤"
+
   name : '姓名'
   sex : '性別'
   birth : '生日'
@@ -241,7 +180,60 @@
   email : 'Email'
   address : '地址'
   education : '學歷'
+  website: '茄典教會'
+  y: '是'
+  n: '否'
+  sure?: '確定執行動作嗎?'
+  success: '成功'
+  failed: '失敗'
+  search_conditions: '搜尋條件'
+  search: '搜尋'
+  no_result: '找不到結果'
+  backstage:  '後台'
+  account: '帳戶'
+  joined: '參加的'
+  leaded: '主領的'
+  # common
+  id : 'id'
+  create : '創建'
+  submit : '送出'
+  edit : '編輯'
+  delete : '刪除'
+  created_at : '建立於'
+  updated_at : '更新於'
+  user_id : '擁有者id'
+  download_excel : '下載 Excel'
+  youtube : 'YouTube'
+  from: '從'
+  to: '至'
+  need: '需要'
+  no_need: '不需要'
+  free: '免費'
 
+  event_name : '活動名稱'
+  event_sign_up_time : '活動報名時間'
+  event_sign_up_begin : '報名開始'
+  sign_up_begin : '報名開始'
+  event_sign_up_end : '報名結束'
+  sign_up_end : '報名結束'
+  event_time : '活動時間'
+  event_start : '活動開始'
+  start : '開始'
+  event_over : '活動結束'
+  over : '結束'
+  event_participants_number : '報名人數'
+  participants_count : '報名人數'
+  events_list : '活動一覽'
+  quit_event : '取消報名'
+  event_participants_list : '報名者一覽'
+  nature : '性質'
+  description : '描述'
+  min_sign_up_number : '活動成立人數'
+  max_sign_up_number : '活動人數上限'
+  back_to_event : '回到活動'
+  my_events : '我的活動'
+  sign_up_time : '報名時間'
+  events: '活動'
   # devise
   log_in : '登入'
   log_out : '登出'
@@ -249,18 +241,8 @@
   edit_user_registration : '帳號設定'
 
   # announcement
-  announcement:
-    _: '公告'
   announcements : '公告'
   new_announcement : '新增公告'
 
   # seo
   seo_description: '大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!'
-
-
-  search: '搜尋'
-  no_result: '找不到結果'
-  backstage:  '後台'
-  account: '帳戶'
-  joined: '參加的'
-  leaded: '主領的'
