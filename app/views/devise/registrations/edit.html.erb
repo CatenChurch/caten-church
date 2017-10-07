@@ -41,11 +41,21 @@
     <div class="col-md-6 col-12 my-2">
       <div class="card h-100 my-2">
         <div class="card-block">
-          <h2>社群帳號</h2>
-          <br>
-          <p>使用者可以透過以下社群帳號登入本網站</p>
-          <div class="d-flex justify-content-center">
-            <%= link_to "Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-lg btn-primary" %>
+          <h2><%= t('oauth.link') %></h2>
+          <hr>
+          <div class="d-flex justify-content-between align-items-center">
+            <% if current_user.facebook_oauth.present? %>
+            <%= link_to "https://www.facebook.com/#{current_user.facebook_oauth.uid}" do %>
+              <%= fa_icon('facebook-official 3x') %>
+            <% end %>
+              <span>已連結facebook</span>
+            <% else %>
+              <%= link_to user_facebook_omniauth_authorize_path do %>
+                <%= fa_icon('facebook-official 3x') %>
+              <% end %>
+              <span>尚未連結facebook</span>
+            <% end %>
+
           </div>
         </div>
       </div>
