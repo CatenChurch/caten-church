@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     confirmations: 'users/confirmations'
   }
+  devise_scope :user do
+    delete 'users/unconfirmed_email' => 'users/confirmations#cancel', as: :user_unconfirmed_email
+  end
 
   namespace :admin do
     get '/' => 'pages#index'

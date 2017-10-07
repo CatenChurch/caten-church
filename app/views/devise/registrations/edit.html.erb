@@ -23,8 +23,8 @@
           <div class="form-inputs">
             <%= f.input :email, required: true, autofocus: true %>
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <p>Currently waiting confirmation for:
-              <%= resource.unconfirmed_email %></p>
+              <label for="">申請更改Email 等待驗證的帳號:</label>
+              <p class="text-warning"><%= resource.unconfirmed_email %><%= link_to t('button.cancel'), user_unconfirmed_email_path, class: "btn btn-sm btn-danger mx-2", method: :delete, data: { confirm: t('sure?') } %></p>
             <% end %>
             <%= f.input :password, autocomplete: "off", hint: "如果沒有要更改密碼，本行請留空", required: false, label: "新密碼" %>
             <%= f.input :password_confirmation, required: false, label: "新密碼確認" %>
