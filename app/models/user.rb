@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :event_users, dependent: :destroy
   has_many :participated_events, through: :event_users, source: :event
   has_many :oauths, dependent: :destroy
+  has_one :facebook_oauth, -> { where(provider: 'facebook') }, class_name: Oauth
   has_many :service_teams, class_name: Service::Team
   has_many :service_team_user, class_name: Service::TeamUser
   has_many :serviced_teams, through: :service_team_user, source: :team, class_name: Service::Team
