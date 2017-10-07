@@ -15,6 +15,57 @@
   - 公告管理
   - 聯絡管理
 
+## development
+
+### node & nvm
+install node & nvm via brew
+
+```bash
+$ brew install node
+$ brew link node
+$ brew install nvm
+$ brew link nvm
+$ brew info nvm
+$ mkdir ~/.nvm
+```
+
+open ~/.bash_profile and add :
+
+```
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+```
+
+### hotel.dev
+install hotel via npm
+
+```bash
+$ npm install -g hotel
+```
+
+config proxy
+
+https://github.com/typicode/hotel/blob/master/docs/README.md
+
+osx :
+
+```
+Network Preferences > Advanced > Proxies > Automatic Proxy Configuration
+```
+
+url : http://localhost:2000/proxy.pac
+
+usage
+
+````bash
+# start hotel
+$ hotel start
+# cd to project_path and add to hotel
+$ cd project_path
+$ hotel add 'rails server -p $PORT -b 127.0.0.1' -e GEM_PATH --name caten -p 3000
+````
+
+and got to localhost:2000 or hotel.dev
 
 ## Rails
 
