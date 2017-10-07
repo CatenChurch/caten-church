@@ -64,6 +64,7 @@
     events: '活動專區'
     sign_in: '登入'
     sign_up: '註冊'
+    confirmation: '驗證信箱'
     reset_password: '重設密碼'
   contact:
     _: '聯絡訊息'
@@ -234,6 +235,11 @@
       check: '確認報到'
       y: '已報到'
       n: '尚未報到'
+  devise:
+    confirmations:
+      canceled: '取消申請更改 Email 成功'
+      cancel_failed: "取消申請更改 Email 失敗，流程中出了些錯誤"
+
   name : '姓名'
   sex : '性別'
   birth : '生日'
