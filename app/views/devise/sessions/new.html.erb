@@ -1,29 +1,26 @@
 <% content_for :breadcrumb do %>
-<%= link_to t('pages.root'), root_path %>
->
-<%= t('pages.sign_in') %>
+  <%= link_to t('pages.root'), root_path %>
+  >
+  <%= t('pages.sign_in') %>
 <% end %>
-
 <% content_for :jumbotron do %>
-<h1 class="display-4 text-center"><%= t('pages.sign_in') %></h1>
-<p class="lead text-center">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
+  <h1 class="display-4 text-center"><%= t('pages.sign_in') %></h1>
+  <p class="lead text-center">登入會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
 <% end %>
-
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="card h-100">
         <div class="card-block">
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="form-inputs">
-            <%= f.input :email, required: false, autofocus: true, input_html: { value: session["email"] } %>
-            <%= f.input :password, required: false %>
-            <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-          </div>
-
-          <div class="form-actions">
-            <%= f.button :submit, "登入", class: "btn btn-purple w-100" %>
-          </div>
+            <div class="form-inputs">
+              <%= f.input :email, required: false, autofocus: true, input_html: { value: session["email"] } %>
+              <%= f.input :password, required: false %>
+              <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, "登入", class: "btn btn-purple w-100" %>
+            </div>
           <% end %>
         </div>
       </div>
@@ -32,23 +29,14 @@
       <div class="card h-100">
         <div class="card-block">
           <p class="card-text text-center lead my-4">
-            還沒有帳號嗎? 點選
-            <%= link_to t('button.sign_up'), new_registration_path(resource_name), class: "btn btn-outline-primary" %>
-            加入我們!
-          </p>
-          <hr>
-          <p class="card-text text-center lead my-4">
-            或透過
+            使用
             <%= link_to omniauth_authorize_path(resource_name, :facebook) do %>
-            <%= fa_icon('facebook-official 3x') %>
+              <%= fa_icon('facebook-official 3x') %>
             <% end %>
             登入本網站
           </p>
           <hr>
-          <p class="card-text text-center lead my-4">
-            忘記密碼?
-            <%= link_to "重設密碼", new_password_path(resource_name), class: "btn btn-outline-secondary" %>
-          </p>
+          <%= render 'devise/shared/links' %>
         </div>
       </div>
     </div>
