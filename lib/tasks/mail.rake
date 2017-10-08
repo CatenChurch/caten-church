@@ -4,11 +4,7 @@ namespace :mail do
     task birth_notification: :environment do
       Rails.logger.info "Task start: send birth_notification to admin"
       month = (Time.now + 1.months).month
-      Rails.logger.info "birth month is #{month}"
-      User.with_role(:admin).each do |recipient|
-        UserMailer.birth_notification(recipient, month).deliver_later
-        Rails.logger.info "mail to #{recipient.email}"
-      end
+      UserMailer.send_birth_notification_to_admin(month)
       Rails.logger.info "Task end"
     end
   end
