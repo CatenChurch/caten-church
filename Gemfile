@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# sidekiq
+gem 'sidekiq'
 # new relic
 gem 'newrelic_rpm'
 # SEO sitemap
