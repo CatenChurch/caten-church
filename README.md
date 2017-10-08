@@ -69,6 +69,14 @@ and got to localhost:2000 or hotel.dev
 
 ## Rails
 
+### rake tasks
+
+send birth notification mail to admin
+
+```bash
+$ rake mail:admin:birth_notification
+```
+
 ### sitemap
 
 add below line in Gemfile
