@@ -1,0 +1,14 @@
+茄典教會<%= @month %>月份壽星通知
+
+<% @days.each.with_index do |users ,i| %>
+<% if users.present? %>
+  <%= "#{@month} 月 #{i} 號" %>
+
+  <% users.each do |user| %>
+    <%= user.profile.name %> <%= Time.now.year - user.profile.birth.year %> 歲
+  <% end %>
+
+<% end %>
+<% end %>
+
+<%= "前往網站查看會員詳情(需要管理員權限) : #{admin_members_url(q: { birth_month: @month })}" %>
