@@ -54,6 +54,8 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
+  # queuing backend jobs use sidekiq 
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "caten_church_web_#{Rails.env}"
   config.action_mailer.perform_caching = false
 

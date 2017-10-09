@@ -1,7 +1,7 @@
 # CatenChurch
 本專案為茄典教會網站，網址是<https://caten-church.herokuapp.com/>
 
-專案的架構為 `rails 5.0.1` + `postgres 9.5.4.1` + `Heroku` + `newrelic`  
+專案的架構為 `Rails 5.0.1` + `Puma` + `Postgres 9.5.4.1` + `Heroku` + `Newrelic` + `Sidekiq` + `Redis`
 
 - 前台
   - 帳號管理
@@ -15,7 +15,69 @@
   - 公告管理
   - 聯絡管理
 
-## development
+## Setup
+
+clone and bundle
+
+```bash
+$ git clone https://github.com/CatenChurch/CatenChurch.git
+$ cd CatenChurch
+$ bundle install
+```
+
+install database
+
+```bash
+$ brew install postgresql
+$ brew install redis
+```
+
+setup config/database.yml
+
+```yml
+development:
+  <<: *default
+  database: 'your-database-name'
+  username: 'your-user-name'
+  password: 'your-user-password'
+```
+
+use figaro setup config/application.yml (see config/application.yml.example)
+
+```yml
+FB_APP_ID: "FB_APP_ID"
+FB_APP_SECRET: "FB_APP_SECRET"
+GOOGLE_API_KEY: "GOOGLE_API_KEY"
+development:
+  MAIL_USERNAME: "MAIL_USERNAME"
+  MAIL_PASSWORD: "MAIL_PASSWORD"
+  REDIS_URL: 'redis://127.0.0.1:6379/0'
+production:
+  MAIL_USERNAME: "MAIL_USERNAME"
+  SENDGRID_USERNAME: "SENDGRID_USERNAME"
+  SENDGRID_PASSWORD: "SENDGRID_PASSWORD"
+  SENDGRID_API_KEY: "SENDGRID_API_KEY"
+  REDIS_URL: 'REDISTOGO_URL'
+```
+
+create database
+
+```bash
+$ rails db:setup
+$ rails db:migrate
+```
+
+run the server
+```
+puma -C config/puma.rb
+```
+and worker
+
+```
+sidekiq -C config/sidekiq.yml
+```
+
+## Development Tools
 
 ### node & nvm
 install node & nvm via brew
@@ -115,14 +177,94 @@ Event.reset_counters 15, :participants
 $ rake counter_cache:reset_all
 ```
 
+### sidekiq
+https://github.com/mperham/sidekiq
+
+```ruby
+gem sidekiq
+```
+
+Use sidekiq with ActiveJob, add to `environments/your-env-file.rb`, for me is `development.rb` and `production.rb`
+
+> https://github.com/mperham/sidekiq/wiki/Active-Job
+
+```ruby
+config.active_job.queue_adapter = :sidekiq
+```
+
+Sidekiq UI authenticate with devise and cancancan
+
+> https://github.com/mperham/sidekiq/wiki/Monitoring#devise
+
+```ruby
+# sidekiq
+require 'sidekiq/web'
+authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
+  mount Sidekiq::Web => 'admin/sidekiq'
+end
+```
+and go to /admin/sidekiq see the sidekiq dashboard
+
+config sidekiq `config/sidekiq.yml`
+> https://github.com/mperham/sidekiq/wiki/Advanced-Options
+
+```yml
+:concurrency: 10
+:queues:
+  - ['default', 1]
+  - ["mailers", 1]
+```
+
+**concurrency need to <= `config/database.yml`'s pool setting**
+
+if config/database.yml pool: 10
+then config/sidekiq.yml concurrency: 10
+
+> heroku postgres free plan can only provide 20 connection max so set pool < 20
+
+run a worker
+```bash
+$ sidekiq -C config/sidekiq.yml
+```
+
+or see https://github.com/mperham/sidekiq/wiki/Advanced-Options#queues
+
+ActiveJob queue name default is `default`
+ActionMailer queue name default is `mailers`
+
 ## Heroku
 
+setup a Procfile
+
+```
+# Procfile
+web: bundle exec puma -C config/puma.rb
+sidekid: bundle exec sidekiq -C config/sidekiq.yml
+```
+
+use web dyno and sidekid worker
+
+```bash
+$ heroku ps:scale web=1
+$ heroku ps:scale sidekid=1
+```
+
 部署指令
+deploy to heroku
 
 ```bash
 $ git push heroku master
 $ heroku run rake db:migrate
+```
+
+set Heroku env value
+
+```bash
+# by heroku cli
+heroku config:set key=value
+# by figaro
 $ figaro heroku:set -e production
+# by heruku web dashboard Setting > Reveal Config Vars
 ```
 
 查看heroku環境變數
@@ -135,6 +277,11 @@ $ heroku config
 
 ```bash
 $ heroku pg:pull DATABASE_URL localDbName --app caten-church
+```
+
+Logger
+```bash
+$ heroku logs --tail
 ```
 
 ### heroku app 加上 newrelic
@@ -174,6 +321,11 @@ production:
 > 也可以不用 sendgrid 的 smtp 改用 api 寄信參考  
 > https://devcenter.heroku.com/articles/sendgrid#ruby
 > https://github.com/sendgrid/sendgrid-ruby
+
+
+### Heroku and sidekiq and redistogo
+
+see https://www.youtube.com/watch?v=GBEDvF1_8B8&t=774s
 
 ## Linux
 
