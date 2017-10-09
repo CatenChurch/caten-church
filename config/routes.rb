@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # sidekiq
+  require 'sidekiq/web'
+  authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
+    mount Sidekiq::Web => 'admin/sidekiq'
+  end
+
   resources :contacts, only: [:create]
   resources :announcements, only: [:index, :show]
   resources :events, only: [:index, :show] do

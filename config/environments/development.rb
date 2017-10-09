@@ -65,4 +65,6 @@ Rails.application.configure do
     authentication:       'plain',
     enable_starttls_auto: true
   }
+  # queuing backend jobs use sidekiq
+  config.active_job.queue_adapter = :sidekiq
 end
