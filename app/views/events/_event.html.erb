@@ -1,6 +1,6 @@
 <% render_for_admin = render_for_admin || false %>
 <div class="card">
-	<div class="card-block">
+	<div class="card-body">
 		<h3 class="card-title"><%= event.name %></h3>
 		<p class="card-text my-4"><%= simple_format event.description %></p>
 		<table class="table table-bordered d-none d-sm-table">
@@ -105,7 +105,7 @@
 		</table>
 	</div>
 	<% unless render_for_admin %>
-	<div class="card-block">
+	<div class="card-body">
 		<%= link_to t('event.quit'), quit_event_path(@event), method: :post, class: "btn btn-warning" if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
 		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-info" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
 		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>

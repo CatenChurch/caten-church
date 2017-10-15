@@ -10,7 +10,7 @@
     <div class="col-12 col-md-4 col-lg-3 py-1">
       <%= link_to event_path(event), class: "card-link event-card" do %>
       <div class="card h-100 pb-1">
-        <div class="card-block">
+        <div class="card-body">
           <h3 class="card-title"><%= event.name %></h3>
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>
@@ -35,7 +35,7 @@
     <div class="col-12 col-md-4 col-lg-3 py-1">
       <%= link_to event_path(event), class: "card-link event-card" do %>
       <div class="card h-100 pb-1">
-        <div class="card-block">
+        <div class="card-body">
           <h3 class="card-title"><%= event.name %></h3>
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
         </div>

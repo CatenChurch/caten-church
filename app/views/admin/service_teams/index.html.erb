@@ -6,7 +6,7 @@
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
-    <div class="card-block">
+    <div class="card-body">
       <%= search_form_for @q, url: admin_service_teams_url, class: 'form-inline my-2 mx-5' do |f| %>
         <%= f.label t('service_team.name'), class: 'mr-1' %>
         <%= f.search_field :name_cont, class: 'form-control mr-2' %>
