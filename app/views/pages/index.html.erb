@@ -21,29 +21,24 @@ set_meta_tags og: {
 </div>
 <% end %>
 
-<div class="row mx-4">
-  <div class="col-12 col-md-6 col-lg-3 py-1">
-    <div class="card h-100 outline-purple pb-3">
+<div class="card-deck">
+    <div class="card outline-purple">
       <div class="card-block">
         <h2 class="card-title">教會資訊</h2>
         <p class="card-text">點此前往公布欄，查看最新的教會消息</p>
       </div>
       <%= link_to "公布欄", announcements_path, class: "btn btn-lg btn-outline-success mx-auto"%>
     </div>
-  </div>
 
-  <div class="col-12 col-md-6 col-lg-3 py-1">
-    <div class="card h-100 outline-purple pb-3">
+    <div class="card outline-purple pb-3">
       <div class="card-block">
         <h2 class="card-title">活動報名</h2>
         <p class="card-text">活動報名專區，請先登入再點此前往報名</p>
       </div>
       <%= link_to "活動", events_path, class: "btn btn-lg btn-outline-success mx-auto my-auto"%>
     </div>
-  </div>
 
-  <div class="col-12 col-md-6 col-lg-3 py-1">
-    <div class="card h-100 outline-purple pb-3">
+    <div class="card outline-purple pb-3">
       <div class="card-block">
         <h2 class="card-title">網路社群</h2>
         <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
@@ -54,10 +49,8 @@ set_meta_tags og: {
         <li class="list-group-item"><%= link_to "Line @", "https://line.me/R/ti/p/%40kfi8062r", class: "card-link mx-auto" %></li>
       </ul>
     </div>
-  </div>
 
-  <div class="col-12 col-md-6 col-lg-3 py-1">
-    <div class="card h-100 outline-purple pb-3">
+    <div class="card outline-purple pb-3">
       <div class="card-block">
         <h2 class="card-title">個人專區</h2>
         <p class="card-text">個人資料與帳號密碼設定，曾經參與哪些活動</p>
@@ -68,5 +61,4 @@ set_meta_tags og: {
         <li class="list-group-item"><%= link_to "帳號密碼設定", edit_user_registration_path, class: "card-link mx-auto" %></li>
       </ul>
     </div>
-  </div>
 </div>
