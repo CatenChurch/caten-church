@@ -51,14 +51,14 @@ class EventsController < ApplicationController
       redirect_to event_url(@event)
     end
 
-    unless current_user.joined? @event
+    unless current_user && current_user.joined?(@event)
       flash[:warning] = t('event.join_to_show_participant')
       redirect_to event_url(@event)
     end
   end
 
   def check_profile
-    unless current_user.has_valid_profile?
+    unless current_user && current_user.has_valid_profile?
       flash[:warning] = t('event.no_profile')
       redirect_to edit_account_profile_url
     end
