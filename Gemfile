@@ -49,8 +49,8 @@ gem 'devise'
 # 會員功能 權限 任務分配
 gem 'cancancan'
 gem 'rolify'
-# Bootstrap 4 beta
-gem 'bootstrap', '~> 4.0.0.beta'
+# Bootstrap 4 beta2
+gem 'bootstrap', '~> 4.0.0.beta2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.1'
 # Use SCSS for stylesheets
