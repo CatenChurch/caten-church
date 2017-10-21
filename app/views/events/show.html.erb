@@ -4,6 +4,6 @@
 <%= link_to @event.name, event_path(@event) %>
 <% end %>
 <div class="container">
-  <%= link_to "活動列表", events_path, class: "btn btn-secondary mb-4"%>
+  <%= link_to "活動列表", events_path, class: "btn btn-outline-secondary mb-4"%>
   <%= render 'event', :event => @event %>
 </div>

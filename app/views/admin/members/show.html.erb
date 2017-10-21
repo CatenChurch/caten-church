@@ -1,4 +1,4 @@
-<%= link_to '會員列表', admin_members_path, class: "btn btn-secondary" %>
+<%= link_to '會員列表', admin_members_path, class: "btn btn-outline-secondary" %>
 <h2 class="text-center my-4"><%= @member.email %></h2>
 <%= render 'account/profiles/profile', :profile => @member.profile, render_for_admin: true %>
 <div class="row mt-2">

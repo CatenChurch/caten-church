@@ -1,4 +1,4 @@
-<%= link_to t('button.back'), admin_contacts_path, class: "btn btn-secondary mr-auto" %>
+<%= link_to t('button.back'), admin_contacts_path, class: "btn btn-outline-secondary mr-auto" %>
 <h1 class="text-center"><%= t('contact.edit') %></h1>
 <%= simple_form_for(@contact, url: admin_contact_url(@contact)) do |f| %>
 <%= f.error_notification %>

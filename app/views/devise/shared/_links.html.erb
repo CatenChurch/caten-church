@@ -10,12 +10,12 @@
 <% end -%>
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <p class="card-text text-center text-muted">
-    忘記密碼? <%= link_to t('pages.reset_password'), new_password_path(resource_name), class: "btn btn-secondary" %>
+    忘記密碼? <%= link_to t('pages.reset_password'), new_password_path(resource_name), class: "btn btn-outline-secondary" %>
   </p>
 <% end -%>
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <p class="card-text text-center text-muted">
-    沒有收到驗證信? <%= link_to t('pages.confirmation'), new_confirmation_path(resource_name), class: "btn btn-secondary" %>
+    沒有收到驗證信? <%= link_to t('pages.confirmation'), new_confirmation_path(resource_name), class: "btn btn-outline-secondary" %>
   </p>
 <% end -%>
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
