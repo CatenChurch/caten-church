@@ -8,57 +8,70 @@ set_meta_tags og: {
 }
 %>
 <% content_for :jumbotron do %>
-<div class="d-flex flex-wrap justify-content-between align-items-center">
-  <div>
-    <%= image_tag "caten.png", class: "img-fluid", style:"max-height: 400px;" %>
+  <div class="d-flex flex-wrap justify-content-between align-items-center">
+    <div>
+      <%= image_tag "caten.png", class: "img-fluid", style:"max-height: 400px;" %>
+    </div>
+    <div>
+      <h1 class="display-4">歡迎光臨
+        <%= t(:website) %></h1>
+      <p class="lead mt-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
+      <p>歡迎會友透過此網站查看教會最新消息以及報名參加活動!</p>
+    </div>
   </div>
-  <div>
-    <h1 class="display-4">歡迎光臨
-      <%= t(:website) %></h1>
-    <p class="lead mt-4">這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息</p>
-    <p>歡迎會友透過此網站查看教會最新消息以及報名參加活動!</p>
-  </div>
-</div>
 <% end %>
-
 <div class="card-deck">
-    <div class="card outline-purple">
-      <div class="card-body">
-        <h2 class="card-title">教會資訊</h2>
-        <p class="card-text">點此前往公布欄，查看最新的教會消息</p>
-      </div>
-      <%= link_to "公布欄", announcements_path, class: "btn btn-lg btn-outline-success mx-auto"%>
+  <div class="card outline-purple text-center my-4">
+    <div class="card-body">
+      <h2 class="card-title">教會資訊</h2>
+      <p class="card-text">點此前往公布欄，查看最新的教會消息</p>
     </div>
-
-    <div class="card outline-purple pb-3">
-      <div class="card-body">
-        <h2 class="card-title">活動報名</h2>
-        <p class="card-text">活動報名專區，請先登入再點此前往報名</p>
-      </div>
-      <%= link_to "活動", events_path, class: "btn btn-lg btn-outline-success mx-auto my-auto"%>
+    <div class="card-body">
+      <%= link_to "公布欄", announcements_path, class: "btn btn-light btn-block"%>
     </div>
-
-    <div class="card outline-purple pb-3">
-      <div class="card-body">
-        <h2 class="card-title">網路社群</h2>
-        <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= link_to "Facebook 粉絲專頁", "https://www.facebook.com/caten.church.teens", class: "card-link mx-auto" %></li>
-        <li class="list-group-item"><%= link_to "YouTube 頻道", "https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w", class: "card-link mx-auto" %></li>
-        <li class="list-group-item"><%= link_to "Line @", "https://line.me/R/ti/p/%40kfi8062r", class: "card-link mx-auto" %></li>
-      </ul>
+  </div>
+  <div class="card outline-purple text-center my-4">
+    <div class="card-body">
+      <h2 class="card-title">網路社群</h2>
+      <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
     </div>
-
-    <div class="card outline-purple pb-3">
-      <div class="card-body">
-        <h2 class="card-title">個人專區</h2>
-        <p class="card-text">個人資料與帳號密碼設定，曾經參與哪些活動</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= link_to "報名的活動", account_events_path, class: "card-link mx-auto" %></li>
-        <li class="list-group-item"><%= link_to "個人資料", account_profile_path, class: "card-link mx-auto" %></li>
-        <li class="list-group-item"><%= link_to "帳號密碼設定", edit_user_registration_path, class: "card-link mx-auto" %></li>
-      </ul>
+    <ul class="list-group list-group-flush">
+      <%= link_to 'https://www.facebook.com/caten.church.teens', class: 'list-group-item bg-light' do %>
+        Facebook 粉絲專頁
+      <% end %>
+      <%= link_to 'https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w', class: 'list-group-item bg-light' do %>
+        YouTube 頻道
+      <% end %>
+      <%= link_to 'https://line.me/R/ti/p/%40kfi8062r', class: 'list-group-item bg-light' do %>
+        Line @
+      <% end %>
+    </ul>
+  </div>
+  <div class="w-100 d-lg-none"></div>
+  <div class="card outline-purple text-center my-4">
+    <div class="card-body">
+      <h2 class="card-title">活動專區</h2>
+      <p class="card-text">活動報名專區，請先登入再點此前往報名</p>
     </div>
+    <div class="card-body">
+      <%= link_to "活動", events_path, class: "btn btn-info btn-block"%>
+    </div>
+  </div>
+  <div class="card outline-purple text-center my-4">
+    <div class="card-body">
+      <h2 class="card-title">個人專區</h2>
+      <p class="card-text">個人資料與帳號密碼設定，曾經參與哪些活動</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <%= link_to account_events_path, class: "list-group-item bg-light" do %>
+        報名的活動
+      <% end %>
+      <%= link_to account_profile_path, class: "list-group-item bg-light" do %>
+        個人資料
+      <% end %>
+      <%= link_to edit_user_registration_path, class: "list-group-item bg-light" do %>
+        帳號密碼設定
+      <% end %>
+    </ul>
+  </div>
 </div>
