@@ -1,27 +1,22 @@
 <%- if controller_name != 'sessions' %>
-  <p class="card-text text-center text-muted">
-    已經註冊過了嗎? <%= link_to t('button.sign_in'), new_session_path(resource_name), class: "btn btn-outline-primary" %> 網站吧!
-  </p>
+  <div class="card-title">已經註冊過了嗎?</div>
+  <%= link_to t('button.sign_in'), new_session_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
 <% end -%>
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <p class="card-text text-center text-muted">
-    還沒有帳號 <%= link_to t('button.sign_up'), new_registration_path(resource_name), class: "btn btn-outline-success" %> 帳號加入我們!
-  </p>
+  <div class="card-title">還沒有帳號?</div>
+  <%= link_to t('button.sign_up'), new_registration_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
 <% end -%>
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <p class="card-text text-center text-muted">
-    忘記密碼? <%= link_to t('pages.reset_password'), new_password_path(resource_name), class: "btn btn-outline-secondary" %>
-  </p>
+  <div class="card-title">忘記密碼?</div>
+  <%= link_to t('pages.reset_password'), new_password_path(resource_name), class: "mb-2 btn btn-outline-warning btn-block" %>
 <% end -%>
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <p class="card-text text-center text-muted">
-    沒有收到驗證信? <%= link_to t('pages.confirmation'), new_confirmation_path(resource_name), class: "btn btn-outline-secondary" %>
-  </p>
+  <div class="card-title">沒有收到驗證信?</div>
+  <%= link_to t('pages.confirmation'), new_confirmation_path(resource_name), class: "mb-2 btn btn-outline-secondary btn-block" %>
 <% end -%>
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
   <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
 <% end -%>
-
 <!--
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>

@@ -8,28 +8,22 @@
   <p class="lead text-center">沒有收到驗證信嗎，輸入Email重新寄送驗證信</p>
 <% end %>
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
+  <div class="card-deck">
+    <div class="card my-2">
+      <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
         <div class="card-body">
-          <%= render 'devise/shared/links' %>
+          <%= f.error_notification %>
+          <%= f.full_error :confirmation_token %>
+          <%= f.input :email, required: true, autofocus: true %>
         </div>
-      </div>
+        <div class="card-body">
+          <%= f.button :submit, t('pages.confirmation'), class: 'btn btn-block btn-primary' %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
-        <div class="card-body">
-          <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-            <%= f.error_notification %>
-            <%= f.full_error :confirmation_token %>
-            <div class="form-inputs">
-              <%= f.input :email, required: true, autofocus: true %>
-            </div>
-            <div class="form-actions">
-              <%= f.button :submit, t('pages.confirmation'), class: 'btn btn-block' %>
-            </div>
-          <% end %>
-        </div>
+    <div class="card text-center text-muted my-2">
+      <div class="card-body">
+        <%= render 'devise/shared/links' %>
       </div>
     </div>
   </div>

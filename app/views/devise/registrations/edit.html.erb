@@ -1,16 +1,14 @@
 <% content_for :breadcrumb do %>
-<%= link_to t('pages.root'), root_path %>
->
-<%= t('pages.account') %>
->
-<%= t('pages.edit_user') %>
+  <%= link_to t('pages.root'), root_path %>
+  >
+  <%= t('pages.account') %>
+  >
+  <%= t('pages.edit_user') %>
 <% end %>
-
 <% content_for :jumbotron do %>
-<h1 class="display-4 text-center"><%= t('pages.edit_user') %></h1>
-<p class="lead text-center">更改帳號或密碼，以及綁定社群帳號以使用社群帳號登入網站等功能。</p>
+  <h1 class="display-4 text-center"><%= t('pages.edit_user') %></h1>
+  <p class="lead text-center">更改帳號或密碼，以及綁定社群帳號以使用社群帳號登入網站等功能。</p>
 <% end %>
-
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-12 my-2">
@@ -19,25 +17,24 @@
           <h2>更改帳號密碼</h2>
           <br>
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= f.error_notification %>
-          <div class="form-inputs">
-            <%= f.input :email, required: true, autofocus: true %>
-            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <label for="">申請更改Email 等待驗證的帳號:</label>
-              <p class="text-warning"><%= resource.unconfirmed_email %><%= link_to t('button.cancel'), user_unconfirmed_email_path, class: "btn btn-sm btn-danger mx-2", method: :delete, data: { confirm: t('sure?') } %></p>
-            <% end %>
-            <%= f.input :password, autocomplete: "off", hint: "如果沒有要更改密碼，本行請留空", required: false, label: "新密碼" %>
-            <%= f.input :password_confirmation, required: false, label: "新密碼確認" %>
-            <%= f.input :current_password, hint: "請輸入舊密碼，來生效本次帳密設定。", required: true %>
-          </div>
-          <div class="form-actions">
-            <%= f.button :submit, "更改密碼", class: "btn btn-warning" %>
-          </div>
+            <%= f.error_notification %>
+            <div class="form-inputs">
+              <%= f.input :email, required: true, autofocus: true %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <label for="">申請更改Email 等待驗證的帳號:</label>
+                <p class="text-warning"><%= resource.unconfirmed_email %><%= link_to t('button.cancel'), user_unconfirmed_email_path, class: "btn btn-sm btn-danger mx-2", method: :delete, data: { confirm: t('sure?') } %></p>
+              <% end %>
+              <%= f.input :password, autocomplete: "off", hint: "如果沒有要更改密碼，本行請留空", required: false, label: "新密碼" %>
+              <%= f.input :password_confirmation, required: false, label: "新密碼確認" %>
+              <%= f.input :current_password, hint: "請輸入舊密碼，來生效本次帳密設定。", required: true %>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, "更改密碼", class: "btn btn-warning" %>
+            </div>
           <% end %>
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-12 my-2">
       <div class="card h-100 my-2">
         <div class="card-body">
@@ -45,9 +42,9 @@
           <hr>
           <div class="d-flex justify-content-between align-items-center">
             <% if current_user.facebook_oauth.present? %>
-            <%= link_to "https://www.facebook.com/#{current_user.facebook_oauth.uid}" do %>
-              <%= fa_icon('facebook-official 3x') %>
-            <% end %>
+              <%= link_to "https://www.facebook.com/#{current_user.facebook_oauth.uid}" do %>
+                <%= fa_icon('facebook-official 3x') %>
+              <% end %>
               <span>已連結facebook</span>
             <% else %>
               <%= link_to user_facebook_omniauth_authorize_path do %>
@@ -55,7 +52,6 @@
               <% end %>
               <span>尚未連結facebook</span>
             <% end %>
-
           </div>
         </div>
       </div>

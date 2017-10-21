@@ -9,7 +9,7 @@
     <% @events.each do |event| %>
     <div class="col-12 col-md-4 col-lg-3 py-1">
       <%= link_to event_path(event), class: "card-link event-card" do %>
-      <div class="card h-100 pb-1">
+      <div class="card border-purple pb-1">
         <div class="card-body">
           <h3 class="card-title"><%= event.name %></h3>
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
@@ -33,8 +33,9 @@
   <div class="row">
     <% @expired_events.each do |event| %>
     <div class="col-12 col-md-4 col-lg-3 py-1">
-      <%= link_to event_path(event), class: "card-link event-card" do %>
-      <div class="card h-100 pb-1">
+      <%= link_to event_path(event), class: "card-link" do %>
+      <div class="card  event-card h-100 pb-1">
+        <div class="card-header">截止時間:<%= time_ago_in_words event.sign_up_end %></div>
         <div class="card-body">
           <h3 class="card-title"><%= event.name %></h3>
           <p class="card-text"><%= truncate(event.description, length: 90) %></p>
@@ -43,7 +44,7 @@
           <li class="list-group-item"><%= t('event.participants_count') %>:<%= event.show_participants_count %></li>
         </ul>
         <div class="card-footer">
-          <small class="text-muted">截止時間:<%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></small>
+          <small class="text-muted"></small>
         </div>
       </div>
       <% end %>

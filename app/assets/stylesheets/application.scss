@@ -10,81 +10,25 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  */
+@import "variables";
 @import "bootstrap";
 @import "font-awesome";
 @import "pagedown_bootstrap";
 @import "github-markdown";
 @import "sidebar";
+@import "admin";
 
 $iframe_width : 500px;
 $iframe_height : $iframe_width * 9 / 16;
-$wood: #672315;
-$sky: #3097D1;
-$caten-blue: #05092E;
-$white: #FCFCFC;
-$purple: #7952b3;
-$silver: #ECEEEF;
-$black: #000000;
-$gray: #bababa;
 
 main{
   min-height: 360px;
 }
-.bg-gray {
-  background: $gray;
-}
-.bg-white {
-  background: $white;
-}
-.bg-wood {
-  background: $wood;
-}
-.bg-sky {
-  background: $sky;
-}
-.bg-purple {
-  background: $purple;
-}
+
 .bg-color{
   background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
 }
-.outline-wood {
-    background-image: none;
-    background-color: transparent;
-    border-color: $wood;
-}
-.outline-purple {
-    background-image: none;
-    background-color: transparent;
-    border-color: $purple;
-}
-.outline-caten-blue {
-    background-image: none;
-    background-color: transparent;
-    border-color: $caten-blue;
-}
-.outline-sky {
-    background-image: none;
-    background-color: transparent;
-    border-color: $sky;
-}
-.event-card {
-  color: $sky;
-  &:hover {
-    color: $purple;
-  }
-  .card{
-      background-image: none;
-      background-color: transparent;
-      border-color: $sky;
-      @include media-breakpoint-up(md) {
-        min-height: 350px;
-      }
-      &:hover {
-        border-color: $purple;
-      }
-  }
-}
+
 .jumbotron-color{
   border-radius: 0px;
   background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
@@ -102,12 +46,19 @@ main{
     }
   }
 }
-.bg-silver {
-  background-color: $silver;
+
+.event-card {
+  color: $sky;
+  border-color: $sky;
+  &:hover {
+    color: $purple;
+    border-color: $purple;
+  }
+  @include media-breakpoint-up(md) {
+    min-height: 350px;
+  }
 }
-#admin-main{
-  margin-top: 54px;
-}
+
 .caten-link{
   text-decoration: none;
   color: $black;
@@ -115,22 +66,4 @@ main{
     color: $purple;
     text-decoration: none;
   }
-}
-.purple{
-  color: $purple;
-}
-.btn-purple{
-  color: $white;
-  background-color: $purple;
-}
-
-.btn-outline-purple{
-  color: $purple;
-  background-color: transparent;
-  border-color: $purple;
-  &:hover{
-    color: $white;
-    background-color: $purple;
-  }
-
 }

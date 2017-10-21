@@ -110,7 +110,7 @@
       success: function(result) {
         var searchResult = '';
         var searchResultDom = $("#search-result");
-        var show = 'd-flex flex-wrap h5 bg-gray p-2 rounded';
+        var show = 'd-flex flex-wrap h5 bg-light p-2 rounded';
 
         if (result.users.length < 1) {
           searchResult = '<div><%= t('no_result') %></div>'
