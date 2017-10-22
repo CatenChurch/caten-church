@@ -4,7 +4,9 @@ class PagesController < ApplicationController
 
   def about; end
 
-  def contact; end
+  def contact
+    @contact = Contact.new
+  end
 
   def info; end
 
