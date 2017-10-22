@@ -50,6 +50,7 @@ main{
 .event-card {
   color: $sky;
   border-color: $sky;
+  border-radius: 10px;
   &:hover {
     color: $purple;
     border-color: $purple;
