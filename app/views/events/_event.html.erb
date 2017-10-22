@@ -4,7 +4,7 @@
 		<h3 class="card-title"><%= event.name %></h3>
 		<p class="card-text my-4"><%= simple_format event.description %></p>
 		<table class="table table-bordered d-none d-sm-table">
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t(:nature)%></th>
 					<th><%= t(:event_participants_number)%></th>
@@ -20,7 +20,7 @@
 					<td><%= event.max_sign_up_number %></td>
 				</tr>
 			</tbody>
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t(:event_sign_up_begin)%></th>
 					<th><%= t(:event_sign_up_end)%></th>
@@ -36,7 +36,7 @@
 					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 			</tbody>
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t('event.check_arrival') %></th>
 					<th><%= t('event.registery_fee') %></th>

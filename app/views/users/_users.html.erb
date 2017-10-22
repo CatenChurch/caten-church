@@ -1,7 +1,7 @@
 <% render_for_admin = render_for_admin || false %>
 <table class="table">
   <% if render_for_admin %>
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th>id</th>
       <th><%= t(:name) %></th>
@@ -38,7 +38,7 @@
   </tbody>
 
 <% else #render for non-admin %>
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th><%= t(:name) %></th>
       <th><%= t(:sex) %></th>
