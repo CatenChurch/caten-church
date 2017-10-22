@@ -1,4 +1,5 @@
 class MessengersController < ApplicationController
+  protect_from_forgery with: :null_session
   def verification
     if params['hub.mode'] == 'subscribe' && params['hub.verify_token'] == ENV['FB_MESG_TOKEN']
       render plain: params['hub.challenge'], status: 200
