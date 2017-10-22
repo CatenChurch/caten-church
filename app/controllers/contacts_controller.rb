@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      redirect_to @contact, notice: t('contact.created')
+      redirect_to contact_url, notice: t('contact.created')
     else
       flash[:danger] = t('contact.create_failed')
       render 'pages/contact'
