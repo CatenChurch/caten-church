@@ -1,7 +1,7 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
   <h1><%= t('service_team.all') %></h1>
   <div class="w-100"></div>
-  <%= link_to t('service_team.create'), new_admin_service_team_path, class: 'btn btn-primary ml-auto' %>
+  <%= link_to t('service_team.create'), new_admin_service_team_path, class: 'btn btn-success ml-auto' %>
 </div>
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
@@ -31,7 +31,7 @@
       <th><%= t('service_team.leader') %></th>
       <th><%= t('service_team.member') %></th>
       <th><%= t('service_team.schedules_count') %></th>
-      <th></th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -42,8 +42,8 @@
         <td><%= team.users_count %></td>
         <td><%= team.schedules_count %></td>
         <td>
-          <%= link_to t('button.more'), admin_service_team_path(team), class: 'btn btn-info' %>
-          <%= link_to t('button.edit'), edit_admin_service_team_path(team), class: 'btn btn-primary' %>
+          <%= link_to t('button.more'), admin_service_team_path(team), class: 'btn btn-light' %>
+          <%= link_to t('button.edit'), edit_admin_service_team_path(team), class: 'btn btn-warning' %>
           <%= link_to t('button.destroy'), admin_service_team_path(team), class: 'btn btn-danger', method: :delete, data: { confirm: t('sure?') } %>
         </td>
       </tr>

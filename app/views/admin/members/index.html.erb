@@ -37,7 +37,7 @@
       <th>姓名</th>
       <th>Email</th>
       <th>聯絡電話</th>
-      <th>詳細資訊</th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -52,7 +52,7 @@
       <td><%= profile.name %></td>
       <td><%= u.email %></td>
       <td><%= profile.phone %><br><%= profile.cellphone %></td>
-      <td><%= link_to "更多", admin_member_path(u), class: "btn btn-info" %></td>
+      <td><%= link_to "查看", admin_member_path(u), class: "btn btn-light" %></td>
     </tr>
     <% end %>
   </tbody>

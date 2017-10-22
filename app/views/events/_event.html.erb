@@ -107,7 +107,7 @@
 	<% unless render_for_admin %>
 	<div class="card-body">
 		<%= link_to t('event.quit'), quit_event_path(@event), method: :post, class: "btn btn-warning" if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
-		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-info" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
+		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-outline-dark" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
 		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
 			<label class="mr-2"><%= t('event_user.remark') %></label>
 			<%= text_field_tag :remark, nil, class: "form-control" %>
