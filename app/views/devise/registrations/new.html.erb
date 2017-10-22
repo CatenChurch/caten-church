@@ -8,37 +8,28 @@
   <p class="lead text-center">註冊會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
 <% end %>
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
-        <div class="card-block">
-          <p class="card-text text-center lead my-4">
-            使用
-            <%= link_to omniauth_authorize_path(resource_name, :facebook) do %>
-              <%= fa_icon('facebook-official 3x') %>
-            <% end %>
-            登入本網站
-          </p>
-          <hr>
-          <%= render 'devise/shared/links' %>
+  <div class="card-deck">
+    <div class="card my-2">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
+        <div class="card-body">
+          <%= f.input :email, required: true, autofocus: true %>
+          <%= f.input :password, required: true, hint: ("至少要有 #{@minimum_password_length} 個字元" if @minimum_password_length) %>
+          <%= f.input :password_confirmation, required: true %>
         </div>
-      </div>
+        <div class="card-body">
+          <%= f.button :submit, "註冊", class: "btn btn-purple w-100" %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
-        <div class="card-block">
-          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs">
-              <%= f.input :email, required: true, autofocus: true %>
-              <%= f.input :password, required: true, hint: ("至少要有 #{@minimum_password_length} 個字元" if @minimum_password_length) %>
-              <%= f.input :password_confirmation, required: true %>
-            </div>
-            <div class="form-actions">
-              <%= f.button :submit, "註冊", class: "btn btn-purple w-100" %>
-            </div>
-          <% end %>
-        </div>
+    <div class="card text-center text-muted my-2">
+      <div class="card-body">
+        <%= link_to omniauth_authorize_path(resource_name, :facebook), class:'btn btn-outline-primary btn-block' do %>
+          使用<%= fa_icon 'facebook-official 3x', class: 'mx-2' %>登入本網站
+        <% end %>
+      </div>
+      <div class="card-body">
+        <%= render 'devise/shared/links' %>
       </div>
     </div>
   </div>

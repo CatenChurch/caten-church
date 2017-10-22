@@ -6,7 +6,7 @@
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
-    <div class="card-block">
+    <div class="card-body">
       <%= search_form_for @q, url: admin_members_url, class: "form-inline mx-5" do |f| %>
       <%= f.label t('user.email'), class: "mr-1" %>
       <%= f.search_field :email_cont, class: "form-control mr-2" %>
@@ -23,21 +23,21 @@
       <%= f.label t('profile.birth_month'), class: "mr-1" %>
       <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
-      <%= link_to t('button.clear'), admin_members_path, class: 'btn btn-secondary ml-auto' %>
-      <%= f.submit class: "btn btn-secondary mx-2" %>
+      <%= link_to t('button.clear'), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
+      <%= f.submit class: "btn btn-outline-secondary mx-2" %>
       <% end %>
     </div>
   </div>
 </div>
 <%= paginate @members %>
 <table class="table my-4">
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th>ID</th>
       <th>姓名</th>
       <th>Email</th>
       <th>聯絡電話</th>
-      <th>詳細資訊</th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -52,7 +52,7 @@
       <td><%= profile.name %></td>
       <td><%= u.email %></td>
       <td><%= profile.phone %><br><%= profile.cellphone %></td>
-      <td><%= link_to "更多", admin_member_path(u), class: "btn btn-info" %></td>
+      <td><%= link_to "查看", admin_member_path(u), class: "btn btn-light" %></td>
     </tr>
     <% end %>
   </tbody>

@@ -1,19 +1,19 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
   <h1><%= t('service_role.all') %></h1>
   <div class="w-100"></div>
-  <%= link_to t('service_role.create'), new_admin_service_role_path, class: 'btn btn-primary ml-auto' %>
+  <%= link_to t('service_role.create'), new_admin_service_role_path, class: 'btn btn-success ml-auto' %>
 </div>
 
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
-    <div class="card-block">
+    <div class="card-body">
       <%= search_form_for @q, url: admin_service_roles_url, class: 'form-inline my-2 mx-5' do |f| %>
         <%= f.label t('service_role.name'), class: 'mr-1' %>
         <%= f.search_field :name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('button.clear'), admin_service_roles_path, class: 'btn btn-secondary ml-auto' %>
-        <%= f.submit class: 'btn btn-secondary mx-2 ml-1' %>
+        <%= link_to t('button.clear'), admin_service_roles_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.submit class: 'btn btn-outline-secondary mx-2 ml-1' %>
       <% end %>
     </div>
   </div>
@@ -21,10 +21,10 @@
 
 <%= paginate @roles %>
 <table class="table">
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th><%= t('service_role.name') %></th>
-      <th></th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -32,8 +32,8 @@
       <tr>
         <td><%= role.name %></td>
         <td>
-          <%= link_to t('button.more'), admin_service_role_path(role), class: 'btn btn-info' %>
-          <%= link_to t('button.edit'), edit_admin_service_role_path(role), class: 'btn btn-primary' %>
+          <%= link_to t('button.more'), admin_service_role_path(role), class: 'btn btn-light' %>
+          <%= link_to t('button.edit'), edit_admin_service_role_path(role), class: 'btn btn-warning' %>
           <%= link_to t('button.destroy'), admin_service_role_path(role), class: 'btn btn-danger', method: :delete, data: { confirm: t('sure?') } %>
         </td>
       </tr>

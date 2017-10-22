@@ -8,27 +8,21 @@
   <p class="lead text-center">輸入當初註冊的Email，系統將會寄送重設密碼的鏈結至你的Email</p>
 <% end %>
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
-        <div class="card-block">
-          <%= render 'devise/shared/links' %>
+  <div class="card-deck">
+    <div class="card my-2">
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="card-body">
+          <%= f.error_notification %>
+          <%= f.input :email, required: true, autofocus: true %>
         </div>
-      </div>
+        <div class="card-body">
+          <%= f.button :submit, t('pages.reset_password'), class: 'btn btn-block btn-warning' %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-12 col-sm-6">
-      <div class="card h-100">
-        <div class="card-block">
-          <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-            <%= f.error_notification %>
-            <div class="form-inputs">
-              <%= f.input :email, required: true, autofocus: true %>
-            </div>
-            <div class="form-actions">
-              <%= f.button :submit, t('pages.reset_password'), class: 'btn btn-block' %>
-            </div>
-          <% end %>
-        </div>
+    <div class="card text-center text-muted my-2">
+      <div class="card-body">
+        <%= render 'devise/shared/links' %>
       </div>
     </div>
   </div>

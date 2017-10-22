@@ -1,4 +1,4 @@
-<%= link_to '消息一覽', admin_announcements_path, class: "btn btn-secondary"%>
+<%= link_to '消息一覽', admin_announcements_path, class: "btn btn-outline-secondary"%>
 <div class="btn-group pull-right">
   <%= link_to(t(:edit), edit_admin_announcement_path(@announcement) , class: "btn btn-warning") %>
   <%= link_to(t(:delete), admin_announcement_path(@announcement), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
