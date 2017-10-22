@@ -1,10 +1,10 @@
 <% render_for_admin = render_for_admin || false %>
 <div class="card">
-	<div class="card-block">
+	<div class="card-body">
 		<h3 class="card-title"><%= event.name %></h3>
 		<p class="card-text my-4"><%= simple_format event.description %></p>
 		<table class="table table-bordered d-none d-sm-table">
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t(:nature)%></th>
 					<th><%= t(:event_participants_number)%></th>
@@ -20,7 +20,7 @@
 					<td><%= event.max_sign_up_number %></td>
 				</tr>
 			</tbody>
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t(:event_sign_up_begin)%></th>
 					<th><%= t(:event_sign_up_end)%></th>
@@ -36,7 +36,7 @@
 					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 			</tbody>
-			<thead class="thead-default">
+			<thead class="thead-light">
 				<tr>
 					<th><%= t('event.check_arrival') %></th>
 					<th><%= t('event.registery_fee') %></th>
@@ -58,56 +58,56 @@
 		<table class="table table-bordered d-sm-none">
 			<tbody>
 				<tr>
-					<th class="bg-silver"><%= t(:nature)%></th>
+					<th class="bg-light"><%= t(:nature)%></th>
 					<td><%= event.nature %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:event_participants_number)%></th>
+					<th class="bg-light"><%= t(:event_participants_number)%></th>
 					<td><%= event.show_participants_count %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:min_sign_up_number)%></th>
+					<th class="bg-light"><%= t(:min_sign_up_number)%></th>
 					<td><%= event.min_sign_up_number %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:max_sign_up_number)%></th>
+					<th class="bg-light"><%= t(:max_sign_up_number)%></th>
 					<td><%= event.max_sign_up_number %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:event_sign_up_begin)%></th>
+					<th class="bg-light"><%= t(:event_sign_up_begin)%></th>
 					<td><%= event.sign_up_begin.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:event_sign_up_end)%></th>
+					<th class="bg-light"><%= t(:event_sign_up_end)%></th>
 					<td><%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:event_start)%></th>
+					<th class="bg-light"><%= t(:event_start)%></th>
 					<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t(:event_over)%></th>
+					<th class="bg-light"><%= t(:event_over)%></th>
 					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t('event.check_arrival')%></th>
+					<th class="bg-light"><%= t('event.check_arrival')%></th>
 					<td><%= need(event.check_arrival) %></td>
 				</tr>
 				<tr>
-					<th class="bg-silver"><%= t('event.registery_fee')%></th>
+					<th class="bg-light"><%= t('event.registery_fee')%></th>
 					<td><%= fee(event.registery_fee) %></td>
 				</tr>
 				<% if render_for_admin %>
-				<th class="bg-silver"><%= t('event.show_participants')%></th>
+				<th class="bg-light"><%= t('event.show_participants')%></th>
 				<td><%= boolean_to_y_or_n(event.show_participants) %></td>
 				<% end %>
 			</tbody>
 		</table>
 	</div>
 	<% unless render_for_admin %>
-	<div class="card-block">
+	<div class="card-body">
 		<%= link_to t('event.quit'), quit_event_path(@event), method: :post, class: "btn btn-warning" if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
-		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-info" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
+		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-outline-dark" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
 		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
 			<label class="mr-2"><%= t('event_user.remark') %></label>
 			<%= text_field_tag :remark, nil, class: "form-control" %>

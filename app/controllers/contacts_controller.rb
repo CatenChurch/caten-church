@@ -7,8 +7,8 @@ class ContactsController < ApplicationController
     if @contact.save
       redirect_to @contact, notice: t('contact.created')
     else
-      flash[:warning] = t('contact.create_failed')
-      render :new
+      flash[:danger] = t('contact.create_failed')
+      render 'pages/contact'
     end
   end
 

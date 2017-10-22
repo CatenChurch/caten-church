@@ -1,15 +1,15 @@
-<%= link_to t('service_team.all'), admin_service_teams_path, class: "btn btn-secondary mr-auto" %>
+<%= link_to t('service_team.all'), admin_service_teams_path, class: "btn btn-outline-secondary mr-auto" %>
 <h1 class="text-center"><%= "#{t('service_team._')} : #{@team.name}"  %></h1>
 <div class="d-flex align-items-center">
   <div class="mr-auto"></div>
   <%= link_to t('service_schedule._'), admin_service_schedules_path(q: {team_id_eq: @team.id}), class: "btn btn-info mr-1" %>
-  <%= link_to t('button.edit'), edit_admin_service_team_path, class: "btn btn-primary mr-1" %>
+  <%= link_to t('button.edit'), edit_admin_service_team_path, class: "btn btn-warning mr-1" %>
   <%= link_to t('button.destroy'), admin_service_team_path, method: :delete, class: "btn btn-danger", data: { confirm: t('sure?') } %>
 </div>
 <h2><%= t('service_team.member') %></h2>
 <%= paginate @team_users, param_name: :page %>
 <table class="table">
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th><%= t('profile.name') %></th>
       <th><%= t('service_role.name') %></th>

@@ -1,4 +1,4 @@
-<%= link_to t('service_role.all'), admin_service_roles_path, class: "btn btn-secondary mr-auto" %>
+<%= link_to t('service_role.all'), admin_service_roles_path, class: "btn btn-outline-secondary mr-auto" %>
 <h1 class="text-center"><%= "#{t('service_role._')} : #{@role.name}"  %></h1>
 <div class="d-flex align-items-center">
   <div class="mr-auto"></div>
@@ -7,7 +7,7 @@
 </div>
 <%= paginate @team_users %>
 <table class="table">
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th><%= t('profile.name') %></th>
       <th><%= t('service_team.name') %></th>

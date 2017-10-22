@@ -1,10 +1,10 @@
-<%= link_to '會員列表', admin_members_path, class: "btn btn-secondary" %>
+<%= link_to '會員列表', admin_members_path, class: "btn btn-outline-secondary" %>
 <h2 class="text-center my-4"><%= @member.email %></h2>
 <%= render 'account/profiles/profile', :profile => @member.profile, render_for_admin: true %>
 <div class="row mt-2">
   <div class="col-sm-12 col-md-6">
     <div class="card">
-      <div class="card-block">
+      <div class="card-body">
         <h3 class="card-title text-center"><%= "#{t('leaded')}#{t('service_team._')}" %></h3>
         <%= content_tag :div, t('no_result'), class: 'text-center' if @member.service_teams.blank? %>
       </div>
@@ -13,7 +13,7 @@
           <li class="list-group-item"><%= link_to team.name, admin_service_team_path(team), class: "card-link mx-auto" %></li>
         <% end %>
       </ul>
-      <div class="card-block">
+      <div class="card-body">
         <h3 class="card-title text-center"><%= "#{t('joined')}#{t('service_team._')}" %></h3>
         <%= content_tag :div, t('no_result'), class: 'text-center' if @member.serviced_teams.blank? %>
       </div>
@@ -26,7 +26,7 @@
   </div>
   <div class="col-sm-12 col-md-6">
     <div class="card">
-      <div class="card-block">
+      <div class="card-body">
         <h3 class="card-title text-center"><%= "#{t('joined')}#{t('event._')}" %></h3>
         <%= content_tag :div, t('no_result'), class: 'text-center' if @member.participated_events.blank? %>
       </div>

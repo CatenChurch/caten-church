@@ -32,7 +32,7 @@
 <div id="search-form" class="form-inline mb-2">
   <label><%= "#{t('search')}#{t('user._')}" %></label>
   <input id="search-name" type="text" class="form-control mx-2">
-  <button id="search-button" type="button" class="btn btn-secondary"><%= t('button.search') %></button>
+  <button id="search-button" type="button" class="btn btn-outline-secondary"><%= t('button.search') %></button>
 </div>
 <div id="search-result" class="d-none"></div>
 <script type="text/javascript">
@@ -110,7 +110,7 @@
       success: function(result) {
         var searchResult = '';
         var searchResultDom = $("#search-result");
-        var show = 'd-flex flex-wrap h5 bg-gray p-2 rounded';
+        var show = 'd-flex flex-wrap h5 bg-light p-2 rounded';
 
         if (result.users.length < 1) {
           searchResult = '<div><%= t('no_result') %></div>'

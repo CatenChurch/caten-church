@@ -7,7 +7,7 @@
 <% end %>
 <div class="container">
   <div class="d-flex p-2">
-    <%= link_to t('button.back'), event_path(@event), class: "btn btn-secondary" %>
+    <%= link_to t('button.back'), event_path(@event), class: "btn btn-outline-secondary" %>
   </div>
   <%= render 'event_users/index', event_users: @event_users %>
 </div>

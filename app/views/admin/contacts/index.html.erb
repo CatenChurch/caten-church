@@ -5,7 +5,7 @@
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
-    <div class="card-block">
+    <div class="card-body">
       <%= search_form_for @q, url: admin_contacts_url, class: "form-inline my-2 mx-5" do |f| %>
       <%= f.label t('contact.handle.y'), class: "mr-1" %>
       <%= f.check_box :handled_eq, class: "form-control mr-2" %>
@@ -19,15 +19,15 @@
       <%= f.label t('contact.email'), class: "mr-1" %>
       <%= f.search_field :email_cont, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
-      <%= link_to t('button.clear'), admin_contacts_path, class: "btn btn-secondary ml-auto" %>
-      <%= f.submit class: "btn btn-secondary mx-2 ml-1" %>
+      <%= link_to t('button.clear'), admin_contacts_path, class: "btn btn-outline-secondary ml-auto" %>
+      <%= f.submit class: "btn btn-outline-secondary mx-2 ml-1" %>
       <% end %>
     </div>
   </div>
 </div>
 <%= paginate @contacts %>
 <table class="table">
-  <thead class="thead-default">
+  <thead class="thead-light">
     <tr>
       <th><%= t("contact.name") %></th>
       <th><%= t('contact.phone') %></th>
