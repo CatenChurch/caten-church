@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'messengers/webhook'
-
   # facebook messenger
-  get 'messengers/webhook' => 'messengers#webhook'
+  get 'messengers/webhook' => 'messengers#verification'
+  post 'messengers/webhook' => 'messengers#webhook'
   # sidekiq
   require 'sidekiq/web'
   authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
