@@ -53,6 +53,10 @@ Rails.application.routes.draw do
     end
     resources :members, only: [:index, :show, :edit, :update] do
       get 'download', on: :collection
+      member do
+        post 'become_admin'
+        post 'cancel_admin'
+      end
     end
     resources :events do
       member do
