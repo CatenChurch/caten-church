@@ -66,4 +66,12 @@ class User < ApplicationRecord
   def connect_omniauth(auth)
     oauths << auth
   end
+
+  def become_admin
+    add_role :admin
+  end
+
+  def cancel_admin
+    remove_role :admin
+  end
 end
