@@ -23,6 +23,9 @@
       <%= f.label t('profile.birth_month'), class: "mr-1" %>
       <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: "form-control mr-2" %>
       <div class="w-100 my-1"></div>
+      <%= f.label '角色', class: "mr-1" %>
+      <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), include_blank: true, class: "form-control mr-2" %>
+      <div class="w-100 my-1"></div>
       <%= link_to t('button.clear'), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
       <%= f.submit class: "btn btn-outline-secondary mx-2" %>
       <% end %>
