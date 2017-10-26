@@ -14,6 +14,8 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require jquery_ujs
+// Google Analytics
+//= require google_analytics
 // vue
 //= require vue
 //= require vue-resource

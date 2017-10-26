@@ -5,6 +5,21 @@
 <meta property="og:type" content="website">
 <%= display_meta_tags site: t(:website) %>
 
+<%# https://gist.github.com/esBeee/545653241530f8f2c2e16371bec56f20 %>
+<%# Put this code snippet between the <head></head>-tags in your application layout and %>
+<%# replace 'UA-XXXXXXXX-X' with your own unique Google Analytics Tracking ID %>
+<% if Rails.env.production? %>
+  <!-- Google Analytics -->
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '<%= ENV['GA_TRACK_ID'] %>', 'auto');
+  </script>
+  <!-- Google Analytics end -->
+<% end %>
+
 <%= favicon_link_tag 'favicon.ico' %>
 <%= stylesheet_link_tag    'application'%>
 <%= javascript_include_tag 'application'%>
