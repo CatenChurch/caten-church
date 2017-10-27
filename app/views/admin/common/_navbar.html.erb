@@ -19,6 +19,10 @@
       <%= nav_li t('service_schedule._'), admin_service_schedules_path %>
     </ul>
     <hr>
+    <ul class="navbar-nav mr-auto d-sm-none">
+      <%= nav_li t('sidekiq.web'), sidekiq_web_path, target: :_blank %>
+    </ul>
+    <hr>
     <ul class="navbar-nav ml-auto">
       <%= nav_li "回到前台", root_path %>
     </ul>
