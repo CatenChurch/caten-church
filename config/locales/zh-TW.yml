@@ -1,4 +1,6 @@
 'zh-TW':
+  sidekiq:
+    web: '排程管理'
   service_team:
     _: '服事團隊'
     all: '所有服事團隊'
