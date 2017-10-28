@@ -40,6 +40,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def find_provider
+    unless session.key?(:oauth_id) && session.key?(:oauth_email) && session.key?(:oauth_provider)
+      flash[:warning] = '若要使用社群網站註冊，請點擊社群網站登入按鈕'
+      redirect_to new_user_registration_url
+    end
     @provider = session[:oauth_provider]
   end
 end
