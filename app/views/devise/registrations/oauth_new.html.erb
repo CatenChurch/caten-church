@@ -1,0 +1,31 @@
+<% content_for :breadcrumb do %>
+  <%= link_to t('pages.root'), root_path %>
+  >
+  <%= "#{@provider.capitalize} #{t('pages.sign_up')}" %>
+<% end %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= "#{@provider.capitalize} #{t('pages.sign_up')}" %></h1>
+  <p class="lead text-center">
+    使用 <%= @provider.capitalize %> 註冊會員，
+    請填寫您的 email 與密碼，
+    我們會預設使用您 <%= @provider.capitalize %> 填寫的 email 作為帳號。
+  </p>
+  <p class="text-warning text-center">
+
+  </p>
+<% end %>
+<div class="container">
+  <div class="card my-2">
+    <%= simple_form_for(@user, url: oauth_user_registration_url) do |f| %>
+      <%= f.error_notification %>
+      <div class="card-body">
+        <%= f.input :email, required: true, hint: '若您使用非預設的 email 進行註冊，您將需要通過 email 驗證信才能成功註冊，因此建議您使用預設的 email。' %>
+        <%= f.input :password, required: true, autofocus: true, hint: ("至少要有 #{@minimum_password_length} 個字元" if @minimum_password_length) %>
+        <%= f.input :password_confirmation, required: true %>
+      </div>
+      <div class="card-body">
+        <%= f.button :submit, '註冊', class: 'btn btn-purple w-100' %>
+      </div>
+    <% end %>
+  </div>
+</div>

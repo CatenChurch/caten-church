@@ -1,41 +1,45 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
-    oauth_data = request.env["omniauth.auth"]
-    access_token = oauth_data[:credentials][:token]
-    session[:facebook_access_token] = access_token
+    # data stored in request.env["omniauth.auth"]
+    # see https://github.com/mkdynamic/omniauth-facebook#auth-hash
+    oauth_data = request.env['omniauth.auth']
+    provider = oauth_data.dig :provider
+    uid = oauth_data.dig :uid
+    email = oauth_data.dig :info, :email
+    token = oauth_data.dig :credentials, :token
 
-    @oauth = Oauth.find_or_create_user(oauth_data)
+    # first or initialize oauth
+    @oauth = Oauth.where(provider: provider, uid: uid).first_or_create do |oauth|
+      oauth.provider = provider
+      oauth.uid = uid
+    end
+    @oauth.refresh(token)
 
-    if user_signed_in? && @oauth.no_one_connect_with?
+    # Sign up
+    if !user_signed_in? && !@oauth.connected?
+      session[:oauth_id] = @oauth.id
+      session[:oauth_email] = email
+      session[:oauth_provider] = provider
+      flash[:success] = '以 Facebook 帳號進行註冊'
+      redirect_to new_oauth_user_registration_url
+
+    # Sign in
+    elsif !user_signed_in? && @oauth.connected?
+      flash[:success] = '以 Facebook 帳號授權登入'
+      sign_in_and_redirect @oauth.user, event: :authentication # this will throw if @user is not activated
+
+    # Connect
+    elsif user_signed_in? && !@oauth.connected?
       @oauth.connect current_user
-      flash[:success] = "帳號與Facebook帳號連結成功"
-      redirect_to root_url
-    elsif user_signed_in?
-      @oauth.is_connect_to?(current_user) ? flash[:success] = "Facebook帳號授權成功" : flash[:danger] = "此Facebook帳號已經與其他帳號與連結了"
-      redirect_to root_url
-    elsif !user_signed_in? && !@oauth.user.blank?
-      sign_in_and_redirect @oauth.user, :event => :authentication #this will throw if @user is not activated
-      flash[:notice] = "以Facebook帳號授權登入"
+      flash[:success] = '帳號與 Facebook 帳號連結成功'
+      redirect_to edit_user_registration_url
+
     else
-      flash[:warning] = "此用戶Facebook email已於此網站註冊過了，請登入後連結Facebook方能使用Facebook登入"
-      session[:email] = oauth_data[:info][:email]
-      redirect_to new_user_session_url
+      redirect_to root_url
     end
   end
 
   def failure
-    redirect_to root_path
+    redirect_to root_url
   end
-
-  protected
-  def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && resource.first_time_sign_in?
-      flash[:info] = "此網站的帳號為Facebook的信箱，密碼隨機產生，可於之後更改密碼。第一次使用Facebook登入者，請填寫個人資料。"
-      new_account_profile_path
-    else
-      super
-    end
-  end
-
 end

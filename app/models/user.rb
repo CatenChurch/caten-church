@@ -31,9 +31,9 @@ class User < ApplicationRecord
 
   # devise 異步發送郵件
   # https://github.com/plataformatec/devise#activejob-integration
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
-  end
+  # def send_devise_notification(notification, *args)
+  #   devise_mailer.send(notification, self, *args).deliver_later
+  # end
 
   # user has profile
   def has_valid_profile?
@@ -60,11 +60,6 @@ class User < ApplicationRecord
     event_user = EventUser.find_by(user: self, event: event)
     raise ActiveRecord::RecordNotFound unless event_user
     event_user.destroy
-  end
-
-  # user connect omniauth
-  def connect_omniauth(auth)
-    oauths << auth
   end
 
   def become_admin
