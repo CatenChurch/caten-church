@@ -62,11 +62,6 @@ class User < ApplicationRecord
     event_user.destroy
   end
 
-  # user connect omniauth
-  def connect_omniauth(auth)
-    oauths << auth
-  end
-
   def become_admin
     add_role :admin
   end

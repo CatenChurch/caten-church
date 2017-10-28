@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     delete 'users/unconfirmed_email' => 'users/confirmations#cancel', as: :user_unconfirmed_email
+    get 'users/oauth_sign_up' => 'users/registrations#oauth_new', as: :new_oauth_user_registration
+    post 'users/oauth_sign_up' => 'users/registrations#oauth_create', as: :oauth_user_registration
   end
 
   namespace :admin do
