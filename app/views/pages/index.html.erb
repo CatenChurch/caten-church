@@ -35,17 +35,17 @@ set_meta_tags og: {
       <h2 class="card-title">網路社群</h2>
       <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
     </div>
-    <ul class="list-group list-group-flush">
-      <%= link_to 'https://www.facebook.com/caten.church.teens', class: 'list-group-item bg-light' do %>
+    <div class="list-group list-group-flush">
+      <%= link_to 'https://www.facebook.com/caten.church.teens', class: 'btn btn-light list-group-item' do %>
         Facebook 粉絲專頁
       <% end %>
-      <%= link_to 'https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w', class: 'list-group-item bg-light' do %>
+      <%= link_to 'https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w', class: 'btn btn-light list-group-item' do %>
         YouTube 頻道
       <% end %>
-      <%= link_to 'https://line.me/R/ti/p/%40kfi8062r', class: 'list-group-item bg-light' do %>
+      <%= link_to 'https://line.me/R/ti/p/%40kfi8062r', class: 'btn btn-light list-group-item' do %>
         Line @
       <% end %>
-    </ul>
+    </div>
   </div>
   <div class="w-100 d-lg-none"></div>
   <div class="card outline-purple text-center my-4">
@@ -54,7 +54,7 @@ set_meta_tags og: {
       <p class="card-text">活動報名專區，請先登入再點此前往報名</p>
     </div>
     <div class="card-body">
-      <%= link_to "活動", events_path, class: "btn btn-info btn-block"%>
+      <%= link_to "活動", events_path, class: "btn btn-purple btn-block"%>
     </div>
   </div>
   <div class="card outline-purple text-center my-4">
@@ -62,16 +62,16 @@ set_meta_tags og: {
       <h2 class="card-title">個人專區</h2>
       <p class="card-text">個人資料與帳號密碼設定，曾經參與哪些活動</p>
     </div>
-    <ul class="list-group list-group-flush">
-      <%= link_to account_events_path, class: "list-group-item bg-light" do %>
+    <div class="list-group list-group-flush">
+      <%= link_to account_events_path, class: 'btn btn-light list-group-item' do %>
         報名的活動
       <% end %>
-      <%= link_to account_profile_path, class: "list-group-item bg-light" do %>
+      <%= link_to account_profile_path, class: 'btn btn-light list-group-item' do %>
         個人資料
       <% end %>
-      <%= link_to edit_user_registration_path, class: "list-group-item bg-light" do %>
+      <%= link_to edit_user_registration_path, class: 'btn btn-light list-group-item' do %>
         帳號密碼設定
       <% end %>
-    </ul>
+    </div>
   </div>
 </div>
