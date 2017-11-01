@@ -26,12 +26,12 @@ module ApplicationHelper
     alerts.join("\n").html_safe
   end
 
-  def nav_li(text, path, css_class: '', method: :get, inner_class: '')
+  def nav_li(text, path, css_class: '', method: :get, inner_class: '', target: nil)
     # 被選中的巡覽列的class會加入active 做出區別的特效
     # navbar中的li tag 加入class="active"
     active = request.path == path ? 'active' : ''
     css_class += ' nav-item'
-    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: css_class
+    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}", target: target), class: css_class
   end
 
   def nav_params_li(text, path, check_params: {}, css_class: '', method: :get, inner_class: '')

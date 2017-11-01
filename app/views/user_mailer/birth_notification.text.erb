@@ -1,3 +1,6 @@
+<% unless Rails.env.production? %>
+本郵件為測試郵件
+<% end %>
 茄典教會<%= @month %>月份壽星通知
 
 <% @days.each.with_index do |users ,i| %>
