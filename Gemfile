@@ -101,6 +101,8 @@ group :development, :test do
 end
 
 group :development do
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker depends on this gem.
+  gem 'listen', '~> 3.0'
   # brakeman 弱點掃描
   gem 'brakeman', :require => false
   # Access an IRB console on exception pages or by using <%= console %> in views

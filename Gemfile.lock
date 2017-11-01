@@ -135,6 +135,10 @@ GEM
       addressable
       faraday
       json (>= 1.8)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -255,6 +259,7 @@ GEM
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
     ruby-graphviz (1.2.3)
+    ruby_dep (1.5.0)
     rubyzip (1.1.7)
     sass (3.5.3)
       sass-listen (~> 4.0.0)
@@ -334,6 +339,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   koala
+  listen (~> 3.0)
   meta-tags
   momentjs-rails
   newrelic_rpm
