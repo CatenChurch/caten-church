@@ -83,8 +83,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Rspec
   gem 'rspec-rails', '~> 3.5'
-  # factory_girl
-  gem 'factory_girl_rails'
+  # factory_bot
+  gem 'factory_bot_rails'
   # 假資料
   gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
