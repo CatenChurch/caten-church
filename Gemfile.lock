@@ -135,6 +135,7 @@ GEM
       addressable
       faraday
       json (>= 1.8)
+    line-bot-api (1.2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -339,6 +340,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   koala
+  line-bot-api
   listen (~> 3.0)
   meta-tags
   momentjs-rails
