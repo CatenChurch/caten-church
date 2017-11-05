@@ -7,7 +7,6 @@ class Chatbot::MessengersController < Chatbot::BaseController
     end
   end
 
-  def webhook
-    logger.info params
+  def callback
   end
 end
