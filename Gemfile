@@ -52,7 +52,7 @@ gem 'rolify'
 # Bootstrap 4 beta2
 gem 'bootstrap', '~> 4.0.0.beta2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.1'
+gem 'rails', '5.0.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -83,8 +83,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Rspec
   gem 'rspec-rails', '~> 3.5'
-  # factory_girl
-  gem 'factory_girl_rails'
+  # factory_bot
+  gem 'factory_bot_rails'
   # 假資料
   gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -101,9 +101,10 @@ group :development, :test do
 end
 
 group :development do
-  # Use sqlite3 as the database for Active Record
-  # gem 'sqlite3'
-
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker depends on this gem.
+  gem 'listen', '~> 3.0'
+  # brakeman 弱點掃描
+  gem 'brakeman', :require => false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
