@@ -1,7 +1,6 @@
 class Chatbot::LinesController < Chatbot::BaseController
   require 'line/bot'
   before_action :setup_line_bot
-  before_action :valid_signature
 
   def callback
     # line will post something like this
@@ -56,14 +55,6 @@ class Chatbot::LinesController < Chatbot::BaseController
     @bot = Line::Bot::Client.new do |config|
       config.channel_secret = ENV['LINE_CHANNEL_SECRET']
       config.channel_token = ENV['LINE_CHANNEL_TOKEN']
-    end
-  end
-
-  def valid_signature
-    data = request.body.read
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
-    unless @bot.validate_signature(data, signature)
-      render plain: 'signature not valid', status: 400
     end
   end
 end
