@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  # facebook messenger
-  get 'messengers/webhook' => 'messengers#verification'
-  post 'messengers/webhook' => 'messengers#webhook'
+  # chatbot
+  namespace :chatbot do
+    get 'lines/webhook' => 'lines#verification'
+
+    get 'messengers/webhook' => 'messengers#verification'
+    post 'messengers/webhook' => 'messengers#webhook'
+  end
+
   # sidekiq
   require 'sidekiq/web'
   authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
