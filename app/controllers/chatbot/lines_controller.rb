@@ -40,13 +40,19 @@ class Chatbot::LinesController < Chatbot::BaseController
     #     ]
     #   }
     # }
-    conversations = @bot.parse_events_from(request.raw_post)
-    conversations.each do |conversation|
-      next unless conversation.is_a?(Line::Bot::Event::Message) && conversation.type == 'text'
-      message = { type: 'text', text: conversation.message['text'] }
-      @bot.reply_message(conversation['replyToken'], message)
+    data = request.raw_post
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    if @bot.validate_signature(data, signature)
+      conversations = @bot.parse_events_from(data)
+      conversations.each do |conversation|
+        next unless conversation.is_a?(Line::Bot::Event::Message) && conversation.type == 'text'
+        message = { type: 'text', text: conversation.message['text'] }
+        @bot.reply_message(conversation['replyToken'], message)
+      end
+      render plain: 'success', status: 200
+    else
+      render plain: 'valid signature failed', status: 400
     end
-    render plain: 'success', status: 200
   end
 
   private
