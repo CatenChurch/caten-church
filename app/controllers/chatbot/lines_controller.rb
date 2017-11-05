@@ -46,8 +46,10 @@ class Chatbot::LinesController < Chatbot::BaseController
       conversations = @bot.parse_events_from(data)
       conversations.each do |conversation|
         next unless conversation.is_a?(Line::Bot::Event::Message) && conversation.type == 'text'
-        message = { type: 'text', text: conversation.message['text'] }
-        @bot.reply_message(conversation['replyToken'], message)
+        if conversation.message['text'][0..4] == 'caten'
+          message = { type: 'text', text: conversation.message['text'][5..-1].lstrip }
+          @bot.reply_message(conversation['replyToken'], message)
+        end
       end
       render plain: 'success', status: 200
     else
