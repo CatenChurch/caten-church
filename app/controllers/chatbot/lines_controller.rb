@@ -60,7 +60,7 @@ class Chatbot::LinesController < Chatbot::BaseController
   end
 
   def valid_signature
-    data = request.raw_post
+    data = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless @bot.validate_signature(data, signature)
       render plain: 'signature not valid', status: 400
