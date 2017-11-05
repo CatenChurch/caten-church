@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   # chatbot
   namespace :chatbot do
-    get 'lines/webhook' => 'lines#verification'
+    post 'line/callback' => 'lines#callback'
 
-    get 'messengers/webhook' => 'messengers#verification'
-    post 'messengers/webhook' => 'messengers#webhook'
+    get 'messenger/callback' => 'messengers#verification'
+    post 'messenger/callback' => 'messengers#callback'
   end
 
   # sidekiq
