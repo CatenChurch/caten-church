@@ -1,6 +1,6 @@
-class LineBot::Service
+class LineBotService
   require 'line/bot'
-  
+
   attr_reader :bot, :chats
 
   def initialize(request)
@@ -48,7 +48,7 @@ class LineBot::Service
 
     case text.split[1]
     when 'help'
-      LineBot::Service.caten_help
+      LineBotService.caten_help
     else
       LineBot::Formats::Messages::Text(text).to_h
     end
