@@ -17,7 +17,7 @@ class LineBotService
   def reply
     valid_signature
     @chats.each do |chat|
-      token = conversation['replyToken']
+      token = chat['replyToken']
       message = bulid_reply_message(chat)
       next if message.blank?
 
