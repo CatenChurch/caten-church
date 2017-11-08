@@ -50,7 +50,7 @@ class LineBotService
     when 'help'
       LineBotService.caten_help
     else
-      LineBot::Formats::Messages::Text(text).to_h
+      LineBot::Formats::Messages::Text.new(text).to_h
     end
   end
 end
