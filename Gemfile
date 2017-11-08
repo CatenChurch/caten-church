@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+# line bot
+gem 'line-bot-api'
 # sidekiq
 gem 'sidekiq'
 # new relic
