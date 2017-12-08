@@ -33,8 +33,8 @@ gem 'pagedown-bootstrap-rails'
 # Database
 gem 'pg'
 # excel file axlsx
-gem 'rubyzip', '~> 1.1.0'
-gem 'axlsx', '2.1.0.pre'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '776037c0fc799bb09da8c9ea47980bd3bf296874'
 gem 'axlsx_rails'
 # JS處理前端時間格式
 gem 'momentjs-rails'
