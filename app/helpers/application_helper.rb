@@ -40,7 +40,7 @@ module ApplicationHelper
     check_params.each do |key, value|
       check = false if request.GET.fetch(key, '').to_sym != value.to_sym
     end
-    base_path = if n == path.index('?')
+    base_path = if n = path.index('?')
                   path.byteslice(0..(n - 1))
                 else
                   path
