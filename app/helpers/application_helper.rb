@@ -40,7 +40,7 @@ module ApplicationHelper
     check_params.each do |key, value|
       check = false if request.GET.fetch(key, '').to_sym != value.to_sym
     end
-    base_path = if n = path.index('?')
+    base_path = if n == path.index('?')
                   path.byteslice(0..(n - 1))
                 else
                   path
@@ -62,10 +62,10 @@ module ApplicationHelper
   end
 
   def my_time(time)
-    time.strftime("%Y/%m/%d %H:%M:%S")
+    time.strftime '%Y/%m/%d %H:%M:%S'
   end
 
   def bootstrap_time(time)
-    time.strftime "%Y-%m-%dT%H:%M"
+    time.strftime '%Y-%m-%dT%H:%M'
   end
 end
