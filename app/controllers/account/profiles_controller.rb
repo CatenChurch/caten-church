@@ -7,7 +7,7 @@ class Account::ProfilesController < Account::BaseController
   end
 
   def create
-    @profile = current_user.build_profile.new(profile_params)
+    @profile = current_user.build_profile(profile_params)
     if @profile.save
       flash[:notice] = t('profile.created')
       redirect_to account_profile_url
