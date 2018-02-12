@@ -15,15 +15,11 @@
 /log/*
 !/log/.keep
 /tmp
+dump\.rdb
 
+# Ignore Mac OS X system file
 .DS_Store
-
 
 # Ignore application configuration
 /config/application.yml
 
-Gemfile.lock
-
-erd\.pdf
-
-dump\.rdb
