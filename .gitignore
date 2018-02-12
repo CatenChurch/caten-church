@@ -23,3 +23,5 @@ dump\.rdb
 # Ignore application configuration
 /config/application.yml
 
+# Ignore all node modules
+/node_modules/*
