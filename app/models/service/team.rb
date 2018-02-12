@@ -9,5 +9,5 @@ class Service::Team < ApplicationRecord
 
   accepts_nested_attributes_for :team_users, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :name, :user_id
+  validates_presence_of :name
 end

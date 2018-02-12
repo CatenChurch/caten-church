@@ -5,7 +5,6 @@ class EventUser < ApplicationRecord
   before_create :no_need_to_pay_fee, unless: :need_to_pay_fee?
   before_create :no_need_to_check_arrival, unless: :need_to_check_arrival?
 
-  validates_presence_of :user_id, :event_id
   validates_uniqueness_of :user_id, scope: :event_id, message: I18n.t('event.already_joined')
 
   def need_to_pay_fee?
