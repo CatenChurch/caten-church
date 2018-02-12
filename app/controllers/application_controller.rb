@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   include DeviseRedirectable
 
-  # Rails 101 中學到的還看不太懂
-  # http://courses.growthschool.com/courses/rails-101/lectures/229607
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # cancancan拒絕後導向
