@@ -10,17 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
-//= require popper
-//= require bootstrap-sprockets
-//= require jquery_ujs
-// vue
-//= require vue
-//= require vue-resource
-// vue 2 請搭配 require lodash
-// moment
-//= require moment
-//= require moment/zh-tw.js
-// pagedown
+//= require rails-ujs
+//= require jquery/dist/jquery
+//= require popper.js/dist/umd/popper
+//= require bootstrap/dist/js/bootstrap
 //= require pagedown_bootstrap
 //= require pagedown_init
