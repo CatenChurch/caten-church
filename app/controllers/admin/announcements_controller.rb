@@ -14,7 +14,7 @@ class Admin::AnnouncementsController < Admin::BaseController
   def edit; end
 
   def create
-    @announcement = current_user.announcements.new(resource_params)
+    @announcement = current_user.announcements.build(resource_params)
 
     if @announcement.save
       redirect_to admin_announcement_path(@announcement), notice: 'Announcement was successfully created.'

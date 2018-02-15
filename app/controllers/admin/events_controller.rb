@@ -25,7 +25,7 @@ class Admin::EventsController < Admin::BaseController
   def edit; end
 
   def create
-    @event = current_user.events.new(resource_params)
+    @event = current_user.events.build(resource_params)
     if @event.save
       redirect_to admin_event_path(@event)
       flash[:success] = '活動發起成功'
