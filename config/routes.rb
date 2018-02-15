@@ -1,37 +1,20 @@
 Rails.application.routes.draw do
-  # chatbot
-  namespace :chatbot do
-    post 'line/callback' => 'lines#callback'
-
-    get 'messenger/callback' => 'messengers#verification'
-    post 'messenger/callback' => 'messengers#callback'
-  end
-
-  # sidekiq
-  require 'sidekiq/web'
-  authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
-    mount Sidekiq::Web => 'admin/sidekiq'
-  end
-
+  root 'pages#index'
   resources :contacts, only: [:create]
-  resources :announcements, only: [:index, :show]
-  resources :events, only: [:index, :show] do
+  resources :announcements, only: %i[index show]
+  resources :events, only: %i[index show] do
     member do
       post 'join'
       post 'quit'
       get 'participants'
     end
   end
-  get 'index', 'youtube', 'term', 'about', 'contact', controller: 'pages'
-  # google site verification
-  get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
-
+  get 'index', 'term', 'about', 'contact', controller: 'pages'
   namespace :account do
     resource :profile, except: [:destroy]
     resources :events, only: [:index]
-    # get 'dashboard', controller: 'pages'
   end
-  # devise 註冊後custom導向
+  # custom devise controllers
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks',
@@ -42,13 +25,15 @@ Rails.application.routes.draw do
     get 'users/oauth_sign_up' => 'users/registrations#oauth_new', as: :new_oauth_user_registration
     post 'users/oauth_sign_up' => 'users/registrations#oauth_create', as: :oauth_user_registration
   end
+  # google site verification
+  get 'google9107c43bb8511ce3' => 'pages#google_site_verification'
 
   namespace :admin do
     get '/' => 'pages#index'
     resources :service_teams
     resources :service_roles
     resources :service_schedules, except: [:show]
-    resources :contacts, except: [:new, :create] do
+    resources :contacts, except: %i[new create] do
       member do
         post 'handle'
       end
@@ -58,7 +43,7 @@ Rails.application.routes.draw do
         post 'post_to_facebook'
       end
     end
-    resources :members, only: [:index, :show, :edit, :update] do
+    resources :members, only: %i[index show edit update] do
       get 'download', on: :collection
       member do
         post 'become_admin'
@@ -72,7 +57,16 @@ Rails.application.routes.draw do
       resource :event_users, path: :users
     end
   end
+  # sidekiq
+  require 'sidekiq/web'
+  authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do
+    mount Sidekiq::Web => 'admin/sidekiq'
+  end
 
-  # 首頁
-  root 'pages#index'
+  # chatbot
+  namespace :chatbot do
+    post 'line/callback' => 'lines#callback'
+    get 'messenger/callback' => 'messengers#verification'
+    post 'messenger/callback' => 'messengers#callback'
+  end
 end
