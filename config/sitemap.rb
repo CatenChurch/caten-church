@@ -5,14 +5,13 @@ SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
   add root_path, priority: 0.8
   add events_path, priority: 0.7, changefreq: 'daily'
-  add youtube_path, priority: 0.6
   Event.in_registration_time.each do |event|
     add event_path(event), priority: 0.6, lastmod: event.updated_at
   end
-
-  add info_path
-  add history_path
+  add about_path
   add term_path
+  add contact_path
+
   #
   # The root path '/' and sitemap index file are added automatically for you.
   # Links are added to the Sitemap in the order they are specified.
