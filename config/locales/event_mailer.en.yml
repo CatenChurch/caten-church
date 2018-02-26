@@ -1,0 +1,4 @@
+en:
+  event_mailer:
+    opening_countdown_notice:
+      subject: "Your participated event: %{name}, will start at tomorrow."

@@ -1,0 +1,4 @@
+'zh-TW':
+  event_mailer:
+    opening_countdown_notice:
+      subject: "你報名的茄典教會活動：%{name}，將於明天開始！"
