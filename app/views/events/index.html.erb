@@ -7,7 +7,7 @@
     <% @events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
         <%= link_to event_path(event), class: "card-link" do %>
-          <div class="card event-card">
+          <div class="card event-card text-center">
             <div class="card-header"><%= time_ago_in_words event.sign_up_end %> 之後</div>
             <div class="card-body">
               <h3 class="card-title"><%= event.name %></h3>
