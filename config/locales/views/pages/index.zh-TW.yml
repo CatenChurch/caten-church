@@ -1,0 +1,36 @@
+'zh-TW':
+  pages:
+    index:
+      title: '歡迎光臨 茄典教會'
+      lead: '這裡是茄典長老基督教會網站，站內有本教會相關之教會活動與與最新消息'
+      desc: '歡迎會友透過此網站查看教會最新消息以及報名參加活動'
+      announcement:
+        title: '教會資訊'
+        desc: '點此前往公布欄，查看最新的教會消息'
+        link: '查看公告'
+      social_media:
+        title: '網路社群'
+        desc: '歡迎追蹤或加入我們的網路社群'
+        youtube:
+          _: 'YouTube 頻道'
+          url: 'https://www.youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w'
+        facebook:
+          _: 'Facebook 粉絲專頁'
+          url: 'https://www.facebook.com/caten.church.teens'
+        line:
+          _: 'Line @'
+          url: 'https://line.me/R/ti/p/%40kfi8062r'
+      event:
+        title: '活動專區'
+        desc: '活動報名專區，請先登入再點此前往報名'
+        link: '報名活動'
+      account:
+        title: '會員中心'
+        desc: '個人資料與帳號密碼設定，曾經參與哪些活動'
+        events: '我的活動'
+        profile: '個人資料'
+        edit: '帳號設定'
+      seo:
+        title: '茄典教會'
+        img_url: 'http://i.imgur.com/Kgv2wwl.jpg'
+        desc: '大家好，這裡是茄典長老基督教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!'
