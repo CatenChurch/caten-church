@@ -1,0 +1,53 @@
+en:
+  pages:
+    contact:
+      title: 'Contact Us'
+      subtitle: '有任何問題嗎？馬上填寫表單聯絡我們。'
+      name: 'Caten Church'
+      address: '(826-47) No.467, Jiazhan Rd., Ziguan Dist., Kaohsiung City 826, Taiwan (R.O.C.)'
+      worship_time: 'Worship Time'
+      worship:
+        _: 'Sunday Worship'
+        time: 'Every Sun 09:50 ~ 11:30'
+      youth_fellowship:
+        _: 'Youth Fellowship'
+        time: 'Every Sat 19:00 ~ 21:30'
+      contact_ways: 'Contact Ways'
+      tel:
+        _: 'Tel'
+        number: '07-6178379'
+      fax:
+        _: 'Fax'
+        number: '07-6191553'
+      tax:
+        _: 'Tax'
+        number: '20252897'
+      email:
+        _: 'E-mail'
+        url: 'catenforjesus@gmail.com'
+      social_media: 'Social Media'
+      website: 'Website'
+      facebook:
+        _: 'Facebook'
+        url: 'https://facebook.com/caten.church.teens'
+      github:
+        _: 'Github'
+        url: 'https://github.com/CatenChurch'
+      youtube:
+        _: 'Youtube'
+        url: 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w'
+      line@:
+        _: 'Line @'
+        url: 'https://line.me/R/ti/p/%40kfi8062r'
+      google_map_html: |
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3822.8183443691373!2d120.25129795923615!3d22.734788517827976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0f351291d611%3A0x875c9a5e732e89d4!2z6Ie654Gj5Z-6552j6ZW36ICB5pWZ5pyDIOiMhOWFuOaVmeacgw!5e0!3m2!1szh-TW!2stw!4v1501388342293"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          style="min-height: 500px;"
+          allowfullscreen>
+        </iframe>
+      contact_form:
+        title: 'Fill In Contact Form'
+        subtitle: '任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！'
