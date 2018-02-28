@@ -1,16 +1,16 @@
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('user._'), admin_members_path %>
-  <%= nav_li t('event._'), admin_events_path %>
-  <%= nav_li t('announcement._'), admin_announcements_path %>
-  <%= nav_li t('contact._'), admin_contacts_path %>
+  <%= nav_li t('.users'), admin_members_path %>
+  <%= nav_li t('.events'), admin_events_path %>
+  <%= nav_li t('.announcements'), admin_announcements_path %>
+  <%= nav_li t('.contacts'), admin_contacts_path %>
 </ul>
 <hr>
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('service_team._'), admin_service_teams_path %>
-  <%= nav_li t('service_role._'), admin_service_roles_path %>
-  <%= nav_li t('service_schedule._'), admin_service_schedules_path %>
+  <%= nav_li t('.service_teams'), admin_service_teams_path %>
+  <%= nav_li t('.service_roles'), admin_service_roles_path %>
+  <%= nav_li t('.service_schedules'), admin_service_schedules_path %>
 </ul>
 <hr>
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('sidekiq.web'), sidekiq_web_path, target: :_blank %>
+  <%= nav_li t('.sidekiq'), sidekiq_web_path, target: :_blank %>
 </ul>

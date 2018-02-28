@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-purple fixed-top">
-  <%= link_to "後台管理", admin_path, class: "navbar-brand" %>
+  <%= link_to t('.brand'), admin_path, class: "navbar-brand" %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,24 +7,24 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto d-sm-none">
-      <%= nav_li t('user._'), admin_members_path %>
-      <%= nav_li t('event._'), admin_events_path %>
-      <%= nav_li t('announcement._'), admin_announcements_path %>
-      <%= nav_li t('contact._'), admin_contacts_path %>
+      <%= nav_li t('.users'), admin_members_path %>
+      <%= nav_li t('.events'), admin_events_path %>
+      <%= nav_li t('.announcements'), admin_announcements_path %>
+      <%= nav_li t('.contacts'), admin_contacts_path %>
     </ul>
     <hr>
     <ul class="navbar-nav mr-auto d-sm-none">
-      <%= nav_li t('service_team._'), admin_service_teams_path %>
-      <%= nav_li t('service_role._'), admin_service_roles_path %>
-      <%= nav_li t('service_schedule._'), admin_service_schedules_path %>
+      <%= nav_li t('.service_teams'), admin_service_teams_path %>
+      <%= nav_li t('.service_roles'), admin_service_roles_path %>
+      <%= nav_li t('.service_schedules'), admin_service_schedules_path %>
     </ul>
     <hr>
     <ul class="navbar-nav mr-auto d-sm-none">
-      <%= nav_li t('sidekiq.web'), sidekiq_web_path, target: :_blank %>
+      <%= nav_li t('.sidekiq'), sidekiq_web_path, target: :_blank %>
     </ul>
     <hr>
     <ul class="navbar-nav ml-auto">
-      <%= nav_li "回到前台", root_path %>
+      <%= nav_li t('.back'), root_path %>
     </ul>
   </div>
 </nav>
