@@ -1,11 +1,11 @@
 <% content_for :breadcrumb do %>
-  <%= link_to t('pages.root'), root_path %>
+  <%= link_to t('breadcrumb.root'), root_path %>
   >
-  <%= t('pages.sign_up') %>
+  <%= t('.title') %>
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('pages.sign_up') %></h1>
-  <p class="lead text-center">註冊會員以享受此網站提供的服務，本網站支援Facebook登入，還沒有帳號可以前往註冊，加入我們。</p>
+  <h1 class="display-4 text-center"><%= t('.title') %></h1>
+  <p class="lead text-center"><%= t('.subtitle') %></p>
 <% end %>
 <div class="container">
   <div class="card-deck">
@@ -14,18 +14,18 @@
         <%= f.error_notification %>
         <div class="card-body">
           <%= f.input :email, required: true, autofocus: true %>
-          <%= f.input :password, required: true, hint: ("至少要有 #{@minimum_password_length} 個字元" if @minimum_password_length) %>
+          <%= f.input :password, required: true, hint: (t('.password_hint', min_len: @minimum_password_length) if @minimum_password_length) %>
           <%= f.input :password_confirmation, required: true %>
         </div>
         <div class="card-body">
-          <%= f.button :submit, "註冊", class: "btn btn-purple w-100" %>
+          <%= f.button :submit, t('.submit'), class: "btn btn-purple w-100" %>
         </div>
       <% end %>
     </div>
     <div class="card text-center text-muted my-2">
       <div class="card-body">
         <%= link_to omniauth_authorize_path(resource_name, :facebook), class:'btn btn-outline-primary btn-block' do %>
-          使用<%= fa_icon 'facebook-official 3x', class: 'mx-2' %>登入本網站
+          <%= t('.fb_login_html', icon: fa_icon('facebook-official 3x', class: 'mx-2')) %>
         <% end %>
       </div>
       <div class="card-body">

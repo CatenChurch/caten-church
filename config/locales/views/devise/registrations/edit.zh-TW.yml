@@ -1,0 +1,28 @@
+'zh-TW':
+  devise:
+    registrations:
+      edit:
+        title: '帳號設定'
+        subtitle: |
+          更改帳號或密碼，
+          以及綁定社群帳號以使用社群帳號登入網站等功能。
+        change: '更改帳號密碼'
+        pending_email:
+          label: '申請更改Email 等待驗證的帳號:'
+          cancel: '取消'
+          confirm: '確定要取消更改 Email 的申請嗎？'
+        password:
+          label: '新密碼'
+          hint: '如果沒有要更改密碼，本行請留空'
+        password_confirmation:
+          label: '新密碼確認'
+        current_password:
+          hint: '請輸入原本的密碼，來生效本次帳號密碼的更改。'
+        submit: '更改帳號密碼'
+        oauths:
+          title: '社群帳號連結'
+          footer: '可以使用已經連結的社群帳號登入本網站'
+        oauths_helper:
+          pending: '即將推出'
+          success: '連結成功'
+          none: '開始連結'
