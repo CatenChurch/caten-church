@@ -1,83 +1,62 @@
-<% render_for_admin = render_for_admin || false %>
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-title text-center">
-      <%= t('profile._') %>
-      <% if !render_for_admin && !profile.blank? %>
-        <%= link_to(t(:edit), edit_account_profile_path, class: "btn btn-warning ml-2") %>
-      <% end %>
-    </h3>
-  </div>
-  <% if profile.blank? %>
+<% render_for_admin ||= false %>
+<% if profile.blank? %>
+  <div class="card">
     <div class="card-body">
-      <p class="card-text text-center">此會員還沒建立個人資料
-        <% if !render_for_admin %>
-          <%= link_to(t(:create), new_account_profile_path, class: "btn btn-primary ml-2") %>
-        <% end %>
+      <p class="card-text text-center">
+        <%= t('.no_profile') %>
+        <%= link_to(t('.create'), new_account_profile_path, class: "btn btn-primary ml-2") unless render_for_admin %>
       </p>
     </div>
-  <% else %>
+  </div>
+<% else %>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title text-center">
+        <%= t('.title') %>
+        <%= link_to(t('.edit'), edit_account_profile_path, class: "btn btn-warning ml-2") unless render_for_admin %>
+      </h3>
+    </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:name) %></strong>
-        </div>
+        <div><strong><%= t('.name') %></strong></div>
         <div><%= profile.name %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:sex) %></strong>
-        </div>
+        <div><strong><%= t('.sex') %></strong></div>
         <div><%= profile.sex %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:birth) %></strong>
-        </div>
-        <div><%= profile.birth.strftime("%Y/%m/%d") %></div>
+        <div><strong><%= t('.birth') %></strong></div>
+        <div><%= l profile.birth %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t('profile.id_number') %></strong>
-        </div>
+        <div><strong><%= t('.id_number') %></strong></div>
         <div><%= profile.id_number %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:email) %></strong>
-        </div>
+        <div><strong><%= t('.email') %></strong></div>
         <div><%= profile.user.email %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:phone) %></strong>
-        </div>
+        <div><strong><%= t('.phone') %></strong></div>
         <div><%= profile.phone %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:cellphone) %></strong>
-        </div>
+        <div><strong><%= t('.cellphone') %></strong></div>
         <div><%= profile.cellphone %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t('profile.emergency_contact') %></strong>
-        </div>
+        <div><strong><%= t('.emergency_contact') %></strong></div>
         <div><%= profile.emergency_contact %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:address) %></strong>
-        </div>
+        <div><strong><%= t('.address') %></strong></div>
         <div><%= profile.address %></div>
       </li>
       <li class="list-group-item d-flex justify-content-between px-5">
-        <div>
-          <strong><%= t(:education) %></strong>
-        </div>
+        <div><strong><%= t('.education') %></strong></div>
         <div><%= profile.education %></div>
       </li>
     </ul>
-  <% end %>
-</div>
+  </div>
+<% end %>

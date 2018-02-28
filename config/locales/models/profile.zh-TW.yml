@@ -1,8 +1,33 @@
 'zh-TW':
+  activerecord:
+    models:
+      profile: '個人資料'
+    attributes:
+      profile:
+        name: '姓名'
+        sex: '性別'
+        birth: '生日'
+        id_number: '身分證字號'
+        phone: '電話'
+        cellphone: '行動電話'
+        emergency_contact: '緊急聯絡人電話'
+        address: '地址'
+        education: '學歷'
+  simple_form:
+    # labels:
+    #   profile:
+    #     name: '姓名'
+    #     sex: '性別'
+    placeholders:
+      profile:
+        phone: '076107491'
+    prompts:
+      profile:
+        sex: '請選擇你的性別'
   profile:
     _: '個人資料'
     name: '姓名'
-    phone: '聯絡電話'
+    phone: '電話'
     cellphone: '行動電話'
     sex: '性別'
     birth_month: '生日月份'

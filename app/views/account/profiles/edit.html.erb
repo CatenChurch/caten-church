@@ -1,10 +1,11 @@
 <%= render 'jumbotron' %>
-
 <% content_for :breadcrumb do %>
-> <%= t('pages.edit_profile') %>
+  > <%= t('.title') %>
 <% end %>
-
 <div class="container">
-  <h1>編輯個人資料<%= link_to t(:back), account_profile_path, class: "btn btn-outline-secondary ml-2"  %></h1>
+  <h1>
+    <%= t('.title') %>
+    <%= link_to t('.back'), account_profile_path, class: "btn btn-outline-secondary ml-2" %>
+  </h1>
   <%= render 'form' %>
 </div>

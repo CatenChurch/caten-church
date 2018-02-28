@@ -1,18 +1,18 @@
-<%= simple_form_for([:account,@profile], url: account_profile_url) do |f| %>
+<%= simple_form_for([:account, @profile], url: account_profile_url) do |f| %>
 <div class="form-group">
-	<%= f.input :name, label:t(:name) %>
-	<%= f.input :sex, collection: ["男","女"], prompt: "Select your sex", label: t(:sex)%>
+	<%= f.input :name %>
+	<%= f.input :sex, collection: ['男', '女'], prompt: :translate %>
 	<%= f.input :birth,
 			start_year: Date.today.year - 100,
 			end_year: Date.today.year,
-			order: [:year, :month, :day], label:t(:birth) %>
-	<%= f.input :id_number, label: t('profile.id_number')%>
-	<%= f.input :phone, placeholder: '07-XXXXXXX', label: t(:phone)%>
-	<%= f.input :cellphone, label:t(:cellphone) %>
-	<%= f.input :emergency_contact, label: t('profile.emergency_contact')%>
-	<%= f.input :address, label:t(:address) %>
-	<%= f.input :education, label:t(:education) %>
+			order: [:year, :month, :day] %>
+	<%= f.input :id_number %>
+	<%= f.input :phone %>
+	<%= f.input :cellphone %>
+	<%= f.input :emergency_contact %>
+	<%= f.input :address %>
+	<%= f.input :education %>
 </div>
-<%= f.input :terms_of_service, as: :boolean, label: sanitize("我已閱讀並且接受#{link_to('個資隱私保護條款',term_path).html_safe }的內容") %>
-<%= f.button :submit, class: "btn btn-primary", data: { disable_with: t('button.submitting') } %>
+<%= f.input :terms_of_service, as: :boolean, label:  t('.terms_of_service_html', link: link_to(t('.term'), term_path)) %>
+<%= f.button :submit, class: 'btn btn-primary', data: { disable_with: t('.submitting') } %>
 <% end %>
