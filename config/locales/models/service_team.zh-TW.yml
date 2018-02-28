@@ -1,0 +1,16 @@
+'zh-TW':
+  service_team:
+    _: '服事團隊'
+    all: '所有服事團隊'
+    name: '團隊名稱'
+    leader: '團隊主領'
+    create: '建立服事團隊'
+    created: '成功建立服事團隊'
+    create_failed: '建立服事團隊失敗'
+    edit: '編輯服事團隊'
+    updated: '成功更新服事團隊'
+    update_failed: '更新服事團隊失敗'
+    destroyed: '成功刪除服事團隊'
+    destroy_failed: '刪除服事團隊失敗'
+    member: '團隊成員'
+    schedules_count: '服事次數'

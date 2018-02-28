@@ -1,0 +1,16 @@
+'zh-TW':
+  contact:
+    _: '聯絡訊息'
+    all: '所有聯絡訊息'
+    edit: '編輯聯絡訊息'
+    name: '姓名'
+    phone: '電話'
+    email: 'E-mail'
+    message: '訊息'
+    created: '您的訊息已成功送出，請稍候等待我們的回覆。'
+    create_failed: '送出訊息時發生了一點問題'
+    created_at: '建立於'
+    handle_status: '處理進度'
+    handle:
+      y: '已處理'
+      n: '待處理'

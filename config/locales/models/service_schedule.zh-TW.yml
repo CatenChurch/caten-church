@@ -1,0 +1,13 @@
+'zh-TW':
+  service_schedule:
+    _: '服事時程表'
+    all: '所有服事時程表'
+    service_time: '服事時間'
+    create: '建立服事時程表'
+    created: '成功建立服事時程表'
+    create_failed: '建立服事時程表失敗'
+    edit: '編輯服事時程表'
+    updated: '成功更新服事時程表'
+    update_failed: '更新服事時程表失敗'
+    destroyed: '成功刪除服事時程表'
+    destroy_failed: '刪除服事時程表失敗'
