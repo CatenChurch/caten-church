@@ -1,43 +1,31 @@
 <% content_for :breadcrumb do %>
-  <%= link_to t('pages.root'), root_path %>
+  <%= link_to t('breadcrumb.root'), root_path %>
   >
-  <%= t('pages.account') %>
+  <%= t('breadcrumb.account') %>
   >
-  <%= link_to t('pages.account_events'), account_events_path %>
+  <%= link_to t('.title'), account_events_path %>
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('pages.account_events') %></h1>
-  <p class="lead text-center">顯示曾經報名了哪些活動。 前往<%= link_to t('pages.events'), events_path, class: "btn btn-purple mx-2" %>查看與報名其他活動。</p>
+  <h1 class="display-4 text-center"><%= t('.title') %></h1>
+  <p class="lead text-center"><%= t('.subtitle_html', link: link_to(t('.events'), events_path, class: 'btn btn-purple mx-2')) %></p>
 <% end %>
 <div class="container">
   <table class="table">
     <thead class="thead-light">
       <tr>
-        <th>活動名稱</th>
-        <th>性質</th>
-        <th>報名人數</th>
-        <th>活動時間</th>
+        <th><%= t('.name') %></th>
+        <th><%= t('.nature') %></th>
+        <th><%= t('.participants_count') %></th>
+        <th><%= t('.time') %></th>
       </tr>
     </thead>
     <tbody>
       <% @events.each do |event| %>
         <tr>
-          <td>
-            <%= link_to(event.name, event_path(event)) %>
-          </td>
-          <td>
-            <%= event.nature %>
-          </td>
-          <td>
-            <%= event.show_participants_count %>
-            /
-            <%= event.max_sign_up_number %>
-          </td>
-          <td>
-            <%= event.start.strftime("%Y/%m/%d %H:%M") %>
-            ~
-            <%= event.over.strftime("%Y/%m/%d %H:%M") %>
-          </td>
+          <td><%= link_to event.name, event_path(event) %></td>
+          <td><%= event.nature %></td>
+          <td><%= event.show_participants_count %> / <%= event.max_sign_up_number %></td>
+          <td><%= l event.start, format: :to_min %> ~ <%= l event.over, format: :to_min %></td>
         </tr>
       <% end %>
     </tbody>

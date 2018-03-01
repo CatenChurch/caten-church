@@ -5,3 +5,4 @@
   time:
     formats:
       default: '%Y/%m/%d %H:%M:%S'
+      to_min: '%Y/%m/%d %H:%M'
