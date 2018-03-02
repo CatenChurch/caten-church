@@ -1,20 +1,21 @@
 <%= render 'jumbotron' %>
 <div class="container">
   <h2>
-    當前的活動<span class="badge badge-primary ml-2">New</span>
+    <%= t '.current' %>
+    <span class="badge badge-primary ml-2"><%= t '.new_badge' %></span>
   </h2>
   <div class="row">
     <% @events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
         <%= link_to event_path(event), class: "card-link" do %>
           <div class="card event-card text-center">
-            <div class="card-header"><%= time_ago_in_words event.sign_up_end %> 之後</div>
+            <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.after'}" %></div>
             <div class="card-body">
               <h3 class="card-title"><%= event.name %></h3>
               <p class="card-text"><%= truncate(event.description, length: 90) %></p>
             </div>
             <div class="card-footer">
-              <%= "#{t('event.participants_count')} : #{event.show_participants_count}" %>
+              <%= "#{t '.participants_count'} : #{event.show_participants_count}" %>
             </div>
           </div>
         <% end %>
@@ -22,20 +23,20 @@
     <% end %>
   </div>
   <hr>
-  <h2>過期的活動</h2>
+  <h2><%= t '.expired' %></h2>
   <%= paginate @expired_events %>
   <div class="row">
     <% @expired_events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
         <%= link_to event_path(event), class: "card-link" do %>
           <div class="card event-card text-center">
-            <div class="card-header"><%= time_ago_in_words event.sign_up_end %> 以前</div>
+            <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.before'}" %></div>
             <div class="card-body">
               <h3 class="card-title"><%= event.name %></h3>
               <p class="card-text"><%= truncate(event.description, length: 60) %></p>
             </div>
             <div class="card-footer">
-              <%= "#{t('event.participants_count')} : #{event.show_participants_count}" %>
+              <%= "#{t '.participants_count'} : #{event.show_participants_count}" %>
             </div>
           </div>
         <% end %>

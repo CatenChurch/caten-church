@@ -1,118 +1,114 @@
-<% render_for_admin = render_for_admin || false %>
+<% render_for_admin ||= false %>
 <div class="card">
-	<div class="card-body">
-		<h3 class="card-title"><%= event.name %></h3>
-		<p class="card-text my-4"><%= simple_format event.description %></p>
-		<table class="table table-bordered d-none d-sm-table">
-			<thead class="thead-light">
-				<tr>
-					<th><%= t(:nature)%></th>
-					<th><%= t(:event_participants_number)%></th>
-					<th><%= t(:min_sign_up_number)%></th>
-					<th><%= t(:max_sign_up_number)%></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%= event.nature %></td>
-					<td><%= event.show_participants_count %></td>
-					<td><%= event.min_sign_up_number %></td>
-					<td><%= event.max_sign_up_number %></td>
-				</tr>
-			</tbody>
-			<thead class="thead-light">
-				<tr>
-					<th><%= t(:event_sign_up_begin)%></th>
-					<th><%= t(:event_sign_up_end)%></th>
-					<th><%= t(:event_start)%></th>
-					<th><%= t(:event_over)%></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%= event.sign_up_begin.strftime("%Y/%m/%d %H:%M") %></td>
-					<td><%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></td>
-					<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
-					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
-				</tr>
-			</tbody>
-			<thead class="thead-light">
-				<tr>
-					<th><%= t('event.check_arrival') %></th>
-					<th><%= t('event.registery_fee') %></th>
-					<% if render_for_admin %>
-					<th><%= t('event.show_participants') %></th>
-					<% end %>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%= need(event.check_arrival) %></td>
-					<td><%= fee(event.registery_fee) %></td>
-					<% if render_for_admin %>
-					<td><%= boolean_to_y_or_n(event.show_participants) %></td>
-					<% end %>
-				</tr>
-			</tbody>
-		</table>
-		<table class="table table-bordered d-sm-none">
-			<tbody>
-				<tr>
-					<th class="bg-light"><%= t(:nature)%></th>
-					<td><%= event.nature %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:event_participants_number)%></th>
-					<td><%= event.show_participants_count %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:min_sign_up_number)%></th>
-					<td><%= event.min_sign_up_number %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:max_sign_up_number)%></th>
-					<td><%= event.max_sign_up_number %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:event_sign_up_begin)%></th>
-					<td><%= event.sign_up_begin.strftime("%Y/%m/%d %H:%M") %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:event_sign_up_end)%></th>
-					<td><%= event.sign_up_end.strftime("%Y/%m/%d %H:%M") %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:event_start)%></th>
-					<td><%= event.start.strftime("%Y/%m/%d %H:%M") %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t(:event_over)%></th>
-					<td><%= event.over.strftime("%Y/%m/%d %H:%M") %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t('event.check_arrival')%></th>
-					<td><%= need(event.check_arrival) %></td>
-				</tr>
-				<tr>
-					<th class="bg-light"><%= t('event.registery_fee')%></th>
-					<td><%= fee(event.registery_fee) %></td>
-				</tr>
-				<% if render_for_admin %>
-				<th class="bg-light"><%= t('event.show_participants')%></th>
-				<td><%= boolean_to_y_or_n(event.show_participants) %></td>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
-	<% unless render_for_admin %>
-	<div class="card-body">
-		<%= link_to t('event.quit'), quit_event_path(@event), method: :post, class: "btn btn-warning" if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
-		<%= link_to t('event.participants_list'), participants_event_path(@event), class: "btn btn-outline-dark" if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
-		<%= form_tag join_event_path(@event), method: :post, class: "form-inline" do %>
-			<label class="mr-2"><%= t('event_user.remark') %></label>
-			<%= text_field_tag :remark, nil, class: "form-control" %>
-			<%= submit_tag t('event.join'), class: "ml-auto btn btn-success", data: { disable_with: t('button.submitting') } %>
-		<% end if user_signed_in? && !current_user.joined?(@event) && @event.on_registration? %>
-	</div>
-	<% end %>
+  <div class="card-body">
+    <h3 class="card-title"><%= event.name %></h3>
+    <p class="card-text my-4"><%= simple_format event.description %></p>
+    <table class="table table-bordered d-none d-sm-table">
+      <thead class="thead-light">
+        <tr>
+          <th><%= t '.nature' %></th>
+          <th><%= t '.participants_count' %></th>
+          <th><%= t '.min' %></th>
+          <th><%= t '.max' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= event.nature %></td>
+          <td><%= event.show_participants_count %></td>
+          <td><%= event.min_sign_up_number %></td>
+          <td><%= event.max_sign_up_number %></td>
+        </tr>
+      </tbody>
+      <thead class="thead-light">
+        <tr>
+          <th><%= t '.sign_up_begin' %></th>
+          <th><%= t '.sign_up_end' %></th>
+          <th><%= t '.start' %></th>
+          <th><%= t '.over' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= l event.sign_up_begin %></td>
+          <td><%= l event.sign_up_end %></td>
+          <td><%= l event.start %></td>
+          <td><%= l event.over %></td>
+        </tr>
+      </tbody>
+      <thead class="thead-light">
+        <tr>
+          <th><%= t('.check_arrival') %></th>
+          <th><%= t('.registery_fee') %></th>
+          <%= content_tag :th, t('.show_participants') if render_for_admin %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= need(event.check_arrival) %></td>
+          <td><%= fee(event.registery_fee) %></td>
+          <%= content_tag :td, boolean_to_y_or_n(event.show_participants) if render_for_admin %>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered d-sm-none">
+      <tbody>
+        <tr>
+          <th class="bg-light"><%= t '.nature' %></th>
+          <td><%= event.nature %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.participants_count' %></th>
+          <td><%= event.show_participants_count %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.min' %></th>
+          <td><%= event.min_sign_up_number %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.max' %></th>
+          <td><%= event.max_sign_up_number %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.sign_up_begin' %></th>
+          <td><%= l event.sign_up_begin %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.sign_up_end' %></th>
+          <td><%= l event.sign_up_end %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.start' %></th>
+          <td><%= l event.start %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.over' %></th>
+          <td><%= l event.over %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.check_arrival' %></th>
+          <td><%= need(event.check_arrival) %></td>
+        </tr>
+        <tr>
+          <th class="bg-light"><%= t '.registery_fee' %></th>
+          <td><%= fee(event.registery_fee) %></td>
+        </tr>
+        <% if render_for_admin %>
+          <th class="bg-light"><%= t '.show_participants' %></th>
+          <td><%= boolean_to_y_or_n(event.show_participants) %></td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% unless render_for_admin %>
+    <div class="card-body">
+      <%= link_to t('.quit'), quit_event_path(@event), method: :post, class: 'btn btn-warning' if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
+      <%= link_to t('.participants_list'), participants_event_path(@event), class: 'btn btn-outline-dark' if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
+      <%= form_tag join_event_path(@event), method: :post, class: 'form-inline' do %>
+        <label class="mr-2"><%= t('.remark') %></label>
+        <%= text_field_tag :remark, nil, class: 'form-control' %>
+        <%= submit_tag t('.join'), class: 'ml-auto btn btn-success', data: { disable_with: t('.submitting') } %>
+      <% end if user_signed_in? && !current_user.joined?(@event) && @event.on_registration? %>
+    </div>
+  <% end %>
 </div>

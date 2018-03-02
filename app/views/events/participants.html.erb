@@ -1,13 +1,13 @@
 <%= render 'jumbotron' %>
 <% content_for :breadcrumb do %>
->
-<%= link_to @event.name, event_path(@event) %>
->
-<%= t('event.show_participants') %>
+  >
+  <%= link_to @event.name, event_path(@event) %>
+  >
+  <%= t('.title') %>
 <% end %>
 <div class="container">
   <div class="d-flex p-2">
-    <%= link_to t('button.back'), event_path(@event), class: "btn btn-outline-secondary" %>
+    <%= link_to t('.back'), event_path(@event), class: 'btn btn-outline-secondary' %>
   </div>
   <%= render 'event_users/index', event_users: @event_users %>
 </div>

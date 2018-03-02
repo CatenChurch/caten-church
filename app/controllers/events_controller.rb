@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:show, :join, :quit, :participants]
   before_action :check_profile, only: [:join]
   before_action :check_registration, only: [:join, :quit]
+  before_action :check_full, only: [:join]
   before_action :check_participants, only: [:participants]
 
   def index
@@ -69,11 +70,12 @@ class EventsController < ApplicationController
       flash[:warning] = t('event.not_on_registration')
       redirect_to event_url(@event)
     end
+  end
 
+  def check_full
     if @event.full?
       flash[:warning] = t('event.is_full')
       redirect_to event_path(@event)
     end
   end
-
 end

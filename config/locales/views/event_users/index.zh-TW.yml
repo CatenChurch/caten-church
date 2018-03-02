@@ -1,0 +1,13 @@
+'zh-TW':
+  event_users:
+    index:
+      name: '姓名'
+      sex: '性別'
+      birth: '生日'
+      id_number: '身分證字號'
+      email: '電子郵箱'
+      phone: '電話'
+      emergency_contact: '緊急聯絡人電話'
+      paid: '繳費'
+      arrival: '報到'
+      remark: '備註'

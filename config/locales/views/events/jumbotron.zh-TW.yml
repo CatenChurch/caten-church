@@ -1,0 +1,6 @@
+'zh-TW':
+  events:
+    jumbotron:
+      title: '活動專區'
+      subtitle: '點選活動以報名與查看詳情。'
+      my_events: '我報名的活動'

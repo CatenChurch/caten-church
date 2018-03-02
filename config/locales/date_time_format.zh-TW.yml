@@ -1,8 +1,9 @@
 'zh-TW':
   date:
     formats:
-      default: '%Y/%m/%d'
+      default: '%Y-%m-%d'
   time:
     formats:
-      default: '%Y/%m/%d %H:%M:%S'
-      to_min: '%Y/%m/%d %H:%M'
+      default: '%Y-%m-%d %H:%M'
+      to_min: '%Y-%m-%d %H:%M'
+      to_sec: '%Y-%m-%d %H:%M:%S'

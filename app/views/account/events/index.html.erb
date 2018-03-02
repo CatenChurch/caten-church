@@ -25,7 +25,7 @@
           <td><%= link_to event.name, event_path(event) %></td>
           <td><%= event.nature %></td>
           <td><%= event.show_participants_count %> / <%= event.max_sign_up_number %></td>
-          <td><%= l event.start, format: :to_min %> ~ <%= l event.over, format: :to_min %></td>
+          <td><%= l event.start %> ~ <%= l event.over %></td>
         </tr>
       <% end %>
     </tbody>

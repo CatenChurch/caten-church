@@ -1,0 +1,9 @@
+'zh-TW':
+  events:
+    index:
+      current: '當前的活動'
+      new_badge: 'New'
+      after: '之後'
+      participants_count: '報名人數'
+      expired: '過期的活動'
+      before: '以前'
