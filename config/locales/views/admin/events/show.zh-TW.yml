@@ -1,0 +1,10 @@
+'zh-TW':
+  admin:
+    events:
+      show:
+        list: '活動一覽'
+        participants: '報名者名單'
+        download_excel: '下載報表'
+        edit: '編輯'
+        delete: '刪除'
+        confirm: '確定要刪除活動嗎？'

@@ -1,4 +1,5 @@
-<h2>新增活動
-	<%= link_to 'Back', admin_events_path, class: "btn btn-outline-secondary" %>
+<h2>
+	<%= t '.title' %>
+	<%= link_to t('.back'), admin_events_path, class: 'btn btn-outline-secondary' %>
 </h2>
 <%= render 'form' %>

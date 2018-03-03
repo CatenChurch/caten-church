@@ -1,30 +1,35 @@
 wb = xlsx_package.workbook
-wb.add_worksheet(name: @event.name) do |sheet|
-  sheet.add_row ['活動資訊']
-  @event.attributes.each do |a|
-    sheet.add_row [t(a[0]), a[1]]
+
+# event info worksheet
+wb.add_worksheet name: t('.info') do |sheet|
+  sheet.add_row [t('.info')]
+  @event.attributes.each do |key, value|
+    sheet.add_row [ Event.human_attribute_name(key), value]
   end
 end
-wb.add_worksheet(name: '報名人員一覽') do |sheet|
-  sheet.add_row ['報名人員']
+
+# event participants worksheet
+wb.add_worksheet name: t('.participants') do |sheet|
+  sheet.add_row [t('.participants')]
   sheet.add_row [
-    t(:name),
-    t(:sex),
-    t(:birth),
-    t('profile.id_number'),
-    t(:email),
-    t('profile.cellphone'),
-    t('profile.emergency_contact')
+    Profile.human_attribute_name(:name),
+    Profile.human_attribute_name(:sex),
+    Profile.human_attribute_name(:birth),
+    Profile.human_attribute_name(:id_number),
+    Profile.human_attribute_name(:email),
+    Profile.human_attribute_name(:cellphone),
+    Profile.human_attribute_name(:emergency_contact)
   ]
-  @participants.each do |p|
+  @participants.each do |user|
+    profile = (user.profile.blank? ? Profile.new : user.profile )
     sheet.add_row [
-      p.profile.name,
-      p.profile.sex,
-      p.profile.birth,
-      p.profile.id_number,
-      p.email,
-      p.profile.cellphone,
-      p.profile.emergency_contact
+      profile.name,
+      profile.sex,
+      l(profile.birth),
+      profile.id_number,
+      user.email,
+      profile.cellphone,
+      profile.emergency_contact
     ]
   end
 end

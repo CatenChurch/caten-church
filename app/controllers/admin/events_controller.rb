@@ -12,7 +12,7 @@ class Admin::EventsController < Admin::BaseController
                @q.result(distinct: true).closed
              else
                @q.result(distinct: true)
-              end
+             end
     @events = events.order(id: :desc).page(params[:page])
   end
 

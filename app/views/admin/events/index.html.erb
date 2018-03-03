@@ -1,28 +1,28 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t('event.all') %></h1>
+  <h1><%= t '.title' %></h1>
   <div class="w-100"></div>
-  <%= link_to t('event.create'), new_admin_event_path, class: 'btn btn-success ml-auto' %>
+  <%= link_to t('.create'), new_admin_event_path, class: 'btn btn-success ml-auto' %>
 </div>
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.search.conditions' %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
     <div class="card-body">
       <ul class="nav nav-pills" role="tablist">
-        <%= nav_params_li "所有活動", admin_events_path, check_params: {status: ''} %>
-        <%= nav_params_li "報名期間", admin_events_path(status: :registration), check_params: {status: :registration} %>
-        <%= nav_params_li "活動期間", admin_events_path(status: :running), check_params: {status: :running} %>
-        <%= nav_params_li "過期活動", admin_events_path(status: :closed), check_params: {status: :closed} %>
+        <%= nav_params_li t('.search.all'), admin_events_path, check_params: { status: '' } %>
+        <%= nav_params_li t('.search.registration'), admin_events_path(status: :registration), check_params: { status: :registration } %>
+        <%= nav_params_li t('.search.running'), admin_events_path(status: :running), check_params: { status: :running } %>
+        <%= nav_params_li t('.search.closed'), admin_events_path(status: :closed), check_params: { status: :closed } %>
       </ul>
-      <%= search_form_for @q, url: admin_events_url, class: "form-inline my-2 mx-5" do |f| %>
+      <%= search_form_for @q, url: admin_events_url, class: 'form-inline my-2 mx-5' do |f| %>
         <%= hidden_field_tag :status, params[:status] %>
-        <%= f.label t('event.name'), class: "mr-1" %>
-        <%= f.search_field :name_cont, class: "form-control mr-2" %>
+        <%= f.label t('.name'), class: 'mr-1' %>
+        <%= f.search_field :name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= f.label t('event.nature'), class: "mr-1" %>
-        <%= f.search_field :nature_cont, class: "form-control mr-2" %>
+        <%= f.label t('.nature'), class: 'mr-1' %>
+        <%= f.search_field :nature_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('button.clear'), admin_events_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.submit class: "btn btn-outline-secondary mx-2" %>
+        <%= link_to t('.search.clear'), admin_events_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.submit class: 'btn btn-outline-secondary mx-2' %>
       <% end %>
     </div>
   </div>
@@ -31,23 +31,19 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th><%= t("event.name") %></th>
-      <th><%= t('event.participants_count') %></th>
-      <th><%= t('event.registration_time') %></th>
-      <th>#</th>
+      <th><%= t '.name' %></th>
+      <th><%= t '.participants_count' %></th>
+      <th><%= t '.time' %></th>
+      <th><%= t '.more' %></th>
     </tr>
   </thead>
   <tbody>
     <% @events.each do |event| %>
       <tr>
         <td><%= event.name %></td>
-        <td><%= event.participants_count %>/<%= event.max_sign_up_number %></td>
-        <td>
-          <%= event.sign_up_begin.strftime("%Y/%m/%d") %>
-          ~
-          <%= event.sign_up_end.strftime("%Y/%m/%d") %>
-        </td>
-        <td><%= link_to "查看", admin_event_path(event), class: "btn btn-light" %></td>
+        <td><%= event.participants_count %> / <%= event.max_sign_up_number %></td>
+        <td><%= l event.sign_up_begin %> ~ <%= l event.sign_up_end %></td>
+        <td><%= link_to t('.show'), admin_event_path(event), class: 'btn btn-light' %></td>
       </tr>
     <% end %>
   </tbody>

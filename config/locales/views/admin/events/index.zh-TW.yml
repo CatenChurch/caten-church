@@ -1,0 +1,19 @@
+'zh-TW':
+  admin:
+    events:
+      index:
+        title: '活動一覽'
+        create: '新增活動'
+        search:
+          conditions: '搜尋條件'
+          all: '所有活動'
+          registration: '報名期間'
+          running: '活動期間'
+          closed: '過期活動'
+          clear: '清除條件'
+        name: '活動名稱'
+        nature: '性質'
+        participants_count: '報名人數'
+        time: '報名時間'
+        more: '詳細資訊'
+        show: '查看'

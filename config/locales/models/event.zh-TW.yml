@@ -1,0 +1,29 @@
+'zh-TW':
+  activerecord:
+    models:
+      event: '活動'
+    attributes:
+      event:
+        name: '活動名稱'
+        nature: '性質'
+        description: '簡述'
+        max_sign_up_number: '人數上限'
+        min_sign_up_number: '成立人數'
+        sign_up_begin: '報名開始'
+        sign_up_end: '報名截止'
+        start: '活動開始'
+        over: '活動截止'
+        created_at: '建立時間'
+        updated_at: '更新時間'
+        user_id: '建立者ID'
+        participants_count: '報名人數'
+        registery_fee: '報名費用'
+        check_arrival: '需要確認報到'
+        show_participants: '可否顯示報名者'
+  simple_form:
+    placeholders:
+      event:
+        nature: '例如：小組活動'
+        description: '簡單描述一下活動的內容'
+        max_sign_up_number: '最多能有幾個人參加活動？'
+        min_sign_up_number: '活動要成立，最低必須要有幾個人報名？'

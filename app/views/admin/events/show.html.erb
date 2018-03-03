@@ -1,9 +1,9 @@
 <div class="d-flex p-2">
-	<%= link_to t(:events_list), admin_events_path, class: "btn btn-outline-secondary"%>
-	<%= link_to t('event.participants'), admin_event_event_users_path(params[:id]), class: "btn btn-info ml-1" %>
-	<%= link_to t(:download_excel), download_admin_event_path(@event,format: :xlsx), class: "btn btn-success ml-auto" %>
-	<%= link_to(t(:edit), edit_admin_event_path(@event), class: "btn btn-warning ml-1") %>
-	<%= link_to(t(:delete), admin_event_path(@event), class: "btn btn-danger ml-1", method: :delete, data: { confirm: "Are you sure?" } ) %>
+	<%= link_to t('.list'), admin_events_path, class: 'btn btn-outline-secondary' %>
+	<%= link_to t('.participants'), admin_event_event_users_path(params[:id]), class: 'btn btn-info ml-1' %>
+	<%= link_to t('.download_excel'), download_admin_event_path(@event,format: :xlsx), class: 'btn btn-success ml-auto' %>
+	<%= link_to(t('.edit'), edit_admin_event_path(@event), class: 'btn btn-warning ml-1') %>
+	<%= link_to(t('.delete'), admin_event_path(@event), class: 'btn btn-danger ml-1', method: :delete, data: { confirm: t('.confirm') } ) %>
 </div>
 
-<%= render 'events/event', :event => @event, render_for_admin: true %>
+<%= render 'events/event', event: @event, render_for_admin: true %>

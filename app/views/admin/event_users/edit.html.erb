@@ -1,46 +1,43 @@
 <div class="d-flex p-2">
-  <%= link_to t('button.cancel'), admin_event_event_users_path, class: "btn btn-outline-secondary" %>
+  <%= link_to t('.back'), admin_event_event_users_path, class: 'btn btn-outline-secondary' %>
 </div>
 <%= simple_form_for :event_users, url: admin_event_event_users_url, method: :patch do |f| %>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th><%= t(:name) %></th>
-      <th><%= t(:email) %></th>
-      <th>
-        <%= t('event_user.paid.check') %>
-        <input type="checkbox" onclick="checkAll(this,paidCheckboxs)">
-      </th>
-      <th>
-        <%= t('event_user.arrival.check') %>
-        <input type="checkbox" onclick="checkAll(this,arrivalCheckboxs)">
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @event_users.each do |event_user| %>
-    <% user = event_user.user
-    profile = (user.profile.blank? ? Profile.new : user.profile) %>
-    <tr>
-      <td><%= profile.name %></td>
-      <td><%= user.email %></td>
-      <%= f.fields_for "", event_user do |ff| %>
-      <td><%= ff.input :paid, label: t('event_user.paid.y'), input_html: { class: "paid-check" } %></td>
-      <td><%= ff.input :arrival, label: t('event_user.arrival.y'), input_html: { class: "arrival-check" } %></td>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th><%= t '.name' %></th>
+        <th><%= t '.email' %></th>
+        <th>
+          <%= t '.check_paid' %>
+          <input type="checkbox" onclick="checkAll(this, paidCheckboxs)">
+        </th>
+        <th>
+          <%= t '.check_arrival' %>
+          <input type="checkbox" onclick="checkAll(this, arrivalCheckboxs)">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @event_users.each do |event_user| %>
+        <% user = event_user.user
+           profile = (user.profile.blank? ? Profile.new : user.profile) %>
+        <tr>
+          <td><%= profile.name %></td>
+          <td><%= user.email %></td>
+          <%= f.fields_for '', event_user do |ff| %>
+            <td><%= ff.input :paid, label: t('.paid'), input_html: { class: 'paid-check' } %></td>
+            <td><%= ff.input :arrival, label: t('.arrival'), input_html: { class: 'arrival-check' } %></td>
+          <% end %>
+        </tr>
       <% end %>
-
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= f.submit t('button.submit'), class: "btn btn-primary", data: { disable_with: t('button.submitting') } %>
+    </tbody>
+  </table>
+  <%= f.submit t('.submit'), class: 'btn btn-primary', data: { disable_with: t('.submitting') } %>
 <% end %>
 <script type="text/javascript">
   var paidCheckboxs = document.querySelectorAll(".paid-check");
   var arrivalCheckboxs = document.querySelectorAll(".arrival-check");
   function checkAll(obj, checkboxs) {
-    checkboxs.forEach(function (element) {
-      element.checked = obj.checked
-    });
+    checkboxs.forEach((dom) => (dom.checked = obj.checked))
   }
 </script>

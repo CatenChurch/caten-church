@@ -1,0 +1,5 @@
+'zh-TW':
+  admin:
+    events:
+      form:
+        submitting: '活動建立中...'

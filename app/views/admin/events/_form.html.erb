@@ -1,18 +1,18 @@
-<%= simple_form_for([:admin,@event]) do |f| %>
+<%= simple_form_for [:admin, @event] do |f| %>
 <%= f.error_notification %>
 <div class="form-group">
-  <%= f.input :name, label: t(:event_name) %>
-  <%= f.input :nature, label: t(:nature) %>
-  <%= f.input :description, label: t(:description), as: :text, input_html: {rows: 8} %>
-  <%= f.input :max_sign_up_number, label: t(:max_sign_up_number) %>
-  <%= f.input :min_sign_up_number, label: t(:min_sign_up_number) %>
-  <%= f.input :sign_up_begin, label: t(:sign_up_begin) %>
-  <%= f.input :sign_up_end, label: t(:sign_up_end) %>
-  <%= f.input :start, label: t(:event_start) %>
-  <%= f.input :over, label: t(:event_over) %>
-  <%= f.input :check_arrival, label: t('event.check_arrival') %>
-  <%= f.input :registery_fee, label: t('event.registery_fee') %>
-  <%= f.input :show_participants, label: t('event.show_participants') %>
+  <%= f.input :name %>
+  <%= f.input :nature %>
+  <%= f.input :description, as: :text, input_html: { rows: 8 } %>
+  <%= f.input :max_sign_up_number %>
+  <%= f.input :min_sign_up_number %>
+  <%= f.input :sign_up_begin %>
+  <%= f.input :sign_up_end %>
+  <%= f.input :start %>
+  <%= f.input :over %>
+  <%= f.input :check_arrival %>
+  <%= f.input :registery_fee %>
+  <%= f.input :show_participants %>
 </div>
-<%= f.submit t('button.submit'), class: "btn btn-primary", data: { disable_with: t('button.submitting') } %>
+<%= f.submit class: 'btn btn-primary', data: { disable_with: t('.submitting') } %>
 <% end %>
