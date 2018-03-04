@@ -1,0 +1,6 @@
+'zh-TW':
+  admin:
+    contacts:
+      edit:
+        back: '取消'
+        title: '編輯聯絡訊息'

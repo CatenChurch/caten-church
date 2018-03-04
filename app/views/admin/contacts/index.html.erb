@@ -1,26 +1,26 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t('contact.all') %></h1>
+  <h1><%= t '.title' %></h1>
 </div>
 
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_contacts_url, class: "form-inline my-2 mx-5" do |f| %>
-      <%= f.label t('contact.handle.y'), class: "mr-1" %>
-      <%= f.check_box :handled_eq, class: "form-control mr-2" %>
+      <%= search_form_for @q, url: admin_contacts_url, class: 'form-inline my-2 mx-5' do |f| %>
+      <%= f.label Contact.human_attribute_name(:handled), class: 'mr-1' %>
+      <%= f.check_box :handled_eq, class: 'form-control mr-2' %>
       <div class="w-100 my-1"></div>
-      <%= f.label t('contact.name'), class: "mr-1" %>
-      <%= f.search_field :name_cont, class: "form-control mr-2" %>
+      <%= f.label Contact.human_attribute_name(:name), class: 'mr-1' %>
+      <%= f.search_field :name_cont, class: 'form-control mr-2' %>
       <div class="w-100 my-1"></div>
-      <%= f.label t('contact.phone'), class: "mr-1" %>
-      <%= f.search_field :phone_cont, class: "form-control mr-2" %>
+      <%= f.label Contact.human_attribute_name(:phone), class: 'mr-1' %>
+      <%= f.search_field :phone_cont, class: 'form-control mr-2' %>
       <div class="w-100 my-1"></div>
-      <%= f.label t('contact.email'), class: "mr-1" %>
-      <%= f.search_field :email_cont, class: "form-control mr-2" %>
+      <%= f.label Contact.human_attribute_name(:email), class: 'mr-1' %>
+      <%= f.search_field :email_cont, class: 'form-control mr-2' %>
       <div class="w-100 my-1"></div>
-      <%= link_to t('button.clear'), admin_contacts_path, class: "btn btn-outline-secondary ml-auto" %>
-      <%= f.submit class: "btn btn-outline-secondary mx-2 ml-1" %>
+      <%= link_to t('.clear'), admin_contacts_path, class: 'btn btn-outline-secondary ml-auto' %>
+      <%= f.button :submit, class: 'btn btn-outline-secondary mx-2 ml-1' %>
       <% end %>
     </div>
   </div>
@@ -29,13 +29,13 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th><%= t("contact.name") %></th>
-      <th><%= t('contact.phone') %></th>
-      <th><%= t('contact.email') %></th>
-      <th><%= t('contact.message') %></th>
-      <th><%= t('contact.created_at') %></th>
-      <th><%= t('contact.handle_status') %></th>
-      <th>#</th>
+      <th><%= Contact.human_attribute_name :name %></th>
+      <th><%= Contact.human_attribute_name :phone %></th>
+      <th><%= Contact.human_attribute_name :email %></th>
+      <th><%= Contact.human_attribute_name :message %></th>
+      <th><%= Contact.human_attribute_name :created_at %></th>
+      <th><%= Contact.human_attribute_name :handled %></th>
+      <th><%= t '.more' %></th>
     </tr>
   </thead>
   <tbody>
@@ -45,11 +45,11 @@
       <td><%= contact.phone %></td>
       <td><%= mail_to contact.email %></td>
       <td><%= truncate(contact.message, length: 20) %></td>
-      <td><%= my_time(contact.created_at) %></td>
+      <td><%= l contact.created_at %></td>
       <td><%= handle_status(contact.handled) %></td>
       <td>
-        <%= link_to t('button.more'), admin_contact_path(contact), class: "btn btn-info" %>
-        <%= link_to t('button.destroy'), admin_contact_path(contact), class: "btn btn-danger", method: :delete, data: { confirm: t('sure?') } %>
+        <%= link_to t('.show'), admin_contact_path(contact), class: 'btn btn-info' %>
+        <%= link_to t('.destroy'), admin_contact_path(contact), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
       </td>
     </tr>
     <% end %>

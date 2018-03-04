@@ -1,26 +1,26 @@
-<%= link_to t('contact.all'), admin_contacts_path, class: "btn btn-outline-secondary mr-auto" %>
-<h1 class="text-center"><%= t('contact._') %></h1>
+<%= link_to t('.back'), admin_contacts_path, class: 'btn btn-outline-secondary' %>
+<h1 class="text-center"><%= t '.title' %></h1>
 <div class="d-flex align-items-center">
   <div class="mr-auto"></div>
   <% if @contact.handled %>
-  <%= link_to t('button.handle.n'), handle_admin_contact_path, method: :post, class: "btn btn-warning mr-1" %>
-<% else %>
-  <%= link_to t('button.handle.y'), handle_admin_contact_path, method: :post, class: "btn btn-info mr-1" %>
+    <%= link_to t('.unhandle'), handle_admin_contact_path, method: :post, class: 'btn btn-warning mr-1' %>
+  <% else %>
+    <%= link_to t('.handle'), handle_admin_contact_path, method: :post, class: 'btn btn-info mr-1' %>
   <% end %>
-  <%= link_to t('button.edit'), edit_admin_contact_path, class: "btn btn-primary mr-1" %>
-  <%= link_to t('button.destroy'), admin_contact_path, method: :delete, class: "btn btn-danger", data: { confirm: t('sure?') } %>
+  <%= link_to t('.edit'), edit_admin_contact_path, class: 'btn btn-primary mr-1' %>
+  <%= link_to t('.destroy'), admin_contact_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('.confirm') } %>
 </div>
 <div class="container pt-2">
-  <h2><%= t("contact.name") %></h2>
+  <h2><%= Contact.human_attribute_name :name %></h2>
   <p><%= @contact.name %></p>
-  <h2><%= t("contact.phone") %></h2>
+  <h2><%= Contact.human_attribute_name :phone %></h2>
   <p><%= @contact.phone %></p>
-  <h2><%= t('contact.email') %></h2>
+  <h2><%= Contact.human_attribute_name :email %></h2>
   <p><%= mail_to @contact.email %></p>
-  <h2><%= t("contact.message") %></h2>
+  <h2><%= Contact.human_attribute_name :message %></h2>
   <p><%= @contact.message %></p>
-  <h2><%= t("contact.created_at") %></h2>
-  <p><%= my_time(@contact.created_at) %></p>
-  <h2><%= t("contact.handle_status") %></h2>
+  <h2><%= Contact.human_attribute_name :created_at %></h2>
+  <p><%= l @contact.created_at, format: :to_sec %></p>
+  <h2><%= Contact.human_attribute_name :handled %></h2>
   <p><%= handle_status(@contact.handled) %></p>
 </div>
