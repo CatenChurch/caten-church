@@ -1,11 +1,13 @@
 <h1 class="text-center"><%= announcement.title %></h1>
 <p class="my-2"><%= announcement.description %></p>
-<div class="my-4">
-  <span><%= "#{ t(:created_at) } : #{ announcement.created_at.strftime("%Y/%m/%d %H:%M") }" %></span>
-  <span class="pull-right"><%= "#{ t(:updated_at) } : #{ announcement.updated_at.strftime("%Y/%m/%d %H:%M") }" %></span>
+<hr>
+<div class="my-4 d-flex">
+  <span><%= Announcement.human_attribute_name :created_at %>:</span>
+  <span> <%= l announcement.created_at %></span>
+  <span class="ml-auto"><%= Announcement.human_attribute_name :updated_at %>:</span>
+  <span> <%= l announcement.updated_at %></span>
 </div>
-<br>
+<hr>
 <div class="p-4 markdown-body bg-light">
   <%= markdown announcement.content %>
 </div>
-<br>

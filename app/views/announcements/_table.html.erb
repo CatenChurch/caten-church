@@ -1,0 +1,25 @@
+<% render_from_admin ||= false %>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th><%= Announcement.human_attribute_name :title %></th>
+      <th><%= Announcement.human_attribute_name :description %></th>
+      <th><%= Announcement.human_attribute_name :updated_at %></th>
+      <th><%= t '.more' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% announcements.each do |announcement| %>
+      <tr>
+        <td><%= announcement.title %></td>
+        <td><%= announcement.description %></td>
+        <td><%= l announcement.updated_at %></td>
+        <% if render_from_admin %>
+          <td><%= link_to t('.show'), admin_announcement_path(announcement), class: 'btn btn-info' %></td>
+        <% else %>
+          <td><%= link_to t('.show'), announcement_path(announcement), class: 'btn btn-info' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

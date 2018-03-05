@@ -1,9 +1,8 @@
 <%= render 'jumbotron' %>
 <% content_for :breadcrumb do %>
->
-<%= link_to @announcement.title, announcement_path(@announcement) %>
+  >
+  <%= link_to @announcement.title, announcement_path(@announcement) %>
 <% end %>
-
 <div class="container">
-  <%= render 'announcement', :announcement => @announcement %>
+  <%= render 'announcement', announcement: @announcement %>
 </div>

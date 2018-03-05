@@ -1,7 +1,5 @@
-<h2><%= "#{t(:edit)}#{t(:announcements)}" %>
-  <%= link_to t(:back), admin_announcements_path, class: "btn btn-outline-secondary ml-2" %>
+<h2>
+  <%= t '.title' %>
+  <%= link_to t('.back'), admin_announcements_path, class: 'btn btn-outline-secondary ml-2' %>
 </h2>
-<br>
-<div class="col-md-8 col-md-offset-2">
-  <%= render 'form' %>
-</div>
+<%= render 'form' %>

@@ -1,0 +1,5 @@
+'zh-TW':
+  admin:
+    announcements:
+      form:
+        submitting: '發布公告中...'

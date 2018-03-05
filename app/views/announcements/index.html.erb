@@ -1,7 +1,6 @@
 <%= render 'jumbotron' %>
-
 <%= paginate @announcements %>
 <div class="container">
-  <%= render 'announcements', :announcements => @announcements %>
+  <%= render 'table', announcements: @announcements %>
 </div>
 <%= paginate @announcements %>

@@ -1,12 +1,7 @@
-<%= simple_form_for([:admin,@announcement]) do |f| %>
+<%= simple_form_for([:admin, @announcement]) do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-group">
-    <%= f.input :title, label: "標題" %>
-    <%= f.input :description, label: "簡述" %>
-    <%= f.input :content, label: "內文", as: :pagedown, input_html: { preview: false, rows: 20 } %>
-
-  </div>
-
-  <%= f.submit t('button.submit'), class: "btn btn-primary", data: { disable_with: t('button.submitting') } %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :content, as: :pagedown, input_html: { preview: false, rows: 20 } %>
+  <%= f.button :submit, data: { disable_with: t('.submitting') } %>
 <% end %>

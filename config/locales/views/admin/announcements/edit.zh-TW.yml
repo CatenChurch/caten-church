@@ -1,0 +1,6 @@
+'zh-TW':
+  admin:
+    announcements:
+      edit:
+        title: '編輯公告'
+        back: '取消'
