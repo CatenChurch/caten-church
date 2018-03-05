@@ -1,56 +1,51 @@
-<% render_for_admin = render_for_admin || false %>
+<% render_for_admin ||= false %>
 <table class="table">
   <% if render_for_admin %>
-  <thead class="thead-light">
-    <tr>
-      <th>id</th>
-      <th><%= t(:name) %></th>
-      <th><%= t(:sex) %></th>
-      <th><%= t(:birth) %></th>
-      <th><%= t('profile.id_number') %></th>
-      <th><%= t(:email) %></th>
-      <th><%= t(:phone) %></th>
-      <th><%= t(:cellphone) %></th>
-      <th><%= t('profile.emergency_contact') %></th>
-      <th><%= t(:address) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% users.each do |user| %>
-    <% if user.profile.nil? %>
-    <% profile = Profile.new %>
-  <% else %>
-    <% profile = user.profile %>
-    <% end %>
-    <tr onclick="window.document.location='<%= admin_member_path(user) %>';">
-      <td><%= user.id %></td>
-      <td><%= profile.name %></td>
-      <td><%= profile.sex %></td>
-      <td><%= profile.birth %></td>
-      <td><%= profile.id_number %></td>
-      <td><%= user.email %></td>
-      <td><%= profile.phone %></td>
-      <td><%= profile.cellphone %></td>
-      <td><%= profile.emergency_contact %></td>
-      <td><%= profile.address %></td>
-    </tr>
-    <% end %>
-  </tbody>
-
-<% else #render for non-admin %>
-  <thead class="thead-light">
-    <tr>
-      <th><%= t(:name) %></th>
-      <th><%= t(:sex) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% users.each do |user| %>
-    <tr>
-      <td><%= user.profile.name %></td>
-      <td><%= user.profile.sex %></td>
-    </tr>
-    <% end %>
-  </tbody>
+    <thead class="thead-light">
+      <tr>
+        <th><%= User.human_attribute_name :id %></th>
+        <th><%= Profile.human_attribute_name :name %></th>
+        <th><%= Profile.human_attribute_name :sex %></th>
+        <th><%= Profile.human_attribute_name :birth %></th>
+        <th><%= Profile.human_attribute_name :id_number %></th>
+        <th><%= User.human_attribute_name :email %></th>
+        <th><%= Profile.human_attribute_name :phone %></th>
+        <th><%= Profile.human_attribute_name :cellphone %></th>
+        <th><%= Profile.human_attribute_name :emergency_contact %></th>
+        <th><%= Profile.human_attribute_name :address %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.each do |user| %>
+        <% profile = (user.profile.blank? ? Profile.new : user.profile) %>
+        <tr onclick="window.document.location='<%= admin_member_path(user) %>';">
+          <td><%= user.id %></td>
+          <td><%= profile.name %></td>
+          <td><%= profile.sex %></td>
+          <td><%= profile.birth %></td>
+          <td><%= profile.id_number %></td>
+          <td><%= user.email %></td>
+          <td><%= profile.phone %></td>
+          <td><%= profile.cellphone %></td>
+          <td><%= profile.emergency_contact %></td>
+          <td><%= profile.address %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else #render for non-admin %>
+    <thead class="thead-light">
+      <tr>
+        <th><%= Profile.human_attribute_name :name %></th>
+        <th><%= Profile.human_attribute_name :sex %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.each do |user| %>
+        <tr>
+          <td><%= user.profile.name %></td>
+          <td><%= user.profile.sex %></td>
+        </tr>
+      <% end %>
+    </tbody>
   <% end %>
 </table>

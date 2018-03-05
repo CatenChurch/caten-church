@@ -1,16 +1,35 @@
 wb = xlsx_package.workbook
 
-wb.add_worksheet(name: '會員一覽') do |sheet|
-  sheet.add_row ['會員']
+wb.add_worksheet name: t('.title') do |sheet|
+  sheet.add_row [t('.title')]
   sheet.merge_cells('A1:H1')
 
-  sheet.add_row [t(:id), t(:email), t(:name), t(:sex), t(:birth), t('profile.id_number'), t(:phone), t(:cellphone), t('profile.emergency_contact'), t(:address)]
+  sheet.add_row [
+    User.human_attribute_name(:id),
+    User.human_attribute_name(:email),
+    Profile.human_attribute_name(:name),
+    Profile.human_attribute_name(:sex),
+    Profile.human_attribute_name(:birth),
+    Profile.human_attribute_name(:id_number),
+    Profile.human_attribute_name(:phone),
+    Profile.human_attribute_name(:cellphone),
+    Profile.human_attribute_name(:emergency_contact),
+    Profile.human_attribute_name(:address)
+  ]
 
-  @members.each do |m|
-    if m.profile ||= false
-      sheet.add_row [m.id, m.email, m.profile.name, m.profile.sex, m.profile.birth, m.profile.id_number, m.profile.phone, m.profile.cellphone, m.profile.emergency_contact, m.profile.address]
-    else
-      sheet.add_row [m.id, m.email, t('profile.no_profile')]
-    end
+  @members.each do |u|
+    profile = (u.profile.blank? ? Profile.new : u.profile)
+    sheet.add_row [
+      u.id,
+      u.email,
+      profile.name,
+      profile.sex,
+      profile.birth,
+      profile.id_number,
+      profile.phone,
+      profile.cellphone,
+      profile.emergency_contact,
+      profile.address
+    ]
   end
 end

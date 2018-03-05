@@ -1,33 +1,33 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t('user.all') %></h1>
+  <h1><%= t '.title' %></h1>
   <div class="w-100"></div>
-  <%= link_to t('user.download_excel'), download_admin_members_path(format: :xlsx), class: "btn btn-success ml-auto" %>
+  <%= link_to t('.download_excel'), download_admin_members_path(format: :xlsx), class: 'btn btn-success ml-auto' %>
 </div>
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_members_url, class: "form-inline mx-5" do |f| %>
-      <%= f.label t('user.email'), class: "mr-1" %>
-      <%= f.search_field :email_cont, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= f.label t('profile.name'), class: "mr-1" %>
-      <%= f.search_field :profile_name_cont, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= f.label t('profile.phone'), class: "mr-1" %>
-      <%= f.search_field :profile_phone_or_profile_cellphone_cont, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= f.label t('profile.sex'), class: "mr-1" %>
-      <%= f.select :profile_sex_eq, ["男", "女"], include_blank: true, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= f.label t('profile.birth_month'), class: "mr-1" %>
-      <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= f.label '角色', class: "mr-1" %>
-      <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), include_blank: true, class: "form-control mr-2" %>
-      <div class="w-100 my-1"></div>
-      <%= link_to t('button.clear'), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
-      <%= f.submit class: "btn btn-outline-secondary mx-2" %>
+      <%= search_form_for @q, url: admin_members_url, class: 'form-inline mx-5' do |f| %>
+        <%= f.label User.human_attribute_name(:email), class: 'mr-1' %>
+        <%= f.search_field :email_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Profile.human_attribute_name(:name), class: 'mr-1' %>
+        <%= f.search_field :profile_name_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Profile.human_attribute_name(:phone), class: 'mr-1' %>
+        <%= f.search_field :profile_phone_or_profile_cellphone_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Profile.human_attribute_name(:sex), class: 'mr-1' %>
+        <%= f.select :profile_sex_eq, ['男', '女'], include_blank: true, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Profile.human_attribute_name(:birth), class: 'mr-1' %>
+        <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Role.model_name.human, class: 'mr-1' %>
+        <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), include_blank: true, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= link_to t('.clear'), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2' %>
       <% end %>
     </div>
   </div>
@@ -36,27 +36,23 @@
 <table class="table my-4">
   <thead class="thead-light">
     <tr>
-      <th>ID</th>
-      <th>姓名</th>
-      <th>Email</th>
-      <th>聯絡電話</th>
-      <th>#</th>
+      <th><%= User.human_attribute_name :id %></th>
+      <th><%= Profile.human_attribute_name :name %></th>
+      <th><%= User.human_attribute_name :email %></th>
+      <th><%= Profile.human_attribute_name :phone %></th>
+      <th><%= t '.more' %></th>
     </tr>
   </thead>
   <tbody>
     <% @members.each do |u| %>
-    <% if u.profile.blank? %>
-    <% profile = Profile.new %>
-  <% else %>
-    <% profile = u.profile %>
-    <% end %>
-    <tr>
-      <td><%= u.id %></td>
-      <td><%= profile.name %></td>
-      <td><%= u.email %></td>
-      <td><%= profile.phone %><br><%= profile.cellphone %></td>
-      <td><%= link_to "查看", admin_member_path(u), class: "btn btn-light" %></td>
-    </tr>
+      <% profile = (u.profile.blank? ? Profile.new : u.profile) %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= profile.name %></td>
+        <td><%= u.email %></td>
+        <td><%= profile.phone %><br><%= profile.cellphone %></td>
+        <td><%= link_to t('.show'), admin_member_path(u), class: 'btn btn-light' %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>

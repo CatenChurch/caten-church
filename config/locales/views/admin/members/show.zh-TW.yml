@@ -1,0 +1,9 @@
+'zh-TW':
+  admin:
+    members:
+      show:
+        back: '會員一覽'
+        service_teams_leader: '主領的服事團隊'
+        no_result: '無'
+        service_teams_member: '參與的服事團隊'
+        participated_events: '參加的活動'

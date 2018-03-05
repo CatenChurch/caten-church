@@ -1,28 +1,29 @@
-<%= link_to '會員列表', admin_members_path, class: "btn btn-outline-secondary" %>
-<h2 class="text-center my-4"><%= @member.email %><span class="ml-2"><%= become_admin_link(@member) %></span></h2>
-<%= render 'account/profiles/profile', :profile => @member.profile, render_for_admin: true %>
+<%= link_to t('.back'), admin_members_path, class: 'btn btn-outline-secondary' %>
+<h2 class="text-center my-4">
+  <%= @member.email %>
+  <span class="ml-2"><%= become_admin_link(@member) %></span>
+</h2>
+<%= render 'account/profiles/profile', profile: @member.profile, render_for_admin: true %>
 <div class="row mt-2">
   <div class="col-sm-12 col-md-6">
     <div class="card text-center">
       <div class="card-body">
-        <h3 class="card-title"><%= "#{t('leaded')}#{t('service_team._')}" %></h3>
-        <%= content_tag :div, t('no_result') if @member.service_teams.blank? %>
+        <h3 class="card-title"><%= t '.service_teams_leader' %></h3>
+        <%= content_tag :div, t('.no_result') if @member.service_teams.blank? %>
       </div>
       <ul class="list-group list-group-flush">
         <% @member.service_teams.each do |team| %>
-          <li class="list-group-item"><%= link_to team.name, admin_service_team_path(team), class: "card-link mx-auto" %></li>
+          <li class="list-group-item"><%= link_to team.name, admin_service_team_path(team), class: 'card-link mx-auto' %></li>
         <% end %>
       </ul>
       <hr>
       <div class="card-body">
-        <h3 class="card-title"><%= "#{t('joined')}#{t('service_team._')}" %></h3>
-        <%= content_tag :div, t('no_result') if @member.serviced_teams.blank? %>
+        <h3 class="card-title"><%= t '.service_teams_member' %></h3>
+        <%= content_tag :div, t('.no_result') if @member.serviced_teams.blank? %>
       </div>
       <ul class="list-group list-group-flush">
         <% @member.serviced_teams.each do |team| %>
-          <%= link_to admin_service_team_path(team), class: "list-group-item bg-light" do %>
-            <%= team.name %>
-          <% end %>
+          <%= link_to team.name, admin_service_team_path(team), class: 'list-group-item bg-light' %>
         <% end %>
       </ul>
     </div>
@@ -30,14 +31,12 @@
   <div class="col-sm-12 col-md-6">
     <div class="card text-center">
       <div class="card-body">
-        <h3 class="card-title"><%= "#{t('joined')}#{t('event._')}" %></h3>
-        <%= content_tag :div, t('no_result') if @member.participated_events.blank? %>
+        <h3 class="card-title"><%= t '.participated_events' %></h3>
+        <%= content_tag :div, t('.no_result') if @member.participated_events.blank? %>
       </div>
       <ul class="list-group list-group-flush">
         <% @member.participated_events.each do |event| %>
-          <%= link_to admin_event_path(event), class: "list-group-item bg-light" do %>
-            <%= event.name %>
-          <% end %>
+          <%= link_to event.name, admin_event_path(event), class: 'list-group-item bg-light' %>
         <% end %>
       </ul>
     </div>
