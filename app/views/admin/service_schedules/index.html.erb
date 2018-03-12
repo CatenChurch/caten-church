@@ -1,21 +1,21 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t('service_schedule.all') %></h1>
+  <h1><%= t '.title' %></h1>
   <div class="w-100"></div>
-  <%= link_to t('service_schedule.create'), new_admin_service_schedule_path, class: 'btn btn-success ml-auto' %>
+  <%= link_to t('.create'), new_admin_service_schedule_path, class: 'btn btn-success ml-auto' %>
 </div>
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('search_conditions') %></a>
+<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t('.search_conditions') %></a>
 <div class="collapse" id="collapseSearch">
   <div class="card my-2">
     <div class="card-body">
       <%= search_form_for @q, url: admin_service_schedules_url, class: 'form-inline my-2 mx-5' do |f| %>
-        <%= f.label t('service_team.name'), class: 'mr-1' %>
+        <%= f.label Service::Team.human_attribute_name(:name), class: 'mr-1' %>
         <%= f.search_field :team_name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= f.label t('service_team.leader'), class: 'mr-1' %>
+        <%= f.label Service::Team.human_attribute_name(:leader), class: 'mr-1' %>
         <%= f.search_field :team_leader_profile_name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('button.clear'), admin_service_schedules_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.submit class: 'btn btn-outline-secondary mx-2 ml-1' %>
+        <%= link_to t('.clear'), admin_service_schedules_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2 ml-1' %>
       <% end %>
     </div>
   </div>
@@ -24,10 +24,10 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th><%= t('service_team.name') %></th>
-      <th><%= t('service_team.leader') %></th>
-      <th><%= t('service_schedule.service_time') %></th>
-      <th>#</th>
+      <th><%= Service::Team.human_attribute_name :name %></th>
+      <th><%= Service::Team.human_attribute_name :leader %></th>
+      <th><%= Service::Schedule.human_attribute_name :service_time %></th>
+      <th><%= t '.more' %></th>
     </tr>
   </thead>
   <tbody>
@@ -35,10 +35,10 @@
       <tr>
         <td><%= link_to schedule.team.name, admin_service_team_path(schedule.team) %></td>
         <td><%= link_to schedule.team.leader.profile.try(:name), admin_member_path(schedule.team.leader) %></td>
-        <td><%= my_time(schedule.service_time) %></td>
+        <td><%= l schedule.service_time %></td>
         <td>
-          <%= link_to t('button.edit'), edit_admin_service_schedule_path(schedule), class: 'btn btn-warning' %>
-          <%= link_to t('button.destroy'), admin_service_schedule_path(schedule), class: 'btn btn-danger', method: :delete, data: { confirm: t('sure?') } %>
+          <%= link_to t('.edit'), edit_admin_service_schedule_path(schedule), class: 'btn btn-warning' %>
+          <%= link_to t('.destroy'), admin_service_schedule_path(schedule), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
         </td>
       </tr>
     <% end %>

@@ -4,6 +4,8 @@
       service/schedule: '服事時程表'
     attributes:
       service/schedule:
+        team: '團隊名稱'
+        service_time: '服事時間'
   service_schedule:
     _: '服事時程表'
     all: '所有服事時程表'

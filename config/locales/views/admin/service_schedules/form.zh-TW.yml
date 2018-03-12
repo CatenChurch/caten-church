@@ -1,0 +1,5 @@
+zh-TW:
+  admin:
+    service_schedules:
+      form:
+        submitting: '服事時程表建立中...'

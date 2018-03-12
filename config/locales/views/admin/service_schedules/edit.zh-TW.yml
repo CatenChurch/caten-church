@@ -1,0 +1,6 @@
+zh-TW:
+  admin:
+    service_schedules:
+      edit:
+        title: '編輯服事時程表'
+        back: '返回'
