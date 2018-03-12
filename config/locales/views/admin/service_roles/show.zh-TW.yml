@@ -1,0 +1,8 @@
+zh-TW:
+  admin:
+    service_roles:
+      show:
+        back: '返回所有角色'
+        edit: '編輯'
+        destroy: '刪除'
+        confirm: '確定要刪除這個角色嗎？'

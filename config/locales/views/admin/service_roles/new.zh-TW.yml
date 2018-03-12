@@ -1,0 +1,6 @@
+zh-TW:
+  admin:
+    service_roles:
+      new:
+        title: '建立角色'
+        back: '返回'
