@@ -1,0 +1,14 @@
+'zh-TW':
+  admin:
+    service_teams:
+      form:
+        hint: '需要輸入會員時，先點擊要輸入的框框，再利用成員搜尋器搜尋會員，點擊結果來輸入。'
+        searcher: '成員搜尋器'
+        searcher_hint: '點擊藍色標籤選擇會員'
+        delete_user: '刪除成員'
+        add_user: '新增成員'
+        submitting: '建立服事團隊中...'
+        redo: '復原'
+        search_users: '搜尋會員'
+        search: '搜尋'
+        no_result: '找不到結果'

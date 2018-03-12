@@ -1,4 +1,14 @@
 'zh-TW':
+  activerecord:
+    models:
+      service/team: '服事團隊'
+    attributes:
+      service/team:
+        name: '團隊名稱'
+        leader: '團隊主領'
+        members: '團隊成員'
+        schedules_count: '出團次數'
+        users_count: '團員數'
   service_team:
     _: '服事團隊'
     all: '所有服事團隊'

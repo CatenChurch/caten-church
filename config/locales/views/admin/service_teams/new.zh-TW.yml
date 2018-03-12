@@ -1,0 +1,6 @@
+'zh-TW':
+  admin:
+    service_teams:
+      new:
+        title: '新增服事團隊'
+        back: '取消'

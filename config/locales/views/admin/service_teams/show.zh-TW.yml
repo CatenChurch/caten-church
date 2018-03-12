@@ -1,0 +1,9 @@
+'zh-TW':
+  admin:
+    service_teams:
+      show:
+        back: '服事團隊一覽'
+        title: '服事團隊 : %{name}'
+        edit: '編輯'
+        destroy: '刪除'
+        confirm: '確定要刪除這個服事團隊嗎？'

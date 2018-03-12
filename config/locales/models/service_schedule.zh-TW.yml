@@ -1,4 +1,9 @@
 'zh-TW':
+  activerecord:
+    models:
+      service/schedule: '服事時程表'
+    attributes:
+      service/schedule:
   service_schedule:
     _: '服事時程表'
     all: '所有服事時程表'

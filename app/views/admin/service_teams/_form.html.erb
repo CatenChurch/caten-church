@@ -1,38 +1,38 @@
-<p class="text-muted">先點擊要輸入的框框，再利用成員搜尋器搜尋會員</p>
-<%= simple_form_for [:admin,@team] do |f| %>
+<p class="text-muted"><%= t '.hint' %></p>
+<%= simple_form_for [:admin, @team] do |f| %>
   <%= f.error_notification %>
-  <%= f.input :name, label: t('service_team.name') %>
+  <%= f.input :name %>
   <div class="form-group">
-    <label for="leader-name"><%= t('service_team.leader') %></label>
+    <label for="leader-name"><%= Service::Team.human_attribute_name :leader %></label>
     <input id="leader-name" type="text" class="form-control" value="<%= f.object.try(:leader).try(:profile).try(:name) %>" onfocus="targetSearchInput($('#service_team_user_id'), $(this));">
   </div>
   <%= f.input :user_id, as: :hidden %>
-  <h3>成員</h3>
+  <h3><%= Service::TeamUser.model_name.human %></h3>
   <%= f.fields_for :team_users do |tuf| %>
     <div id="member-<%= tuf.index %>" class="d-flex flex-wrap" data-member="<%= tuf.index %>">
       <div class="form-group">
-        <input id="member-#{tuf.index}-user" type="text" class="form-control" value="<%= tuf.object.try(:user).try(:profile).try(:name) %>" onfocus="targetSearchInput($(this).closest('div[id^=member]').children('input[id$=user-id]'), $(this));">
+        <input id="member-<%= tuf.index %>-user" type="text" class="form-control" value="<%= tuf.object.try(:user).try(:profile).try(:name) %>" onfocus="targetSearchInput($(this).closest('div[id^=member]').children('input[id$=user-id]'), $(this));">
       </div>
       <div class="form-group ml-2">
-        <%= tuf.select :role_id, @roles, { include_blank: '角色' },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
+        <%= tuf.select :role_id, @roles, { include_blank: Role.model_name.human },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
       </div>
       <%= tuf.hidden_field :user_id, id: "member-#{tuf.index}-user-id" %>
       <%= tuf.hidden_field :_destroy, id: "member-#{tuf.index}-destroy" %>
-      <%= link_to fa_icon('trash', text: '刪除成員'), '#delete-member', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
+      <%= link_to fa_icon('trash', text: t('.delete_user')), 'javascript: void(0);', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
       <div class="w-100"></div>
     </div>
   <% end %>
-  <%= link_to fa_icon('plus', text: '新成員'), '#add-member', onclick: 'addMember();', id: 'add-member' %>
+  <%= link_to fa_icon('plus', text: t('.add_user')), 'javascript: void(0);', onclick: 'addMember();', id: 'add-member' %>
   <br>
-  <%= f.submit t('button.submit'), class: 'btn btn-primary', data: { disable_with: t('button.submitting') } %>
+  <%= f.button :submit, data: { disable_with: t('.submitting') } %>
 <% end %>
 <hr>
-<h3>成員搜尋器</h3>
-<p class="text-muted ml-auto">點擊藍色標籤選擇會員</p>
+<h3><%= t '.searcher' %></h3>
+<p class="text-muted ml-auto"><%= t '.searcher_hint' %></p>
 <div id="search-form" class="form-inline mb-2">
-  <label><%= "#{t('search')}#{t('user._')}" %></label>
+  <label><%= t '.search_users' %></label>
   <input id="search-name" type="text" class="form-control mx-2">
-  <button id="search-button" type="button" class="btn btn-outline-secondary"><%= t('button.search') %></button>
+  <button id="search-button" type="button" class="btn btn-outline-secondary"><%= t '.search' %></button>
 </div>
 <div id="search-result" class="d-none"></div>
 <script type="text/javascript">
@@ -83,7 +83,7 @@
 
   function deleteMember(id) {
     var member = $(`#member-${id}`);
-    var redoHtml = `<div id="redo-member-${id}"><a href="#redo-member-${id}" onclick="redoMember(${id});"><%= fa_icon 'repeat', text: t('button.redo') %></a><div>`;
+    var redoHtml = `<div id="redo-member-${id}"><a href="javascript: void(0);" onclick="redoMember(${id});"><%= fa_icon 'repeat', text: t('.redo') %></a><div>`;
 
     classAttr = member.attr('class');
     member.attr('class','d-none');
@@ -113,7 +113,7 @@
         var show = 'd-flex flex-wrap h5 bg-light p-2 rounded';
 
         if (result.users.length < 1) {
-          searchResult = '<div><%= t('no_result') %></div>'
+          searchResult = '<div><%= t('.no_result') %></div>'
         }
         for (i = 0; i < result.users.length; i++) {
           if (result.users[i].name) {

@@ -1,0 +1,6 @@
+'zh-TW':
+  admin:
+    service_teams:
+      edit:
+        title: '更新服事團隊'
+        back: '取消'
