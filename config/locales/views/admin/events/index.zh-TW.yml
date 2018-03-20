@@ -11,6 +11,7 @@
           running: '活動期間'
           closed: '過期活動'
           clear: '清除條件'
+        submit: '搜尋'
         name: '活動名稱'
         nature: '性質'
         participants_count: '報名人數'

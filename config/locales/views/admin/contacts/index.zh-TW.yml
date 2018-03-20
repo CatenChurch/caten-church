@@ -5,6 +5,7 @@
         title: '聯絡訊息'
         conditions: '搜尋條件'
         clear: '清除條件'
+        submit: '搜尋'
         more: '詳情'
         show: '查看'
         destroy: '刪除'
