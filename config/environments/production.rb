@@ -93,11 +93,6 @@ Rails.application.configure do
 
   # heroku
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-  end
 
   # heroku sendgrid mailer
   config.action_mailer.delivery_method = :smtp
@@ -112,5 +107,11 @@ Rails.application.configure do
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true
+  }
+
+  # forward http://caten-church.com to https://caten-church.herokuapp.com/
+  # and mask as http://caten-church.com
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => 'ALLOW-FROM http://caten-church.com'
   }
 end
