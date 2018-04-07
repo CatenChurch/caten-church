@@ -7,14 +7,14 @@ class Admin::MembersController < Admin::BaseController
 
     respond_to do |format|
       format.html
-      format.json
+      format.json # FIXME: api dont need paginate
     end
   end
 
   def show; end
 
   def download
-    @members = User.all.includes(:profile).order(:id).page(params[:page])
+    @members = User.all.includes(:profile).order(:id)
     render xlsx: 'download', filename: '茄典教會會員一覽.xlsx', disposition: 'inline'
   end
 
