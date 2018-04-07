@@ -1,7 +1,7 @@
 class Chatbot::LinesController < Chatbot::BaseController
   def callback
     bot = LineBotService.new(request)
-    bot.reply
+    bot.perform
     render plain: 'success', status: 200
   end
 end
