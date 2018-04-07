@@ -1,16 +1,16 @@
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('.users'), admin_members_path %>
-  <%= nav_li t('.events'), admin_events_path %>
-  <%= nav_li t('.announcements'), admin_announcements_path %>
-  <%= nav_li t('.contacts'), admin_contacts_path %>
+  <%= nav_li fa_icon('user-circle', text: User.model_name.human), admin_members_path %>
+  <%= nav_li fa_icon('futbol-o', text: Event.model_name.human), admin_events_path %>
+  <%= nav_li fa_icon('bullhorn', text: Announcement.model_name.human), admin_announcements_path %>
+  <%= nav_li fa_icon('comments', text: Contact.model_name.human), admin_contacts_path %>
 </ul>
 <hr>
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('.service_teams'), admin_service_teams_path %>
-  <%= nav_li t('.service_roles'), admin_service_roles_path %>
-  <%= nav_li t('.service_schedules'), admin_service_schedules_path %>
+  <%= nav_li fa_icon('users', text: Service::Team.model_name.human), admin_service_teams_path %>
+  <%= nav_li fa_icon('user-md', text: Service::Role.model_name.human), admin_service_roles_path %>
+  <%= nav_li fa_icon('calendar', text: Service::Schedule.model_name.human), admin_service_schedules_path %>
 </ul>
 <hr>
 <ul class="nav nav-pills flex-column">
-  <%= nav_li t('.sidekiq'), sidekiq_web_path, target: :_blank %>
+  <%= nav_li fa_icon('gear', text: t('.sidekiq')), sidekiq_web_path, target: :_blank %>
 </ul>

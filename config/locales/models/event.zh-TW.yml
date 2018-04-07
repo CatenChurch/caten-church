@@ -13,13 +13,20 @@
         sign_up_end: '報名截止'
         start: '活動開始'
         over: '活動截止'
+        time: '活動時間'
         created_at: '建立時間'
         updated_at: '更新時間'
         user_id: '建立者ID'
         participants_count: '報名人數'
         registery_fee: '報名費用'
-        check_arrival: '需要確認報到'
-        show_participants: '可否顯示報名者'
+        check_arrival: '確認報到'
+        show_participants: '顯示報名者'
+      event/show_participants:
+        'true': '顯示報名者'
+        'false': '不顯示報名者'
+      event/check_arrival:
+        'true': '需要確認報到'
+        'false': '不需要確認報到'
   simple_form:
     placeholders:
       event:

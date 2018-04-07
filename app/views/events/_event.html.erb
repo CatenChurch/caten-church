@@ -6,10 +6,10 @@
     <table class="table table-bordered d-none d-sm-table">
       <thead class="thead-light">
         <tr>
-          <th><%= t '.nature' %></th>
-          <th><%= t '.participants_count' %></th>
-          <th><%= t '.min' %></th>
-          <th><%= t '.max' %></th>
+          <th><%= Event.human_attribute_name :nature %></th>
+          <th><%= Event.human_attribute_name :participants_count %></th>
+          <th><%= Event.human_attribute_name :min_sign_up_number %></th>
+          <th><%= Event.human_attribute_name :max_sign_up_number %></th>
         </tr>
       </thead>
       <tbody>
@@ -22,10 +22,10 @@
       </tbody>
       <thead class="thead-light">
         <tr>
-          <th><%= t '.sign_up_begin' %></th>
-          <th><%= t '.sign_up_end' %></th>
-          <th><%= t '.start' %></th>
-          <th><%= t '.over' %></th>
+          <th><%= Event.human_attribute_name :sign_up_begin %></th>
+          <th><%= Event.human_attribute_name :sign_up_end %></th>
+          <th><%= Event.human_attribute_name :start %></th>
+          <th><%= Event.human_attribute_name :over %></th>
         </tr>
       </thead>
       <tbody>
@@ -38,64 +38,64 @@
       </tbody>
       <thead class="thead-light">
         <tr>
-          <th><%= t('.check_arrival') %></th>
-          <th><%= t('.registery_fee') %></th>
-          <%= content_tag :th, t('.show_participants') if render_for_admin %>
+          <th><%= Event.human_attribute_name :check_arrival %></th>
+          <th><%= Event.human_attribute_name :registery_fee %></th>
+          <%= content_tag(:th, Event.human_attribute_name(:show_participants)) if render_for_admin %>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><%= need(event.check_arrival) %></td>
+          <td><%= Event.human_attribute_name("check_arrival.#{event.check_arrival}") %></td>
           <td><%= fee(event.registery_fee) %></td>
-          <%= content_tag :td, boolean_to_y_or_n(event.show_participants) if render_for_admin %>
+          <%= content_tag :td, Event.human_attribute_name("show_participants.#{event.show_participants}") if render_for_admin %>
         </tr>
       </tbody>
     </table>
     <table class="table table-bordered d-sm-none">
       <tbody>
         <tr>
-          <th class="bg-light"><%= t '.nature' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :nature %></th>
           <td><%= event.nature %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.participants_count' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :participants_count %></th>
           <td><%= event.show_participants_count %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.min' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :min_sign_up_number %></th>
           <td><%= event.min_sign_up_number %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.max' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :max_sign_up_number %></th>
           <td><%= event.max_sign_up_number %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.sign_up_begin' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :sign_up_begin %></th>
           <td><%= l event.sign_up_begin %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.sign_up_end' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :sign_up_end %></th>
           <td><%= l event.sign_up_end %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.start' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :start %></th>
           <td><%= l event.start %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.over' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :over %></th>
           <td><%= l event.over %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.check_arrival' %></th>
-          <td><%= need(event.check_arrival) %></td>
+          <th class="bg-light"><%= Event.human_attribute_name :check_arrival %></th>
+          <td><%= Event.human_attribute_name("check_arrival.#{event.check_arrival}") %></td>
         </tr>
         <tr>
-          <th class="bg-light"><%= t '.registery_fee' %></th>
+          <th class="bg-light"><%= Event.human_attribute_name :registery_fee %></th>
           <td><%= fee(event.registery_fee) %></td>
         </tr>
         <% if render_for_admin %>
-          <th class="bg-light"><%= t '.show_participants' %></th>
-          <td><%= boolean_to_y_or_n(event.show_participants) %></td>
+          <th class="bg-light"><%= Event.human_attribute_name :show_participants %></th>
+          <td><%= Event.human_attribute_name("show_participants.#{event.show_participants}") %></td>
         <% end %>
       </tbody>
     </table>

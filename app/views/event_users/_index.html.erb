@@ -2,17 +2,17 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th><%= t '.name' %></th>
-      <th><%= t '.sex' %></th>
+      <th><%= Profile.human_attribute_name :name %></th>
+      <th><%= Profile.human_attribute_name :sex %></th>
       <% if backstage %>
-        <th><%= t '.birth' %></th>
-        <th><%= t '.id_number' %></th>
-        <th><%= t '.email' %></th>
-        <th><%= t '.phone' %></th>
-        <th><%= t '.emergency_contact' %></th>
-        <th><%= t '.paid' %></th>
-        <th><%= t '.arrival' %></th>
-        <th><%= t '.remark' %></th>
+        <th><%= Profile.human_attribute_name :birth %></th>
+        <th><%= Profile.human_attribute_name :id_number %></th>
+        <th><%= User.human_attribute_name :email %></th>
+        <th><%= Profile.human_attribute_name :phone %></th>
+        <th><%= Profile.human_attribute_name :emergency_contact %></th>
+        <th><%= EventUser.human_attribute_name :paid %></th>
+        <th><%= EventUser.human_attribute_name :arrival %></th>
+        <th><%= EventUser.human_attribute_name :remark %></th>
       <% end %>
     </tr>
   </thead>

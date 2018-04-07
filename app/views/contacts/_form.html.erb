@@ -1,8 +1,8 @@
 <%= simple_form_for(@contact, url: contacts_path) do |f| %>
   <%= f.error_notification %>
-  <%= f.input :name, label: t('contact.name') %>
-  <%= f.input :email, label: t('contact.email') %>
-  <%= f.input :phone, label: t('contact.phone') %>
-  <%= f.input :message, label: t('contact.message'), as: :text, input_html: {rows: 8} %>
-  <%= f.button :submit, t('button.submit'), class: "btn btn-purple w-100" %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :phone %>
+  <%= f.input :message, as: :text, input_html: {rows: 8} %>
+  <%= f.button :submit, t('.submit'), class: 'btn-block btn-purple' %>
 <% end %>

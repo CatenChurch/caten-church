@@ -1,5 +1,5 @@
 <%= link_to t('.back'), admin_service_roles_path, class: 'btn btn-outline-secondary mr-auto' %>
-<h1 class="text-center"><%= "#{Role.model_name.human} : #{@role.name}" %></h1>
+<h1 class="text-center"><%= "#{Service::Role.model_name.human} : #{@role.name}" %></h1>
 <div class="d-flex align-items-center">
   <div class="mr-auto"></div>
   <%= link_to t('.edit'), edit_admin_service_role_path, class: 'btn btn-primary mr-1' %>

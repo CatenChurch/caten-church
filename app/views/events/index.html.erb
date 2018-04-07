@@ -7,7 +7,7 @@
   <div class="row">
     <% @events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
-        <%= link_to event_path(event), class: "card-link" do %>
+        <%= link_to event_path(event) do %>
           <div class="card event-card text-center">
             <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.after'}" %></div>
             <div class="card-body">
@@ -15,7 +15,7 @@
               <p class="card-text"><%= truncate(event.description, length: 90) %></p>
             </div>
             <div class="card-footer">
-              <%= "#{t '.participants_count'} : #{event.show_participants_count}" %>
+              <%= "#{Event.human_attribute_name :participants_count} : #{event.show_participants_count}" %>
             </div>
           </div>
         <% end %>
@@ -28,7 +28,7 @@
   <div class="row">
     <% @expired_events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
-        <%= link_to event_path(event), class: "card-link" do %>
+        <%= link_to event_path(event) do %>
           <div class="card event-card text-center">
             <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.before'}" %></div>
             <div class="card-body">
@@ -36,7 +36,7 @@
               <p class="card-text"><%= truncate(event.description, length: 60) %></p>
             </div>
             <div class="card-footer">
-              <%= "#{t '.participants_count'} : #{event.show_participants_count}" %>
+              <%= "#{Event.human_attribute_name :participants_count} : #{event.show_participants_count}" %>
             </div>
           </div>
         <% end %>

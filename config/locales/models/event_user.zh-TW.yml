@@ -1,0 +1,9 @@
+'zh-TW':
+  activerecord:
+    models:
+      event_user: 活動報名者
+    attributes:
+      event_user:
+        paid: 繳費
+        arrival: 報到
+        remark: 備註

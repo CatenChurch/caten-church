@@ -13,10 +13,10 @@
   <table class="table">
     <thead class="thead-light">
       <tr>
-        <th><%= t('.name') %></th>
-        <th><%= t('.nature') %></th>
-        <th><%= t('.participants_count') %></th>
-        <th><%= t('.time') %></th>
+        <th><%= Event.human_attribute_name :name %></th>
+        <th><%= Event.human_attribute_name :nature %></th>
+        <th><%= Event.human_attribute_name :participants_count %></th>
+        <th><%= Event.human_attribute_name :time %></th>
       </tr>
     </thead>
     <tbody>

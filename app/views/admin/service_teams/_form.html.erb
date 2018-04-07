@@ -14,7 +14,7 @@
         <input id="member-<%= tuf.index %>-user" type="text" class="form-control" value="<%= tuf.object.try(:user).try(:profile).try(:name) %>" onfocus="targetSearchInput($(this).closest('div[id^=member]').children('input[id$=user-id]'), $(this));">
       </div>
       <div class="form-group ml-2">
-        <%= tuf.select :role_id, @roles, { include_blank: Role.model_name.human },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
+        <%= tuf.select :role_id, @roles, { include_blank: Service::Role.model_name.human },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
       </div>
       <%= tuf.hidden_field :user_id, id: "member-#{tuf.index}-user-id" %>
       <%= tuf.hidden_field :_destroy, id: "member-#{tuf.index}-destroy" %>
@@ -98,6 +98,7 @@
     $(`#redo-member-${id}`).remove();
   }
 
+  // TODO: 用 on input 事件偵測 input 欄位，達成類似 autocomplete 的效果
   // 每當點擊 #search-button 會發出查詢至 /admin/members.json 以 #search-name 中填入的名字查詢哪些 users 的 profile.name 符合
   // 根據回傳的符合者製成標籤，點選人名標籤即可填寫 user.id 至隱藏的表單 #service_team_user_id
   $("#search-button").on("click", function(event) {

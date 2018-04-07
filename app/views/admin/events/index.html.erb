@@ -31,9 +31,9 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th><%= t '.name' %></th>
-      <th><%= t '.participants_count' %></th>
-      <th><%= t '.time' %></th>
+      <th><%= Event.human_attribute_name :name %></th>
+      <th><%= Event.human_attribute_name :participants_count %></th>
+      <th><%= Event.human_attribute_name :time %></th>
       <th><%= t '.more' %></th>
     </tr>
   </thead>
