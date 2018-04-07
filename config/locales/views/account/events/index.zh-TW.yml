@@ -6,8 +6,4 @@
         subtitle_html: |
           顯示曾經報名了哪些活動，
           前往 %{link} 查看與報名其他活動。
-        name: '活動名稱'
-        nature: '活動性質'
-        participants_count: '報名人數'
-        time: '活動時間'
         events: '活動專區'

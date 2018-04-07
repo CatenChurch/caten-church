@@ -1,7 +1,7 @@
-<%= link_to '消息一覽', admin_announcements_path, class: "btn btn-outline-secondary"%>
+<%= link_to t('.back'), admin_announcements_path, class: 'btn btn-outline-secondary' %>
 <div class="btn-group pull-right">
-  <%= link_to(t(:edit), edit_admin_announcement_path(@announcement) , class: "btn btn-warning") %>
-  <%= link_to(t(:delete), admin_announcement_path(@announcement), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } ) %>
+  <%= link_to(t('.edit'), edit_admin_announcement_path(@announcement) , class: 'btn btn-warning') %>
+  <%= link_to(t('.delete'), admin_announcement_path(@announcement), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } ) %>
 </div>
-<%= render 'announcements/announcement', :announcement => @announcement%>
-<%= link_to '發佈至FB社團', post_to_facebook_admin_announcement_path, class: "btn btn-primary pull-right", method: :post %>
+<%= render 'announcements/announcement', announcement: @announcement%>
+<%= link_to t('.post_to_fb'), post_to_facebook_admin_announcement_path, class: 'btn btn-primary pull-right', method: :post %>

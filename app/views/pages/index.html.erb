@@ -9,29 +9,29 @@ set_meta_tags og: {
 <% content_for :jumbotron do %>
   <div class="d-flex flex-wrap justify-content-between align-items-center">
     <div>
-      <%= image_tag "one_way.png", class: "img-fluid", style:"max-height: 400px;" %>
+      <%= image_tag 'one_way.png', class: 'img-fluid', style:'max-height: 400px;' %>
     </div>
     <div>
-      <h1 class="display-4"><%= t('.title') %></h1>
-      <p class="lead mt-4"><%= t('.lead') %></p>
-      <p><%= t('.desc') %></p>
+      <h1 class="display-4"><%= t '.title' %></h1>
+      <p class="lead mt-4"><%= t '.lead' %></p>
+      <p><%= t '.desc' %></p>
     </div>
   </div>
 <% end %>
 <div class="card-deck">
   <div class="card outline-purple text-center my-4">
     <div class="card-body">
-      <h2 class="card-title"><%= t('.announcement.title') %></h2>
-      <p class="card-text"><%= t('.announcement.desc') %></p>
+      <h2 class="card-title"><%= t '.announcement.title' %></h2>
+      <p class="card-text"><%= t '.announcement.desc' %></p>
     </div>
     <div class="card-body">
-      <%= link_to t('.announcement.link'), announcements_path, class: "btn btn-light btn-block"%>
+      <%= link_to t('.announcement.link'), announcements_path, class: 'btn btn-light btn-block' %>
     </div>
   </div>
   <div class="card outline-purple text-center my-4">
     <div class="card-body">
-      <h2 class="card-title"><%= t('.social_media.title') %></h2>
-      <p class="card-text"><%= t('.social_media.desc') %></p>
+      <h2 class="card-title"><%= t '.social_media.title' %></h2>
+      <p class="card-text"><%= t '.social_media.desc' %></p>
     </div>
     <div class="list-group list-group-flush">
       <%= link_to t('.social_media.facebook._'), t('.social_media.facebook.url') , class: 'btn btn-light list-group-item' %>
@@ -42,8 +42,8 @@ set_meta_tags og: {
   <div class="w-100 d-lg-none"></div>
   <div class="card outline-purple text-center my-4">
     <div class="card-body">
-      <h2 class="card-title"><%= t('.event.title') %></h2>
-      <p class="card-text"><%= t('.event.desc') %></p>
+      <h2 class="card-title"><%= t '.event.title' %></h2>
+      <p class="card-text"><%= t '.event.desc' %></p>
     </div>
     <div class="card-body">
       <%= link_to t('.event.link'), events_path, class: 'btn btn-purple btn-block' %>
@@ -51,8 +51,8 @@ set_meta_tags og: {
   </div>
   <div class="card outline-purple text-center my-4">
     <div class="card-body">
-      <h2 class="card-title"><%= t('.account.title') %></h2>
-      <p class="card-text"><%= t('.account.desc') %></p>
+      <h2 class="card-title"><%= t '.account.title' %></h2>
+      <p class="card-text"><%= t '.account.desc' %></p>
     </div>
     <div class="list-group list-group-flush">
       <%= link_to t('.account.events'), account_events_path, class: 'btn btn-light list-group-item' %>
