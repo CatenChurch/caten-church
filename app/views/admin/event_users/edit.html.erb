@@ -32,7 +32,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= f.submit t('.submit'), class: 'btn btn-primary', data: { disable_with: t('.submitting') } %>
+  <%= f.button :submit, t('.submit'), data: { disable_with: t('.submitting') } %>
 <% end %>
 <script type="text/javascript">
   var paidCheckboxs = document.querySelectorAll(".paid-check");
