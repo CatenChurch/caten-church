@@ -13,3 +13,9 @@
       event_user/arrival:
         'true': 已報到
         'false': 尚未報到
+    errors:
+      models:
+        event_user:
+          attributes:
+            user_id:
+              taken: 此會員已經報名過此活動了

@@ -6,10 +6,3 @@
       service/schedule:
         team: '團隊名稱'
         service_time: '服事時間'
-  service_schedule:
-    created: '成功建立服事時程表'
-    create_failed: '建立服事時程表失敗'
-    updated: '成功更新服事時程表'
-    update_failed: '更新服事時程表失敗'
-    destroyed: '成功刪除服事時程表'
-    destroy_failed: '刪除服事時程表失敗'

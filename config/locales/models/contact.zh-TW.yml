@@ -1,27 +1,22 @@
 'zh-TW':
   activerecord:
     models:
-      contact: '聯絡訊息'
+      contact: 聯絡訊息
     attributes:
       contact:
-        name: '姓名'
-        email: '電子郵箱'
-        phone: '聯絡電話'
-        message: '訊息'
-        handled: '處理狀態'
-        created_at: '建立時間'
+        name: 姓名
+        email: 電子郵箱
+        phone: 聯絡電話
+        message: 訊息
+        handled: 處理狀態
+        created_at: 建立時間
       contact/handle:
-        'true': '已處理'
-        'false': '待處理'
+        'true': 已處理
+        'false': 待處理
   simple_form:
     placeholders:
       contact:
-        name: '如何稱呼你呢？'
+        name: 如何稱呼你呢？
         email: 'example@google.com'
-        phone: '09XXXXXXXX'
-        message: '回報問題，或是提供建議'
-  contact:
-    _: '聯絡訊息'
-    edit: '編輯聯絡訊息'
-    created: '您的訊息已成功送出，請稍候等待我們的回覆。'
-    create_failed: '送出訊息時發生了一點問題'
+        phone: 09XXXXXXXX
+        message: 回報問題，或是提供建議

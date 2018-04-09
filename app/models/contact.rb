@@ -1,4 +1,4 @@
 class Contact < ApplicationRecord
-  validates :name, :email, :phone, :message, presence: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates_presence_of :name, :email, :phone, :message
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 end

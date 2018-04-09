@@ -4,12 +4,5 @@
       service/role: 服事角色
     attributes:
       service/role:
-        name: '服事角色名稱'
-        users_count: '服事角色人數'
-  service_role:
-    created: '成功建立服事角色'
-    create_failed: '建立服事角色失敗'
-    updated: '成功更新服事角色'
-    update_failed: '更新服事角色失敗'
-    destroyed: '成功刪除服事角色'
-    destroy_failed: '刪除服事角色失敗'
+        name: 服事角色名稱
+        users_count: 服事角色人數
