@@ -1,5 +1,4 @@
 class Admin::ContactsController < Admin::BaseController
-  include Admin::ContactsHelper
   before_action :find_contact, only: [:show, :edit, :update, :destroy, :handle]
 
   def index
