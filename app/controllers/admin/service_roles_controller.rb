@@ -11,17 +11,17 @@ class Admin::ServiceRolesController < Admin::BaseController
   end
 
   def new
-    @role = Role.new
+    @role = Service::Role.new
   end
 
   def create
-    @role = Role.new(role_params)
+    @role = Service::Role.new(role_params)
     @role.resource_type = 'Service::Team'
     if @role.save
-      flash[:success] = t('service_role.created')
+      flash[:notice] = t('.success')
       redirect_to admin_service_roles_url
     else
-      flash[:danger] = t('service_role.create_failed')
+      flash[:alert] = t('.failed')
       render :new
     end
   end
@@ -30,19 +30,19 @@ class Admin::ServiceRolesController < Admin::BaseController
 
   def update
     if @role.update(role_params)
-      flash[:success] = t('service_role.updated')
+      flash[:notice] = t('.success')
       redirect_to admin_service_roles_url
     else
-      flash[:danger] = t('service_role.update_failed')
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
 
   def destroy
     if @role.destroy
-      flash[:warning] = t('service_role.destroyed')
+      flash[:notice] = t('.success')
     else
-      flash[:danger] = t('service_role.destroy_failed')
+      flash[:alert] = t('.failed')
     end
     redirect_to admin_service_roles_url
   end
@@ -53,6 +53,6 @@ class Admin::ServiceRolesController < Admin::BaseController
   end
 
   def find_role
-    @role = Role.find params[:id]
+    @role = Service::Role.find params[:id]
   end
 end

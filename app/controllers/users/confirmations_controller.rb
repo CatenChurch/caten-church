@@ -3,9 +3,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   def cancel
     if current_user.update(unconfirmed_email: nil, confirmation_token: nil)
-      flash[:notice] = t('devise.confirmations.canceled')
+      flash[:notice] = t('.success')
     else
-      flash[:warning] = t('devise.confirmations.cancel_failed')
+      flash[:alert] = t('.failed')
     end
     redirect_to edit_user_registration_path
   end
@@ -13,7 +13,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   protected
 
   def after_confirmation_path_for(resource_name, resource)
-    sign_in resource, :event => :authentication
+    sign_in resource, event: :authentication
     after_sign_in_path_for(resource)
   end
 end

@@ -1,0 +1,12 @@
+'zh-TW':
+  admin:
+    service_roles:
+      create:
+        success: 成功建立服事角色
+        failed: 建立服事角色失敗
+      update:
+        success: 成功更新服事角色
+        failed: 更新服事角色失敗
+      destroy:
+        success: 成功刪除服事角色
+        failed: 刪除服事角色失敗

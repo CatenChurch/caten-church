@@ -31,10 +31,10 @@ class Admin::EventUsersController < Admin::BaseController
       query_success = (e.save || query_success) if change
     end
     if query_success
-      flash[:notice] = 'Successfully updated event_users.'
+      flash[:notice] = t('.success')
       redirect_to admin_event_event_users_url
     else
-      flash[:warning] = 'Updated event_users failed.'
+      flash[:warning] = t('.failed')
       render 'edit'
     end
   end

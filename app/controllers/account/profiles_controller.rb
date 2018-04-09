@@ -9,24 +9,24 @@ class Account::ProfilesController < Account::BaseController
   def create
     @profile = current_user.build_profile(profile_params)
     if @profile.save
-      flash[:notice] = t('profile.created')
+      flash[:notice] = t('.success')
       redirect_to account_profile_url
     else
-      flash[:alert] = t('profile.create_failed')
+      flash[:alert] = t('.failed')
       render :new
     end
   end
 
-  def show;  end
+  def show; end
 
   def edit;  end
 
   def update
     if @profile.update(profile_params)
-      flash[:notice] = t('profile.updated')
+      flash[:notice] = t('.success')
       redirect_to account_profile_url
     else
-      flash[:alert] = t('profile.update_failed')
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
@@ -36,7 +36,7 @@ class Account::ProfilesController < Account::BaseController
   def get_profile
     @profile = current_user.profile
     if @profile.blank?
-      flash[:warning] = t('profile.no_profile')
+      flash[:warning] = t('account.profiles.no_profile')
       redirect_to new_account_profile_url
     end
   end

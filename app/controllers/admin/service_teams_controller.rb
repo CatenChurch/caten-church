@@ -1,11 +1,12 @@
 class Admin::ServiceTeamsController < Admin::BaseController
   before_action :find_team, only: [:show, :update, :destroy]
   before_action :find_roles, only: [:new, :create, :edit, :update]
+  
   def index
     @q = Service::Team.ransack(params[:q])
     @teams = @q.result(distinct: true).includes(leader: :profile).order(:id).page(params[:page])
   end
-  
+
   def show
     @team_users = Service::TeamUser.where(team: @team).includes(:role, user: :profile).order(:id).page(params[:page]).per(10)
   end
@@ -18,10 +19,10 @@ class Admin::ServiceTeamsController < Admin::BaseController
   def create
     @team = Service::Team.new(team_params)
     if @team.save
-      flash[:success] = t('service_team.created')
+      flash[:notice] = t('.success')
       redirect_to admin_service_teams_url
     else
-      flash[:danger] = t('service_team.create_failed')
+      flash[:alert] = t('.failed')
       render :new
     end
   end
@@ -32,19 +33,19 @@ class Admin::ServiceTeamsController < Admin::BaseController
 
   def update
     if @team.update(team_params)
-      flash[:success] = t('service_team.updated')
+      flash[:notice] = t('.success')
       redirect_to admin_service_teams_url
     else
-      flash[:danger] = t('service_team.update_failed')
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
 
   def destroy
     if @team.destroy
-      flash[:warning] = t('service_team.destroyed')
+      flash[:notice] = t('.success')
     else
-      flash[:danger] = t('service_team.destroy_failed')
+      flash[:alert] = t('.failed')
     end
     redirect_to admin_service_teams_url
   end
@@ -56,7 +57,7 @@ class Admin::ServiceTeamsController < Admin::BaseController
   end
 
   def find_roles
-    @roles = Role.where(resource_type: 'Service::Team').pluck(:name, :id)
+    @roles = Service::Role.where(resource_type: 'Service::Team').pluck(:name, :id)
   end
 
   def team_params

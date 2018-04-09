@@ -15,25 +15,24 @@ class Admin::ContactsController < Admin::BaseController
 
   def update
     if @contact.update(contact_params)
-      flash[:success] = "#{t('contact.edit')}#{t('success')}"
+      flash[:notice] = t('.success')
       redirect_to admin_contact_url
     else
-      flash[:danger] = "#{t('contact.edit')}#{t('failed')}"
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
 
   def destroy
     @contact.destroy
-    flash[:danger] = "#{t('contact._')}已刪除"
+    flash[:alert] = t('.success')
     redirect_to admin_contacts_url
   end
 
   def handle
     @contact.handled = !@contact.handled
     @contact.save!
-    flash[:success] = "#{t('contact._')}#{handle_status(@contact.handled)}"
-    redirect_to admin_contact_url
+    flash[:notice] = Contact.model_name.human + Contact.human_attribure_name("#{handled.(@contact.handled)}")
   end
 
   private

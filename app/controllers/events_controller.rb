@@ -16,18 +16,18 @@ class EventsController < ApplicationController
 
   def join
     current_user.join @event
-    flash[:notice] = t('event.joined')
+    flash[:notice] = t('.success')
   rescue ActiveRecord::RecordInvalid => e
-    flash[:danger] = "#{t('event.join_failed')} : #{e.record.errors.messages.values.join(',')}"
+    flash[:alert] = "#{t('.failed')} : #{e.record.errors.messages.values.join(',')}"
   ensure
     redirect_to event_url(@event)
   end
 
   def quit
     current_user.quit @event
-    flash[:warning] = t('event.quited')
+    flash[:notice] = t('.success')
   rescue ActiveRecord::RecordNotFound => e
-    flash[:danger] = "#{t('event.quit_failed')} : #{t('event.did_not_join')}"
+    flash[:alert] = "#{t('.failed')} : #{t('.no_joined')}"
   ensure
     redirect_to event_url(@event)
   end
@@ -38,43 +38,39 @@ class EventsController < ApplicationController
 
   private
 
-  def join_params
-    params.permit(:remark)
-  end
-
   def find_event
     @event = Event.find(params[:id])
   end
 
   def check_participants
     unless @event.show_participants
-      flash[:warning] = t('event.show_participants_closed')
+      flash[:warning] = t('events.show_participants_closed')
       redirect_to event_url(@event)
     end
 
     unless current_user && current_user.joined?(@event)
-      flash[:warning] = t('event.join_to_show_participant')
+      flash[:warning] = t('events.join_to_show_participant')
       redirect_to event_url(@event)
     end
   end
 
   def check_profile
     unless current_user && current_user.has_valid_profile?
-      flash[:warning] = t('event.no_profile')
+      flash[:warning] = t('events.no_profile')
       redirect_to edit_account_profile_url
     end
   end
 
   def check_registration
     unless @event.on_registration?
-      flash[:warning] = t('event.not_on_registration')
+      flash[:warning] = t('events.not_on_registration')
       redirect_to event_url(@event)
     end
   end
 
   def check_full
     if @event.full?
-      flash[:warning] = t('event.is_full')
+      flash[:warning] = t('events.is_full')
       redirect_to event_path(@event)
     end
   end

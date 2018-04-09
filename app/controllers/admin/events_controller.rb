@@ -28,8 +28,9 @@ class Admin::EventsController < Admin::BaseController
     @event = current_user.events.build(resource_params)
     if @event.save
       redirect_to admin_event_path(@event)
-      flash[:success] = '活動發起成功'
+      flash[:notice] = t('.success')
     else
+      flash[:alert] = t('.failed')
       render :new
     end
   end
@@ -37,8 +38,9 @@ class Admin::EventsController < Admin::BaseController
   def update
     if @event.update(resource_params)
       redirect_to admin_event_path(@event)
-      flash[:success] = '活動修改成功'
+      flash[:notice] = t('.success')
     else
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
@@ -46,7 +48,7 @@ class Admin::EventsController < Admin::BaseController
   def destroy
     @event.destroy
     redirect_to admin_events_url
-    flash[:danger] = '活動已刪除'
+    flash[:alert] = t('.success')
   end
 
   def download

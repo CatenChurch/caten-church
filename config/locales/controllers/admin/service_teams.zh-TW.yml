@@ -1,0 +1,12 @@
+'zh-TW':
+  admin:
+    service_teams:
+      create:
+        success: 成功建立服事團隊
+        failed: 建立服事團隊失敗
+      update:
+        success: 成功更新服事團隊
+        failed: 更新服事團隊失敗
+      destroy:
+        success: 成功刪除服事團隊
+        failed: 刪除服事團隊失敗

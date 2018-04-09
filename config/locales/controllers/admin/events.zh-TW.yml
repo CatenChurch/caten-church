@@ -1,0 +1,11 @@
+'zh-TW':
+  admin:
+    events:
+      create:
+        success: 建立活動成功
+        failed: 建立活動失敗
+      update:
+        success: 更新活動成功
+        failed: 更新活動失敗
+      destroy:
+        success: 刪除活動成功

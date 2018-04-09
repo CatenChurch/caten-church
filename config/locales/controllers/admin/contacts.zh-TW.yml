@@ -1,0 +1,8 @@
+'zh-TW':
+  admin:
+    contacts:
+      update:
+        success: 編輯聯絡訊息成功
+        failed: 編輯聯絡訊息失敗
+      destroy:
+        success: 刪除聯絡訊息成功

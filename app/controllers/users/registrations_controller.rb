@@ -30,9 +30,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       session.delete :oauth_email
       session.delete :oauth_provider
 
-      flash[:success] = '以 Facebook 帳號註冊成功'
+      flash[:notice] = t('.success')
       sign_in_and_redirect @user, event: :authentication
     else
+      flash[:alert] = t('.failed')
       render :oauth_new
     end
   end
@@ -41,7 +42,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def find_provider
     unless session.key?(:oauth_id) && session.key?(:oauth_email) && session.key?(:oauth_provider)
-      flash[:warning] = '若要使用社群網站註冊，請點擊社群網站登入按鈕'
+      flash[:warning] = t('users.registrations.no_oauth_provider')
+    registrationsno_oauth_provider
       redirect_to new_user_registration_url
     end
     @provider = session[:oauth_provider]

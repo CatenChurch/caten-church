@@ -13,10 +13,10 @@ class Admin::ServiceSchedulesController < Admin::BaseController
   def create
     @schedule = Service::Schedule.new(schedule_params)
     if @schedule.save
-      flash[:success] = t('service_schedule.created')
+      flash[:notice] = t('.success')
       redirect_to admin_service_schedules_url
     else
-      flash[:danger] = t('service_schedule.create_failed')
+      flash[:alert] = t('.failed')
       render :new
     end
   end
@@ -25,19 +25,19 @@ class Admin::ServiceSchedulesController < Admin::BaseController
 
   def update
     if @schedule.update(schedule_params)
-      flash[:success] = t('service_schedule.updated')
+      flash[:notice] = t('.success')
       redirect_to admin_service_schedules_url
     else
-      flash[:danger] = t('service_schedule.update_failed')
+      flash[:alert] = t('.failed')
       render :edit
     end
   end
 
   def destroy
     if @schedule.destroy
-      flash[:warning] = t('service_schedule.destroyed')
+      flash[:notice] = t('.success')
     else
-      flash[:danger] = t('service_schedule.destroy_failed')
+      flash[:alert] = t('.failed')
     end
     redirect_to admin_service_schedules_url
   end

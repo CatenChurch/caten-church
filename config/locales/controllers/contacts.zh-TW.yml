@@ -1,0 +1,5 @@
+'zh-TW':
+  contacts:
+    create:
+      success: 您的訊息已成功送出，請稍候等待我們的回覆。
+      failed: 送出訊息時發生了一點問題
