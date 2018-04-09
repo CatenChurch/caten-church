@@ -1,11 +1,11 @@
 'zh-TW':
   activerecord:
     models:
-      announcement: '公告'
+      announcement: 公告
     attributes:
       announcement:
-        title: '標題'
-        description: '簡述'
-        created_at: '建立時間'
-        updated_at: '更新時間'
-        content: '內文'
+        title: 標題
+        description: 簡述
+        created_at: 建立時間
+        updated_at: 更新時間
+        content: 內文

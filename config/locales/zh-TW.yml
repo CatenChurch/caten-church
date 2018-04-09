@@ -1,144 +1,27 @@
 'zh-TW':
+  breadcrumb:
+    root: 首頁
+    account: 會員中心
   button:
-    redo: '復原'
-    back: '返回'
-    edit: '編輯'
-    join: '報名'
-    cancel: '取消'
-    submit: '送出'
-    submitting: '送出中'
-    sign_in: '登入'
-    sign_up: '註冊'
-    more: '詳情'
-    destroy: '刪除'
-    clear: '清除條件'
-    search: '搜尋'
-    handle:
-      y: '處理'
-      n: '待處理'
-  user:
-    _: '會員'
-    all: '會員一覽'
-    download_excel: '下載所有會員的 Excel 報表'
-    email: 'Email'
-  announcement:
-    _: '公告'
+    submitting: 送出中
+    sign_in: 登入
+    sign_up: 註冊
   event:
-    _: '活動'
-    all: '活動一覽'
-    name: '活動名稱'
-    registration_time: '報名時間'
-    sign_up_begin: '報名開始'
-    sign_up_end: '報名截止'
-    participants: '報名者'
-    participants_list: '報名者一覽'
-    show_participants: '顯示報名人數'
-    show_participants_closed: '報名情況未公開'
-    join_to_show_participant: '報名活動後才能觀看報名情況'
-    participants_count: '報名人數'
-    nature: '性質'
-    create: '新增活動'
-    check_arrival: '需要確認報到'
-    registery_fee: '報名費用'
-    join: '報名活動'
-    joined: '報名活動成功'
-    join_failed: '本次報名操作失敗'
-    quit: '取消報名活動'
-    quited: '取消報名活動成功'
-    quit_failed: '取消報名活動失敗'
-    no_profile : '報名活動前需建立個人資料，請先前往 會員中心 > 個人資料 填寫資料然後報名。'
-    not_on_registration: '目前不在報名時間內'
-    is_full: '報名人數已滿'
-    did_not_join: ''
-    already_joined: '你已經報名過此活動了'
-  event_user:
-    remark: '備註'
-    paid:
-      check: '確認繳費'
-      y: '已繳費'
-      n: '尚未繳費'
-    arrival:
-      check: '確認報到'
-      y: '已報到'
-      n: '尚未報到'
-  oauth:
-    link: '社群帳號連結'
+    show_participants_closed: 報名情況未公開
+    join_to_show_participant: 報名活動後才能觀看報名情況
+    joined: 報名活動成功
+    join_failed: 本次報名操作失敗
+    quited: 取消報名活動成功
+    quit_failed: 取消報名活動失敗
+    no_profile : 報名活動前需建立個人資料，請先前往 會員中心 > 個人資料 填寫資料然後報名。
+    not_on_registration: 目前不在報名時間內
+    is_full: 報名人數已滿
+    did_not_join: 你尚未報名此活動
+    already_joined: 你已經報名過此活動了
   devise:
     confirmations:
-      canceled: '取消申請更改 Email 成功'
-      cancel_failed: "取消申請更改 Email 失敗，流程中出了些錯誤"
-
-  name : '姓名'
-  sex : '性別'
-  birth : '生日'
-  phone : '電話'
-  cellphone: '行動電話'
-  email : 'Email'
-  address : '地址'
-  education : '學歷'
-  website: '茄典教會'
-  y: '是'
-  n: '否'
-  sure?: '確定執行動作嗎?'
-  success: '成功'
-  failed: '失敗'
-  search_conditions: '搜尋條件'
-  search: '搜尋'
-  no_result: '找不到結果'
-  backstage:  '後台'
-  account: '帳戶'
-  joined: '參加的'
-  leaded: '主領的'
-  # common
-  id : 'id'
-  create : '創建'
-  submit : '送出'
-  edit : '編輯'
-  delete : '刪除'
-  created_at : '建立於'
-  updated_at : '更新於'
-  user_id : '擁有者id'
-  download_excel : '下載 Excel'
-  youtube : 'YouTube'
-  from: '從'
-  to: '至'
-  need: '需要'
-  no_need: '不需要'
-  free: '免費'
-
-  event_name : '活動名稱'
-  event_sign_up_time : '活動報名時間'
-  event_sign_up_begin : '報名開始'
-  sign_up_begin : '報名開始'
-  event_sign_up_end : '報名結束'
-  sign_up_end : '報名結束'
-  event_time : '活動時間'
-  event_start : '活動開始'
-  start : '開始'
-  event_over : '活動結束'
-  over : '結束'
-  event_participants_number : '報名人數'
-  participants_count : '報名人數'
-  events_list : '活動一覽'
-  quit_event : '取消報名'
-  event_participants_list : '報名者一覽'
-  nature : '性質'
-  description : '描述'
-  min_sign_up_number : '活動成立人數'
-  max_sign_up_number : '活動人數上限'
-  back_to_event : '回到活動'
-  my_events : '我的活動'
-  sign_up_time : '報名時間'
-  events: '活動'
-  # devise
-  log_in : '登入'
-  log_out : '登出'
-  sign_up : '註冊'
-  edit_user_registration : '帳號設定'
-
-  # announcement
-  announcements : '公告'
-  new_announcement : '新增公告'
-
-  # seo
-  seo_description: '大家好，這裡是茄典教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!'
+      canceled: 取消申請更改 Email 成功
+      cancel_failed: 取消申請更改 Email 失敗，流程中出了些錯誤
+  website: 茄典教會
+  success: 成功
+  failed: 失敗

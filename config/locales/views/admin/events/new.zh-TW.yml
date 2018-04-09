@@ -2,5 +2,5 @@
   admin:
     events:
       new:
-        title: '新增活動'
-        back: '取消'
+        title: 新增活動
+        back: 取消

@@ -2,5 +2,5 @@
   account:
     profiles:
       edit:
-        title: '編輯個人資料'
-        back: '返回'
+        title: 編輯個人資料
+        back: 返回

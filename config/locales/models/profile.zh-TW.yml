@@ -1,42 +1,30 @@
 'zh-TW':
   activerecord:
     models:
-      profile: '個人資料'
+      profile: 個人資料
     attributes:
       profile:
-        name: '姓名'
-        sex: '性別'
-        birth: '生日'
-        id_number: '身分證字號'
-        phone: '電話'
-        cellphone: '行動電話'
-        emergency_contact: '緊急聯絡人電話'
-        address: '地址'
-        education: '學歷'
+        name: 姓名
+        sex: 性別
+        birth: 生日
+        id_number: 身分證字號
+        phone: 電話
+        cellphone: 行動電話
+        emergency_contact: 緊急聯絡人電話
+        address: 地址
+        education: 學歷
   simple_form:
-    # labels:
-    #   profile:
-    #     name: '姓名'
-    #     sex: '性別'
     placeholders:
       profile:
-        phone: '076107491'
+        phone: 076107491
     prompts:
       profile:
-        sex: '請選擇你的性別'
+        sex: 請選擇你的性別
   profile:
-    _: '個人資料'
-    name: '姓名'
-    phone: '電話'
-    cellphone: '行動電話'
-    sex: '性別'
-    birth_month: '生日月份'
-    id_number: '身分證字號'
-    emergency_contact: '緊急聯絡人電話'
-    created: '建立個人資料成功'
-    create_failed: '建立個人資料失敗'
-    updated: '更新個人資料成功'
-    update_failed: '更新個人資料失敗'
-    no_profile: '尚未建立個人資料'
+    created: 建立個人資料成功
+    create_failed: 建立個人資料失敗
+    updated: 更新個人資料成功
+    update_failed: 更新個人資料失敗
+    no_profile: 尚未建立個人資料
     error:
-      id_number: '必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字'
+      id_number: 必填，身分證10位字元，首位元應為小寫英文，第二位應為1或2，後面8個位元應皆為數字

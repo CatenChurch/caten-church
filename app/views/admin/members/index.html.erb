@@ -1,7 +1,7 @@
 <div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
   <h1><%= t '.title' %></h1>
   <div class="w-100"></div>
-  <%= link_to t('.download_excel'), download_admin_members_path(format: :xlsx), class: 'btn btn-success ml-auto' %>
+  <%= link_to t('.download'), download_admin_members_path(format: :xlsx), class: 'btn btn-success ml-auto' %>
 </div>
 <a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
 <div class="collapse" id="collapseSearch">

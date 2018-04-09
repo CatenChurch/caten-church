@@ -18,11 +18,11 @@
       </div>
       <%= tuf.hidden_field :user_id, id: "member-#{tuf.index}-user-id" %>
       <%= tuf.hidden_field :_destroy, id: "member-#{tuf.index}-destroy" %>
-      <%= link_to fa_icon('trash', text: t('.delete_user')), 'javascript: void(0);', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
+      <%= link_to fa_icon('trash', text: t('.delete')), 'javascript: void(0);', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
       <div class="w-100"></div>
     </div>
   <% end %>
-  <%= link_to fa_icon('plus', text: t('.add_user')), 'javascript: void(0);', onclick: 'addMember();', id: 'add-member' %>
+  <%= link_to fa_icon('plus', text: t('.add')), 'javascript: void(0);', onclick: 'addMember();', id: 'add-member' %>
   <br>
   <%= f.button :submit, data: { disable_with: t('.submitting') } %>
 <% end %>

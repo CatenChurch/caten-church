@@ -29,8 +29,8 @@
           <td><%= user.email %></td>
           <td><%= profile.phone %><br><%= profile.cellphone %></td>
           <td><%= profile.emergency_contact %></td>
-          <td><%= paid(event_user.paid) %></td>
-          <td><%= arrival(event_user.arrival) %></td>
+          <td><%= EventUser.human_attribute_name "paid.#{event_user.paid}" %></td>
+          <td><%= EventUser.human_attribute_name "arrival.#{event_user.arrival}" %></td>
           <td><%= event_user.remark %></td>
         <% end %>
       </tr>

@@ -2,9 +2,9 @@
   devise:
     confirmations:
       new:
-        title: '帳號驗證'
+        title: 帳號驗證
         subtitle: |
           沒有收到驗證信嗎，
           輸入 Email 重新寄送驗證信，
           以啟用會員。
-        submit: '重新寄送驗證信'
+        submit: 重新寄送驗證信

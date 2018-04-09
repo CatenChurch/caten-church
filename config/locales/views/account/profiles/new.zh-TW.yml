@@ -2,5 +2,5 @@
   account:
     profiles:
       new:
-        title: '填寫個人資料'
-        back: '返回'
+        title: 填寫個人資料
+        back: 返回

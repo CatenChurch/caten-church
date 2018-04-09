@@ -2,11 +2,11 @@
   admin:
     common:
       sidebar:
-        users: '會員'
-        events: '活動'
-        announcements: '公告'
-        contacts: '聯絡訊息'
-        service_teams: '服事團隊'
-        service_roles: '服事角色'
-        service_schedules: '服事日程'
-        sidekiq: '網站任務'
+        users: 會員
+        events: 活動
+        announcements: 公告
+        contacts: 聯絡訊息
+        service_teams: 服事團隊
+        service_roles: 服事角色
+        service_schedules: 服事日程
+        sidekiq: 網站任務

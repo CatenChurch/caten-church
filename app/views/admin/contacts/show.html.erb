@@ -22,5 +22,5 @@
   <h2><%= Contact.human_attribute_name :created_at %></h2>
   <p><%= l @contact.created_at, format: :to_sec %></p>
   <h2><%= Contact.human_attribute_name :handled %></h2>
-  <p><%= handle_status(@contact.handled) %></p>
+  <p><%= Contact.human_attribute_name "handled.#{@contact.handled}" %></p>
 </div>

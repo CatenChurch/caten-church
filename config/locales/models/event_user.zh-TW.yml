@@ -7,3 +7,9 @@
         paid: 繳費
         arrival: 報到
         remark: 備註
+      event_user/paid:
+        'true': 已繳費
+        'false': 尚未繳費
+      event_user/arrival:
+        'true': 已報到
+        'false': 尚未報到

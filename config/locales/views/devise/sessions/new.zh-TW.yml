@@ -2,10 +2,10 @@
   devise:
     sessions:
       new:
-        title: '登入'
+        title: 登入
         subtitle: |
           登入會員以享受此網站提供的服務，
           本網站支援Facebook登入，
           還沒有帳號可以前往註冊，加入我們。
-        submit: '帳號登入'
+        submit: 帳號登入
         fb_login_html: '使用 %{icon} 登入網站'

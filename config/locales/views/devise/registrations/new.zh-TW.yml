@@ -2,12 +2,12 @@
   devise:
     registrations:
       new:
-        title: '註冊'
+        title: 註冊
         subtitle: |
           註冊會員以享受此網站提供的服務，
           本網站支援Facebook登入，
           還沒有帳號可以前往註冊，
           加入我們。
         password_hint: '至少要有 %{min_len} 個字元'
-        submit: '註冊會員'
+        submit: 註冊會員
         fb_login_html: '使用 %{icon} 登入網站'

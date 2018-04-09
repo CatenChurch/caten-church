@@ -2,12 +2,12 @@ zh-TW:
   admin:
     service_schedules:
       index:
-        title: '服事時程表'
-        create: '新增服事時程表'
-        search_conditions: '搜尋條件'
-        clear: '清除條件'
-        submit: '搜尋'
-        more: '詳情'
-        edit: '編輯'
-        destroy: '刪除'
+        title: 服事時程表
+        create: 新增服事時程表
+        conditions: 搜尋條件
+        clear: 清除條件
+        submit: 搜尋
+        more: 詳情
+        edit: 編輯
+        destroy: 刪除
         confirm: '確定要刪除這個服事時程表嗎？'

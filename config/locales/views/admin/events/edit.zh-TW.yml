@@ -2,5 +2,5 @@
   admin:
     events:
       edit:
-        title: '編輯活動'
-        back: '取消'
+        title: 編輯活動
+        back: 取消

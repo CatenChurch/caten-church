@@ -2,8 +2,8 @@
   devise:
     passwords:
       new:
-        title: '忘記密碼'
+        title: 忘記密碼
         subtitle: |
           輸入當初註冊的Email，
           系統將會寄送重設密碼的鏈結至你的 Email。
-        submit: '寄送重設密碼信'
+        submit: 寄送重設密碼信

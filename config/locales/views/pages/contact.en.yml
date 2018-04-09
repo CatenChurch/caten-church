@@ -1,40 +1,40 @@
 en:
   pages:
     contact:
-      title: 'Contact Us'
+      title: Contact Us
       subtitle: '有任何問題嗎？馬上填寫表單聯絡我們。'
-      name: 'Caten Church'
+      name: Caten Church
       address: '(826-47) No.467, Jiazhan Rd., Ziguan Dist., Kaohsiung City 826, Taiwan (R.O.C.)'
-      worship_time: 'Worship Time'
+      worship_time: Worship Time
       worship:
-        _: 'Sunday Worship'
+        _: Sunday Worship
         time: 'Every Sun 09:50 ~ 11:30'
       youth_fellowship:
-        _: 'Youth Fellowship'
+        _: Youth Fellowship
         time: 'Every Sat 19:00 ~ 21:30'
-      contact_ways: 'Contact Ways'
+      contact_ways: Contact Ways
       tel:
-        _: 'Tel'
-        number: '07-6178379'
+        _: Tel
+        number: 07-6178379
       fax:
-        _: 'Fax'
-        number: '07-6191553'
+        _: Fax
+        number: 07-6191553
       tax:
-        _: 'Tax'
-        number: '20252897'
+        _: Tax
+        number: 20252897
       email:
-        _: 'E-mail'
+        _: E-mail
         url: 'catenforjesus@gmail.com'
-      social_media: 'Social Media'
-      website: 'Website'
+      social_media: Social Media
+      website: Website
       facebook:
-        _: 'Facebook'
+        _: Facebook
         url: 'https://facebook.com/caten.church.teens'
       github:
-        _: 'Github'
+        _: Github
         url: 'https://github.com/CatenChurch'
       youtube:
-        _: 'Youtube'
+        _: Youtube
         url: 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w'
       line@:
         _: 'Line @'
@@ -49,5 +49,5 @@ en:
           allowfullscreen>
         </iframe>
       contact_form:
-        title: 'Fill In Contact Form'
+        title: Fill In Contact Form
         subtitle: '任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！'

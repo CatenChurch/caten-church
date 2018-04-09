@@ -1,21 +1,6 @@
 'zh-TW':
   pages:
-    root: '首頁'
-    account: '會員中心'
-    account_events: '我的活動'
-    profile: '個人資料'
-    edit_profile: '編輯個人資料'
-    new_profile: '新增個人資料'
-    edit_user: '帳號設定'
-    youtube: 'Youtube'
-    term: '隱私條款'
-    about: '關於茄典'
-    info: '教會資訊'
-    contact: '聯絡我們'
-    announcements: '教會公告'
-    events: '活動專區'
-    sign_in: '登入'
-    sign_up: '註冊'
-    confirmation: '驗證信箱'
-    reset_password: '重設密碼'
-    sidekiq: '排程管理'
+    root: 首頁
+    sign_up: 註冊
+    confirmation: 驗證信箱
+    reset_password: 重設密碼

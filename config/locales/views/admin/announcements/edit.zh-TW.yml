@@ -2,5 +2,5 @@
   admin:
     announcements:
       edit:
-        title: '編輯公告'
-        back: '取消'
+        title: 編輯公告
+        back: 取消

@@ -1,15 +1,13 @@
 en:
   common:
     navbar:
-      brand: 'Caten Church'
-      events: 'Events'
-      announcements: 'Announcements'
-      backstage: 'Backstage'
-      sign_up: 'Sign up'
-      log_in: 'Log In'
-      log_out: 'Log Out'
+      brand: Caten Church
+      backstage: Backstage
+      sign_up: Sign up
+      log_in: Log In
+      log_out: Log Out
       account:
-        _: 'Account'
-        events: 'My Events'
-        profile: 'My Profile'
-        edit: 'Account Setting'
+        _: Account
+        events: My Events
+        profile: My Profile
+        edit: Account Setting

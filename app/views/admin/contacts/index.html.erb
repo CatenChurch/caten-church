@@ -46,7 +46,7 @@
       <td><%= mail_to contact.email %></td>
       <td><%= truncate(contact.message, length: 20) %></td>
       <td><%= l contact.created_at %></td>
-      <td><%= handle_status(contact.handled) %></td>
+      <td><%= Contact.human_attribute_name "handled.#{contact.handled}" %></td>
       <td>
         <%= link_to t('.show'), admin_contact_path(contact), class: 'btn btn-info' %>
         <%= link_to t('.destroy'), admin_contact_path(contact), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>

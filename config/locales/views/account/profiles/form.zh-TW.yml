@@ -2,7 +2,7 @@
   account:
     profiles:
       form:
-        name: '姓名'
-        term: '隱私條款'
+        name: 姓名
+        term: 隱私條款
         terms_of_service_html: '我已閱讀並且接受%{link}的內容'
-        submitting: '個人資料更新中'
+        submitting: 個人資料更新中

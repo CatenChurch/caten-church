@@ -2,5 +2,5 @@
   admin:
     announcements:
       new:
-        title: '新增公告'
-        back: '取消'
+        title: 新增公告
+        back: 取消

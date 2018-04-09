@@ -2,5 +2,5 @@ zh-TW:
   admin:
     service_roles:
       edit:
-        title: '編輯角色'
-        back: '返回'
+        title: 編輯角色
+        back: 返回

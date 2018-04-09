@@ -1,19 +1,7 @@
 'zh-TW':
   events:
     event:
-      nature: '活動性質'
-      participants_count: '報名人數'
-      min: '活動成立人數'
-      max: '活動人數上限'
-      sign_up_begin: '報名開始時間'
-      sign_up_end: '報名結束時間'
-      start: '活動開始時間'
-      over: '活動結束時間'
-      check_arrival: '需要確認報到'
-      registery_fee: '報名費用'
-      show_participants: '顯示報名人數'
-      quit: '取消報名'
-      participants_list: '報名者名單'
-      remark: '備註'
-      join: '報名活動'
+      quit: 取消報名
+      participants: 查看其他報名者
+      join: 報名活動
       submitting: '報名中...'

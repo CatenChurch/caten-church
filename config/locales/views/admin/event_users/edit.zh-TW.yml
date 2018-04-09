@@ -2,12 +2,6 @@
   admin:
     event_users:
       edit:
-        back: '取消'
-        name: '姓名'
-        email: '電子郵箱'
-        check_paid: '確認繳費'
-        check_arrival: '確認報到'
-        paid: '繳費'
-        arrival: '報到'
-        submit: '儲存'
+        back: 取消
+        submit: 儲存
         submitting: '儲存中...'

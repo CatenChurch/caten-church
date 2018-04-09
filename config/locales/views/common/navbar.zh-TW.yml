@@ -1,15 +1,13 @@
 'zh-TW':
   common:
     navbar:
-      brand: '茄典教會'
-      events: '活動專區'
-      announcements: '公告'
-      backstage: '後台'
-      sign_up: '註冊'
-      log_in: '登入'
-      log_out: '登出'
+      brand: 茄典教會
+      backstage: 後台
+      sign_up: 註冊
+      log_in: 登入
+      log_out: 登出
       account:
-        _: '會員中心'
-        events: '我的活動'
-        profile: '個人資料'
-        edit: '帳號設定'
+        _: 會員中心
+        events: 我的活動
+        profile: 個人資料
+        edit: 帳號設定

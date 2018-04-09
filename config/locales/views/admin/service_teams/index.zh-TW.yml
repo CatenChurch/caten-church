@@ -2,13 +2,13 @@
   admin:
     service_teams:
       index:
-        title: '服事團隊一覽'
-        create: '新增服事團隊'
-        conditions: '搜尋條件'
-        clear: '清除條件'
-        submit: '搜尋'
-        more: '詳情'
-        show: '查看'
-        edit: '編輯'
-        destroy: '刪除'
+        title: 服事團隊一覽
+        create: 新增服事團隊
+        conditions: 搜尋條件
+        clear: 清除條件
+        submit: 搜尋
+        more: 詳情
+        show: 查看
+        edit: 編輯
+        destroy: 刪除
         confirm: '確定要刪除這個服事團隊嗎？'

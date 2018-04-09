@@ -2,5 +2,5 @@
   admin:
     contacts:
       edit:
-        back: '取消'
-        title: '編輯聯絡訊息'
+        back: 取消
+        title: 編輯聯絡訊息

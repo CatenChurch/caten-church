@@ -2,12 +2,12 @@
 <div class="container">
   <h2>
     <%= t '.current' %>
-    <span class="badge badge-primary ml-2"><%= t '.new_badge' %></span>
+    <span class="badge badge-primary ml-2"><%= t '.new' %></span>
   </h2>
   <div class="row">
     <% @events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
-        <%= link_to event_path(event) do %>
+        <%= link_to event_path(event), class: 'caten-link' do %>
           <div class="card event-card text-center">
             <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.after'}" %></div>
             <div class="card-body">
@@ -28,7 +28,7 @@
   <div class="row">
     <% @expired_events.each do |event| %>
       <div class="col-12 col-md-4 col-lg-3 my-2">
-        <%= link_to event_path(event) do %>
+        <%= link_to event_path(event), class: 'caten-link' do %>
           <div class="card event-card text-center">
             <div class="card-header"><%= "#{time_ago_in_words event.sign_up_end} #{t '.before'}" %></div>
             <div class="card-body">

@@ -1,40 +1,40 @@
 'zh-TW':
   pages:
     contact:
-      title: '聯絡我們'
+      title: 聯絡我們
       subtitle: '有任何問題嗎？馬上填寫表單聯絡我們。'
-      name: '茄典教會'
-      address: '826-47 高雄市梓官區茄苳里嘉展路 467 號'
-      worship_time: '聚會時間'
+      name: 茄典教會
+      address: 826-47 高雄市梓官區茄苳里嘉展路 467 號
+      worship_time: 聚會時間
       worship:
-        _: '主日崇拜'
+        _: 主日崇拜
         time: '每週日 09:50 至 11:30'
       youth_fellowship:
-        _: '青少年團契'
+        _: 青少年團契
         time: '每週六 19:00 至 21:00'
-      contact_ways: '聯絡方式'
+      contact_ways: 聯絡方式
       tel:
-        _: '電話'
-        number: '07-6178379'
+        _: 電話
+        number: 07-6178379
       fax:
-        _: '傳真'
-        number: '07-6191553'
+        _: 傳真
+        number: 07-6191553
       tax:
-        _: '統一編號'
-        number: '20252897'
+        _: 統一編號
+        number: 20252897
       email:
-        _: '電子郵箱'
+        _: 電子郵箱
         url: 'catenforjesus@gmail.com'
-      social_media: '網路社群'
-      website: '網站'
+      social_media: 網路社群
+      website: 網站
       facebook:
-        _: 'Facebook'
+        _: Facebook
         url: 'https://facebook.com/caten.church.teens'
       github:
-        _: 'Github'
+        _: Github
         url: 'https://github.com/CatenChurch'
       youtube:
-        _: 'Youtube'
+        _: Youtube
         url: 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w'
       line@:
         _: 'Line @'
@@ -49,5 +49,5 @@
           allowfullscreen>
         </iframe>
       contact_form:
-        title: '填寫連絡表單'
+        title: 填寫連絡表單
         subtitle: '任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！'

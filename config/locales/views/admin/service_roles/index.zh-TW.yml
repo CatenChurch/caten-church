@@ -2,13 +2,13 @@ zh-TW:
   admin:
     service_roles:
       index:
-        title: '服事角色'
-        create: '建立新角色'
-        search_conditions: '搜尋條件'
-        clear: '清除條件'
-        submit: '搜尋'
-        more: '詳情'
-        show: '查看'
-        edit: '編輯'
-        destroy: '刪除'
+        title: 服事角色
+        create: 建立新角色
+        conditions: 搜尋條件
+        clear: 清除條件
+        submit: 搜尋
+        more: 詳情
+        show: 查看
+        edit: 編輯
+        destroy: 刪除
         confirm: '確定要刪除這個角色嗎？'

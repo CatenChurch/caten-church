@@ -8,11 +8,11 @@
         <th><%= Profile.human_attribute_name :name %></th>
         <th><%= User.human_attribute_name :email %></th>
         <th>
-          <%= t '.check_paid' %>
+          <%= EventUser.human_attribute_name :paid %>
           <input type="checkbox" onclick="checkAll(this, paidCheckboxs)">
         </th>
         <th>
-          <%= t '.check_arrival' %>
+          <%= EventUser.human_attribute_name :arrival %>
           <input type="checkbox" onclick="checkAll(this, arrivalCheckboxs)">
         </th>
       </tr>
@@ -25,8 +25,8 @@
           <td><%= profile.name %></td>
           <td><%= user.email %></td>
           <%= f.fields_for '', event_user do |ff| %>
-            <td><%= ff.input :paid, label: EventUser.human_attribute_name :paid, input_html: { class: 'paid-check' } %></td>
-            <td><%= ff.input :arrival, label: EventUser.human_attribute_name :arrival, input_html: { class: 'arrival-check' } %></td>
+            <td><%= ff.input :paid, label: EventUser.human_attribute_name('paid.true'), input_html: { class: 'paid-check' } %></td>
+            <td><%= ff.input :arrival, label: EventUser.human_attribute_name('arrival.true'), input_html: { class: 'arrival-check' } %></td>
           <% end %>
         </tr>
       <% end %>

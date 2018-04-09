@@ -2,17 +2,7 @@
   account:
     profiles:
       profile:
-        title: '個人資料'
-        edit: '編輯'
-        no_profile: '此會員還沒建立個人資料'
-        create: '建立個人資料'
-        name: '姓名'
-        sex: '性別'
-        birth: '生日'
-        id_number: '身分證字號'
-        email: '電子信箱'
-        phone: '電話'
-        cellphone: '行動電話'
-        emergency_contact: '緊急聯絡人電話'
-        address: '地址'
-        education: '學歷'
+        title: 個人資料
+        edit: 編輯
+        no_profile: 此會員還沒建立個人資料
+        create: 建立個人資料
