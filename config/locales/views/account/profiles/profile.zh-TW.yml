@@ -1,8 +1,0 @@
-'zh-TW':
-  account:
-    profiles:
-      profile:
-        title: 個人資料
-        edit: 編輯
-        no_profile: 此會員還沒建立個人資料
-        create: 建立個人資料

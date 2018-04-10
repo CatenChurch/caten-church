@@ -1,0 +1,20 @@
+'zh-TW':
+  admin:
+    announcements:
+      index:
+        title: 公告一覽
+        create: 新增公告
+      show:
+        back: 公告一覽
+        edit: 編輯公告
+        delete: 刪除公告
+        confirm: 確定要刪除這個公告嗎？
+        post_to_fb: 發布至FB社團
+      new:
+        title: 新增公告
+        back: 取消
+      edit:
+        title: 編輯公告
+        back: 取消
+      form:
+        submitting: '發布公告中...'

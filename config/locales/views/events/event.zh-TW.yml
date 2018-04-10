@@ -1,7 +1,0 @@
-'zh-TW':
-  events:
-    event:
-      quit: 取消報名
-      participants: 查看其他報名者
-      join: 報名活動
-      submitting: '報名中...'

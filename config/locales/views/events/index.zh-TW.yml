@@ -1,8 +1,0 @@
-'zh-TW':
-  events:
-    index:
-      current: 當前的活動
-      expired: 過期的活動
-      new: New
-      after: 之後
-      before: 以前

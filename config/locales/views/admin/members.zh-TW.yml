@@ -9,3 +9,10 @@
         submit: 搜尋
         more: 詳情
         show: 查看
+      show:
+        back: 會員一覽
+        no_result: 無
+        participated: 參加的
+        leaded: 領導的
+      download:
+        title: 會員一覽

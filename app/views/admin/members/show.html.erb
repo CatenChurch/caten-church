@@ -8,7 +8,7 @@
   <div class="col-sm-12 col-md-6">
     <div class="card text-center">
       <div class="card-body">
-        <h3 class="card-title"><%= t '.service_teams_leader' %></h3>
+        <h3 class="card-title"><%= "#{t '.leaded'}#{Service::Team.model_name.human}" %></h3>
         <%= content_tag :div, t('.no_result') if @member.service_teams.blank? %>
       </div>
       <ul class="list-group list-group-flush">
@@ -18,7 +18,7 @@
       </ul>
       <hr>
       <div class="card-body">
-        <h3 class="card-title"><%= t '.service_teams_member' %></h3>
+        <h3 class="card-title"><%= "#{t '.participated'}#{Service::Team.model_name.human}" %></h3>
         <%= content_tag :div, t('.no_result') if @member.serviced_teams.blank? %>
       </div>
       <ul class="list-group list-group-flush">
@@ -31,7 +31,7 @@
   <div class="col-sm-12 col-md-6">
     <div class="card text-center">
       <div class="card-body">
-        <h3 class="card-title"><%= t '.participated_events' %></h3>
+        <h3 class="card-title"><%= "#{t '.participated'}#{Event.model_name.human}" %></h3>
         <%= content_tag :div, t('.no_result') if @member.participated_events.blank? %>
       </div>
       <ul class="list-group list-group-flush">

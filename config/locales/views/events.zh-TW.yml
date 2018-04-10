@@ -1,0 +1,22 @@
+'zh-TW':
+  events:
+    index:
+      current: 當前的活動
+      expired: 過期的活動
+      new: New
+      after: 之後
+      before: 以前
+    show:
+      list: 活動列表
+    participants:
+      title: 報名者名單
+      back: 返回
+    event:
+      quit: 取消報名
+      participants: 查看其他報名者
+      join: 報名活動
+      submitting: '報名中...'
+    jumbotron:
+      title: 活動專區
+      subtitle: 點選活動以報名與查看詳情。
+      my_events: 我報名的活動

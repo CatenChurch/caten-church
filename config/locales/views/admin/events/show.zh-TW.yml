@@ -1,9 +1,0 @@
-'zh-TW':
-  admin:
-    events:
-      show:
-        back: 活動一覽
-        download: 下載報表
-        edit: 編輯
-        delete: 刪除
-        confirm: '確定要刪除活動嗎？'

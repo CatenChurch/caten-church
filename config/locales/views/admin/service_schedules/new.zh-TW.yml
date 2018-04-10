@@ -1,6 +1,0 @@
-zh-TW:
-  admin:
-    service_schedules:
-      new:
-        title: 新增服事時程表
-        back: 返回

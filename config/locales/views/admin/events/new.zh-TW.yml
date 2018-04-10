@@ -1,6 +1,0 @@
-'zh-TW':
-  admin:
-    events:
-      new:
-        title: 新增活動
-        back: 取消

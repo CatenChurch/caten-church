@@ -1,0 +1,26 @@
+'zh-TW':
+  account:
+    profiles:
+      new:
+        title: 填寫個人資料
+        back: 返回
+      edit:
+        title: 編輯個人資料
+        back: 返回
+      form:
+        name: 姓名
+        term: 隱私條款
+        terms_of_service_html: '我已閱讀並且接受%{link}的內容'
+        submitting: 個人資料更新中
+      jumbotron:
+        title: 個人資料
+        subtitle_html: |
+          填寫個人資料以報名活動，
+          使用者的個人資料本網站會妥善保護。
+          詳細請參閱 %{link}
+        term: 隱私條款
+      profile:
+        title: 個人資料
+        edit: 編輯
+        no_profile: 此會員還沒建立個人資料
+        create: 建立個人資料

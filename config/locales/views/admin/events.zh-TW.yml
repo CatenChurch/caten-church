@@ -1,0 +1,32 @@
+'zh-TW':
+  admin:
+    events:
+      index:
+        title: 活動一覽
+        create: 新增活動
+        conditions: 搜尋條件
+        all: 所有活動
+        registration: 報名期間
+        running: 活動期間
+        closed: 過期活動
+        clear: 清除條件
+        submit: 搜尋
+        more: 詳細資訊
+        show: 查看
+      show:
+        back: 活動一覽
+        download: 下載報表
+        edit: 編輯
+        delete: 刪除
+        confirm: 確定要刪除活動嗎？
+      new:
+        title: 新增活動
+        back: 取消
+      edit:
+        title: 編輯活動
+        back: 取消
+      form:
+        submitting: '活動建立中...'
+      download:
+        info: 活動資訊
+        participants: 報名者名單

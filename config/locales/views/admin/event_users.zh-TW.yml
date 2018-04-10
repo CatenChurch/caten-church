@@ -1,6 +1,9 @@
 'zh-TW':
   admin:
     event_users:
+      show:
+        back: 回到活動
+        edit: 繳費與報到
       edit:
         back: 取消
         submit: 儲存
