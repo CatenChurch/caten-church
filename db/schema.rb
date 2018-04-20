@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420064125) do
+ActiveRecord::Schema.define(version: 20180420074051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,18 @@ ActiveRecord::Schema.define(version: 20180420064125) do
     t.index ["sign_up_begin"], name: "index_events_on_sign_up_begin"
     t.index ["sign_up_end"], name: "index_events_on_sign_up_end"
     t.index ["start"], name: "index_events_on_start"
+  end
+
+  create_table "messengers", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.boolean "activated", default: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activated"], name: "index_messengers_on_activated"
+    t.index ["provider", "uid"], name: "index_messengers_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_messengers_on_user_id"
   end
 
   create_table "oauths", id: :serial, force: :cascade do |t|
@@ -187,6 +199,7 @@ ActiveRecord::Schema.define(version: 20180420064125) do
   end
 
   add_foreign_key "announcements", "users"
+  add_foreign_key "messengers", "users"
   add_foreign_key "oauths", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "service_schedules", "service_teams"
