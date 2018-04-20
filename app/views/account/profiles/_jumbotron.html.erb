@@ -3,10 +3,10 @@
   >
   <%= t 'breadcrumb.account' %>
   >
-  <%= link_to t('.title'), account_profile_path %>
+  <%= link_to Profile.model_name.human, account_profile_path %>
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t '.title' %></h1>
+  <h1 class="display-4 text-center"><%= Profile.model_name.human %></h1>
   <p class="lead text-center">
     <%= t('.subtitle_html', link: (link_to t('.term'), term_path, class: 'mx-2 btn btn-dark')) %>
   </p>
