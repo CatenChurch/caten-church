@@ -1,9 +1,9 @@
 class Chatbot::MessengersController < Chatbot::BaseController
   def verification
     if params['hub.mode'] == 'subscribe' && params['hub.verify_token'] == ENV['FB_MESG_TOKEN']
-      render plain: params['hub.challenge'], status: 200
+      render plain: params['hub.challenge'], status: :ok
     else
-      render plain: 'wrong verify token', status: 404
+      render plain: 'mode is not subscribe or verify_token wrong', status: :unprocessable_entity
     end
   end
 
