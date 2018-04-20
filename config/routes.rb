@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   # chatbot
   namespace :chatbot do
     post 'line/callback' => 'lines#callback'
-    get 'messenger/callback' => 'messengers#verification'
+    get 'messenger/callback' => 'messengers#verify'
     post 'messenger/callback' => 'messengers#callback'
   end
 end
