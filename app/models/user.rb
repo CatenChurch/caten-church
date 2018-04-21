@@ -76,4 +76,20 @@ class User < ApplicationRecord
   def cancel_admin
     remove_role :admin
   end
+
+  def regenerate_auth_token
+    token = generate_unique_secure_token
+    loop do
+      break token unless User.exists?(auth_token: token)
+      token = generate_unique_secure_token
+    end
+    update! auth_token: token, auth_token_sent_at: Time.now
+  end
+
+  private
+
+  def generate_unique_secure_token
+    SecureRandom.base58(24)
+  end
+
 end
