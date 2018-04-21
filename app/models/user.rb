@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook]
 
   has_one :profile, dependent: :destroy
+  has_one :subscription, dependent: :destroy
   has_many :announcements
   has_many :events, dependent: :nullify
   has_many :event_users, dependent: :destroy
@@ -17,6 +18,10 @@ class User < ApplicationRecord
   has_many :service_teams, class_name: 'Service::Team'
   has_many :service_team_user, class_name: 'Service::TeamUser'
   has_many :serviced_teams, through: :service_team_user, source: :team, class_name: 'Service::Team'
+
+  after_create do
+    create_subscription!
+  end
 
   # ransackable_scopes https://github.com/activerecord-hackery/ransack#using-scopesclass-methods
   def self.ransackable_scopes(_auth_object = nil)
