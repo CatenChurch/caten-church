@@ -1,0 +1,41 @@
+<%= render 'jumbotron' %>
+
+<div class="container">
+  <div class="card-deck">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <%= Messenger.model_name.human %>
+        </h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between px-5">
+          <div><strong><%= User.human_attribute_name :email %></strong></div>
+          <div><%= current_user.email %></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between px-5">
+          <div><strong>Facebook Messenger</strong></div>
+          <div><input type="checkbox"></div>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <%= Subscription.model_name.human %>
+          <%= link_to(t('.edit'), edit_account_subscription_path, class: 'btn btn-primary ml-2') %>
+        </h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between px-5">
+          <div><strong><%= Subscription.human_attribute_name :new_events %></strong></div>
+          <div><%= Subscription.human_attribute_name "new_events.#{@subscription.new_events}" %></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between px-5">
+          <div><strong><%= Subscription.human_attribute_name :joined_events %></strong></div>
+          <div><%= Subscription.human_attribute_name "joined_events.#{@subscription.joined_events}" %></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

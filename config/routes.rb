@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'index', 'term', 'about', 'contact', controller: 'pages'
   namespace :account do
     resource :profile, except: [:destroy]
+    resource :subscription, only: [:show, :edit, :update]
     resources :events, only: [:index]
   end
   # custom devise controllers

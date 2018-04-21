@@ -1,0 +1,16 @@
+<%= render 'jumbotron' %>
+<% content_for :breadcrumb do %>
+  >
+  <%= link_to t('.title'), edit_account_subscription_path %>
+<% end %>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <%= simple_form_for @subscription, url: account_subscription_url do |f| %>
+      	<%= f.input :new_events %>
+      	<%= f.input :joined_events %>
+        <%= f.button :submit, data: { disable_with: t('.submitting') } %>
+      <% end %>
+    </div>
+  </div>
+</div>

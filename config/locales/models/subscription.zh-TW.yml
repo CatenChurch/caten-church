@@ -1,0 +1,14 @@
+'zh-TW':
+  activerecord:
+    models:
+      subscription: 消息訂閱
+    attributes:
+      subscription:
+        new_events: 新活動通知
+        joined_events: 已加入的活動通知
+      subscription/new_events:
+        'true': 開啟
+        'false': 關閉
+      subscription/joined_events:
+        'true': 開啟
+        'false': 關閉

@@ -1,0 +1,10 @@
+'zh-TW':
+  account:
+    subscriptions:
+      show:
+        edit: 編輯
+      edit:
+        title: 編輯消息訂閱
+        submitting: '更新消息訂閱中...'
+      jumbotron:
+        subtitle: 管理訂閱的訊息通知以及通知的管道
