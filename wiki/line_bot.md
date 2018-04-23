@@ -2,7 +2,7 @@
 
 Line 會`post`下面的資料結構回設置的`webhook`
 
-這個專案的例子是 https://caten-church.herokuapp.com/chatbot/line/callback
+這個專案的例子是 https://caten-church.com/chatbot/line/callback
 
 注意`webhook`必為`https`
 

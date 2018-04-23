@@ -98,7 +98,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'caten-church.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'caten-church.com' }
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD'],
@@ -107,11 +107,5 @@ Rails.application.configure do
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true
-  }
-
-  # forward http://caten-church.com to https://caten-church.herokuapp.com/
-  # and mask as http://caten-church.com
-  config.action_dispatch.default_headers = {
-    'X-Frame-Options' => 'ALLOW-FROM http://caten-church.com'
   }
 end

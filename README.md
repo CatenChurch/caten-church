@@ -1,5 +1,5 @@
 # CatenChurch
-本專案為茄典教會網站，網址是<https://caten-church.herokuapp.com/>
+本專案為茄典教會網站，網址是<https://caten-church.com/>
 
 專案的架構為 `Rails 5.0.1` + `Puma` + `Postgres 9.5.4.1` + `Heroku` + `Newrelic` + `Sidekiq` + `Redis`
 
@@ -152,14 +152,14 @@ usage
 ```bash
 # init config/sitemap.rb
 $ rake sitemap:install
-# generate public/sitmap.xml.gz
+# generate public/sitmap.xml
 $ rake sitemap:refresh
 ```
 
 add sitemap in public/robots.txt
 
 ```txt
-sitemap: caten-church.herokuapp.com/sitemap.xml.gz
+sitemap: caten-church.com/sitemap.xml
 ```
 
 ### Reset counter cache
@@ -297,7 +297,7 @@ $ heroku logs --tail
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_url_options = { host: 'caten-church.herokuapp.com' }
+config.action_mailer.default_url_options = { host: 'caten-church.com' }
 config.action_mailer.smtp_settings = {
   :user_name => ENV['SENDGRID_USERNAME'],
   :password => ENV['SENDGRID_PASSWORD'],
