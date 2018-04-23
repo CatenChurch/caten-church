@@ -3,6 +3,11 @@
     subscriptions:
       show:
         edit: 編輯
+        not_auth: 尚未開通
+        default_used: 默認啟用
+        start: 使用
+        pause: 暫停使用
+        fb_messenger: Facebook Messenger
       edit:
         title: 編輯消息訂閱
         submitting: '更新消息訂閱中...'

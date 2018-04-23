@@ -1,7 +1,9 @@
 class Account::SubscriptionsController < Account::BaseController
   before_action :find_subscription
 
-  def show; end
+  def show
+    current_user.regenerate_auth_token if current_user.auth_token_sent_at + 30.minutes < Time.now
+  end
 
   def edit; end
 

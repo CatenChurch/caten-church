@@ -1,0 +1,12 @@
+'zh-TW':
+  activerecord:
+    models:
+      messenger: 通知管道
+    attributes:
+      messenger:
+        provider: 平台種類
+        uid: 平台使用者編號
+        activated: 啟用狀態
+      messenger/activated:
+        'true': 使用中
+        'false': 暫停使用

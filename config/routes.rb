@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :account do
     resource :profile, except: [:destroy]
     resource :subscription, only: [:show, :edit, :update]
+    resources :messengers, only: [:update]
     resources :events, only: [:index]
   end
   # custom devise controllers
