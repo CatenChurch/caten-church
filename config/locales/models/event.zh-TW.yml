@@ -12,7 +12,7 @@
         sign_up_begin: 報名開始
         sign_up_end: 報名截止
         start: 活動開始
-        over: 活動截止
+        over: 活動結束
         time: 活動時間
         created_at: 建立時間
         updated_at: 更新時間
