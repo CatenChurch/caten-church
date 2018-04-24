@@ -1,9 +1,8 @@
 class Account::SubscriptionsController < Account::BaseController
   before_action :find_subscription
+  before_action :check_user_auth_token, only: [:show]
 
-  def show
-    current_user.regenerate_auth_token if current_user.auth_token_sent_at + 30.minutes < Time.now
-  end
+  def show; end
 
   def edit; end
 
@@ -25,5 +24,11 @@ class Account::SubscriptionsController < Account::BaseController
 
   def subscription_params
     params.require(:subscription).permit(:new_events, :joined_events)
+  end
+
+  def check_user_auth_token
+    if current_user.auth_token.blank? || (current_user.auth_token_sent_at + 30.minutes < Time.now)
+      current_user.regenerate_auth_token
+    end
   end
 end
