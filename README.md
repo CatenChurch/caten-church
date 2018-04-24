@@ -133,10 +133,16 @@ and got to localhost:2000 or hotel.dev
 
 ### rake tasks
 
-send birth notification mail to admin
+寄送下月壽星列表給管理員
 
 ```bash
-$ rake mail:admin:birth_notification
+$ rails mail:admin:birth_notification
+```
+
+於活動開始前一天提醒報名活動者
+
+```bash
+$ rails mail:event:opening_notice_before_1
 ```
 
 ### sitemap
