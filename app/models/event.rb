@@ -6,7 +6,11 @@ class Event < ApplicationRecord
   scope :sign_up_expired, -> { where('sign_up_end < :now', now: DateTime.now) }
   scope :in_registration_time, -> { where('sign_up_end >= :now and sign_up_begin <= :now', now: DateTime.now) }
   scope :closed, -> { where('over < :now', now: DateTime.now) }
-
+  scope :start_after_days, ->(number) do
+    days = Time.now + number.days
+    where('start >= :t1 and start < :t2', t1: days, t2: (days + 1.days))
+  end
+  
   # relation
   belongs_to :organizer, class_name: 'User', foreign_key: :user_id
   has_many :event_users, dependent: :destroy
@@ -29,6 +33,16 @@ class Event < ApplicationRecord
 
   def show_participants_count
     show_participants ? participants_count : '?'
+  end
+
+  def opening_notice
+    participants.each do |user|
+      next unless user.subscription.joined_events?
+      # Email
+      EventMailer.opening_notice(self, user).deliver_now
+      # Facebook Messenger
+      # TODO: send notice through Facebook Messenger
+    end
   end
 
   private
