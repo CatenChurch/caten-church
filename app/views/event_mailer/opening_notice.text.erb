@@ -1,0 +1,12 @@
+<% unless Rails.env.production? %>
+Email Testing
+<% end %>
+<%= @recipient.profile&.name %> <%= t '.greeting' %>
+
+  <%= t '.participated_event' %>：<%= @event.name %>
+  <%= t '.link', link: event_url(@event) %>
+  <%= t '.remaining_time', time: time_ago_in_words(@event.start) %>
+  <%= t '.start_at', time: l(@event.start) %>
+  <%= t '.forward' %>
+
+<%= t '.sign' %>

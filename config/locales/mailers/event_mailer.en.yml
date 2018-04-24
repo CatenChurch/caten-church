@@ -1,4 +1,11 @@
 en:
   event_mailer:
-    opening_countdown_notice:
-      subject: "Your participated event: %{name}, will start at tomorrow."
+    opening_notice:
+      subject: 'Caten Church %{event} event opening notice.'
+      greeting: 'brothers and sisters : '
+      participated_event: 'Your participation in the event : '
+      link: 'link : %{link}'
+      remaining_time: 'only %{time} left before the event starts,'
+      start_at: 'event will start at %{time},'
+      forward: 'we are looking forward to see you.'
+      sign: 'Caten Church'

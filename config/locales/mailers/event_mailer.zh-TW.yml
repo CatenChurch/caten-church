@@ -1,4 +1,11 @@
 'zh-TW':
   event_mailer:
-    opening_countdown_notice:
-      subject: "你報名的茄典教會活動：%{name}，將於明天開始！"
+    opening_notice:
+      subject: '茄典教會 %{event} 活動提醒'
+      greeting: '弟兄姊妹 平安：'
+      participated_event: 你報名的活動
+      link: '連結：%{link}'
+      remaining_time: '距離開始只剩 %{time} 囉，'
+      start_at: '活動將於 %{time} 開始，'
+      forward: 我們非常期盼能夠見到你!
+      sign: 茄典教會
