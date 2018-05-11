@@ -7,3 +7,4 @@
       default: '%Y-%m-%d %H:%M'
       to_min: '%Y-%m-%d %H:%M'
       to_sec: '%Y-%m-%d %H:%M:%S'
+      event: '%Y/%m/%d %a'

@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.in_registration_time.order(id: :desc)
-    @expired_events = Event.sign_up_expired.order(id: :desc).page(params[:page])
+    @expired_events = Event.sign_up_expired.order(id: :desc).page(params[:page]).per(6)
   end
 
   def show; end

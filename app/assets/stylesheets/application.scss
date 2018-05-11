@@ -34,12 +34,10 @@ main {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
-
-  * {
-    color: $white;
-  }
+  color: $white;
 
   a {
+    color: $white;
     &:hover {
       color: $white;
     }
@@ -52,13 +50,22 @@ main {
 }
 
 .event-card {
-  color: $sky;
-  border-color: $sky;
   border-radius: 10px;
+  color: var(--dark);
+  border-color: var(--dark);
+  background-color: var(--white);
 
   &:hover {
-    color: $purple;
-    border-color: $purple;
+    color: var(--white);
+    background-color: var(--secondary);
+
+    .card-text {
+      color: var(--light);
+    }
+  }
+  .card-body {
+    height: 250px;
+    overflow: auto;
   }
   @include media-breakpoint-up(md) {
     .card-body {
@@ -68,12 +75,10 @@ main {
   }
 }
 
-.caten-link {
+.no_ {
   text-decoration: none;
-  color: $black;
 
   &:hover {
-    color: $purple;
     text-decoration: none;
   }
 }
