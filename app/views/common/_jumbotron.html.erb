@@ -1,6 +1,10 @@
-<div class="jumbotron jumbotron-color my-0">
-  <div class="ml-4 mb-4">
+<div class="jumbotron jumbotron-bg my-0">
+  <div class="ml-4 mb-4 bg-black-opacity04 d-inline-block p-2 rounded">
     <%= yield :breadcrumb %>
   </div>
-  <%= yield :jumbotron %>
+  <div class="d-flex justify-content-center">
+    <div class="p-5 bg-black-opacity04 rounded">
+      <%= yield :jumbotron %>
+    </div>
+  </div>
 </div>

@@ -1,17 +1,17 @@
 <footer class="footer bg-light p-2 text-center">
   <div class="container p-2">
     <div class="d-flex flex-wrap align-items-center justify-content-between">
-      <h5><%= link_to t('.about'), about_path, class: "caten-link" %></h5>
-      <h5><%= link_to t('.contact'), contact_path, class: "caten-link" %></h5>
-      <h5><%= link_to t('.term'), term_path, class: "caten-link" %></h5>
+      <h5><%= link_to t('.about'), about_path, class: 'no_ text-dark' %></h5>
+      <h5><%= link_to t('.contact'), contact_path, class: 'no_ text-dark' %></h5>
+      <h5><%= link_to t('.term'), term_path, class: 'no_ text-dark' %></h5>
       <div class="w-100 d-sm-none"></div>
-      <%= link_to t('.my_contact.facebook'), class: "caten-link" do %>
+      <%= link_to t('.my_contact.facebook'), class: 'no_ text-dark' do %>
         <%= fa_stacked_icon "facebook", base: "circle-thin", class: "fa-2x" %>
       <% end %>
-      <%= link_to t('.my_contact.youtube'), class: "caten-link" do %>
+      <%= link_to t('.my_contact.youtube'), class: 'no_ text-dark' do %>
         <%= fa_stacked_icon "youtube", base: "circle-thin", class: "fa-2x" %>
       <% end %>
-      <%= link_to t('.my_contact.github'), class: "caten-link" do %>
+      <%= link_to t('.my_contact.github'), class: 'no_ text-dark' do %>
         <%= fa_stacked_icon "github", base: "circle-thin", class: "fa-2x" %>
       <% end %>
     </div>
@@ -22,7 +22,7 @@
       </div>
       <div class="col-12 col-md-6 p-2">
         <div class="lead text-purple"><%= t('.my_contact.tel') %></div>
-        <%= mail_to t('.my_contact.email'), t('.my_contact.email'), class: "caten-link" %>
+        <%= mail_to t('.my_contact.email'), t('.my_contact.email'), class: 'no_ text-dark' %>
         <div><%= t('.my_contact.address') %></div>
       </div>
     </div>

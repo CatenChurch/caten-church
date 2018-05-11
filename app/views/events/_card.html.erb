@@ -1,0 +1,14 @@
+<%= link_to event_path(event), class: 'no_' do %>
+  <div class="card event-card">
+    <div class="card-body">
+      <h3 class="card-title"><%= event.name %></h3>
+      <div class="card-text text-left">
+        <%= simple_format event.description %>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+      <span><%= l event.start, format: :event %></span>
+      <span><%= "#{Event.human_attribute_name :participants_count} : #{event.show_participants_count}" %></span>
+    </div>
+  </div>
+<% end %>
