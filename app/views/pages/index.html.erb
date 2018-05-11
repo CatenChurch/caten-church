@@ -6,17 +6,13 @@ set_meta_tags og: {
   description: t('.seo.desc')
 }
 %>
+<% content_for :breadcrumb do %>
+  <%= link_to t('breadcrumb.root'), root_path %>
+<% end %>
 <% content_for :jumbotron do %>
-  <div class="d-flex flex-wrap justify-content-between align-items-center">
-    <div>
-      <%= image_tag 'one_way.png', class: 'img-fluid', style:'max-height: 400px;' %>
-    </div>
-    <div>
-      <h1 class="display-4"><%= t '.title' %></h1>
-      <p class="lead mt-4"><%= t '.lead' %></p>
-      <p><%= t '.desc' %></p>
-    </div>
-  </div>
+  <h1 class="display-4"><%= t '.title' %></h1>
+  <p class="lead mt-4"><%= t '.lead' %></p>
+  <p class="lead"><%= t '.desc' %></p>
 <% end %>
 <div class="card-deck">
   <div class="card outline-purple text-center my-4">

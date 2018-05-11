@@ -17,26 +17,30 @@
 @import "github-markdown";
 @import "sidebar";
 @import "admin";
+$iframe_width: 500px;
+$iframe_height: $iframe_width * 9 / 16;
 
-$iframe_width : 500px;
-$iframe_height : $iframe_width * 9 / 16;
-
-main{
+main {
   min-height: 360px;
 }
 
-.bg-color{
-  background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
+.bg-black-opacity04{
+  background-color: rgba(0,0,0,0.4);
 }
 
-.jumbotron-color{
-  border-radius: 0px;
-  background-image: linear-gradient(135deg,$purple,$sky,$caten-blue);
-  *{
+.jumbotron-bg {
+  border-radius: 0;
+  background-image: image-url("banner.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+
+  * {
     color: $white;
   }
-  a{
-    &:hover{
+
+  a {
+    &:hover {
       color: $white;
     }
   }
@@ -51,18 +55,23 @@ main{
   color: $sky;
   border-color: $sky;
   border-radius: 10px;
+
   &:hover {
     color: $purple;
     border-color: $purple;
   }
   @include media-breakpoint-up(md) {
-    min-height: 350px;
+    .card-body {
+      height: 350px;
+      overflow: auto;
+    }
   }
 }
 
-.caten-link{
+.caten-link {
   text-decoration: none;
   color: $black;
+
   &:hover {
     color: $purple;
     text-decoration: none;

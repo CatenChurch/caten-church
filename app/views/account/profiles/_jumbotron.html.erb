@@ -8,6 +8,6 @@
 <% content_for :jumbotron do %>
   <h1 class="display-4 text-center"><%= Profile.model_name.human %></h1>
   <p class="lead text-center">
-    <%= t('.subtitle_html', link: (link_to t('.term'), term_path, class: 'mx-2 btn btn-dark')) %>
+    <%= t('.subtitle_html', link: (link_to t('.term'), term_path, class: 'mx-2 btn btn-outline-dark')) %>
   </p>
 <% end %>
