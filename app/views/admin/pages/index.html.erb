@@ -2,9 +2,9 @@
 <br>
 <div class="card-columns">
   <%= render 'card_link', title: User.model_name.human, icon: fa_icon('user-circle'), path: admin_members_path %>
-  <%= render 'card_link', title: Event.model_name.human, icon: fa_icon('futbol-o'), path: admin_members_path %>
-  <%= render 'card_link', title: Announcement.model_name.human, icon: fa_icon('bullhorn'), path: admin_members_path %>
-  <%= render 'card_link', title: Contact.model_name.human, icon: fa_icon('comments'), path: admin_members_path %>
+  <%= render 'card_link', title: Event.model_name.human, icon: fa_icon('futbol-o'), path: admin_events_path %>
+  <%= render 'card_link', title: Announcement.model_name.human, icon: fa_icon('bullhorn'), path: admin_announcements_path %>
+  <%= render 'card_link', title: Contact.model_name.human, icon: fa_icon('comments'), path: admin_contacts_path %>
   <%= render 'card_link', title: Service::Team.model_name.human, icon: fa_icon('users'), path: admin_service_teams_path %>
   <%= render 'card_link', title: Service::Role.model_name.human, icon: fa_icon('user-md'), path: admin_service_roles_path %>
   <%= render 'card_link', title: Service::Schedule.model_name.human, icon: fa_icon('calendar'), path: admin_service_schedules_path %>
