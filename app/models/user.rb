@@ -20,6 +20,9 @@ class User < ApplicationRecord
   has_many :service_teams, class_name: 'Service::Team'
   has_many :service_team_user, class_name: 'Service::TeamUser'
   has_many :serviced_teams, through: :service_team_user, source: :team, class_name: 'Service::Team'
+  has_many :created_groups, class_name: 'Group', foreign_key: :creater_id, dependent: :nullify
+  has_many :group_users, dependent: :destroy
+  has_many :joind_groups, through: :group_users, source: :group
 
   after_create do
     create_subscription!
