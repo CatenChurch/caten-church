@@ -10,4 +10,8 @@ class Role < ApplicationRecord
             :allow_nil => true
 
   scopify
+  
+  # scope
+  scope :group_leader, -> { Role.find_or_create_by!(name: 'leader', resource_type: 'Group') }
+  scope :group_member, -> { Role.find_or_create_by!(name: 'member', resource_type: 'Group') }
 end
