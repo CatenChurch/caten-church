@@ -1,0 +1,28 @@
+<% stage ||= :frontstage %>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title text-center"><%= "#{Group.human_attribute_name :name} : #{group.name}" %></h3>
+    <% if stage == :backstage %>
+      <div class="d-flex justify-content-between">
+        <span><%= Group.human_attribute_name :created_at %> : <%= l group.created_at %></span>
+        <span><%= Group.human_attribute_name :updated_at %> : <%= l group.updated_at %></span>
+      </div>
+    <% end %>
+    <div class="d-flex justify-content-between">
+      <span><%= Group.human_attribute_name :leader %> : <%= group.leader&.profile&.name %></span>
+      <span><%= Group.human_attribute_name :members_count %> : <%= group.members_count %></span>
+      <% if stage == :backstage %>
+        <span><%= Group.human_attribute_name :creater %> : <%= group.creater&.profile&.name %></span>
+      <% end %>
+    </div>
+    <hr>
+    <div>
+      <h4><%= Group.human_attribute_name :introduction %> : </h4>
+      <%= simple_format group.introduction %>
+    </div>
+    <div>
+      <h4><%= Group.human_attribute_name :description %> : </h4>
+      <%= simple_format group.description %>
+    </div>
+  </div>
+</div>

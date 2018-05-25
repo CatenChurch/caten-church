@@ -1,0 +1,14 @@
+'zh-TW':
+  activerecord:
+    models:
+      group: 小組
+    attributes:
+      group:
+        name: 小組名稱
+        creater: 建立者
+        introduction: 簡述
+        description: 介紹
+        created_at: 初次建立於
+        updated_at: 最後更新於
+        leader: 組長
+        members_count: 組員數

@@ -1,0 +1,10 @@
+<div class="d-flex p-2 align-items-center">
+  <h1><%= t '.title' %></h1>
+	<div class="ml-auto">
+    <%= link_to t('.back'), admin_groups_path, class: 'btn btn-outline-secondary' %>
+  	<%= link_to t('.edit'), edit_admin_group_path(@group), class: 'btn btn-warning ml-1' %>
+  	<%= link_to t('.delete'), admin_group_path(@group), class: 'btn btn-danger ml-1', method: :delete, data: { confirm: t('.confirm') } %>
+  </div>
+</div>
+
+<%= render 'groups/group', group: @group, stage: :backstage %>

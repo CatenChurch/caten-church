@@ -1,0 +1,20 @@
+'zh-TW':
+  admin:
+    groups:
+      index:
+        title: 小組一覽
+        create: 新增小組
+        conditions: 搜尋條件
+        clear: 清除條件
+        submit: 搜尋
+      show:
+        title: 小組資訊
+        confirm: '確定要刪除小組嗎？'
+      new:
+        title: 新增小組
+        back: 取消
+      edit:
+        title: 編輯小組
+        back: 取消
+      form:
+        submitting: '建立小組中...'

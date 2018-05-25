@@ -3,4 +3,16 @@ class GroupUser < ApplicationRecord
   belongs_to :group, counter_cache: :members_count
   belongs_to :user
   belongs_to :role
+
+  before_validation do
+    self.role ||= Role.group_member
+  end
+
+  def be_leader!
+    self.update!(role: Role.group_leader)
+  end
+
+  def be_member!
+    self.update!(role: Role.group_member)
+  end
 end

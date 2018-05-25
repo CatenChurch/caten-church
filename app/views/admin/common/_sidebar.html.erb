@@ -6,6 +6,10 @@
 </ul>
 <hr>
 <ul class="nav nav-pills flex-column">
+  <%= nav_li fa_icon('users', text: Group.model_name.human), admin_groups_path %>
+</ul>
+<hr>
+<ul class="nav nav-pills flex-column">
   <%= nav_li fa_icon('users', text: Service::Team.model_name.human), admin_service_teams_path %>
   <%= nav_li fa_icon('user-md', text: Service::Role.model_name.human), admin_service_roles_path %>
   <%= nav_li fa_icon('calendar', text: Service::Schedule.model_name.human), admin_service_schedules_path %>

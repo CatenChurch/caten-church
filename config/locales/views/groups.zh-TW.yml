@@ -1,0 +1,10 @@
+'zh-TW':
+  groups:
+    index:
+      title: 小組
+      subtitle: 教會團契與小組列表
+    table:
+      show: 查看
+      edit: 編輯
+      destroy: 刪除
+      confirm: '確定要刪除小組嗎？'

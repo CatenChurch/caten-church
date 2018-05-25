@@ -1,0 +1,87 @@
+<%= simple_form_for [:admin, @group] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :introduction %>
+  <%= f.input :description %>
+  <div class="form-group">
+    <label for="leader-name"><%= Group.human_attribute_name :leader %></label>
+    <div id="leader"></div>
+    <input id="leader-name" type="text" class="form-control" value="<%= f.object.leader&.profile&.name %>">
+    <div id="leader-labels"></div>
+  </div>
+  <input id="leader-id" name="leader[id]" type="hidden" value="<%= f.object.leader&.id %>">
+
+  <%= f.button :submit %>
+<% end %>
+
+<script type="text/javascript">
+  const originalLeaderId = $('#leader-id').val()
+  const originalLeaderName = $('#leader-name').val()
+
+  if (originalLeaderId !== '') {
+    setLeader(originalLeaderId, originalLeaderName)
+  }
+
+  async function getUsers(name) {
+    url = '<%= admin_members_url(format: :json) %>'
+    params = $.param({ q: { profile_name_cont: name }})
+    resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
+    res = await resPromise.json()
+    return res;
+  }
+
+  function resetLeader(){
+    $('#leader-name').removeClass('d-none')
+    $('#leader').html('')
+    $('#leader-id').val(originalLeaderId)
+  }
+
+  function leaderBtn(name) {
+    const leader = $('<button type="button" class="btn btn-sm btn-primary m-1 leader"></button>')
+    const closeBtn = $('<span class="badge badge-light ml-2">x</span>')
+    leader.text(name)
+    leader.append(closeBtn)
+    leader.on('click', () => {
+      resetLeader()
+    })
+    return leader
+  }
+
+  function setLeader(id, name) {
+    const leader = leaderBtn(name)
+    $('#leader-id').val(id)
+    $('#leader-name').addClass('d-none')
+    $('#leader').html(leader)
+  }
+
+  function candidateLeaderBtn(id, name) {
+    const dom = $('<button type="button" class="btn btn-sm btn-outline-primary m-1 leader"></button>')
+    dom.attr('data-user-id', id)
+    dom.text(name)
+    dom.on('click', () => {
+      setLeader(id, name)
+    })
+    return dom
+  }
+
+  function addCandidateLeaderBtns() {
+    let input = $('#leader-name').val()
+    getUsers(input).then(res => {
+      $('#leader-labels').empty()
+      for (user of res.users) {
+        $('#leader-labels').append(candidateLeaderBtn(user.id, user.name))
+      }
+    })
+  }
+
+  let inputLock = false
+  $("#leader-name").on("compositionstart", function() {
+    inputLock = true
+  }).on("input", () => {
+    if(inputLock) return;
+    addCandidateLeaderBtns()
+  }).on("compositionend", () => {
+    inputLock = false
+    addCandidateLeaderBtns()
+  })
+</script>

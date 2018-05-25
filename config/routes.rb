@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/' => 'pages#index'
+    resources :groups
     resources :service_teams
     resources :service_roles
     resources :service_schedules, except: [:show]

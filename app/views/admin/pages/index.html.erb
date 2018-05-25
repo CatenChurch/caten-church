@@ -3,6 +3,7 @@
 <div class="row">
   <div class="col"><%= render 'card_link', title: User.model_name.human, icon: fa_icon('user-circle'), path: admin_members_path %></div>
   <div class="col"><%= render 'card_link', title: Event.model_name.human, icon: fa_icon('futbol-o'), path: admin_events_path %></div>
+  <div class="col"><%= render 'card_link', title: Group.model_name.human, icon: fa_icon('users'), path: admin_groups_path %></div>
   <div class="col"><%= render 'card_link', title: Announcement.model_name.human, icon: fa_icon('bullhorn'), path: admin_announcements_path %></div>
   <div class="col"><%= render 'card_link', title: Contact.model_name.human, icon: fa_icon('comments'), path: admin_contacts_path %></div>
   <div class="col"><%= render 'card_link', title: Service::Team.model_name.human, icon: fa_icon('users'), path: admin_service_teams_path %></div>
