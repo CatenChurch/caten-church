@@ -22,6 +22,7 @@
             <%= link_to t('.edit'), edit_admin_group_path(group), class: 'btn btn-sm btn-primary' %></>
             <%= link_to t('.destroy'), admin_group_path(group), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
           <% else %>
+            <%= link_to t('.show'), group_path(group), class: 'btn btn-sm btn-secondary' %>
           <% end %>
         </td>
       </tr>

@@ -1,0 +1,7 @@
+<%= render 'jumbotron' %>
+
+<div class="container">
+  <%= paginate @groups %>
+  <%= render 'table', groups: @groups %>
+  <%= paginate @groups %>
+</div>

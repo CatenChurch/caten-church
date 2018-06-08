@@ -1,8 +1,9 @@
 'zh-TW':
   groups:
-    index:
-      title: 小組
-      subtitle: 教會團契與小組列表
+    show:
+      back: 返回
+    jumbotron:
+      subtitle: 教會團契與小組
     table:
       show: 查看
       edit: 編輯

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'participants'
     end
   end
+  resources :groups, only: [:index, :show]
   get 'index', 'term', 'about', 'contact', controller: 'pages'
   namespace :account do
     resource :profile, except: [:destroy]
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
       resource :event_users, path: :users
     end
   end
+
   # sidekiq
   require 'sidekiq/web'
   authenticate :user, ->(u) { Ability.new(u).can?(:manage, :admin) } do

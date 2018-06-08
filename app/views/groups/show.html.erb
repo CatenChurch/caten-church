@@ -1,0 +1,10 @@
+<%= render 'jumbotron' %>
+<% content_for :breadcrumb do %>
+  >
+  <%= link_to @group.name, '#' %>
+<% end %>
+
+<div class="container">
+  <%= link_to t('.back'), groups_path, class: 'btn btn-outline-secondary mb-2' %>
+  <%= render 'group', group: @group %>
+</div>
