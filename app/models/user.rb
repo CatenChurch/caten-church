@@ -23,6 +23,9 @@ class User < ApplicationRecord
   has_many :created_groups, class_name: 'Group', foreign_key: :creater_id, dependent: :nullify
   has_many :group_users, dependent: :destroy
   has_many :joind_groups, through: :group_users, source: :group
+  has_many :lead_group_users, -> { where(role: Role.group_leader) }, class_name: 'GroupUser'
+  has_many :lead_groups, through: :lead_group_users, source: :group
+  has_many :created_group_reports, class_name: 'GroupReport', foreign_key: :creater_id, dependent: :nullify
 
   after_create do
     create_subscription!

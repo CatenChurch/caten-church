@@ -11,4 +11,10 @@
         created_at: 初次建立於
         updated_at: 最後更新於
         leader: 組長
+        users: 組員
         members_count: 組員數
+        reports: 小組回報
+        reports_count: 小組回報數
+        last_report: 最後回報
+        week_report: 本週回報
+        prev_week_report: 上週回報

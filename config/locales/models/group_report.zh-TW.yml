@@ -1,0 +1,14 @@
+'zh-TW':
+  activerecord:
+    models:
+      group_report: 小組回報
+    attributes:
+      group_report:
+        group: 小組
+        adults_count: 大人出席數
+        children_count: 小孩出席數
+        dedication: 奉獻金額
+        next_meeting_time: 下次聚會時間
+        next_meeting_place: 下次聚會地點
+        creater: 建立者
+        created_at: 建立於
