@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525114437) do
+ActiveRecord::Schema.define(version: 20180527045742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,20 @@ ActiveRecord::Schema.define(version: 20180525114437) do
     t.index ["start"], name: "index_events_on_start"
   end
 
+  create_table "group_reports", force: :cascade do |t|
+    t.integer "adults_count"
+    t.integer "children_count"
+    t.integer "dedication"
+    t.datetime "next_meeting_time"
+    t.string "next_meeting_place"
+    t.bigint "group_id"
+    t.bigint "creater_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creater_id"], name: "index_group_reports_on_creater_id"
+    t.index ["group_id"], name: "index_group_reports_on_group_id"
+  end
+
   create_table "group_users", force: :cascade do |t|
     t.bigint "group_id"
     t.bigint "user_id"
@@ -92,6 +106,7 @@ ActiveRecord::Schema.define(version: 20180525114437) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "members_count", default: 0
+    t.integer "reports_count", default: 0
     t.index ["creater_id"], name: "index_groups_on_creater_id"
   end
 
@@ -224,6 +239,8 @@ ActiveRecord::Schema.define(version: 20180525114437) do
   end
 
   add_foreign_key "announcements", "users"
+  add_foreign_key "group_reports", "groups"
+  add_foreign_key "group_reports", "users", column: "creater_id"
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "roles"
   add_foreign_key "group_users", "users"
