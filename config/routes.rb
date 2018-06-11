@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
   end
   resources :groups, only: [:index, :show]
+  resources :group_reports, only: [:index, :show, :new, :create]
   get 'index', 'term', 'about', 'contact', controller: 'pages'
   namespace :account do
     resource :profile, except: [:destroy]
