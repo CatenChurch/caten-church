@@ -6,6 +6,8 @@
       <th><%= Group.human_attribute_name :name %></th>
       <th><%= Group.human_attribute_name :leader %></th>
       <th><%= Group.human_attribute_name :introduction %></th>
+      <th><%= Group.human_attribute_name :members_count %></th>
+      <%= content_tag :th, Group.human_attribute_name(:reports_count) if stage == :backstage %>
       <th>#</th>
     </tr>
   </thead>
@@ -16,13 +18,13 @@
         <td><%= group.name %></td>
         <td><%= group.leader&.profile&.name %></td>
         <td><%= group.introduction %></td>
+        <td><%= group.members_count %></td>
+        <%= content_tag :td, group.reports_count if stage == :backstage %>
         <td>
           <% if stage == :backstage  %>
-            <%= link_to t('.show'), admin_group_path(group), class: 'btn btn-sm btn-secondary' %>
-            <%= link_to t('.edit'), edit_admin_group_path(group), class: 'btn btn-sm btn-primary' %></>
-            <%= link_to t('.destroy'), admin_group_path(group), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
+            <%= link_to t('.show'), admin_group_path(group), class: 'btn btn-light' %>
           <% else %>
-            <%= link_to t('.show'), group_path(group), class: 'btn btn-sm btn-secondary' %>
+            <%= link_to t('.show'), group_path(group), class: 'btn btn-secondary' %>
           <% end %>
         </td>
       </tr>

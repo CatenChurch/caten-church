@@ -6,6 +6,4 @@
       subtitle: 教會團契與小組
     table:
       show: 查看
-      edit: 編輯
-      destroy: 刪除
       confirm: '確定要刪除小組嗎？'
