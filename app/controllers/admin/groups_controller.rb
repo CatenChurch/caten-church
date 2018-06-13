@@ -6,7 +6,9 @@ class Admin::GroupsController < Admin::BaseController
     @groups = @q.result(distinct: true).includes(leader: :profile).order(:id).page(params[:page])
   end
 
-  def show; end
+  def show
+    @reports = @group.reports.includes(creater: :profile).order(id: :desc).page(params[:page])
+  end
 
   def new
     @group = Group.new
