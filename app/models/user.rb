@@ -92,6 +92,10 @@ class User < ApplicationRecord
     update! auth_token: token, auth_token_sent_at: Time.now
   end
 
+  def is_group_leader?
+    lead_groups.size > 0
+  end
+
   private
 
   def generate_unique_secure_token
