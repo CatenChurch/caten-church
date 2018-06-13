@@ -1,0 +1,76 @@
+<%= render 'jumbotron' %>
+<div class="container">
+  <% if current_user.is_group_leader? %>
+    <p class="text-right text-muted"><%= t('.hint') %><%= link_to t('.new'), new_group_report_path, class: 'ml-2 btn btn-primary' %></p>
+  <% end %>
+  <h1><%= Group.human_attribute_name :prev_week_report %></h1>
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th><%= Group.human_attribute_name :name %></th>
+        <th><%= Group.human_attribute_name :leader %></th>
+        <th><%= GroupReport.human_attribute_name :adults_count %></th>
+        <th><%= GroupReport.human_attribute_name :children_count %></th>
+        <th><%= GroupReport.human_attribute_name :dedication %></th>
+        <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
+        <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= group.leader&.profile&.name %></td>
+          <% if group.prev_week_report.present? %>
+            <td><%= group.prev_week_report&.adults_count %></td>
+            <td><%= group.prev_week_report&.children_count %></td>
+            <td><%= group.prev_week_report&.dedication %></td>
+            <td><%= l group.prev_week_report&.next_meeting_time if group.prev_week_report&.next_meeting_time %></td>
+            <td><%= group.prev_week_report&.next_meeting_place %></td>
+            <td>
+              <%= link_to t('.show'), group_report_path(group.prev_week_report), class: 'btn btn-sm btn-secondary' %>
+            </td>
+          <% else %>
+            <td colspan="6" class="text-center"><%= t('.no_report') %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <h1><%= Group.human_attribute_name :week_report %></h1>
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th><%= Group.human_attribute_name :name %></th>
+        <th><%= Group.human_attribute_name :leader %></th>
+        <th><%= GroupReport.human_attribute_name :adults_count %></th>
+        <th><%= GroupReport.human_attribute_name :children_count %></th>
+        <th><%= GroupReport.human_attribute_name :dedication %></th>
+        <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
+        <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= group.leader&.profile&.name %></td>
+          <% if group.week_report.present? %>
+            <td><%= group.week_report&.adults_count %></td>
+            <td><%= group.week_report&.children_count %></td>
+            <td><%= group.week_report&.dedication %></td>
+            <td><%= l group.week_report&.next_meeting_time if group.week_report&.next_meeting_time %></td>
+            <td><%= group.week_report&.next_meeting_place %></td>
+            <td>
+              <%= link_to t('.show'), group_report_path(group.week_report), class: 'btn btn-sm btn-secondary' %>
+            </td>
+          <% else %>
+            <td colspan="6" class="text-center"><%= t('.no_report') %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -21,6 +21,7 @@ set_meta_tags og: {
       <p class="card-text"><%= t '.announcement.desc' %></p>
     </div>
     <div class="card-body">
+      <%= link_to GroupReport.model_name.human, group_reports_path, class: 'btn btn-light btn-block' %>
       <%= link_to t('.announcement.link'), announcements_path, class: 'btn btn-light btn-block' %>
     </div>
   </div>

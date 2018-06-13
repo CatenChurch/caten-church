@@ -1,0 +1,13 @@
+<%= render 'jumbotron' %>
+<%= link_to t('.back'), group_reports_path, class: 'btn btn-outline-secondary' %>
+<div class="container">
+  <p><strong class="mr-2"><%= Group.model_name.human %></strong><%= @report.group.name %></p>
+  <p><strong class="mr-2"><%= Group.human_attribute_name :leader %></strong><%= @report.group.leader&.profile&.name %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :adults_count %></strong><%= @report.adults_count %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :children_count %></strong><%= @report.children_count %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :dedication %></strong><%= @report.dedication %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :next_meeting_time %></strong><%= l @report.next_meeting_time %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :next_meeting_place %></strong><%= @report.next_meeting_place %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :creater %></strong><%= @report.creater&.profile&.name %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :created_at %></strong><%= l @report.created_at %></p>
+</div>

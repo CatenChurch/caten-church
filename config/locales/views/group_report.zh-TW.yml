@@ -1,0 +1,16 @@
+'zh-TW':
+  group_reports:
+    index:
+      show: 詳情
+      no_report: 沒有回報
+      hint: 必須是小組長才能填寫小組回報
+      new: 填寫小組回報
+    show:
+      back: 返回
+    new:
+      title: 填寫本週的小組回報
+      back: 取消
+    table:
+      show: 詳情
+    jumbotron:
+      subtitle: 各小組組長於上週回報的小組統計資料

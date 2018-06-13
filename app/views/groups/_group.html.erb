@@ -26,3 +26,13 @@
     </div>
   </div>
 </div>
+<% if stage == :backstage %>
+  <div class="card mt-2">
+    <div class="card-body">
+      <h3 class="card-title text-center"><%= GroupReport.model_name.human %></h3>
+      <%= paginate @reports %>
+      <%= render 'group_reports/table', reports: @reports, stage: stage %>
+      <%= paginate @reports %>
+    </div>
+  </div>
+<% end %>

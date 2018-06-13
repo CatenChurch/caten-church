@@ -1,0 +1,15 @@
+<%= render 'jumbotron' %>
+<div class="container">
+  <h1><%= t '.title' %></h1>
+  <%= simple_form_for(@report) do |f| %>
+    <%= f.error_notification %>
+    <%= f.association :group, collection: current_user.lead_groups %>
+    <%= f.input :adults_count %>
+    <%= f.input :children_count %>
+    <%= f.input :dedication %>
+    <%= f.input :next_meeting_time %>
+    <%= f.input :next_meeting_place %>
+    <%= f.button :submit %>
+  <% end %>
+  <%= link_to t('.back'), group_reports_path, class: 'btn btn-outline-secondary mt-2' %>
+</div>

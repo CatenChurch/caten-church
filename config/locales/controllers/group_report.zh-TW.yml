@@ -1,0 +1,10 @@
+'zh-TW':
+  group_reports:
+    index:
+    show:
+    new:
+    create:
+      success: 成功建立小組回報
+      failed: 建立小組回報時發生錯誤
+    check_is_leader:
+      failed: 你沒有小組長的身份
