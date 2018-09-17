@@ -1,5 +1,5 @@
 class Oauth < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates_presence_of :provider, :uid
   # db schema 有加 uniq key 限制，故此應用層的驗證可註解掉
