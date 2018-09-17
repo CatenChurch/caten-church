@@ -1,4 +1,6 @@
 class Group < ApplicationRecord
+  resourcify
+
   # relations
   has_many :reports, class_name: 'GroupReport', dependent: :destroy
   has_one :last_report, -> { order id: :desc }, class_name: 'GroupReport'
@@ -13,10 +15,6 @@ class Group < ApplicationRecord
   # validations
   validates_presence_of :name, :introduction
   validates_uniqueness_of :name
-
-  # scopes
-  scope :leader_role, -> { Role.find_or_create_by!(name: '組長', resource_type: 'Group') }
-  scope :member_role, -> { Role.find_or_create_by!(name: '組員', resource_type: 'Group') }
 
   def change_leader(user)
     unless user == leader
