@@ -1,6 +1,6 @@
 <%= render 'jumbotron' %>
 <div class="container">
-  <% if current_user.is_group_leader? %>
+  <% if current_user&.is_group_leader? %>
     <p class="text-right text-muted"><%= t('.hint') %><%= link_to t('.new'), new_group_report_path, class: 'ml-2 btn btn-primary' %></p>
   <% end %>
   <h1><%= Group.human_attribute_name :prev_week_report %></h1>
