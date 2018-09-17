@@ -43,7 +43,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def find_provider
     unless session.key?(:oauth_id) && session.key?(:oauth_email) && session.key?(:oauth_provider)
       flash[:warning] = t('users.registrations.no_oauth_provider')
-    registrationsno_oauth_provider
       redirect_to new_user_registration_url
     end
     @provider = session[:oauth_provider]
