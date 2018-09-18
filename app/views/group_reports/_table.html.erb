@@ -10,7 +10,7 @@
       <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
       <th><%= GroupReport.human_attribute_name :creater %></th>
       <th><%= GroupReport.human_attribute_name :created_at %></th>
-      <th>#</th>
+      <%= content_tag(:th, '#') if stage == :frontstage  %>
     </tr>
   </thead>
   <tbody>
@@ -24,15 +24,15 @@
         <td><%= report.next_meeting_place %></td>
         <td><%= report.creater&.profile&.name %></td>
         <td><%= l report.created_at %></td>
-        <td>
-          <% if stage == :backstage  %>
-            <%# link_to t('.show'), admin_group_report_path(report), class: 'btn btn-sm btn-secondary' %>
-            <%# link_to t('.edit'), edit_admin_group_report_path(report), class: 'btn btn-sm btn-primary' %>
-            <%# link_to t('.destroy'), admin_group_report_path(report), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
-          <% else %>
+        <% if stage == :backstage  %>
+          <%# link_to t('.show'), admin_group_report_path(report), class: 'btn btn-sm btn-secondary' %>
+          <%# link_to t('.edit'), edit_admin_group_report_path(report), class: 'btn btn-sm btn-primary' %>
+          <%# link_to t('.destroy'), admin_group_report_path(report), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
+        <% else %>
+          <td>
             <%= link_to t('.show'), group_report_path(report), class: 'btn btn-sm btn-secondary' %>
-          <% end %>
-        </td>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
