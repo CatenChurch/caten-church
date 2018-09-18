@@ -15,8 +15,8 @@
 <% end %>
 
 <script type="text/javascript">
-  const originalLeaderId = $('#leader-id').val()
-  const originalLeaderName = $('#leader-name').val()
+  var originalLeaderId = $('#leader-id').val()
+  var originalLeaderName = $('#leader-name').val()
 
   if (originalLeaderId !== '') {
     setLeader(originalLeaderId, originalLeaderName)
