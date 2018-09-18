@@ -5,7 +5,7 @@
   "author": "楊竑昕 <jk195417@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "4.1",
+    "bootstrap": "4.1.2",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9"
   }
