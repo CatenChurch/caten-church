@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180917034919) do
+ActiveRecord::Schema.define(version: 20181121162650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,7 +107,9 @@ ActiveRecord::Schema.define(version: 20180917034919) do
     t.datetime "updated_at", null: false
     t.integer "members_count", default: 0
     t.integer "reports_count", default: 0
+    t.integer "sequence"
     t.index ["creater_id"], name: "index_groups_on_creater_id"
+    t.index ["sequence"], name: "index_groups_on_sequence"
   end
 
   create_table "messengers", force: :cascade do |t|
