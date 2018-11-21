@@ -3,6 +3,7 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
+      <th><%= Group.human_attribute_name :sequence %></th>
       <th><%= Group.human_attribute_name :name %></th>
       <th><%= Group.human_attribute_name :leader %></th>
       <th><%= Group.human_attribute_name :introduction %></th>
@@ -15,6 +16,7 @@
   <tbody>
     <% groups.each do |group| %>
       <tr>
+        <td><%= group.sequence %></td>
         <td><%= group.name %></td>
         <td><%= group.leader&.profile&.name %></td>
         <td><%= group.introduction %></td>

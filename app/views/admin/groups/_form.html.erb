@@ -10,10 +10,9 @@
     <div id="leader-labels"></div>
   </div>
   <input id="leader-id" name="leader[id]" type="hidden" value="<%= f.object.leader&.id %>">
-
+  <%= f.input :sequence %>
   <%= f.button :submit %>
 <% end %>
-
 <script type="text/javascript">
   var originalLeaderId = $('#leader-id').val()
   var originalLeaderName = $('#leader-name').val()

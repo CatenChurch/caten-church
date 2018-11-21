@@ -3,7 +3,7 @@ class Admin::GroupsController < Admin::BaseController
 
   def index
     @q = Group.ransack(params[:q])
-    @groups = @q.result(distinct: true).includes(leader: :profile).order(:id).page(params[:page])
+    @groups = @q.result(distinct: true).includes(leader: :profile).order(:sequence).page(params[:page])
   end
 
   def show
@@ -50,7 +50,7 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def group_params
-    params.slice(:group).require(:group).permit(:name, :introduction, :description)
+    params.slice(:group).require(:group).permit(:name, :introduction, :description, :sequence)
   end
 
   def leader_params

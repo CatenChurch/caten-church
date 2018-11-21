@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show]
 
   def index
-    @groups = Group.all.includes(leader: :profile).order(:id).page(params[:page])
+    @groups = Group.all.includes(leader: :profile).order(:sequence).page(params[:page])
   end
 
   def show; end

@@ -3,7 +3,7 @@ class GroupReportsController < ApplicationController
   before_action :check_is_leader, only: [:new, :create]
 
   def index
-    @groups = Group.all.includes(:prev_week_report, :week_report, leader: :profile).order(:id)
+    @groups = Group.all.includes(:prev_week_report, :week_report, leader: :profile).order(:sequence)
   end
 
   def show; end
@@ -35,6 +35,6 @@ class GroupReportsController < ApplicationController
   end
 
   def check_is_leader
-    redirect_to group_reports_url, alert: t('group_reports.check_is_leader.failed')  unless current_user.is_group_leader? 
+    redirect_to group_reports_url, alert: t('group_reports.check_is_leader.failed')  unless current_user.is_group_leader?
   end
 end
