@@ -6,8 +6,6 @@
       <th><%= Group.human_attribute_name :sequence %></th>
       <th><%= Group.human_attribute_name :name %></th>
       <th><%= Group.human_attribute_name :leader %></th>
-      <th><%= Group.human_attribute_name :introduction %></th>
-      <th><%= Group.human_attribute_name :members_count %></th>
       <%= content_tag :th, Group.human_attribute_name(:reports_count) if stage == :backstage %>
       <th>#</th>
     </tr>
@@ -15,12 +13,10 @@
 
   <tbody>
     <% groups.each do |group| %>
-      <tr>
+      <tr title="<%= group.introduction %>">
         <td><%= group.sequence %></td>
         <td><%= group.name %></td>
         <td><%= group.leader&.profile&.name %></td>
-        <td><%= group.introduction %></td>
-        <td><%= group.members_count %></td>
         <%= content_tag :td, group.reports_count if stage == :backstage %>
         <td>
           <% if stage == :backstage  %>
