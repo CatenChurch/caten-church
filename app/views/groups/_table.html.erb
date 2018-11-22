@@ -20,10 +20,10 @@
         <%= content_tag :td, group.reports_count if stage == :backstage %>
         <td>
           <% if stage == :backstage  %>
-            <%= link_to t('.show'), admin_group_path(group), class: 'btn btn-outline-secondary' %>
-            <%= link_to t('.edit'), edit_admin_group_path(group), class: 'btn btn-outline-primary' %>
+            <%= link_to t('.show'), admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= link_to t('.edit'), edit_admin_group_path(group), class: 'btn btn-sm btn-outline-primary' %>
           <% else %>
-            <%= link_to t('.show'), group_path(group), class: 'btn btn-outline-secondary' %>
+            <%= link_to t('.show'), group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
           <% end %>
         </td>
       </tr>

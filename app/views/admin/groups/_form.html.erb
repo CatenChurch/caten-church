@@ -7,7 +7,7 @@
     <label for="leader-name"><%= Group.human_attribute_name :leader %></label>
     <div id="leader"></div>
     <input id="leader-name" type="text" class="form-control" value="<%= f.object.leader&.profile&.name %>">
-    <div id="leader-labels"></div>
+    <div id="leader-labels" class="mt-2"></div>
   </div>
   <input id="leader-id" name="leader[id]" type="hidden" value="<%= f.object.leader&.id %>">
   <%= f.input :sequence %>
@@ -37,7 +37,7 @@
 
   function leaderBtn(name) {
     const leader = $('<button type="button" class="btn btn-sm btn-primary m-1 leader"></button>')
-    const closeBtn = $('<span class="badge badge-light ml-2">x</span>')
+    const closeBtn = $('<i class="ml-2 fa fa-times"></i>')
     leader.text(name)
     leader.append(closeBtn)
     leader.on('click', () => {
@@ -54,7 +54,7 @@
   }
 
   function candidateLeaderBtn(id, name, email) {
-    const dom = $('<button type="button" class="btn btn-sm btn-outline-primary m-1 leader"></button>')
+    const dom = $('<button type="button" class="btn btn-sm btn-outline-secondary m-1 leader"></button>')
     dom.attr('data-user-id', id)
     dom.attr('title', `email is ${email}`)
     dom.text(name)
