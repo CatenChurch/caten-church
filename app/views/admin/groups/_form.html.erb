@@ -53,9 +53,10 @@
     $('#leader').html(leader)
   }
 
-  function candidateLeaderBtn(id, name) {
+  function candidateLeaderBtn(id, name, email) {
     const dom = $('<button type="button" class="btn btn-sm btn-outline-primary m-1 leader"></button>')
     dom.attr('data-user-id', id)
+    dom.attr('title', `email is ${email}`)
     dom.text(name)
     dom.on('click', () => {
       setLeader(id, name)
@@ -68,7 +69,7 @@
     getUsers(input).then(res => {
       $('#leader-labels').empty()
       for (user of res.users) {
-        $('#leader-labels').append(candidateLeaderBtn(user.id, user.name))
+        $('#leader-labels').append(candidateLeaderBtn(user.id, user.name, user.email))
       }
     })
   }
