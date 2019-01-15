@@ -1,7 +1,13 @@
+<% set_meta_tags title: @event.name,
+    description: @event.description,
+    og: {
+      title: @event.name,
+      description: @event.description,
+      image: t('pages.index.seo.img_url')
+    } %>
 <%= render 'jumbotron' %>
 <% content_for :breadcrumb do %>
-  >
-  <%= link_to @event.name, event_path(@event) %>
+  > <%= link_to @event.name, event_path(@event) %>
 <% end %>
 <div class="container">
   <%= link_to t('.list'), events_path, class: 'btn btn-outline-secondary mb-4' %>
