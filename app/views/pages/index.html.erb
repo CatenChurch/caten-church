@@ -1,10 +1,10 @@
 <%
-description t('.seo.desc')
-set_meta_tags og: {
-  title: t('.seo.title'),
-  image: t('.seo.img_url'),
-  description: t('.seo.desc')
-}
+set_meta_tags description: t('.seo.desc'),
+  og: {
+    title: t('.seo.title'),
+    image: t('.seo.img_url'),
+    description: t('.seo.desc')
+  }
 %>
 <% content_for :breadcrumb do %>
   <%= link_to t('breadcrumb.root'), root_path %>

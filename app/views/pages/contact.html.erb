@@ -1,3 +1,10 @@
+<% set_meta_tags title: t('.title'),
+  description: t('.subtitle'),
+  og: {
+    title: t('.title'),
+    description: t('.subtitle'),
+    image: t('pages.index.seo.img_url')
+  } %>
 <% content_for :breadcrumb do %>
   <%= link_to t('breadcrumb.root'), root_path %>
   >
@@ -14,7 +21,6 @@
       <div class="w-100"></div>
       <address><%= t '.address' %></address>
       <div class="w-100"></div>
-
       <h3><%= t '.worship_time' %></h3>
       <div class="w-100"></div>
       <p><%= t '.worship._' %></p>
@@ -23,7 +29,6 @@
       <p><%= t '.youth_fellowship._' %></p>
       <p><%= t '.youth_fellowship.time' %></p>
       <div class="w-100"></div>
-
       <h3><%= t '.contact_ways' %></h3>
       <div class="w-100"></div>
       <p><%= t '.tel._' %></p>
@@ -38,7 +43,6 @@
       <p><%= t '.email._' %></p>
       <%= mail_to t('.email.url') %>
       <div class="w-100"></div>
-
       <h3><%= t '.social_media' %></h3>
       <div class="w-100"></div>
       <p><%= t '.website' %></p>
