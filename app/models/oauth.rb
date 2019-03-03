@@ -4,10 +4,10 @@ class Oauth < ApplicationRecord
   validates_presence_of :provider, :uid
   # db schema 有加 uniq key 限制，故此應用層的驗證可註解掉
   # validates_uniqueness_of :provider, scope: :uid
-  validates_uniqueness_of :user_id, scope: :provider, if: Proc.new { |oauth| oauth.user_id.present? }
+  validates_uniqueness_of :user_id, scope: :provider, if: Proc.new { |oauth| oauth.connected? }
 
   def connected?
-    user.present?
+    user_id.present?
   end
 
   def connect(user)
