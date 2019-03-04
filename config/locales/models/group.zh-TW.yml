@@ -16,6 +16,6 @@
         reports: 小組回報
         reports_count: 小組回報數
         last_report: 最後回報
-        week_report: 本週回報
+        current_week_report: 本週回報
         prev_week_report: 上週回報
         sequence: 排序

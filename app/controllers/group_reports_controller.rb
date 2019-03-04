@@ -3,7 +3,7 @@ class GroupReportsController < ApplicationController
   before_action :check_is_leader, only: [:new, :create]
 
   def index
-    @groups = Group.all.includes(:prev_week_report, :week_report, leader: :profile).order(:sequence)
+    @groups = Group.all.includes(:prev_week_report, :current_week_report, leader: :profile).order(:sequence)
   end
 
   def show; end

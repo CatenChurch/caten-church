@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   # relations
   has_many :reports, class_name: 'GroupReport', dependent: :destroy
   has_one :last_report, -> { order id: :desc }, class_name: 'GroupReport'
-  has_one :week_report, -> { where(created_at: Time.now.beginning_of_week..Time.now.end_of_week).order(id: :desc) }, class_name: 'GroupReport'
+  has_one :current_week_report, -> { where(created_at: Time.now.beginning_of_week..Time.now.end_of_week).order(id: :desc) }, class_name: 'GroupReport'
   has_one :prev_week_report, -> { where(created_at: Time.now.prev_week.beginning_of_week..Time.now.prev_week.end_of_week).order(id: :desc) }, class_name: 'GroupReport'
   belongs_to :creater, class_name: 'User', optional: true
   has_many :group_users, dependent: :destroy
