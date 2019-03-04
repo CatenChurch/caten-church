@@ -9,10 +9,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav ml-auto">
-      <%= nav_li fa_icon('futbol-o', text: Event.model_name.human), events_path %>
       <%= nav_li fa_icon('bullhorn', text: Announcement.model_name.human), announcements_path %>
+      <%= nav_li fa_icon('futbol-o', text: Event.model_name.human), events_path %>
+      <%= nav_li fa_icon('bar-chart', text: GroupReport.model_name.human), group_reports_path %>
       <% if user_signed_in? %>
-        <%= nav_li(fa_icon('tachometer', text: t('.backstage')), admin_path) if is_admin? %>
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= fa_icon('user', text: t('.account._')) %>
@@ -26,6 +26,7 @@
             <%= link_to fa_icon('sign-out', text: t('.log_out')), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
+        <%= nav_li(fa_icon('tachometer', text: t('.backstage')), admin_path) if is_admin? %>
       <% else %>
         <%= nav_li fa_icon('user-plus', text: t('.sign_up')), new_user_registration_path %>
         <%= nav_li fa_icon('sign-in', text: t('.log_in')), new_user_session_path %>
