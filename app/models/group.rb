@@ -24,4 +24,8 @@ class Group < ApplicationRecord
       end
     end
   end
+
+  def week_report(prev: false)
+    prev ? prev_week_report : current_week_report
+  end
 end
