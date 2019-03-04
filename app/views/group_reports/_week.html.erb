@@ -1,0 +1,69 @@
+<%# 使用此 partial 需要傳入 groups 和 prev(boolean) %>
+<% prev ||= false %>
+<!-- view for sm xs -->
+<div class="d-md-none">
+  <% groups.each do |group| %>
+    <div class="card m-2">
+      <div class="card-body">
+        <h5 class="card-title"><%= group.name %></h5>
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th><%= Group.human_attribute_name :leader %></th>
+              <th><%= GroupReport.human_attribute_name :adults_count %></th>
+              <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= group.leader&.profile&.name %></td>
+              <td><%= group.week_report(prev: prev)&.adults_count %></td>
+              <td><%= l group.week_report(prev: prev)&.next_meeting_time if group.week_report(prev: prev)&.next_meeting_time %></td>
+            </tr>
+          </tbody>
+          <thead class="thead-light">
+            <tr>
+              <th><%= GroupReport.human_attribute_name :dedication %></th>
+              <th><%= GroupReport.human_attribute_name :children_count %></th>
+              <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= group.week_report(prev: prev)&.dedication %></td>
+              <td><%= group.week_report(prev: prev)&.children_count %></td>
+              <td><%= group.week_report(prev: prev)&.next_meeting_place %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
+<!-- view for md lg xl -->
+<table class="table table-bordered d-none d-md-table">
+  <thead class="thead-light">
+    <tr>
+      <th><%= Group.human_attribute_name :name %></th>
+      <th><%= Group.human_attribute_name :leader %></th>
+      <th><%= GroupReport.human_attribute_name :adults_count %></th>
+      <th><%= GroupReport.human_attribute_name :children_count %></th>
+      <th><%= GroupReport.human_attribute_name :dedication %></th>
+      <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
+      <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.leader&.profile&.name %></td>
+        <td><%= group.week_report(prev: prev)&.adults_count %></td>
+        <td><%= group.week_report(prev: prev)&.children_count %></td>
+        <td><%= group.week_report(prev: prev)&.dedication %></td>
+        <td><%= l group.week_report(prev: prev)&.next_meeting_time if group.week_report(prev: prev)&.next_meeting_time %></td>
+        <td><%= group.week_report(prev: prev)&.next_meeting_place %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
