@@ -1,5 +1,3 @@
-<div class="d-flex p-2">
-  <%= link_to t('.back'), admin_event_path(params[:event_id]), class: 'btn btn-outline-secondary' %>
-  <%= link_to t('.edit'), edit_admin_event_event_users_path(params[:event_id]), class: 'btn btn-primary ml-2' %>
-</div>
+<%= link_to fa_icon('undo', text: t('.back')), admin_event_path(params[:event_id]), class: 'mb-2 btn btn-outline-secondary' %>
+<%= link_to fa_icon('check-square-o', text: t('.edit')), edit_admin_event_event_users_path(params[:event_id]), class: 'mb-2 btn btn-primary ml-1' %>
 <%= render 'event_users/index', event_users: @event_users, backstage: true %>

@@ -31,7 +31,8 @@ class Admin::ContactsController < Admin::BaseController
   def handle
     @contact.handled = !@contact.handled
     @contact.save!
-    flash[:notice] = Contact.model_name.human + Contact.human_attribure_name("#{handled.(@contact.handled)}")
+    flash[:notice] = Contact.model_name.human + Contact.human_attribute_name("handle.#{@contact.handled}")
+    redirect_to admin_contact_url(@contact)
   end
 
   private

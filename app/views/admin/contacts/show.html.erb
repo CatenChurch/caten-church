@@ -1,14 +1,12 @@
-<%= link_to t('.back'), admin_contacts_path, class: 'btn btn-outline-secondary' %>
-<h1 class="text-center"><%= t '.title' %></h1>
-<div class="d-flex align-items-center">
-  <div class="mr-auto"></div>
+<%= link_to fa_icon('list', text: t('.back')), admin_contacts_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= t '.title' %></h1>
+<div class="d-flex">
   <% if @contact.handled %>
-    <%= link_to t('.unhandle'), handle_admin_contact_path, method: :post, class: 'btn btn-warning mr-1' %>
+    <%= link_to fa_icon('times', text: t('.unhandle')), handle_admin_contact_path, method: :post, class: 'btn btn-outline-primary ml-auto' %>
   <% else %>
-    <%= link_to t('.handle'), handle_admin_contact_path, method: :post, class: 'btn btn-info mr-1' %>
+    <%= link_to fa_icon('check', text: t('.handle')), handle_admin_contact_path, method: :post, class: 'btn btn-outline-primary ml-auto' %>
   <% end %>
-  <%= link_to t('.edit'), edit_admin_contact_path, class: 'btn btn-primary mr-1' %>
-  <%= link_to t('.destroy'), admin_contact_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('.confirm') } %>
+  <%= link_to fa_icon('trash', text: t('button.delete')), admin_contact_path, method: :delete, class: 'btn btn-outline-danger ml-1', data: { confirm: t('.confirm') } %>
 </div>
 <div class="container pt-2">
   <h2><%= Contact.human_attribute_name :name %></h2>

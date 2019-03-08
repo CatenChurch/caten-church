@@ -1,8 +1,7 @@
-<div class="d-flex flex-row align-items-center justify-content-center flex-wrap my-2">
-  <h1><%= t '.title' %></h1>
-  <div class="w-100"></div>
-  <%= link_to t('.create'), new_admin_announcement_path, class: 'btn btn-success ml-auto' %>
+<h1 class="text-center"><%= t '.title' %></h1>
+<div class="my-2 d-flex">
+  <%= link_to fa_icon('plus', text: t('.new')), new_admin_announcement_path, class: 'btn btn-outline-success ml-auto' %>
 </div>
 <%= paginate @announcements %>
-<%= render 'announcements/table', announcements: @announcements, render_from_admin: true %>
+<%= render 'announcements/table', announcements: @announcements, backstage: true %>
 <%= paginate @announcements %>

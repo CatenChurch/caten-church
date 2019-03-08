@@ -3,29 +3,16 @@
     service_teams:
       index:
         title: 服事團隊一覽
-        create: 新增服事團隊
-        conditions: 搜尋條件
-        clear: 清除條件
-        submit: 搜尋
-        more: 詳情
-        show: 查看
-        edit: 編輯
-        destroy: 刪除
+        new: 新增服事團隊
         confirm: 確定要刪除這個服事團隊嗎？
       show:
         back: 服事團隊一覽
-        title: '服事團隊 : %{name}'
-        edit: 編輯
-        destroy: 刪除
         confirm: 確定要刪除這個服事團隊嗎？
       new:
         title: 新增服事團隊
-        back: 取消
       edit:
         title: 更新服事團隊
-        back: 取消
       form:
-        hint: 需要輸入會員時，先點擊要輸入的框框，再利用成員搜尋器搜尋會員，點擊結果來輸入。
         searcher: 成員搜尋器
         searcher_hint: 點擊藍色標籤選擇會員
         delete: 刪除成員

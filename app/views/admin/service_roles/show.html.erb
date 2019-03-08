@@ -1,9 +1,9 @@
-<%= link_to t('.back'), admin_service_roles_path, class: 'btn btn-outline-secondary mr-auto' %>
-<h1 class="text-center"><%= "#{Service::Role.model_name.human} : #{@role.name}" %></h1>
-<div class="d-flex align-items-center">
-  <div class="mr-auto"></div>
-  <%= link_to t('.edit'), edit_admin_service_role_path, class: 'btn btn-primary mr-1' %>
-  <%= link_to t('.destroy'), admin_service_role_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('.confirm') } %>
+<%= link_to fa_icon('list', text: t('.back')), admin_service_roles_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= Service::Role.model_name.human %></h1>
+<h2 class="my-2 text-center"><%= @role.name %></h2>
+<div class="my-2 d-flex align-items-center">
+  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_service_role_path, class: ' ml-auto btn btn-outline-primary' %>
+  <%= link_to fa_icon('trash', text: t('button.delete')), admin_service_role_path, method: :delete, class: 'ml-1 btn btn-outline-danger', data: { confirm: t('.confirm') } %>
 </div>
 <%= paginate @team_users %>
 <table class="table">
@@ -16,7 +16,7 @@
   <tbody>
     <% @team_users.each do |team_user| %>
       <tr>
-        <td><%= link_to team_user.try(:user).try(:profile).try(:name), admin_member_path(team_user.user) %></td>
+        <td><%= link_to team_user.user.profile&.name, admin_member_path(team_user.user) %></td>
         <td><%= link_to team_user.team.name, admin_service_team_path(team_user.team) %></td>
       </tr>
     <% end %>

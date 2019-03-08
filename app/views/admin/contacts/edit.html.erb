@@ -1,5 +1,5 @@
-<%= link_to t('.back'), admin_contacts_path, class: 'btn btn-outline-secondary' %>
-<h1 class="text-center"><%= t '.title' %></h1>
+<%= link_to fa_icon('undo', text: t('button.cancel')), admin_contact_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= t '.title' %></h1>
 <%= simple_form_for @contact, url: admin_contact_url(@contact) do |f| %>
   <%= f.error_notification %>
   <%= f.input :name %>
@@ -7,5 +7,7 @@
   <%= f.input :phone %>
   <%= f.input :message, as: :text, input_html: { rows: 8 } %>
   <%= f.input :handled %>
-  <%= f.button :submit %>
+  <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
+    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+  <% end %>
 <% end %>

@@ -1,10 +1,11 @@
-<div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t '.title' %></h1>
-  <div class="w-100"></div>
-  <%= link_to t('.download'), download_admin_members_path(format: :xlsx), class: 'btn btn-success ml-auto' %>
+<h1 class="text-center"><%= t '.title' %></h1>
+<div class="my-2 d-flex">
+  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
+    <%= fa_icon('search', text: t('button.search_conditions')) %>
+  </a>
+  <%= link_to fa_icon('download', text: t('.download')), download_admin_members_path(format: :xlsx), class: 'btn btn-outline-success ml-auto' %>
 </div>
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
-<div class="collapse" id="collapseSearch">
+<div class="collapse" id="collapse-search">
   <div class="card my-2">
     <div class="card-body">
       <%= search_form_for @q, url: admin_members_url, class: 'form-inline mx-5' do |f| %>
@@ -26,8 +27,8 @@
         <%= f.label Role.model_name.human, class: 'mr-1' %>
         <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), include_blank: true, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('.clear'), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2' %>
+        <%= link_to fa_icon('undo', text: t('button.clear')), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2' %>
       <% end %>
     </div>
   </div>
@@ -40,7 +41,7 @@
       <th><%= Profile.human_attribute_name :name %></th>
       <th><%= User.human_attribute_name :email %></th>
       <th><%= Profile.human_attribute_name :phone %></th>
-      <th><%= t '.more' %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -50,8 +51,14 @@
         <td><%= u.id %></td>
         <td><%= profile.name %></td>
         <td><%= u.email %></td>
-        <td><%= profile.phone %><br><%= profile.cellphone %></td>
-        <td><%= link_to t('.show'), admin_member_path(u), class: 'btn btn-light' %></td>
+        <td>
+          <%= profile.phone %>
+          <br>
+          <%= profile.cellphone %>
+        </td>
+        <td>
+          <%= link_to fa_icon('info-circle', text: t('button.show')), admin_member_path(u), class: 'btn btn-sm btn-outline-secondary' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

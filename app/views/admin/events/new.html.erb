@@ -1,5 +1,3 @@
-<h2>
-	<%= t '.title' %>
-	<%= link_to t('.back'), admin_events_path, class: 'btn btn-outline-secondary' %>
-</h2>
+<%= link_to fa_icon('undo', text: t('button.cancel')), admin_events_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= t '.title' %></h1>
 <%= render 'form' %>

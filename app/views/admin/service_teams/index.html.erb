@@ -1,10 +1,11 @@
-<div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t '.title' %></h1>
-  <div class="w-100"></div>
-  <%= link_to t('.create'), new_admin_service_team_path, class: 'btn btn-success ml-auto' %>
+<h1 class="text-center"><%= t '.title' %></h1>
+<div class="my-2 d-flex">
+  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
+    <%= fa_icon('search', text: t('button.search_conditions')) %>
+  </a>
+  <%= link_to fa_icon('plus', text: t('.new')), new_admin_service_team_path, class: 'btn btn-outline-success ml-auto', data: { turbolinks: false } %>
 </div>
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
-<div class="collapse" id="collapseSearch">
+<div class="collapse" id="collapse-search">
   <div class="card my-2">
     <div class="card-body">
       <%= search_form_for @q, url: admin_service_teams_url, class: 'form-inline my-2 mx-5' do |f| %>
@@ -17,8 +18,8 @@
         <%= f.label Service::Team.human_attribute_name(:members), class: 'mr-1' %>
         <%= f.search_field :users_profile_name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('.clear'), admin_service_teams_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2 ml-1' %>
+        <%= link_to fa_icon('undo', text: t('button.clear')), admin_service_teams_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2 ml-1' %>
       <% end %>
     </div>
   </div>
@@ -31,20 +32,20 @@
       <th><%= Service::Team.human_attribute_name(:leader) %></th>
       <th><%= Service::Team.human_attribute_name(:users_count) %></th>
       <th><%= Service::Team.human_attribute_name(:schedules_count) %></th>
-      <th><%= t '.more' %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @teams.each do |team| %>
       <tr>
         <td><%= team.name %></td>
-        <td><%= link_to team.leader.profile.try(:name), admin_member_path(team.leader) %></td>
+        <td><%= link_to team.leader.profile&.name, admin_member_path(team.leader) %></td>
         <td><%= team.users_count %></td>
         <td><%= team.schedules_count %></td>
         <td>
-          <%= link_to t('.show'), admin_service_team_path(team), class: 'btn btn-light' %>
-          <%= link_to t('.edit'), edit_admin_service_team_path(team), class: 'btn btn-warning' %>
-          <%= link_to t('.destroy'), admin_service_team_path(team), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
+          <%= link_to fa_icon('info-circle', text: t('button.show')), admin_service_team_path(team), class: 'm-1 btn btn-sm btn-outline-secondary' %>
+          <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_service_team_path(team), class: 'm-1 btn btn-sm btn-outline-primary', data: { turbolinks: false } %>
+          <%= link_to fa_icon('trash', text: t('button.delete')), admin_service_team_path(team), class: 'm-1 btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
         </td>
       </tr>
     <% end %>

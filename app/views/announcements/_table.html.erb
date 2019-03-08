@@ -1,11 +1,11 @@
-<% render_from_admin ||= false %>
+<% backstage ||= false %>
 <table class="table">
   <thead class="thead-light">
     <tr>
       <th><%= Announcement.human_attribute_name :title %></th>
       <th><%= Announcement.human_attribute_name :description %></th>
       <th><%= Announcement.human_attribute_name :updated_at %></th>
-      <th><%= t '.more' %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,10 +14,14 @@
         <td><%= announcement.title %></td>
         <td><%= announcement.description %></td>
         <td><%= l announcement.updated_at %></td>
-        <% if render_from_admin %>
-          <td><%= link_to t('.show'), admin_announcement_path(announcement), class: 'btn btn-info' %></td>
+        <% if backstage %>
+          <td>
+            <%= link_to fa_icon('info-circle', text: t('button.show')), admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to fa_icon('trash', text: t('button.delete')), admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
+          </td>
         <% else %>
-          <td><%= link_to t('.show'), announcement_path(announcement), class: 'btn btn-info' %></td>
+          <td><%= link_to fa_icon('info-circle', text: t('button.show')), announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' %></td>
         <% end %>
       </tr>
     <% end %>

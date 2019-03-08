@@ -11,16 +11,18 @@
   </div>
   <input id="leader-id" name="leader[id]" type="hidden" value="<%= f.object.leader&.id %>">
   <%= f.input :sequence %>
-  <%= f.button :submit %>
+  <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
+    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+  <% end %>
 <% end %>
 <script type="text/javascript">
   var originalLeaderId = $('#leader-id').val()
   var originalLeaderName = $('#leader-name').val()
-
+  
   if (originalLeaderId !== '') {
     setLeader(originalLeaderId, originalLeaderName)
   }
-
+  
   async function getUsers(name) {
     url = '<%= admin_members_url(format: :json) %>'
     params = $.param({ q: { profile_name_cont: name }})
@@ -28,13 +30,13 @@
     res = await resPromise.json()
     return res;
   }
-
+  
   function resetLeader(){
     $('#leader-name').removeClass('d-none')
     $('#leader').html('')
     $('#leader-id').val(originalLeaderId)
   }
-
+  
   function leaderBtn(name) {
     const leader = $('<button type="button" class="btn btn-sm btn-primary m-1 leader"></button>')
     const closeBtn = $('<i class="ml-2 fa fa-times"></i>')
@@ -45,14 +47,14 @@
     })
     return leader
   }
-
+  
   function setLeader(id, name) {
     const leader = leaderBtn(name)
     $('#leader-id').val(id)
     $('#leader-name').addClass('d-none')
     $('#leader').html(leader)
   }
-
+  
   function candidateLeaderBtn(id, name, email) {
     const dom = $('<button type="button" class="btn btn-sm btn-outline-secondary m-1 leader"></button>')
     dom.attr('data-user-id', id)
@@ -63,7 +65,7 @@
     })
     return dom
   }
-
+  
   function addCandidateLeaderBtns() {
     let input = $('#leader-name').val()
     getUsers(input).then(res => {
@@ -73,7 +75,7 @@
       }
     })
   }
-
+  
   let inputLock = false
   $("#leader-name").on("compositionstart", function() {
     inputLock = true

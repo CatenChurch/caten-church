@@ -1,8 +1,7 @@
-<%= link_to t('.back'), admin_members_path, class: 'btn btn-outline-secondary' %>
-<h2 class="text-center my-4">
-  <%= @member.email %>
-  <span class="ml-2"><%= become_admin_link(@member) %></span>
-</h2>
+<%= link_to fa_icon('list', text: t('.back')), admin_members_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= User.model_name.human %></h1>
+<h2 class="my-2 text-center"><%= @member.email %></h2>
+<div class="my-2 d-flex"><%= become_admin_link(@member, klass: 'ml-auto') %></div>
 <%= render 'account/profiles/profile', profile: @member.profile, render_for_admin: true %>
 <div class="row mt-2">
   <div class="col-sm-12 col-md-6">

@@ -3,6 +3,17 @@
     root: 首頁
     account: 會員中心
   button:
+    show: 查看
+    new: 新增
+    edit: 編輯
+    delete: 刪除
+    clear: 清除條件
+    cancel: 取消
+    search: 搜尋
+    search_conditions: 搜尋條件
+    download: 下載
+    undo: 復原
+    submit: 送出
     submitting: 送出中
     sign_in: 登入
     sign_up: 註冊

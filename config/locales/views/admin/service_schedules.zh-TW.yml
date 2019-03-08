@@ -3,19 +3,11 @@ zh-TW:
     service_schedules:
       index:
         title: 服事時程表
-        create: 新增服事時程表
-        conditions: 搜尋條件
-        clear: 清除條件
-        submit: 搜尋
-        more: 詳情
-        edit: 編輯
-        destroy: 刪除
+        new: 新增服事時程表
         confirm: 確定要刪除這個服事時程表嗎？
       new:
         title: 新增服事時程表
-        back: 返回
       edit:
         title: 編輯服事時程表
-        back: 返回
       form:
         submitting: '服事時程表建立中...'

@@ -1,10 +1,10 @@
-<div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t '.title' %></h1>
-  <div class="w-100"></div>
-  <%= link_to t('.create'), new_admin_group_path, class: 'btn btn-success ml-auto' %>
+<h1 class="text-center"><%= t '.title' %></h1>
+<div class="my-2 d-flex">
+  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
+    <%= fa_icon('search', text: t('button.search_conditions')) %>
+  </a>
+  <%= link_to fa_icon('plus', text: t('.new')), new_admin_group_path, class: 'btn btn-outline-success ml-auto' %>
 </div>
-
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search"><%= t '.conditions' %></a>
 <div class="collapse" id="collapse-search">
   <div class="card my-2">
     <div class="card-body">
@@ -12,13 +12,12 @@
         <%= f.label Group.human_attribute_name(:name), class: 'mr-1' %>
         <%= f.search_field :name_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
-        <%= link_to t('.clear'), admin_groups_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2' %>
+        <%= link_to fa_icon('undo', text: t('button.clear')), admin_groups_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2' %>
       <% end %>
     </div>
   </div>
 </div>
-
 <%= paginate @groups %>
 <%= render 'groups/table', groups: @groups, stage: :backstage %>
 <%= paginate @groups %>

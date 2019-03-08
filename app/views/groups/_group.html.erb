@@ -1,7 +1,7 @@
 <% stage ||= :frontstage %>
 <div class="card">
   <div class="card-body">
-    <h3 class="card-title text-center"><%= "#{Group.human_attribute_name :name} : #{group.name}" %></h3>
+    <h3 class="card-title text-center"><%= group.name %></h3>
     <% if stage == :backstage %>
       <div class="d-flex justify-content-between">
         <span><%= Group.human_attribute_name :created_at %> : <%= l group.created_at %></span>

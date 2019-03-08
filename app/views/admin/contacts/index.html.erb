@@ -1,26 +1,27 @@
-<div class="d-flex flex-row align-items-center justify-content-center flex-wrap">
-  <h1><%= t '.title' %></h1>
+<h1 class="text-center"><%= t '.title' %></h1>
+<div class="my-2 d-flex">
+  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
+    <%= fa_icon('search', text: t('button.search_conditions')) %>
+  </a>
 </div>
-
-<a class="btn btn-primary my-2" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><%= t '.conditions' %></a>
-<div class="collapse" id="collapseSearch">
+<div class="collapse" id="collapse-search">
   <div class="card my-2">
     <div class="card-body">
       <%= search_form_for @q, url: admin_contacts_url, class: 'form-inline my-2 mx-5' do |f| %>
-      <%= f.label Contact.human_attribute_name(:handled), class: 'mr-1' %>
-      <%= f.check_box :handled_eq, class: 'form-control mr-2' %>
-      <div class="w-100 my-1"></div>
-      <%= f.label Contact.human_attribute_name(:name), class: 'mr-1' %>
-      <%= f.search_field :name_cont, class: 'form-control mr-2' %>
-      <div class="w-100 my-1"></div>
-      <%= f.label Contact.human_attribute_name(:phone), class: 'mr-1' %>
-      <%= f.search_field :phone_cont, class: 'form-control mr-2' %>
-      <div class="w-100 my-1"></div>
-      <%= f.label Contact.human_attribute_name(:email), class: 'mr-1' %>
-      <%= f.search_field :email_cont, class: 'form-control mr-2' %>
-      <div class="w-100 my-1"></div>
-      <%= link_to t('.clear'), admin_contacts_path, class: 'btn btn-outline-secondary ml-auto' %>
-      <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2 ml-1' %>
+        <%= f.label Contact.human_attribute_name(:handled), class: 'mr-1' %>
+        <%= f.check_box :handled_eq, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Contact.human_attribute_name(:name), class: 'mr-1' %>
+        <%= f.search_field :name_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Contact.human_attribute_name(:phone), class: 'mr-1' %>
+        <%= f.search_field :phone_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= f.label Contact.human_attribute_name(:email), class: 'mr-1' %>
+        <%= f.search_field :email_cont, class: 'form-control mr-2' %>
+        <div class="w-100 my-1"></div>
+        <%= link_to fa_icon('undo', text: t('button.clear')), admin_contacts_path, class: 'btn btn-outline-secondary ml-auto' %>
+        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2 ml-1' %>
       <% end %>
     </div>
   </div>
@@ -35,23 +36,24 @@
       <th><%= Contact.human_attribute_name :message %></th>
       <th><%= Contact.human_attribute_name :created_at %></th>
       <th><%= Contact.human_attribute_name :handled %></th>
-      <th><%= t '.more' %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @contacts.each do |contact| %>
-    <tr>
-      <td><%= contact.name %></td>
-      <td><%= contact.phone %></td>
-      <td><%= mail_to contact.email %></td>
-      <td><%= truncate(contact.message, length: 20) %></td>
-      <td><%= l contact.created_at %></td>
-      <td><%= Contact.human_attribute_name "handled.#{contact.handled}" %></td>
-      <td>
-        <%= link_to t('.show'), admin_contact_path(contact), class: 'btn btn-info' %>
-        <%= link_to t('.destroy'), admin_contact_path(contact), class: 'btn btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
-      </td>
-    </tr>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.phone %></td>
+        <td><%= mail_to contact.email %></td>
+        <td><%= truncate(contact.message, length: 20) %></td>
+        <td><%= l contact.created_at %></td>
+        <td><%= Contact.human_attribute_name "handled.#{contact.handled}" %></td>
+        <td>
+          <%= link_to fa_icon('info-circle', text: t('button.show')), admin_contact_path(contact), class: 'btn btn-sm btn-outline-secondary' %>
+          <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_contact_path(contact), class: 'btn btn-sm btn-outline-primary' %>
+          <%= link_to fa_icon('trash', text: t('button.delete')), admin_contact_path(contact), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

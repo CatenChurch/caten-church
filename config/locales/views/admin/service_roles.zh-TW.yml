@@ -2,26 +2,15 @@ zh-TW:
   admin:
     service_roles:
       index:
-        title: 服事角色
-        create: 建立新角色
-        conditions: 搜尋條件
-        clear: 清除條件
-        submit: 搜尋
-        more: 詳情
-        show: 查看
-        edit: 編輯
-        destroy: 刪除
+        title: 服事角色一覽
+        new: 建立新角色
         confirm: 確定要刪除這個角色嗎？
       show:
-        back: 返回所有角色
-        edit: 編輯
-        destroy: 刪除
+        back: 服事角色一覽
         confirm: 確定要刪除這個角色嗎？
       new:
         title: 建立角色
-        back: 返回
       edit:
         title: 編輯角色
-        back: 返回
       form:
         submitting: '角色建立中...'

@@ -4,11 +4,6 @@
       index:
         title: 會員一覽
         download: 下載會員報表
-        conditions: 搜尋條件
-        clear: 清除條件
-        submit: 搜尋
-        more: 詳情
-        show: 查看
       show:
         back: 會員一覽
         no_result: 無

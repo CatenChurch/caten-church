@@ -1,5 +1,7 @@
-<%= simple_form_for [:admin, :service, @role] do |f| %>
+<%= simple_form_for [:admin, @role] do |f| %>
   <%= f.error_notification %>
   <%= f.input :name %>
-  <%= f.button :submit, data: { disable_with: t('.submitting') } %>
+  <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
+    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+  <% end %>
 <% end %>

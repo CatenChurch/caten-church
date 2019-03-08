@@ -1,10 +1,10 @@
-<%= link_to t('.back'), admin_service_teams_path, class: 'btn btn-outline-secondary mr-auto' %>
-<h1 class="text-center"><%= t '.title', name: @team.name %></h1>
-<div class="d-flex align-items-center">
-  <div class="mr-auto"></div>
-  <%= link_to Service::Schedule.model_name.human, admin_service_schedules_path(q: {team_id_eq: @team.id}), class: 'btn btn-info mr-1' %>
-  <%= link_to t('.edit'), edit_admin_service_team_path, class: 'btn btn-warning mr-1' %>
-  <%= link_to t('.destroy'), admin_service_team_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('.confirm') } %>
+<%= link_to fa_icon('list', text: t('.back')), admin_service_teams_path, class: 'btn btn-outline-secondary' %>
+<h1 class="my-2 text-center"><%= Service::Team.model_name.human %></h1>
+<h2 class="my-2 text-center"><%= @team.name %></h2>
+<div class="my-2 d-flex">
+  <%= link_to fa_icon('calendar', text: Service::Schedule.model_name.human), admin_service_schedules_path(q: {team_id_eq: @team.id}), class: 'btn btn-outline-primary ml-auto' %>
+  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_service_team_path, class: 'btn btn-outline-primary ml-1', data: { turbolinks: false } %>
+  <%= link_to fa_icon('trash', text: t('button.delete')), admin_service_team_path, method: :delete, class: 'btn btn-outline-danger ml-1', data: { confirm: t('.confirm') } %>
 </div>
 <h2><%= Service::TeamUser.model_name.human %></h2>
 <%= paginate @team_users, param_name: :page %>
@@ -19,7 +19,7 @@
     <% @team_users.each do |team_user| %>
       <tr>
         <td><%= link_to team_user.user.profile.try(:name), admin_member_path(team_user.user) if team_user.user.present? %></td>
-        <td><%= link_to team_user.role.try(:name), admin_service_role_path(team_user.role) %></td>
+        <td><%= link_to team_user.role&.name, admin_service_role_path(team_user.role) %></td>
       </tr>
     <% end %>
   </tbody>

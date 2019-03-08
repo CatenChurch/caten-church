@@ -1,5 +1,4 @@
 <% stage ||= :frontstage %>
-
 <table class="table">
   <thead class="thead-light">
     <tr>
@@ -7,10 +6,9 @@
       <th><%= Group.human_attribute_name :name %></th>
       <th><%= Group.human_attribute_name :leader %></th>
       <%= content_tag :th, Group.human_attribute_name(:reports_count) if stage == :backstage %>
-      <th>#</th>
+      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% groups.each do |group| %>
       <tr title="<%= group.introduction %>">
@@ -20,10 +18,11 @@
         <%= content_tag :td, group.reports_count if stage == :backstage %>
         <td>
           <% if stage == :backstage  %>
-            <%= link_to t('.show'), admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
-            <%= link_to t('.edit'), edit_admin_group_path(group), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to fa_icon('info-circle', text: t('.show')), admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= link_to fa_icon('pencil', text: t('.edit')), edit_admin_group_path(group), class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to fa_icon('trash', text: t('button.delete')), admin_group_path(group), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
           <% else %>
-            <%= link_to t('.show'), group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= link_to fa_icon('info-circle', text: t('.show')), group_path(group), class: 'btn btn-sm btn-outline-secondary' %>
           <% end %>
         </td>
       </tr>
