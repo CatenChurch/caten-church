@@ -1,7 +1,7 @@
 class Admin::ServiceTeamsController < Admin::BaseController
   before_action :find_team, only: [:show, :update, :destroy]
   before_action :find_roles, only: [:new, :create, :edit, :update]
-  
+
   def index
     @q = Service::Team.ransack(params[:q])
     @teams = @q.result(distinct: true).includes(leader: :profile).order(:id).page(params[:page])
@@ -57,7 +57,7 @@ class Admin::ServiceTeamsController < Admin::BaseController
   end
 
   def find_roles
-    @roles = Service::Role.where(resource_type: 'Service::Team').pluck(:name, :id)
+    @roles = Service::Role.where(resource_type: 'Service::Team').select(:name, :id)
   end
 
   def team_params

@@ -1,136 +1,152 @@
-<p class="text-muted"><%= t '.hint' %></p>
-<%= simple_form_for [:admin, @team] do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name %>
-  <div class="form-group">
-    <label for="leader-name"><%= Service::Team.human_attribute_name :leader %></label>
-    <input id="leader-name" type="text" class="form-control" value="<%= f.object.try(:leader).try(:profile).try(:name) %>" onfocus="targetSearchInput($('#service_team_user_id'), $(this));">
-  </div>
-  <%= f.input :user_id, as: :hidden %>
-  <h3><%= Service::TeamUser.model_name.human %></h3>
-  <%= f.fields_for :team_users do |tuf| %>
-    <div id="member-<%= tuf.index %>" class="d-flex flex-wrap" data-member="<%= tuf.index %>">
-      <div class="form-group">
-        <input id="member-<%= tuf.index %>-user" type="text" class="form-control" value="<%= tuf.object.try(:user).try(:profile).try(:name) %>" onfocus="targetSearchInput($(this).closest('div[id^=member]').children('input[id$=user-id]'), $(this));">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<div id="app">
+  <%= simple_form_for [:admin, @team] do |f| %>
+    <%= f.error_notification %>
+    <% f.object.errors.to_a.each do |error| %>
+      <%= f.error_notification message: error %>
+    <% end %>
+    <%= f.input :name %>
+    <div class="form-group">
+      <label><%= Service::Team.human_attribute_name :leader %></label>
+      <button v-on:click="editLeader" v-show="!leader.editMode" type="button" class="btn btn-sm btn-primary ml-2">
+        {{ leader.name }}<i class="ml-1 fa fa-times"></i>
+      </button>
+      <input v-model="leader.name" v-show="leader.editMode" v-on:compositionstart="typing = true" v-on:compositionend="typing = false" v-on:input="searchLeader" type="text" class="form-control">
+      <div class="mt-2">
+        <button v-for="candidate in leader.candidates" v-bind:title="candidate.email" v-show="leader.editMode" v-on:click="setLeader(candidate.id, candidate.name)" type="button" class="btn btn-sm btn-outline-secondary m-1">
+          {{ candidate.name }}
+        </button>
       </div>
-      <div class="form-group ml-2">
-        <%= tuf.select :role_id, @roles, { include_blank: Service::Role.model_name.human },  { class: 'form-control', id: "member-#{tuf.index}-role-id" } %>
-      </div>
-      <%= tuf.hidden_field :user_id, id: "member-#{tuf.index}-user-id" %>
-      <%= tuf.hidden_field :_destroy, id: "member-#{tuf.index}-destroy" %>
-      <%= link_to fa_icon('trash', text: t('.delete')), 'javascript: void(0);', class: 'ml-2 mb-4 align-self-end', onclick: "deleteMember($(this).closest('div[id^=member]').data('member'));" %>
-      <div class="w-100"></div>
+      <input v-bind:value="leader.id" name="service_team[user_id]" type="hidden">
     </div>
+    <%= f.error :leader %>
+    <div class="form-group">
+      <label><%= Service::TeamUser.model_name.human %></label>
+      <button v-on:click="newTeamUser" type="button" class="btn btn-sm btn-outline-success">
+        <i class="mr-1 fa fa-plus"></i><%= t('button.new') %>
+      </button>
+    </div>
+    <div v-for="(teamUser, index) in teamUsers" class="ml-4 mt-2">
+      <div v-show="!teamUser.deleted" class="form-inline">
+        <div class="form-group mr-2">
+          <label><%= Profile.human_attribute_name :name %></label>
+          <input v-model="teamUser.name" v-show="teamUser.editMode" v-on:compositionstart="typing = true" v-on:compositionend="typing = false" v-on:input="searchTeamUser(index, teamUser.name)" type="text" class="form-control ml-1">
+          <button v-on:click="editTeamUser(index)" v-show="!teamUser.editMode" type="button" class="btn btn-sm btn-primary ml-2">
+            {{ teamUser.name }}<i class="ml-1 fa fa-times"></i>
+          </button>
+        </div>
+        <div class="form-group mr-2">
+          <label><%= Service::Role.model_name.human %></label>
+          <select v-model="teamUser.roleId" v-bind:name="'service_team[team_users_attributes][' + index + '][role_id]'" class="form-control ml-1">
+            <option value></option>
+            <% @roles.each do |role| %>
+              <option value="<%= role.id %>"><%= role.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="form-group">
+          <button v-on:click="deleteTeamUser(index)" type="button" class="btn btn-sm btn-outline-danger">
+            <i class="mr-1 fa fa-trash"></i><%= t('button.delete') %>
+          </button>
+        </div>
+        <div v-show="teamUser.editMode" class="w-100 mt-2">
+          <button v-for="candidate in teamUser.candidates" v-bind:title="candidate.email" v-on:click="setTeamUser(index, candidate.id, candidate.name)" type="button" class="btn btn-sm btn-outline-secondary m-1">
+            {{ candidate.name }}
+          </button>
+        </div>
+        <input v-bind:value="teamUser.id" v-bind:name="'service_team[team_users_attributes][' + index + '][id]'" type="hidden">
+        <input v-bind:value="teamUser.userId" v-bind:name="'service_team[team_users_attributes][' + index + '][user_id]'" type="hidden">
+        <input v-bind:value="teamUser.deleted" v-bind:name="'service_team[team_users_attributes][' + index + '][_destroy]'" type="hidden">
+      </div>
+      <div v-show="teamUser.deleted">
+        <button v-on:click="recoverTeamUser(index)" type="button" class="btn btn-sm btn-outline-primary">
+          <i class="mr-1 fa fa-undo"></i><%= t('button.undo') %>
+        </button>
+      </div>
+    </div>
+    <hr>
+    <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
+      <i class="mr-1 fa fa-floppy-o"></i><%= t('button.submit') %>
+    <% end %>
   <% end %>
-  <%= link_to fa_icon('plus', text: t('.add')), 'javascript: void(0);', onclick: 'addMember();', id: 'add-member' %>
-  <br>
-  <%= f.button :submit, data: { disable_with: t('.submitting') } %>
-<% end %>
-<hr>
-<h3><%= t '.searcher' %></h3>
-<p class="text-muted ml-auto"><%= t '.searcher_hint' %></p>
-<div id="search-form" class="form-inline mb-2">
-  <label><%= t '.search_users' %></label>
-  <input id="search-name" type="text" class="form-control mx-2">
-  <button id="search-button" type="button" class="btn btn-outline-secondary"><%= t '.search' %></button>
 </div>
-<div id="search-result" class="d-none"></div>
 <script type="text/javascript">
-  var idDom;
-  var nameDom;
-  var teamUsersCount = <%= @team.users.size %>;
-  var classAttr = '';
-
-  function targetSearchInput(id, name) {
-    idDom = id;
-    nameDom = name;
-    $('input').removeClass('outline-purple');
-    nameDom.addClass('outline-purple');
+  async function getUsers(name) {
+    url = '<%= admin_members_url(format: :json) %>'
+    params = $.param({ q: { profile_name_cont: name }})
+    resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
+    res = await resPromise.json()
+    return res;
   }
-
-  function closeSearchResult() {
-    $('#search-result').attr('class', 'd-none');
-    $('input').removeClass('outline-purple');
-    nameDom.removeClass('outline-purple');
-  }
-
-  function addMember() {
-    if (teamUsersCount == 0) {
-      teamUsersCount++;
-    }
-    var lastMember = $(`#member-${teamUsersCount-1}`);
-    var newMember = lastMember.clone();
-    var user = newMember.find('input[id$=user]');
-    var role = newMember.find('select[id$=role-id]');
-    var user_id = newMember.find('input[id$=user-id]');
-    var destroy = newMember.find('input[id$=destroy]');
-    newMember.attr('id', `member-${teamUsersCount}`);
-    newMember.attr('data-member', `${teamUsersCount}`);
-    user.attr('id', `member-${teamUsersCount}-user`);
-    user.val(null);
-    role.attr('id', `member-${teamUsersCount}-role-id`);
-    role.attr('name', `service_team[team_users_attributes][${teamUsersCount}][role_id]`);
-    role.val(null);
-    user_id.attr('id', `member-${teamUsersCount}-user-id`);
-    user_id.attr('name', `service_team[team_users_attributes][${teamUsersCount}][user_id]`);
-    user_id.val(null);
-    destroy.attr('id', `member-${teamUsersCount}-destroy`);
-    destroy.attr('name', `service_team[team_users_attributes][${teamUsersCount}][_destroy]`);
-    destroy.val(null);
-    teamUsersCount++;
-    $('#add-member').before(newMember);
-  }
-
-  function deleteMember(id) {
-    var member = $(`#member-${id}`);
-    var redoHtml = `<div id="redo-member-${id}"><a href="javascript: void(0);" onclick="redoMember(${id});"><%= fa_icon 'repeat', text: t('.redo') %></a><div>`;
-
-    classAttr = member.attr('class');
-    member.attr('class','d-none');
-    member.children('input[id$=destroy]').val(true)
-    member.after(redoHtml);
-  }
-
-  function redoMember(id) {
-    var member = $(`#member-${id}`);
-    member.attr('class', classAttr);
-    member.find('input[id$=destroy]').val(false)
-    $(`#redo-member-${id}`).remove();
-  }
-
-  // TODO: 用 on input 事件偵測 input 欄位，達成類似 autocomplete 的效果
-  // 每當點擊 #search-button 會發出查詢至 /admin/members.json 以 #search-name 中填入的名字查詢哪些 users 的 profile.name 符合
-  // 根據回傳的符合者製成標籤，點選人名標籤即可填寫 user.id 至隱藏的表單 #service_team_user_id
-  $("#search-button").on("click", function(event) {
-    var name = $("#search-name").val();
-    $.ajax({
-      url: '<%= admin_members_url %>.json',
+  document.addEventListener('turbolinks:load', ()=>{
+    var app = new Vue({
+      el: '#app',
       data: {
-        q: { profile_name_cont: name}
+        leader: {
+          id: <%= @team.leader&.id || 'null' %>,
+          name: "<%= @team.leader&.profile&.name %>",
+          candidates: [],
+          editMode: false
+        },
+        teamUsers: <%== @team.team_users.map { |u| { id: u.id, userId: u.user_id, name: u.user&.profile&.name, roleId: u.role_id }}.to_json %>,
+        typing: false
       },
-      success: function(result) {
-        var searchResult = '';
-        var searchResultDom = $("#search-result");
-        var show = 'd-flex flex-wrap h5 bg-light p-2 rounded';
-
-        if (result.users.length < 1) {
-          searchResult = '<div><%= t('.no_result') %></div>'
-        }
-        for (i = 0; i < result.users.length; i++) {
-          if (result.users[i].name) {
-            searchResult += `<span href="#" data-id="${result.users[i].id}" class="badge badge-primary m-1 member">${result.users[i].name}</span>`;
+      mounted: function() {
+         if(!this.leader.id) { this.leader.editMode = true }
+         this.teamUsers.forEach((user, index)=>{
+           this.$set(user, 'editMode', false)
+         })
+      },
+      methods: {
+        searchLeader: function () {
+          if(this.typing) return;
+          getUsers(this.leader.name).then(res => {
+            this.leader.candidates = res.users
+          })
+        },
+        editLeader: function() {
+          this.leader.editMode = true
+          this.leader.id = null
+        },
+        setLeader: function(id, name) {
+          this.leader.editMode = false
+          this.leader.id = id
+          this.leader.name = name
+        },
+        newTeamUser: function functionName() {
+          user = {
+            id: null,
+            userId: null,
+            roleId: null,
+            name: null,
+            role: null,
+            candidates: [],
+            deleted: false,
+            editMode: true
           }
+          this.teamUsers.push(user)
+        },
+        searchTeamUser: function (index, name) {
+          if(this.typing) return;
+          getUsers(name).then(res => {
+            this.teamUsers[index].candidates = res.users
+          })
+        },
+        setTeamUser: function (index, userId, name) {
+          this.teamUsers[index].editMode = false
+          this.teamUsers[index].userId = userId
+          this.teamUsers[index].name = name
+        },
+        editTeamUser: function (index) {
+          this.teamUsers[index].editMode = true
+        },
+        deleteTeamUser: function (index) {
+          this.$set(this.teamUsers[index], 'deleted', true)
+        },
+        recoverTeamUser: function (index) {
+          this.teamUsers[index].deleted = false
         }
-
-        searchResultDom.attr('class', show);
-        searchResultDom.html(searchResult);
-
-        $(".member").on("click", function(event) {
-          idDom.val($(this).data('id'));
-          nameDom.val($(this).html());
-          closeSearchResult();
-        });
       }
-    });
-  });
+    })
+  })
 </script>
