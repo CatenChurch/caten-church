@@ -7,7 +7,7 @@
   } %>
 <%= render 'jumbotron' %>
 <div class="d-flex  align-items-end flex-column">
-  <%= link_to fa_icon('plus', text: t('.new')), new_group_report_path, class: 'btn btn-outline-primary' if current_user&.is_group_leader? %>
+  <%= link_to fa_icon('plus', text: t('.new')), new_group_report_path, class: 'btn btn-outline-primary' if current_user&.group_leader? %>
   <p class="small text-muted"><%= t('.hint') %></p>
 </div>
 <nav>

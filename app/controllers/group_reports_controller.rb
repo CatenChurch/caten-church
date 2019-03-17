@@ -35,6 +35,6 @@ class GroupReportsController < ApplicationController
   end
 
   def check_is_leader
-    redirect_to group_reports_url, alert: t('group_reports.check_is_leader.failed')  unless current_user.is_group_leader?
+    redirect_to group_reports_url, alert: t('group_reports.check_is_leader.failed')  unless current_user.group_leader?
   end
 end

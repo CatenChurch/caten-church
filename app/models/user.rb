@@ -38,6 +38,7 @@ class User < ApplicationRecord
 
   def self.birth_month(month = nil)
     return all if month.blank?
+
     user_ids = Profile.birth_month(month).pluck(:user_id)
     where(id: user_ids)
   end
@@ -72,6 +73,7 @@ class User < ApplicationRecord
   def quit(event)
     event_user = EventUser.find_by(user: self, event: event)
     raise ActiveRecord::RecordNotFound unless event_user
+
     event_user.destroy
   end
 
@@ -87,13 +89,14 @@ class User < ApplicationRecord
     token = generate_unique_secure_token
     loop do
       break token unless User.exists?(auth_token: token)
+
       token = generate_unique_secure_token
     end
     update! auth_token: token, auth_token_sent_at: Time.now
   end
 
-  def is_group_leader?
-    lead_groups.size > 0
+  def group_leader?
+    lead_groups.present?
   end
 
   private
@@ -101,5 +104,4 @@ class User < ApplicationRecord
   def generate_unique_secure_token
     SecureRandom.base58(24)
   end
-
 end
