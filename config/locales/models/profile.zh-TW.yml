@@ -22,7 +22,7 @@
   simple_form:
     placeholders:
       profile:
-        phone: 076107491
+        phone: 076178379
     prompts:
       profile:
         sex: 請選擇你的性別
