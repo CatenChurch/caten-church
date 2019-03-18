@@ -1,9 +1,9 @@
 class EventsController < ApplicationController
   authorize_resource # cancancan Event
 
-  before_action :find_event, only: [:show, :join, :quit, :participants]
+  before_action :find_event, only: %i[show join quit participants]
   before_action :check_profile, only: [:join]
-  before_action :check_registration, only: [:join, :quit]
+  before_action :check_registration, only: %i[join quit]
   before_action :check_full, only: [:join]
   before_action :check_participants, only: [:participants]
 

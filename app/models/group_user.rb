@@ -9,10 +9,10 @@ class GroupUser < ApplicationRecord
   end
 
   def be_leader!
-    self.update!(role: Role.group_leader)
+    update!(role: Role.group_leader)
   end
 
   def be_member!
-    self.update!(role: Role.group_member)
+    update!(role: Role.group_member)
   end
 end
