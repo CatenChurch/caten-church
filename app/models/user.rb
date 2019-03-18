@@ -55,7 +55,7 @@ class User < ApplicationRecord
 
   # event
   def joined?(event)
-    EventUser.find_by(user: self, event: event).present?
+    event_users.find_by(event: event).present?
   end
 
   def join!(event, remark: nil)
