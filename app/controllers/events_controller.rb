@@ -48,6 +48,14 @@ class EventsController < ApplicationController
     # didn't join this event
     redirect_to(event_url(@event), alert: t('events.join_to_show_participant')) and return unless current_user&.joined?(@event)
   end
+  
+  def check_profile
+    current_user.profile&.valid_for_joining_event = true
+    return if current_user.profile&.valid?
+
+    session[:valid_for_joining_event] = true
+    redirect_to(edit_account_profile_url, alert: t('events.no_profile'))
+  end
 
   def check_registration
     redirect_to(event_url(@event), alert: t('events.not_on_registration')) and return unless @event.on_registration?

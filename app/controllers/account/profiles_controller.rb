@@ -19,8 +19,6 @@ class Account::ProfilesController < Account::BaseController
 
   def show; end
 
-  def edit;  end
-
   def update
     if @profile.update(profile_params)
       flash[:notice] = t('.success')
@@ -35,6 +33,7 @@ class Account::ProfilesController < Account::BaseController
 
   def get_profile
     @profile = current_user.profile
+    @profile.valid_for_joining_event = session[:valid_for_joining_event]
     if @profile.blank?
       flash[:warning] = t('account.profiles.no_profile')
       redirect_to new_account_profile_url
