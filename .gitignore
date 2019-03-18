@@ -25,3 +25,6 @@ dump\.rdb
 
 # Ignore all node modules
 /node_modules/*
+
+# Ignore debugger
+.byebug_history
