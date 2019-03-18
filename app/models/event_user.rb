@@ -24,5 +24,4 @@ class EventUser < ApplicationRecord
   def no_need_to_check_arrival
     self.arrival = true
   end
-
 end
