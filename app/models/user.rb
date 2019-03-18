@@ -49,11 +49,6 @@ class User < ApplicationRecord
   #   devise_mailer.send(notification, self, *args).deliver_later
   # end
 
-  # user has profile
-  def has_valid_profile?
-    profile.present? && profile.valid?
-  end
-
   def first_time_sign_in?
     sign_in_count <= 1
   end
