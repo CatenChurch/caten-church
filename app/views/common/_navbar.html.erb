@@ -26,7 +26,7 @@
             <%= link_to fa_icon('sign-out', text: t('.log_out')), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
-        <%= nav_li(fa_icon('tachometer', text: t('.backstage')), admin_path) if is_admin? %>
+        <%= nav_li(fa_icon('tachometer', text: t('.backstage')), admin_path) if (can? :manage, :admin) %>
       <% else %>
         <%= nav_li fa_icon('user-plus', text: t('.sign_up')), new_user_registration_path %>
         <%= nav_li fa_icon('sign-in', text: t('.log_in')), new_user_session_path %>

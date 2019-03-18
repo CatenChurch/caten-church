@@ -52,8 +52,4 @@ module ApplicationHelper
              end
     content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: "#{css_class} nav-item"
   end
-
-  def is_admin?
-    can? :manage, :admin
-  end
 end
