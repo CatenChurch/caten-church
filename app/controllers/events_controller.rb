@@ -43,35 +43,17 @@ class EventsController < ApplicationController
   end
 
   def check_participants
-    unless @event.show_participants
-      flash[:warning] = t('events.show_participants_closed')
-      redirect_to event_url(@event)
-    end
-
-    unless current_user && current_user.joined?(@event)
-      flash[:warning] = t('events.join_to_show_participant')
-      redirect_to event_url(@event)
-    end
-  end
-
-  def check_profile
-    unless current_user && current_user.has_valid_profile?
-      flash[:warning] = t('events.no_profile')
-      redirect_to edit_account_profile_url
-    end
+    # can't show participants
+    redirect_to(event_url(@event), alert: t('events.show_participants_closed')) and return unless @event.show_participants
+    # didn't join this event
+    redirect_to(event_url(@event), alert: t('events.join_to_show_participant')) and return unless current_user&.joined?(@event)
   end
 
   def check_registration
-    unless @event.on_registration?
-      flash[:warning] = t('events.not_on_registration')
-      redirect_to event_url(@event)
-    end
+    redirect_to(event_url(@event), alert: t('events.not_on_registration')) and return unless @event.on_registration?
   end
 
   def check_full
-    if @event.full?
-      flash[:warning] = t('events.is_full')
-      redirect_to event_path(@event)
-    end
+    redirect_to(event_url(@event), alert: t('events.is_full')) and return if @event.full?
   end
 end
