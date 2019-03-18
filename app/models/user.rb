@@ -63,18 +63,12 @@ class User < ApplicationRecord
     EventUser.find_by(user: self, event: event).present?
   end
 
-  def join(event, params = {})
-    event_user = EventUser.new(params)
-    event_user.user = self
-    event_user.event = event
-    event_user.save!
+  def join!(event, remark: nil)
+    event_users.create! event: event, remark: remark
   end
 
-  def quit(event)
-    event_user = EventUser.find_by(user: self, event: event)
-    raise ActiveRecord::RecordNotFound unless event_user
-
-    event_user.destroy
+  def quit!(event)
+    event_users.find_by!(event: event).destroy
   end
 
   def become_admin

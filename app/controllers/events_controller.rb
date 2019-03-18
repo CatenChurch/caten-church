@@ -15,7 +15,7 @@ class EventsController < ApplicationController
   def show; end
 
   def join
-    current_user.join @event
+    current_user.join! @event, remark: params[:remark]
     flash[:notice] = t('.success')
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = "#{t('.failed')} : #{e.record.errors.messages.values.join(',')}"
@@ -24,9 +24,9 @@ class EventsController < ApplicationController
   end
 
   def quit
-    current_user.quit @event
+    current_user.quit! @event
     flash[:notice] = t('.success')
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound => _e
     flash[:alert] = "#{t('.failed')} : #{t('.no_joined')}"
   ensure
     redirect_to event_url(@event)
