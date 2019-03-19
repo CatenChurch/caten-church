@@ -19,13 +19,13 @@
         <%= f.search_field :profile_phone_or_profile_cellphone_cont, class: 'form-control mr-2' %>
         <div class="w-100 my-1"></div>
         <%= f.label Profile.human_attribute_name(:sex), class: 'mr-1' %>
-        <%= f.select :profile_sex_eq, ['男', '女'], include_blank: true, class: 'form-control mr-2' %>
+        <%= f.select :profile_sex_eq, ['男', '女'], { include_blank: true }, { class: 'form-control mr-2' } %>
         <div class="w-100 my-1"></div>
         <%= f.label Profile.human_attribute_name(:birth), class: 'mr-1' %>
-        <%= f.select :birth_month, (1..12).to_a, include_blank: true, class: 'form-control mr-2' %>
+        <%= f.select :birth_month, (1..12).to_a, { include_blank: true }, { class: 'form-control mr-2' } %>
         <div class="w-100 my-1"></div>
         <%= f.label Role.model_name.human, class: 'mr-1' %>
-        <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), include_blank: true, class: 'form-control mr-2' %>
+        <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), { include_blank: true }, { class: 'form-control mr-2' } %>
         <div class="w-100 my-1"></div>
         <%= link_to fa_icon('undo', text: t('button.clear')), admin_members_path, class: 'btn btn-outline-secondary ml-auto' %>
         <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2' %>
