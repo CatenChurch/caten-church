@@ -1,15 +1,25 @@
 <%= render 'jumbotron' %>
 <div class="container">
   <h1><%= t '.title' %></h1>
-  <%= simple_form_for(@report) do |f| %>
-    <%= f.error_notification %>
-    <%= f.association :group, collection: current_user.lead_groups %>
-    <%= f.input :adults_count %>
-    <%= f.input :children_count %>
-    <%= f.input :dedication %>
-    <%= f.input :next_meeting_time %>
-    <%= f.input :next_meeting_place %>
-    <%= f.button :submit %>
+  <% if params.dig(:group_report, :group_id) %>
+    <%= simple_form_for(@report) do |f| %>
+      <%= f.error_notification %>
+      <%= f.association :group, collection: @lead_groups, include_blank: false, input_html: { readonly: true } %>
+      <%= f.input :adults_count %>
+      <%= f.input :children_count %>
+      <%= f.input :dedication %>
+      <%= f.input :meeting_time %>
+      <%= f.input :meeting_place %>
+      <%= f.input :next_meeting_time %>
+      <%= f.input :next_meeting_place %>
+      <%= f.button :submit %>
+    <% end %>
+  <% else %>
+    <%= simple_form_for(@report, url: new_group_report_url, method: :get) do |f| %>
+      <%= f.error_notification %>
+      <%= f.association :group, collection: @lead_groups %>
+      <%= f.button :submit, t('button.next') %>
+    <% end %>
   <% end %>
   <%= link_to t('.back'), group_reports_path, class: 'btn btn-outline-secondary mt-2' %>
 </div>

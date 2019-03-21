@@ -5,9 +5,11 @@
     attributes:
       group_report:
         group: 小組
-        adults_count: 大人出席數
-        children_count: 小孩出席數
+        adults_count: 大人人數
+        children_count: 小孩人數
         dedication: 奉獻金額
+        meeting_time: 聚會時間
+        meeting_place: 聚會地點
         next_meeting_time: 下次聚會時間
         next_meeting_place: 下次聚會地點
         creater: 建立者

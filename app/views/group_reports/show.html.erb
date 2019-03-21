@@ -6,6 +6,8 @@
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :adults_count %></strong><%= @report.adults_count %></p>
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :children_count %></strong><%= @report.children_count %></p>
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :dedication %></strong><%= @report.dedication %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :meeting_time %></strong><%= l @report.meeting_time %></p>
+  <p><strong class="mr-2"><%= GroupReport.human_attribute_name :meeting_place %></strong><%= @report.meeting_place %></p>
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :next_meeting_time %></strong><%= l @report.next_meeting_time %></p>
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :next_meeting_place %></strong><%= @report.next_meeting_place %></p>
   <p><strong class="mr-2"><%= GroupReport.human_attribute_name :creater %></strong><%= @report.creater&.profile&.name %></p>

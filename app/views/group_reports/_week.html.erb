@@ -11,6 +11,7 @@
             <tr>
               <th><%= Group.human_attribute_name :leader %></th>
               <th><%= GroupReport.human_attribute_name :adults_count %></th>
+              <th><%= GroupReport.human_attribute_name :meeting_time %></th>
               <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
             </tr>
           </thead>
@@ -18,6 +19,7 @@
             <tr>
               <td><%= group.leader&.profile&.name %></td>
               <td><%= group.week_report(prev: prev)&.adults_count %></td>
+              <td><%= l group.week_report(prev: prev)&.meeting_time if group.week_report(prev: prev)&.meeting_time %></td>
               <td><%= l group.week_report(prev: prev)&.next_meeting_time if group.week_report(prev: prev)&.next_meeting_time %></td>
             </tr>
           </tbody>
@@ -25,6 +27,7 @@
             <tr>
               <th><%= GroupReport.human_attribute_name :dedication %></th>
               <th><%= GroupReport.human_attribute_name :children_count %></th>
+              <th><%= GroupReport.human_attribute_name :meeting_place %></th>
               <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
             </tr>
           </thead>
@@ -32,6 +35,7 @@
             <tr>
               <td><%= group.week_report(prev: prev)&.dedication %></td>
               <td><%= group.week_report(prev: prev)&.children_count %></td>
+              <td><%= group.week_report(prev: prev)&.meeting_place %></td>
               <td><%= group.week_report(prev: prev)&.next_meeting_place %></td>
             </tr>
           </tbody>
@@ -49,6 +53,8 @@
       <th><%= GroupReport.human_attribute_name :adults_count %></th>
       <th><%= GroupReport.human_attribute_name :children_count %></th>
       <th><%= GroupReport.human_attribute_name :dedication %></th>
+      <th><%= GroupReport.human_attribute_name :meeting_time %></th>
+      <th><%= GroupReport.human_attribute_name :meeting_place %></th>
       <th><%= GroupReport.human_attribute_name :next_meeting_time %></th>
       <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
     </tr>
@@ -61,6 +67,8 @@
         <td><%= group.week_report(prev: prev)&.adults_count %></td>
         <td><%= group.week_report(prev: prev)&.children_count %></td>
         <td><%= group.week_report(prev: prev)&.dedication %></td>
+        <td><%= l group.week_report(prev: prev)&.meeting_time if group.week_report(prev: prev)&.meeting_time %></td>
+        <td><%= group.week_report(prev: prev)&.meeting_place %></td>
         <td><%= l group.week_report(prev: prev)&.next_meeting_time if group.week_report(prev: prev)&.next_meeting_time %></td>
         <td><%= group.week_report(prev: prev)&.next_meeting_place %></td>
       </tr>
