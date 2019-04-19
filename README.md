@@ -1,40 +1,30 @@
 # CatenChurch
-本專案為茄典教會網站，網址是<https://caten-church.com/>
 
-專案的架構為 `Rails 5.0.1` + `Puma` + `Postgres 9.5.4.1` + `Heroku` + `Newrelic` + `Sidekiq` + `Redis`
+本專案為茄典教會網站，網址是 <https://caten-church.com/>
 
-- 前台
-  - 帳號管理
-  - 活動一覽
-    - 報名活動
-  - 公告一覽
-  - 聯絡我們
-- 後台管理員
-  - 會員管理
-  - 活動管理
-  - 公告管理
-  - 聯絡管理
+專案的架構為 `Rails` + `Puma` + `Postgres` + `Sidekiq` + `Redis` 架設在 `Heroku`，監控使用 `Newrelic`
+
+## Requirements
+
+- Ruby
+- Rails
+- Nodejs
+- Yarn
+- Postgresql (`brew install postgresql`)
+- Redis (`brew install redis`)
 
 ## Setup
 
-clone and bundle
-
 ```bash
-$ git clone https://github.com/CatenChurch/CatenChurch.git
-$ cd CatenChurch
+$ git clone https://github.com/CatenChurch/caten-church.git
+$ cd caten-church
 $ bundle install
 ```
 
-install database
-
-```bash
-$ brew install postgresql
-$ brew install redis
-```
-
-setup config/database.yml
+fill in database connection
 
 ```yml
+# config/database.yml
 development:
   <<: *default
   database: 'your-database-name'
@@ -42,9 +32,16 @@ development:
   password: 'your-user-password'
 ```
 
-use figaro setup config/application.yml (see config/application.yml.example)
+setup env
+
+```
+$ mv config/application.yml.example config/application.yml
+```
+
+fill in your values in `config/application.yml`
 
 ```yml
+# config/application.yml
 FB_APP_ID: "FB_APP_ID"
 FB_APP_SECRET: "FB_APP_SECRET"
 GOOGLE_API_KEY: "GOOGLE_API_KEY"
@@ -67,67 +64,21 @@ $ rails db:setup
 $ rails db:migrate
 ```
 
-run the server
-```
-puma -C config/puma.rb
-```
-and worker
+run server
 
 ```
-sidekiq -C config/sidekiq.yml
+# rails way
+$ rails s
+
+# via puma
+$ puma -C config/puma.rb
 ```
 
-## Development Tools
-
-### node & nvm
-install node & nvm via brew
-
-```bash
-$ brew install node
-$ brew link node
-$ brew install nvm
-$ brew link nvm
-$ brew info nvm
-$ mkdir ~/.nvm
-```
-
-open ~/.bash_profile and add :
+run worker
 
 ```
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+$ sidekiq -C config/sidekiq.yml
 ```
-
-### hotel.dev
-install hotel via npm
-
-```bash
-$ npm install -g hotel
-```
-
-config proxy
-
-https://github.com/typicode/hotel/blob/master/docs/README.md
-
-osx :
-
-```
-Network Preferences > Advanced > Proxies > Automatic Proxy Configuration
-```
-
-url : http://localhost:2000/proxy.pac
-
-usage
-
-````bash
-# start hotel
-$ hotel start
-# cd to project_path and add to hotel
-$ cd project_path
-$ hotel add 'rails server -p $PORT -b 127.0.0.1' -e GEM_PATH --name caten -p 3000
-````
-
-and got to localhost:2000 or hotel.dev
 
 ## Rails
 
@@ -184,6 +135,7 @@ $ rake counter_cache:reset_all
 ```
 
 ### sidekiq
+
 https://github.com/mperham/sidekiq
 
 ```ruby
@@ -228,7 +180,8 @@ then config/sidekiq.yml concurrency: 10
 
 > heroku postgres free plan can only provide 20 connection max so set pool < 20
 
-run a worker
+run worker
+
 ```bash
 $ sidekiq -C config/sidekiq.yml
 ```
@@ -240,7 +193,7 @@ ActionMailer queue name default is `mailers`
 
 ## Heroku
 
-setup a Procfile
+create a `Procfile` file in root path (`$ touch Procfile`)
 
 ```
 # Procfile
@@ -248,44 +201,41 @@ web: bundle exec puma -C config/puma.rb
 sidekid: bundle exec sidekiq -C config/sidekiq.yml
 ```
 
-use web dyno and sidekid worker
+run web dyno and sidekid worker via heroku-cli
 
 ```bash
 $ heroku ps:scale web=1
 $ heroku ps:scale sidekid=1
 ```
 
-部署指令
 deploy to heroku
 
 ```bash
 $ git push heroku master
-$ heroku run rake db:migrate
+$ heroku run rails db:migrate
 ```
 
 set Heroku env value
 
 ```bash
 # by heroku cli
-heroku config:set key=value
+$ heroku config
+$ heroku config:set key=value
+
 # by figaro
 $ figaro heroku:set -e production
+
 # by heruku web dashboard Setting > Reveal Config Vars
 ```
 
-查看heroku環境變數
+backup database to local postgres database name `local_db_name`
 
 ```bash
-$ heroku config
+$ heroku pg:pull DATABASE_URL local_db_name --app caten-church
 ```
 
-備份 db 到本地的 local_db_name
+stream heroku logs
 
-```bash
-$ heroku pg:pull DATABASE_URL localDbName --app caten-church
-```
-
-Logger
 ```bash
 $ heroku logs --tail
 ```
@@ -295,6 +245,7 @@ $ heroku logs --tail
 參考 https://docs.newrelic.com/docs/agents/ruby-agent/installation/install-new-relic-ruby-agent#Installing_the_Gem
 
 ### sendgrid
+
 在 config/environments/production.rb 設定  
 用 smtp 連結 sendgrid 寄信  
 
@@ -316,6 +267,7 @@ config.action_mailer.smtp_settings = {
 ```
 
 到 config/application.yml 加上
+
 ```ruby
 production:
   MAIL_USERNAME: "MAIL_USERNAME"
@@ -332,20 +284,3 @@ production:
 ### Heroku and sidekiq and redistogo
 
 see https://www.youtube.com/watch?v=GBEDvF1_8B8&t=774s
-
-## Linux
-
-### 檢查port被哪個行程佔用
-
-例如 port 3000
-
-```bash
-# 列出 port 3000 的行程
-$ lsof -i:3000
-# 列出 port 3000 行程的 pid
-$ lsof -t -i:3000
-# 透過 pid 清除行程
-$ kill $(lsof -t -i:3000)
-# or 使用 -9 option
-$ kill -9 $(lsof -t -i:3000)
-```
