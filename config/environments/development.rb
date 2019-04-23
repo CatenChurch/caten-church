@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -64,15 +66,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV['MAIL_USERNAME'],
-    password:             ENV['MAIL_PASSWORD'],
-    authentication:       'plain',
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: Rails.application.credentials[:development][:mail][:username],
+    password: Rails.application.credentials[:development][:mail][:password],
+    authentication: 'plain',
     enable_starttls_auto: true
   }
-  
+
   # queuing backend jobs use sidekiq
   config.active_job.queue_adapter = :sidekiq
 end

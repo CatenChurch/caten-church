@@ -1,5 +1,5 @@
 <%= render 'jumbotron' %>
-<% if current_user.facebook_messenger.blank? # current_user no facebook_messenger %>
+<% if current_user.facebook_messenger.blank? %>
   <% content_for :fb_messenger_status do %>
     <span class="small ml-auto"><%= t '.not_auth' %></span>
   <% end %>
@@ -8,7 +8,7 @@
     <script type="text/javascript">
       window.fbAsyncInit = function() {
         FB.init({
-          appId: '<%= ENV['FB_APP_ID'] %>',
+          appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
           status: true,
           autoLogAppEvents: true,
           xfbml: true,
@@ -25,15 +25,14 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
     <div class="fb-send-to-messenger"
-    messenger_app_id='<%= ENV['FB_APP_ID'] %>'
-    page_id='<%= ENV['FB_PAGE_ID'] %>'
-    data-ref="user_id=<%= current_user.id %>::auth_token=<%= current_user.auth_token %>::action=activate_messenger"
-    color="blue"
-    size="standard">
-    </div>
-    <!-- <div><%= link_to 'Send to FB Messenger', "https://m.me/#{ENV['FB_PAGE_ID']}?ref=user@#{current_user.id}", class: 'btn btn-primary', target: '_' %></div> -->
+      messenger_app_id='<%= Rails.application.credentials[:facebook][:app_id] %>'
+      page_id='<%= Rails.application.credentials[:facebook][:page_id] %>'
+      data-ref="user_id=<%= current_user.id %>::auth_token=<%= current_user.auth_token %>::action=activate_messenger"
+      color="blue"
+      size="standard"></div>
+    <div><%# link_to 'Send to FB Messenger', "https://m.me/#{Rails.application.credentials[:facebook][:page_id]}?ref=user@#{current_user.id}", class: 'btn btn-primary', target: '_' %></div>
   <% end %>
-<% elsif current_user.facebook_messenger.activated? # current_user facebook_messenger activated %>
+<% elsif current_user.facebook_messenger.activated? %>
   <% content_for :fb_messenger_status do %>
     <span class="small ml-auto"><%= Messenger.human_attribute_name('activated.true') %></span>
   <% end %>
@@ -44,7 +43,7 @@
       <%= fa_icon('bell-slash', text: t('.pause'),) %>
     <% end %>
   <% end %>
-<% else # current_user facebook_messenger not activated %>
+<% else %>
   <% content_for :fb_messenger_status do %>
     <span class="small ml-auto"><%= Messenger.human_attribute_name('activated.false') %></span>
   <% end %>

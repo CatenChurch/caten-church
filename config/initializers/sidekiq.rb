@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
+url = Rails.application.credentials.dig(Rails.env.to_sym, :redis_url) ||
+      ENV['REDIS_URL'] ||
+      'redis://localhost:6379/1'
+
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV['REDIS_URL'] }
+  config.redis = { url: url }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV['REDIS_URL'] }
+  config.redis = { url: url }
 end
-
-# Set Redis url to ENV['REDIS_PROVIDER'], and Sidekiq will use it without spec
-# Redis.new(url: ENV['REDIS_PROVIDER']) = Redis.new if ENV['REDIS_PROVIDER'] have value
-# read: https://github.com/mperham/sidekiq/wiki/Using-Redis#using-an-env-variable
-
 
 # Connection pool with Redis
 # read: https://github.com/mperham/sidekiq/wiki/Using-Redis#complete-control

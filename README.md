@@ -1,4 +1,4 @@
-# CatenChurch
+# caten church
 
 本專案為茄典教會網站，網址是 <https://caten-church.com/>
 
@@ -21,46 +21,16 @@ $ cd caten-church
 $ bundle install
 ```
 
-fill in database connection
-
-```yml
-# config/database.yml
-development:
-  <<: *default
-  database: 'your-database-name'
-  username: 'your-user-name'
-  password: 'your-user-password'
-```
-
-setup env
-
-```
-$ mv config/application.yml.example config/application.yml
-```
-
-fill in your values in `config/application.yml`
-
-```yml
-# config/application.yml
-FB_APP_ID: "FB_APP_ID"
-FB_APP_SECRET: "FB_APP_SECRET"
-GOOGLE_API_KEY: "GOOGLE_API_KEY"
-development:
-  MAIL_USERNAME: "MAIL_USERNAME"
-  MAIL_PASSWORD: "MAIL_PASSWORD"
-  REDIS_URL: 'redis://127.0.0.1:6379/0'
-production:
-  MAIL_USERNAME: "MAIL_USERNAME"
-  SENDGRID_USERNAME: "SENDGRID_USERNAME"
-  SENDGRID_PASSWORD: "SENDGRID_PASSWORD"
-  SENDGRID_API_KEY: "SENDGRID_API_KEY"
-  REDIS_URL: 'REDISTOGO_URL'
-```
-
-create database
+Fill in database connection in `config/database.yml`, then create database
 
 ```sh
 $ rails db:setup
+```
+
+Copy example credentials from `config/credentials.yml.example`, then fill in your credentials
+
+```sh
+$ EDITOR="atom --wait" rails credentials:edit
 ```
 
 ## Usage
@@ -99,3 +69,8 @@ $ rails mail:event:opening_notice_before_1
 # generate public/sitmap.xml
 $ rake sitemap:refresh
 ```
+
+## Deploy
+
+ - make sure `ENV["RAILS_MASTER_KEY"]` or `config/master.key` exists
+ - make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists

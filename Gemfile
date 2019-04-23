@@ -33,7 +33,6 @@ gem 'rolify' # Role management, https://github.com/RolifyCommunity/rolify
 gem 'rubyzip', '>= 1.2.1' # Excel, https://github.com/straydogstudio/axlsx_rails
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844' # Excel, https://github.com/straydogstudio/axlsx_rails
 gem 'axlsx_rails' # Excel, https://github.com/straydogstudio/axlsx_rails
-gem 'figaro' # ENV values, https://github.com/laserlemon/figaro
 gem 'sidekiq' # Job Workers, https://github.com/mperham/sidekiq
 
 # I18n

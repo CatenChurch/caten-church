@@ -1,10 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # Sidekiq
   pool: 10
-  # Default setting
-  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i %>
 
 development:
   <<: *default
@@ -20,4 +17,4 @@ test:
 
 production:
   <<: *default
-  password:
+  url: <%= Rails.application.credentials[:production].fetch(:database_url) { ENV[:DATABASE_URL] } %>
