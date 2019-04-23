@@ -2,7 +2,7 @@
 
 本專案為茄典教會網站，網址是 <https://caten-church.com/>
 
-專案的架構為 `Rails` + `Puma` + `Postgres` + `Sidekiq` + `Redis` 架設在 `Heroku`，監控使用 `Newrelic`
+專案的架構為 `Rails` + `Puma` + `Postgres` + `Sidekiq` + `Redis` 架設在 `Heroku`
 
 ## Requirements
 

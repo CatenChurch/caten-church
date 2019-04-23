@@ -17,9 +17,6 @@ gem 'koala' # Facebook Graph API, https://github.com/arsduo/koala
 gem 'line-bot-api' # Line Bot, https://github.com/line/line-bot-sdk-ruby
 gem 'line-bot-message-builder', '~> 0.1.1' # Line Messaging API, https://github.com/jk195417/line-bot-message-builder
 
-# Outside Services
-gem 'newrelic_rpm' # New Relic Monitoring, https://github.com/newrelic/rpm
-
 # Assets
 gem 'font-awesome-rails' # Icon
 
