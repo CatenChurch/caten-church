@@ -18,7 +18,7 @@ gem 'line-bot-api' # Line Bot, https://github.com/line/line-bot-sdk-ruby
 gem 'line-bot-message-builder', '~> 0.1.1' # Line Messaging API, https://github.com/jk195417/line-bot-message-builder
 
 # Assets
-gem 'font-awesome-rails' # Icon
+gem 'font-awesome-sass', '~> 5.8.1' # Icon
 
 # Features
 gem 'kaminari' # Pagination, https://github.com/kaminari/kaminari, $ rails g kaminari:views bootstrap4
