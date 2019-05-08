@@ -1,106 +1,87 @@
 <%= render 'jumbotron' %>
-<% if current_user.facebook_messenger.blank? %>
-  <% content_for :fb_messenger_status do %>
-    <span class="small ml-auto"><%= t '.not_auth' %></span>
-  <% end %>
-  <% content_for :fb_messenger_btn do %>
-    <!-- fb js sdk -->
-    <script type="text/javascript">
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
-          status: true,
-          autoLogAppEvents: true,
-          xfbml: true,
-          version: 'v3.2'
-        });
-      };
-      
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "https://connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <div class="fb-send-to-messenger"
-      messenger_app_id='<%= Rails.application.credentials[:facebook][:app_id] %>'
-      page_id='<%= Rails.application.credentials[:facebook][:page_id] %>'
-      data-ref="user_id=<%= current_user.id %>::auth_token=<%= current_user.auth_token %>::action=activate_messenger"
-      color="blue"
-      size="standard"></div>
-    <div><%# link_to 'Send to FB Messenger', "https://m.me/#{Rails.application.credentials[:facebook][:page_id]}?ref=user@#{current_user.id}", class: 'btn btn-primary', target: '_' %></div>
-  <% end %>
-<% elsif current_user.facebook_messenger.activated? %>
-  <% content_for :fb_messenger_status do %>
-    <span class="small ml-auto"><%= Messenger.human_attribute_name('activated.true') %></span>
-  <% end %>
-  <% content_for :fb_messenger_btn do %>
-    <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: false }),
-                method: :patch,
-                class: 'btn btn-sm btn-warning pull-right' do %>
-      <%= fa_icon('bell-slash', text: t('.pause'),) %>
-    <% end %>
-  <% end %>
-<% else %>
-  <% content_for :fb_messenger_status do %>
-    <span class="small ml-auto"><%= Messenger.human_attribute_name('activated.false') %></span>
-  <% end %>
-  <% content_for :fb_messenger_btn do %>
-    <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: true }),
-                method: :patch,
-                class: 'btn btn-sm btn-primary pull-right' do %>
-      <%= fa_icon('bell', text: t('.start')) %>
-    <% end %>
-  <% end %>
-<% end %>
 <div class="container">
   <div class="card-deck">
     <div class="card">
       <div class="card-body">
         <h3 class="card-title text-center">
-          <%= fa_icon("bell-o", text: Messenger.model_name.human) %>
+          <i class="fas fa-bell mr-1"></i> <%= Messenger.model_name.human %>
         </h3>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <div class="d-flex">
-            <strong><%= User.human_attribute_name :email %></strong>
-            <span class="text-muted small ml-auto"><%= t '.default_used' %></span>
-          </div>
-          <div class="pull-right"><%= current_user.email %></div>
-        </li>
-        <li class="list-group-item">
-          <div class="d-flex">
-            <strong><%= t '.fb_messenger' %></strong>
-            <%= yield :fb_messenger_status %>
-          </div>
-          <div>
-            <%= yield :fb_messenger_btn %>
-          </div>
-        </li>
-      </ul>
+      <div class="list-group list-group-flush">
+        <%= messenger_list_item(User.human_attribute_name(:email), t('.default_used'), current_user.email) %>
+        <% if current_user.facebook_messenger.blank? %>
+          <%= messenger_list_item t('.fb_messenger'), t('.not_auth') do %>
+            <div class="fb-send-to-messenger"
+                 messenger_app_id="<%= Rails.application.credentials[:facebook][:app_id] %>"
+                 page_id="<%= Rails.application.credentials[:facebook][:page_id] %>"
+                 data-ref="user_id=<%= current_user.id %>::auth_token=<%= current_user.auth_token %>::action=activate_messenger"
+                 color="blue"
+                 size="standard">
+            </div>
+            <div>
+              <%# link_to 'Send to FB Messenger',
+                          "https://m.me/#{Rails.application.credentials[:facebook][:page_id]}?ref=user@#{current_user.id}",
+                          class: 'btn btn-primary',
+                          target: '_' %>
+            </div>
+          <% end %>
+        <% elsif current_user.facebook_messenger.activated? %>
+          <%= messenger_list_item t('.fb_messenger'), Messenger.human_attribute_name('activated.true') do %>
+            <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: false }),
+                        method: :patch,
+                        class: 'btn btn-sm btn-outline-warning ml-auto' do %>
+              <i class="fas fa-bell-slash mr-1"></i> <%= t '.pause' %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= messenger_list_item t('.fb_messenger'), Messenger.human_attribute_name('activated.true') do %>
+            <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: true }),
+                        method: :patch,
+                        class: 'btn btn-sm btn-outline-primary ml-auto' do %>
+              <i class="fas fa-bell mr-1"></i> <%= t '.start' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <div class="card">
       <div class="card-body">
         <h3 class="card-title text-center">
-          <%= fa_icon("send-o", text: Subscription.model_name.human) %>
-          <%= link_to(edit_account_subscription_path, class: 'btn btn-sm btn-primary ml-2') do %>
-            <%= fa_icon('pencil', text: t('.edit')) %>
+          <i class="fas fa-paper-plane mr-1"></i> <%= Subscription.model_name.human %>
+          <%= link_to edit_account_subscription_path, class: 'btn btn-sm btn-outline-primary ml-1' do %>
+            <i class="fas fa-edit mr-1"></i> <%= t '.edit' %>
           <% end %>
         </h3>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex justify-content-between px-5">
-          <div><strong><%= Subscription.human_attribute_name :new_events %></strong></div>
-          <div><%= Subscription.human_attribute_name "new_events.#{@subscription.new_events}" %></div>
-        </li>
-        <li class="list-group-item d-flex justify-content-between px-5">
-          <div><strong><%= Subscription.human_attribute_name :joined_events %></strong></div>
-          <div><%= Subscription.human_attribute_name "joined_events.#{@subscription.joined_events}" %></div>
-        </li>
-      </ul>
+      <div class="list-group list-group-flush">
+        <div class="list-group-item d-flex flex-wrap">
+          <strong><%= Subscription.human_attribute_name :new_events %></strong>
+          <span class="text-muted small ml-auto"><%= Subscription.human_attribute_name "new_events.#{@subscription.new_events}" %></span>
+        </div>
+        <div class="list-group-item d-flex flex-wrap">
+          <strong><%= Subscription.human_attribute_name :joined_events %></strong>
+          <span class="text-muted small ml-auto"><%= Subscription.human_attribute_name "joined_events.#{@subscription.joined_events}" %></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<!-- fb js sdk -->
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
+      status: true,
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: 'v3.2'
+    });
+  };
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>

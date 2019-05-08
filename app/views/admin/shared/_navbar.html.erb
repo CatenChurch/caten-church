@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <%= link_to admin_path, class: 'navbar-brand' do %>
+    <%= image_tag 'brand.png', height: 30 %>
+    <%= t '.brand' %>
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" ata-target="#navbar-content">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbar-content">
+    <div class="navbar-nav mr-auto d-sm-none">
+      <%= link_to admin_members_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-members' do %>
+        <i class="fas fa-user"></i> <%= User.model_name.human %>
+      <% end %>
+      <%= link_to admin_events_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-events' do %>
+        <i class="fas fa-running"></i> <%= Event.model_name.human %>
+      <% end %>
+      <%= link_to admin_groups_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-groups' do %>
+        <i class="fas fa-users"></i> <%= Group.model_name.human %>
+      <% end %>
+      <%= link_to admin_announcements_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-announcements' do %>
+        <i class="fas fa-bullhorn"></i> <%= Announcement.model_name.human %>
+      <% end %>
+      <%= link_to admin_contacts_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-contacts' do %>
+        <i class="fas fa-inbox"></i> <%= Contact.model_name.human %>
+      <% end %>
+      <hr class="w-100">
+      <%= link_to admin_service_teams_path, class: 'nav-link d-flex align-items-center justify-content-between', id: 'nav-service_teams' do %>
+        <i class="fas fa-users"></i> <%= Service::Team.model_name.human %>
+      <% end %>
+      <%= link_to admin_service_roles_path, class: 'nav-link d-flex align-items-center justify-content-between', id: 'nav-service_roles' do %>
+        <i class="fas fa-user-tag"></i> <%= Service::Role.model_name.human %>
+      <% end %>
+      <%= link_to admin_service_schedules_path, class: 'nav-link d-flex align-items-center justify-content-between', id: 'nav-service_schedules' do %>
+        <i class="fas fa-calendar"></i> <%= Service::Schedule.model_name.human %>
+      <% end %>
+      <hr class="w-100">
+      <%= link_to sidekiq_web_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', target: :_blank do %>
+        <i class="fas fa-server"></i> <%= t '.sidekiq' %>
+      <% end %>
+      <hr class="w-100">
+    </div>
+    <div class="navbar-nav ml-auto">
+      <%= link_to root_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
+        <i class="fas fa-sign-out-alt mr-1"></i> <%= t '.back' %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+<script type="text/javascript">
+  paths = window.location.pathname.split('/')
+  $(`#nav-${paths[2]}`).addClass('active')
+</script>

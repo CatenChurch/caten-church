@@ -1,7 +1,23 @@
-<%= link_to fa_icon('list', text: t('.back')), admin_groups_path, class: 'btn btn-outline-secondary' %>
-<h1 class="my-2 text-center"><%= Group.model_name.human %></h1>
-<div class="my-2 d-flex">
-  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_group_path(@group), class: 'btn btn-outline-primary ml-auto' %>
-  <%= link_to fa_icon('trash', text: t('button.delete')), admin_group_path(@group), class: 'btn btn-outline-danger ml-1', method: :delete, data: { confirm: t('.confirm') } %>
+<%= link_to admin_groups_path, class: 'btn btn-outline-secondary' do %>
+  <i class="fas fa-list"></i> <%= t '.back' %>
+<% end %>
+<h1 class="mt-2 text-center"><%= Group.model_name.human %></h1>
+<div class="my-2 btn-toolbar">
+  <div class="btn-group ml-auto">
+    <%= link_to edit_admin_group_path(@group), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+    <% end %>
+    <%= link_to admin_group_path(@group),
+              class: 'btn btn-sm btn-outline-danger',
+              method: :delete,
+              data: { confirm: t('.confirm') } do %>
+      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+    <% end %>
+  </div>
 </div>
 <%= render 'groups/group', group: @group, stage: :backstage %>
+<br>
+<h3 class="text-center my-2"><%= GroupReport.model_name.human %></h3>
+<%= paginate @reports %>
+<%= render 'group_reports/table', reports: @reports, stage: :backstage %>
+<%= paginate @reports %>

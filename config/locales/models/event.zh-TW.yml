@@ -4,6 +4,7 @@
       event: 活動
     attributes:
       event:
+        id: ID
         name: 活動名稱
         nature: 性質
         description: 簡述
@@ -11,6 +12,7 @@
         min_sign_up_number: 成立人數
         sign_up_begin: 報名開始
         sign_up_end: 報名截止
+        sign_up_time: 報名時間
         start: 活動開始
         over: 活動結束
         time: 活動時間

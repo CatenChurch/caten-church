@@ -1,12 +1,12 @@
-<h1 class="text-center"><%= t('.title') %></h1>
+<h1 class="text-center"><%= t '.title' %></h1>
 <br>
 <div class="d-flex flex-wrap">
-  <div class="flex-grow-1"><%= render 'card_link', title: User.model_name.human, icon: fa_icon('user-circle'), path: admin_members_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Event.model_name.human, icon: fa_icon('futbol-o'), path: admin_events_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Group.model_name.human, icon: fa_icon('users'), path: admin_groups_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Announcement.model_name.human, icon: fa_icon('bullhorn'), path: admin_announcements_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Contact.model_name.human, icon: fa_icon('comments'), path: admin_contacts_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Service::Team.model_name.human, icon: fa_icon('users'), path: admin_service_teams_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Service::Role.model_name.human, icon: fa_icon('user-md'), path: admin_service_roles_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Service::Schedule.model_name.human, icon: fa_icon('calendar'), path: admin_service_schedules_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: User.model_name.human, icon: icon('fas', 'user'), path: admin_members_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Event.model_name.human, icon: icon('fas', 'running'), path: admin_events_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Group.model_name.human, icon: icon('fas', 'users'), path: admin_groups_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Announcement.model_name.human, icon: icon('fas', 'bullhorn'), path: admin_announcements_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Contact.model_name.human, icon: icon('fas', 'inbox'), path: admin_contacts_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Service::Team.model_name.human, icon: icon('fas', 'users'), path: admin_service_teams_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Service::Role.model_name.human, icon: icon('fas', 'user-tag'), path: admin_service_roles_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Service::Schedule.model_name.human, icon: icon('fas', 'calendar'), path: admin_service_schedules_path %></div>
 </div>

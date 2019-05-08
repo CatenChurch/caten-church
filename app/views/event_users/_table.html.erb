@@ -1,0 +1,60 @@
+<% stage ||= :frontstage %>
+<table class="table d-sm-table d-none">
+  <thead class="thead-light">
+    <tr>
+      <th><%= Profile.human_attribute_name :name %></th>
+      <% if stage == :backstage %>
+        <th><%= Profile.human_attribute_name :sex %></th>
+        <th><%= Profile.human_attribute_name :birth %></th>
+        <th><%= Profile.human_attribute_name :id_number %></th>
+        <th><%= User.human_attribute_name :email %></th>
+        <th><%= Profile.human_attribute_name :phone %></th>
+        <th><%= Profile.human_attribute_name :emergency_contact %></th>
+        <th><%= EventUser.human_attribute_name :paid %></th>
+        <th><%= EventUser.human_attribute_name :arrival %></th>
+        <th><%= EventUser.human_attribute_name :remark %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event_users.each do |event_user| %>
+      <tr>
+        <td><%= event_user.user.profile&.name %></td>
+        <% if stage == :backstage %>
+          <td><%= event_user.user.profile&.sex %></td>
+          <td><%= l event_user.user.profile&.birth %></td>
+          <td><%= event_user.user.profile&.id_number %></td>
+          <td><%= event_user.user.email %></td>
+          <td>
+            <%= event_user.user.profile&.phone %>
+            <br>
+            <%= event_user.user.profile&.cellphone %></td>
+          <td><%= event_user.user.profile&.emergency_contact %></td>
+          <td><%= EventUser.human_attribute_name "paid.#{event_user.paid}" %></td>
+          <td><%= EventUser.human_attribute_name "arrival.#{event_user.arrival}" %></td>
+          <td><%= event_user.remark %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- moblie -->
+<div class="list-group d-sm-none">
+  <% @event_users.each do |event_user| %>
+    <div class="list-group-item list-group-item-action">
+      <p><%= Profile.human_attribute_name :name %> : <%= event_user.user.profile&.name %></p>
+      <% if stage == :backstage %>
+        <p><%= Profile.human_attribute_name :sex %> : <%= event_user.user.profile&.sex %></p>
+        <p><%= Profile.human_attribute_name :birth %> : <%= l event_user.user.profile&.birth %></p>
+        <p><%= Profile.human_attribute_name :id_number %> : <%= event_user.user.profile&.id_number %></p>
+        <p><%= User.human_attribute_name :email %> : <%= event_user.user.email %></p>
+        <p><%= Profile.human_attribute_name :phone %> : <%= event_user.user.profile&.phone %></p>
+        <p><%= Profile.human_attribute_name :cellphone %> : <%= event_user.user.profile&.cellphone %></p>
+        <p><%= Profile.human_attribute_name :emergency_contact %> : <%= event_user.user.profile&.emergency_contact %></p>
+        <p><%= EventUser.human_attribute_name :paid %> : <%= EventUser.human_attribute_name "paid.#{event_user.paid}" %></p>
+        <p><%= EventUser.human_attribute_name :arrival %> : <%= EventUser.human_attribute_name "arrival.#{event_user.arrival}" %></p>
+        <p><%= EventUser.human_attribute_name :remark %> : <%= event_user.remark %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

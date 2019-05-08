@@ -1,23 +1,80 @@
 <h1 class="text-center"><%= t '.title' %></h1>
-<div class="my-2 d-flex">
-  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
-    <%= fa_icon('search', text: t('button.search_conditions')) %>
+<div class="mt-2 btn-toolbar">
+  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
+    <i class="fas fa-search"></i> <%= t('button.search_conditions') %>
   </a>
-  <%= link_to fa_icon('plus', text: t('.new')), new_admin_group_path, class: 'btn btn-outline-success ml-auto' %>
+  <%= link_to new_admin_group_path, class: 'btn btn-outline-success ml-auto' do %>
+    <i class="fas fa-plus"></i> <%= t '.new' %>
+  <% end %>
 </div>
-<div class="collapse" id="collapse-search">
-  <div class="card my-2">
+<div class="collapse mt-2" id="collapse-search">
+  <div class="card">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_groups_url, class: 'form-inline my-2 mx-5' do |f| %>
-        <%= f.label Group.human_attribute_name(:name), class: 'mr-1' %>
-        <%= f.search_field :name_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= link_to fa_icon('undo', text: t('button.clear')), admin_groups_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2' %>
+      <%= search_form_for @q, url: admin_groups_url, class: 'form-inline' do |f| %>
+        <%= f.search_field :name_cont, class: 'form-control', placeholder: Group.human_attribute_name(:name) %>
+        <div class="w-100 mt-2"></div>
+        <%= link_to admin_groups_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+          <i class="fas fa-eraser"></i> <%= t 'button.clear' %>
+        <% end %>
+        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+          <i class="fas fa-search"></i> <%= t 'button.search' %>
+        </button>
       <% end %>
     </div>
   </div>
 </div>
-<%= paginate @groups %>
-<%= render 'groups/table', groups: @groups, stage: :backstage %>
-<%= paginate @groups %>
+<div class="my-2">
+  <%= paginate @groups %>
+  <table class="table d-sm-table d-none my-2">
+    <thead class="thead-light">
+      <tr>
+        <th>
+          <%= sort_link @q, :sequence do %>
+            <%= Group.human_attribute_name :sequence %>
+          <% end %>
+        </th>
+        <th><%= Group.human_attribute_name :name %></th>
+        <th><%= Group.human_attribute_name :leader %></th>
+        <th><%= Group.human_attribute_name :reports_count %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.sequence %></td>
+          <td><%= group.name %></td>
+          <td><%= group.leader&.profile&.name %></td>
+          <td><%= group.reports_count %></td>
+          <td class="btn-toolbar">
+            <div class="btn-group">
+              <%= link_to admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <% end %>
+              <%= link_to edit_admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <% end %>
+              <%= link_to admin_group_path(group),
+                          class: 'btn btn-sm btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: t('.confirm') } do %>
+                <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- moblie -->
+  <div class="list-group d-sm-none my-2">
+    <% @groups.each do |group| %>
+      <%= link_to admin_group_path(group), class: 'list-group-item list-group-item-action' do %>
+        <p><%= Group.human_attribute_name :name %> : <%= group.name %></p>
+        <p><%= Group.human_attribute_name :leader %> : <%= group.leader&.profile&.name %></p>
+        <p><%= Group.human_attribute_name :reports_count %> : <%= group.reports_count %></p>
+      <% end %>
+    <% end %>
+  </div>
+  <%= paginate @groups %>
+</div>

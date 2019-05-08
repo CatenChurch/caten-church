@@ -12,23 +12,4 @@ module ApplicationHelper
     end
     alerts.join("\n").html_safe
   end
-
-  def nav_li(text, path, css_class: '', method: :get, inner_class: '', target: nil)
-    active = request.path == path ? 'active' : ''
-    css_class += ' nav-item'
-    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}", target: target), class: css_class
-  end
-
-  def nav_params_li(text, path, check_params: {}, css_class: '', method: :get, inner_class: '')
-    match_all_params = true
-    check_params.each do |key, value|
-      next if request.GET.fetch(key, '').to_sym == value.to_sym
-
-      match_all_params = false
-    end
-    params_start_at = path.index('?')
-    base_path = (params_start_at ? (path[0..params_start_at]) : path)
-    active = (match_all_params && request.path == base_path ? 'active' : '')
-    content_tag :li, link_to(text, path, method: method, class: "nav-link #{active} #{inner_class}"), class: "#{css_class} nav-item"
-  end
 end

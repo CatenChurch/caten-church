@@ -1,5 +1,5 @@
 class Admin::MembersController < Admin::BaseController
-  before_action :set_member, only: [:show, :become_admin, :cancel_admin]
+  before_action :set_member, only: %i[show become_admin cancel_admin]
 
   def index
     @q = User.ransack(params[:q])
@@ -11,7 +11,11 @@ class Admin::MembersController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    @service_teams = @member.service_teams.order(id: :desc)
+    @serviced_teams = @member.serviced_teams.order(id: :desc)
+    @events = @member.participated_events.order(id: :desc)
+  end
 
   def download
     @members = User.all.includes(:profile).order(:id)

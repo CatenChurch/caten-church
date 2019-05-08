@@ -1,5 +1,5 @@
 class Admin::ServiceRolesController < Admin::BaseController
-  before_action :find_role, only: [:show, :edit, :update, :destroy]
+  before_action :find_role, only: %i[show edit update destroy]
 
   def index
     @q = Service::Team.find_roles.ransack(params[:q])
@@ -48,8 +48,9 @@ class Admin::ServiceRolesController < Admin::BaseController
   end
 
   private
+
   def role_params
-    params.require(:role).permit(:name)
+    params.require(:service_role).permit(:name)
   end
 
   def find_role

@@ -1,4 +1,6 @@
-<%= link_to fa_icon('undo', text: t('button.cancel')), admin_event_event_users_path, class: 'mb-2 btn btn-outline-secondary' %>
+<%= link_to admin_event_event_users_path, class: 'btn btn-outline-secondary mb-2' do %>
+  <i class="fas fa-undo"></i> <%= t 'button.cancel' %>
+<% end %>
 <%= simple_form_for :event_users, url: admin_event_event_users_url, method: :patch do |f| %>
   <table class="table">
     <thead class="thead-light">
@@ -17,11 +19,9 @@
     </thead>
     <tbody>
       <% @event_users.each do |event_user| %>
-        <% user = event_user.user
-           profile = (user.profile.blank? ? Profile.new : user.profile) %>
         <tr>
-          <td><%= profile.name %></td>
-          <td><%= user.email %></td>
+          <td><%= event_user.user.profile&.name %></td>
+          <td><%= event_user.user.email %></td>
           <%= f.fields_for '', event_user do |ff| %>
             <td><%= ff.input :paid, label: EventUser.human_attribute_name('paid.true'), input_html: { class: 'paid-check' } %></td>
             <td><%= ff.input :arrival, label: EventUser.human_attribute_name('arrival.true'), input_html: { class: 'arrival-check' } %></td>
@@ -31,7 +31,7 @@
     </tbody>
   </table>
   <%= button_tag class: 'btn btn-primary', data: { disable_with: t('.submitting') } do %>
-    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+    <i class="fas fa-save"></i> <%= t 'button.save' %>
   <% end %>
 <% end %>
 <script type="text/javascript">

@@ -25,7 +25,7 @@
     <div class="card text-center text-muted my-2">
       <div class="card-body">
         <%= link_to omniauth_authorize_path(resource_name, :facebook), class:'btn btn-outline-primary btn-block' do %>
-          <%= t('.fb_login_html', icon: fa_icon('facebook-official 3x', class: 'mx-2')) %>
+          <%= t '.fb_login_html', icon: '<i class="fab fa-facebook fa-3x ml-1"></i>'.html_safe %>
         <% end %>
       </div>
       <div class="card-body">

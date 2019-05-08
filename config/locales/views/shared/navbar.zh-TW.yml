@@ -1,5 +1,5 @@
 'zh-TW':
-  common:
+  shared:
     navbar:
       brand: 茄典教會
       backstage: 後台
@@ -11,3 +11,4 @@
         events: 我的活動
         profile: 個人資料
         edit: 帳號設定
+        subscription: 通知設定

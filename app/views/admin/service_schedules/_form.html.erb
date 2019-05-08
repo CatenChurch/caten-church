@@ -3,6 +3,6 @@
   <%= f.association :team, collection: Service::Team.all.pluck(:name, :id), prompt: :translate %>
   <%= f.input :service_time %>
   <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+    <i class="fas fa-save"></i> <%= t 'button.save' %>
   <% end %>
 <% end %>

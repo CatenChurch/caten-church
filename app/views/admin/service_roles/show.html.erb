@@ -1,25 +1,37 @@
-<%= link_to fa_icon('list', text: t('.back')), admin_service_roles_path, class: 'btn btn-outline-secondary' %>
-<h1 class="my-2 text-center"><%= Service::Role.model_name.human %></h1>
-<h2 class="my-2 text-center"><%= @role.name %></h2>
-<div class="my-2 d-flex align-items-center">
-  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_service_role_path, class: ' ml-auto btn btn-outline-primary' %>
-  <%= link_to fa_icon('trash', text: t('button.delete')), admin_service_role_path, method: :delete, class: 'ml-1 btn btn-outline-danger', data: { confirm: t('.confirm') } %>
-</div>
-<%= paginate @team_users %>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th><%= Profile.human_attribute_name :name %></th>
-      <th><%= Service::Team.human_attribute_name :name %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @team_users.each do |team_user| %>
-      <tr>
-        <td><%= link_to team_user.user.profile&.name, admin_member_path(team_user.user) %></td>
-        <td><%= link_to team_user.team.name, admin_service_team_path(team_user.team) %></td>
-      </tr>
+<%= link_to admin_service_roles_path, class: 'btn btn-outline-secondary' do %>
+  <i class="fas fa-list"></i> <%= t '.back' %>
+<% end %>
+<h1 class="mt-2 text-center"><%= Service::Role.model_name.human %> <span class="ml-2"><%= @role.name %></span></h1>
+<div class="mt-2 btn-toolbar">
+  <div class="btn-group ml-auto">
+    <%= link_to edit_admin_service_role_path, class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @team_users %>
+    <%= link_to admin_service_role_path,
+            class: 'btn btn-sm btn-outline-danger',
+            method: :delete,
+            data: { confirm: t('.confirm') } do %>
+      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+    <% end %>
+  </div>
+</div>
+<div class="my-2">
+  <%= paginate @team_users %>
+  <table class="table my-2">
+    <thead class="thead-light">
+      <tr>
+        <th><%= Profile.human_attribute_name :name %></th>
+        <th><%= Service::Team.human_attribute_name :name %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @team_users.each do |team_user| %>
+        <tr>
+          <td><%= link_to team_user.user.profile&.name, admin_member_path(team_user.user) %></td>
+          <td><%= link_to team_user.team.name, admin_service_team_path(team_user.team) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @team_users %>
+</div>

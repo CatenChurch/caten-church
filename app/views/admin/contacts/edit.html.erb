@@ -1,4 +1,6 @@
-<%= link_to fa_icon('undo', text: t('button.cancel')), admin_contact_path, class: 'btn btn-outline-secondary' %>
+<%= link_to admin_contact_path, class: 'btn btn-outline-secondary' do %>
+  <i class="fas fa-undo"></i> <%= t 'button.cancel' %>
+<% end %>
 <h1 class="my-2 text-center"><%= t '.title' %></h1>
 <%= simple_form_for @contact, url: admin_contact_url(@contact) do |f| %>
   <%= f.error_notification %>
@@ -8,6 +10,6 @@
   <%= f.input :message, as: :text, input_html: { rows: 8 } %>
   <%= f.input :handled %>
   <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+    <i class="fas fa-save"></i> <%= t 'button.save' %>
   <% end %>
 <% end %>

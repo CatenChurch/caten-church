@@ -1,4 +1,4 @@
-<% render_for_admin ||= false %>
+<% stage ||= :frontstage %>
 <div class="card">
   <div class="card-body">
     <h3 class="card-title"><%= event.name %></h3>
@@ -40,14 +40,14 @@
         <tr>
           <th><%= Event.human_attribute_name :check_arrival %></th>
           <th><%= Event.human_attribute_name :registery_fee %></th>
-          <%= content_tag(:th, Event.human_attribute_name(:show_participants)) if render_for_admin %>
+          <%= content_tag(:th, Event.human_attribute_name(:show_participants)) if stage == :backstage %>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><%= Event.human_attribute_name("check_arrival.#{event.check_arrival}") %></td>
           <td><%= fee(event.registery_fee) %></td>
-          <%= content_tag :td, Event.human_attribute_name("show_participants.#{event.show_participants}") if render_for_admin %>
+          <%= content_tag :td, Event.human_attribute_name("show_participants.#{event.show_participants}") if stage == :backstage %>
         </tr>
       </tbody>
     </table>
@@ -93,14 +93,14 @@
           <th class="bg-light"><%= Event.human_attribute_name :registery_fee %></th>
           <td><%= fee(event.registery_fee) %></td>
         </tr>
-        <% if render_for_admin %>
+        <% if stage == :backstage %>
           <th class="bg-light"><%= Event.human_attribute_name :show_participants %></th>
           <td><%= Event.human_attribute_name("show_participants.#{event.show_participants}") %></td>
         <% end %>
       </tbody>
     </table>
   </div>
-  <% unless render_for_admin %>
+  <% if stage == :frontstage %>
     <div class="card-body">
       <%= link_to t('.quit'), quit_event_path(@event), method: :post, class: 'btn btn-warning' if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
       <%= link_to t('.participants'), participants_event_path(@event), class: 'btn btn-outline-dark' if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>

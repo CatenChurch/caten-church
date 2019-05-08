@@ -1,9 +1,24 @@
-<%= link_to fa_icon('list', text: t('.back')), admin_events_path, class: 'btn btn-outline-secondary' %>
-<h1 class="my-2 text-center"><%= Event.model_name.human %></h1>
-<div class="my-2 d-flex">
-  <%= link_to fa_icon('users', text: EventUser.model_name.human), admin_event_event_users_path(params[:id]), class: 'btn btn-outline-info' %>
-  <%= link_to fa_icon('download', text: t('button.download')), download_admin_event_path(@event,format: :xlsx), class: 'btn btn-outline-success ml-auto' %>
-  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_event_path(@event), class: 'btn btn-outline-primary ml-1' %>
-  <%= link_to fa_icon('trash', text: t('button.delete')), admin_event_path(@event), class: 'btn btn-outline-danger ml-1', method: :delete, data: { confirm: t('.confirm') } %>
+<%= link_to admin_events_path, class: 'btn btn-outline-secondary' do %>
+  <i class="fas fa-list"></i> <%= t '.back' %>
+<% end %>
+<h1 class="mt-2 text-center"><%= Event.model_name.human %></h1>
+<div class="my-2 btn-toolbar">
+  <%= link_to download_admin_event_path(@event,format: :xlsx), class: 'btn btn-sm btn-outline-success' do %>
+    <i class="fas fa-file-download"></i> <%= t 'button.download' %> Excel
+  <% end %>
+  <div class="btn-group ml-auto">
+    <%= link_to admin_event_event_users_path(params[:id]), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="fas fa-users"></i> <%= EventUser.model_name.human %>
+    <% end %>
+    <%= link_to edit_admin_event_path(@event), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+    <% end %>
+    <%= link_to admin_event_path(@event),
+                class: 'btn btn-sm btn-outline-danger',
+                method: :delete,
+                data: { confirm: t('.confirm') } do %>
+      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+    <% end %>
+  </div>
 </div>
-<%= render 'events/event', event: @event, render_for_admin: true %>
+<%= render 'events/event', event: @event, stage: :backstage %>

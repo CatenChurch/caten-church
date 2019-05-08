@@ -6,26 +6,28 @@
     image: t('pages.index.seo.img_url')
   } %>
 <%= render 'jumbotron' %>
-<div class="d-flex  align-items-end flex-column">
-  <%= link_to fa_icon('plus', text: t('.new')), new_group_report_path, class: 'btn btn-outline-primary' if current_user&.group_leader? %>
+<div class="d-flex align-items-end flex-column">
+  <%= link_to new_group_report_path, class: 'btn btn-outline-primary' do %>
+    <i class="fas fa-plus"></i> <%= t '.new' %>
+  <% end if current_user&.group_leader? %>
   <p class="small text-muted"><%= t('.hint') %></p>
 </div>
 <nav>
   <div class="nav nav-tabs" id="week-tab" role="tablist">
-    <a class="nav-item nav-link active" id="current-week-tab" data-toggle="tab" href="#current-week-reports" role="tab" aria-controls="current-week" aria-selected="true">
+    <a class="nav-item nav-link active" id="current-week-tab" data-toggle="tab" href="#current-week-reports">
       <%= Group.human_attribute_name :current_week_report %>
     </a>
-    <a class="nav-item nav-link" id="prev-week-tab" data-toggle="tab" href="#prev-week-reports" role="tab" aria-controls="prev-week" aria-selected="false">
+    <a class="nav-item nav-link" id="prev-week-tab" data-toggle="tab" href="#prev-week-reports">
       <%= Group.human_attribute_name :prev_week_report %>
     </a>
   </div>
 </nav>
 <div class="container mt-2">
   <div class="tab-content" id="week-reports">
-    <div class="tab-pane fade show active" id="current-week-reports" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="tab-pane fade show active" id="current-week-reports">
       <%= render 'week', groups: @groups %>
     </div>
-    <div class="tab-pane fade" id="prev-week-reports" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="tab-pane fade" id="prev-week-reports">
       <%= render 'week', groups: @groups, prev: true %>
     </div>
   </div>

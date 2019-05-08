@@ -1,56 +1,92 @@
 <h1 class="text-center"><%= t '.title' %></h1>
-<div class="my-2 d-flex">
-  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
-    <%= fa_icon('search', text: t('button.search_conditions')) %>
+<div class="mt-2 btn-toolbar">
+  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
+    <i class="fas fa-search"></i> <%= t('button.search_conditions') %>
   </a>
-  <%= link_to fa_icon('plus', text: t('.new')), new_admin_event_path, class: 'btn btn-outline-success ml-auto' %>
+  <%= link_to new_admin_event_path, class: 'btn btn-outline-success ml-auto' do %>
+    <i class="fas fa-plus"></i> <%= t '.new' %>
+  <% end %>
 </div>
-<div class="collapse" id="collapse-search">
-  <div class="card my-2">
+<div class="collapse mt-2" id="collapse-search">
+  <div class="card">
     <div class="card-body">
-      <ul class="nav nav-pills" role="tablist">
-        <%= nav_params_li t('.all'), admin_events_path, check_params: { status: '' } %>
-        <%= nav_params_li t('.registration'), admin_events_path(status: :registration), check_params: { status: :registration } %>
-        <%= nav_params_li t('.running'), admin_events_path(status: :running), check_params: { status: :running } %>
-        <%= nav_params_li t('.closed'), admin_events_path(status: :closed), check_params: { status: :closed } %>
-      </ul>
-      <%= search_form_for @q, url: admin_events_url, class: 'form-inline my-2 mx-5' do |f| %>
+      <div class="nav nav-pills">
+        <%= link_to t('.all'), admin_events_path, class: 'nav-item nav-link', id: 'event-nav-all' %>
+        <%= link_to t('.registration'), admin_events_path(status: :registration), class: 'nav-item nav-link', id: 'event-nav-registration' %>
+        <%= link_to t('.running'), admin_events_path(status: :running), class: 'nav-item nav-link', id: 'event-nav-running' %>
+        <%= link_to t('.closed'), admin_events_path(status: :closed), class: 'nav-item nav-link', id: 'event-nav-closed' %>
+      </div>
+      <%= search_form_for @q, url: admin_events_url, class: 'form-inline mt-2' do |f| %>
         <%= hidden_field_tag :status, params[:status] %>
-        <%= f.label Event.human_attribute_name(:name), class: 'mr-1' %>
-        <%= f.search_field :name_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= f.label Event.human_attribute_name(:nature), class: 'mr-1' %>
-        <%= f.search_field :nature_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= link_to fa_icon('undo', text: t('button.clear')), admin_events_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2' %>
+        <%= f.search_field :name_cont, class: 'form-control', placeholder: Event.human_attribute_name(:name) %>
+        <div class="w-100 mt-2"></div>
+        <%= link_to admin_events_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+          <i class="fas fa-eraser"></i> <%= t 'button.clear' %>
+        <% end %>
+        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+          <i class="fas fa-search"></i> <%= t 'button.search' %>
+        </button>
       <% end %>
     </div>
   </div>
 </div>
-<%= paginate @events %>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th><%= Event.human_attribute_name :name %></th>
-      <th><%= Event.human_attribute_name :participants_count %></th>
-      <th><%= Event.human_attribute_name :time %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @events.each do |event| %>
+<div class="my-2">
+  <%= paginate @events %>
+  <table class="table d-sm-table d-none my-2">
+    <thead class="thead-light">
       <tr>
-        <td><%= event.name %></td>
-        <td><%= event.participants_count %> / <%= event.max_sign_up_number %></td>
-        <td><%= l event.sign_up_begin %> ~ <%= l event.sign_up_end %></td>
-        <td>
-          <%= link_to fa_icon('info-circle', text: t('button.show')), admin_event_path(event), class: 'btn btn-sm btn-outline-secondary' %>
-          <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_event_path(event), class: 'btn btn-sm btn-outline-primary' %>
-          <%= link_to fa_icon('trash', text: t('button.delete')), admin_event_path(event), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
-        </td>
+        <th>
+          <%= sort_link @q, :id do %>
+            <%= Event.human_attribute_name :id %>
+          <% end %>
+        </th>
+        <th><%= Event.human_attribute_name :name %></th>
+        <th><%= Event.human_attribute_name :participants_count %></th>
+        <th><%= Event.human_attribute_name :sign_up_time %></th>
+        <th></th>
       </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= event.id %></td>
+          <td><%= event.name %></td>
+          <td><%= event.participants_count %> / <%= event.max_sign_up_number %></td>
+          <td><%= l event.sign_up_begin %> ~ <%= l event.sign_up_end %></td>
+          <td class="btn-toolbar">
+            <div class="btn-group">
+              <%= link_to admin_event_path(event), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <% end %>
+              <%= link_to edit_admin_event_path(event), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <% end %>
+              <%= link_to admin_event_path(event),
+                          class: 'btn btn-sm btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: t('.confirm') } do %>
+                <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- moblie -->
+  <div class="list-group d-sm-none my-2">
+    <% @events.each do |event| %>
+      <%= link_to admin_event_path(event), class: 'list-group-item list-group-item-action' do %>
+        <p><%= Event.human_attribute_name :name %> : <%= event.name %></p>
+        <p><%= Event.human_attribute_name :participants_count %> : <%= event.participants_count %></p>
+        <p><%= Event.human_attribute_name :sign_up_time %> : <%= l event.sign_up_begin %> ~ <%= l event.sign_up_end %></p>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @events %>
+  </div>
+  <%= paginate @events %>
+</div>
+<script type="text/javascript">
+  var href = new URL(window.location.href)
+  var status = href.searchParams.get('status') || 'all'
+  $(`#event-nav-${status}`).addClass('active')
+</script>
