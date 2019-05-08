@@ -33,9 +33,9 @@
       <h5><%= Contact.human_attribute_name :email %> : </h5>
       <span><%= mail_to @contact.email %></span>
     </li>
-    <li class="list-group-item d-flex justify-content-between">
+    <li class="list-group-item">
       <h5><%= Contact.human_attribute_name :message %> : </h5>
-      <p><%= @contact.message %></p>
+      <div><%= simple_format @contact.message %></div>
     </li>
     <li class="list-group-item d-flex justify-content-between">
       <h5><%= Contact.human_attribute_name :created_at %> : </h5>
