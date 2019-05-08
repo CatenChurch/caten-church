@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render 'common/header'%>
+    <%= render 'shared/header'%>
   </head>
   <body>
-    <%= render 'admin/common/navbar'%>
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-sm-2 d-none d-sm-block bg-light sidebar pt-4">
-          <%= render 'admin/common/sidebar'%>
-        </nav>
-        <main class="col-12 col-sm-10 offset-sm-2 p-4" id="admin-main">
-          <%= notice_message %>
-          <%= yield %>
-        </main>
-      </div>
+    <%= render 'admin/shared/navbar'%>
+    <div class="d-flex">
+      <nav class="d-none d-sm-block bg-light" id="sidebar">
+        <%= render 'admin/shared/sidebar'%>
+      </nav>
+      <main class="container-fluid pt-2">
+        <%= notice_message %>
+        <%= yield %>
+      </main>
     </div>
   </body>
 </html>

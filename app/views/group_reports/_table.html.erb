@@ -1,8 +1,7 @@
 <% stage ||= :frontstage %>
-<table class="table">
+<table class="table my-2 d-sm-table d-none">
   <thead class="thead-light">
     <tr>
-      <th><%= Group.human_attribute_name :name %></th>
       <th><%= GroupReport.human_attribute_name :adults_count %></th>
       <th><%= GroupReport.human_attribute_name :children_count %></th>
       <th><%= GroupReport.human_attribute_name :dedication %></th>
@@ -10,13 +9,11 @@
       <th><%= GroupReport.human_attribute_name :next_meeting_place %></th>
       <th><%= GroupReport.human_attribute_name :creater %></th>
       <th><%= GroupReport.human_attribute_name :created_at %></th>
-      <%= content_tag(:th, '#') if stage == :frontstage  %>
     </tr>
   </thead>
   <tbody>
     <% reports.each do |report| %>
       <tr>
-        <td><%= report.group.name %></td>
         <td><%= report.adults_count %></td>
         <td><%= report.children_count %></td>
         <td><%= report.dedication %></td>
@@ -24,16 +21,21 @@
         <td><%= report.next_meeting_place %></td>
         <td><%= report.creater&.profile&.name %></td>
         <td><%= l report.created_at %></td>
-        <% if stage == :backstage  %>
-          <%# link_to t('.show'), admin_group_report_path(report), class: 'btn btn-sm btn-secondary' %>
-          <%# link_to t('.edit'), edit_admin_group_report_path(report), class: 'btn btn-sm btn-primary' %>
-          <%# link_to t('.destroy'), admin_group_report_path(report), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('.confirm') } %>
-        <% else %>
-          <td>
-            <%= link_to t('.show'), group_report_path(report), class: 'btn btn-sm btn-secondary' %>
-          </td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+<!-- moblie -->
+<div class="list-group d-sm-none my-2">
+  <% @reports.each do |report| %>
+    <div class="list-group-item list-group-item-action">
+      <p><%= GroupReport.human_attribute_name :adults_count %> : <%= report.adults_count %></p>
+      <p><%= GroupReport.human_attribute_name :children_count %> : <%= report.children_count %></p>
+      <p><%= GroupReport.human_attribute_name :dedication %> : <%= report.dedication %></p>
+      <p><%= GroupReport.human_attribute_name :next_meeting_time %> : <%= l report.next_meeting_time if report.next_meeting_time %></p>
+      <p><%= GroupReport.human_attribute_name :next_meeting_place %> : <%= report.next_meeting_place %></p>
+      <p><%= GroupReport.human_attribute_name :creater %> : <%= report.creater&.profile&.name %></p>
+      <p><%= GroupReport.human_attribute_name :created_at %> : <%= l report.created_at %></p>
+    </div>
+  <% end %>
+</div>

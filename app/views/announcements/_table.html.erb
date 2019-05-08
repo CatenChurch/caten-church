@@ -1,9 +1,8 @@
-<% backstage ||= false %>
+<% stage ||= :frontstage %>
 <table class="table">
   <thead class="thead-light">
     <tr>
       <th><%= Announcement.human_attribute_name :title %></th>
-      <th><%= Announcement.human_attribute_name :description %></th>
       <th><%= Announcement.human_attribute_name :updated_at %></th>
       <th></th>
     </tr>
@@ -12,17 +11,27 @@
     <% announcements.each do |announcement| %>
       <tr>
         <td><%= announcement.title %></td>
-        <td><%= announcement.description %></td>
         <td><%= l announcement.updated_at %></td>
-        <% if backstage %>
-          <td>
-            <%= link_to fa_icon('info-circle', text: t('button.show')), admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' %>
-            <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-primary' %>
-            <%= link_to fa_icon('trash', text: t('button.delete')), admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
-          </td>
-        <% else %>
-          <td><%= link_to fa_icon('info-circle', text: t('button.show')), announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' %></td>
-        <% end %>
+        <td>
+          <% if stage == :backstage %>
+            <%= link_to admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' do %>
+              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+            <% end %>
+            <%= link_to edit_admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-primary' do %>
+              <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+            <% end %>
+            <%= link_to admin_announcement_path(announcement),
+                          class: 'btn btn-sm btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: t('.confirm') } do %>
+              <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+            <% end %>
+          <% elsif stage == :frontstage %>
+            <%= link_to announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' do %>
+              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

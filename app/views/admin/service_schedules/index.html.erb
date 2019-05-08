@@ -1,48 +1,64 @@
 <h1 class="text-center"><%= t '.title' %></h1>
-<div class="my-2 d-flex">
-  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
-    <%= fa_icon('search', text: t('button.search_conditions')) %>
+<div class="mt-2 btn-toolbar">
+  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
+    <i class="fas fa-search"></i> <%= t('button.search_conditions') %>
   </a>
-  <%= link_to fa_icon('plus', text: t('.new')), new_admin_service_schedule_path, class: 'btn btn-outline-success ml-auto' %>
+  <%= link_to new_admin_service_schedule_path, class: 'btn btn-outline-success ml-auto' do %>
+    <i class="fas fa-plus"></i> <%= t '.new' %>
+  <% end %>
 </div>
-<div class="collapse" id="collapse-search">
+<div class="collapse mt-2" id="collapse-search">
   <div class="card my-2">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_service_schedules_url, class: 'form-inline my-2 mx-5' do |f| %>
-        <%= f.label Service::Team.human_attribute_name(:name), class: 'mr-1' %>
-        <%= f.search_field :team_name_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= f.label Service::Team.human_attribute_name(:leader), class: 'mr-1' %>
-        <%= f.search_field :team_leader_profile_name_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= link_to t('.clear'), admin_service_schedules_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button t('.submit'), class: 'btn btn-outline-secondary mx-2 ml-1' %>
+      <%= search_form_for @q, url: admin_service_schedules_url, class: 'form-inline' do |f| %>
+        <div class="input-group">
+          <%= f.search_field :team_name_cont, class: 'form-control', placeholder: Service::Team.human_attribute_name(:name) %>
+          <%= f.search_field :team_leader_profile_name_cont, class: 'form-control', placeholder: Service::Team.human_attribute_name(:leader) %>
+        </div>
+        <div class="w-100 mt-2"></div>
+        <%= link_to admin_service_schedules_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+          <i class="fas fa-eraser"></i> <%= t 'button.clear' %>
+        <% end %>
+        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+          <i class="fas fa-search"></i> <%= t 'button.search' %>
+        </button>
       <% end %>
     </div>
   </div>
 </div>
-<%= paginate @schedules %>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th><%= Service::Team.human_attribute_name :name %></th>
-      <th><%= Service::Team.human_attribute_name :leader %></th>
-      <th><%= Service::Schedule.human_attribute_name :service_time %></th>
-      <th><%= t '.more' %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @schedules.each do |schedule| %>
+<div class="my-2">
+  <%= paginate @schedules %>
+  <table class="table my-2">
+    <thead class="thead-light">
       <tr>
-        <td><%= link_to schedule.team.name, admin_service_team_path(schedule.team) %></td>
-        <td><%= link_to schedule.team.leader.profile&.name, admin_member_path(schedule.team.leader) %></td>
-        <td><%= l schedule.service_time %></td>
-        <td>
-          <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_service_schedule_path(schedule), class: 'btn btn-sm btn-outline-primary' %>
-          <%= link_to fa_icon('trash', text: t('button.delete')), admin_service_schedule_path(schedule), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
-        </td>
+        <th><%= Service::Team.human_attribute_name :name %></th>
+        <th><%= Service::Team.human_attribute_name :leader %></th>
+        <th><%= Service::Schedule.human_attribute_name :service_time %></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @schedules %>
+    </thead>
+    <tbody>
+      <% @schedules.each do |schedule| %>
+        <tr>
+          <td><%= link_to schedule.team.name, admin_service_team_path(schedule.team) %></td>
+          <td><%= link_to schedule.team.leader.profile&.name, admin_member_path(schedule.team.leader) %></td>
+          <td><%= l schedule.service_time %></td>
+          <td class="btn-toolbar">
+            <div class="btn-group">
+              <%= link_to edit_admin_service_schedule_path(schedule), class: 'btn btn-sm btn-outline-secondary', data: { turbolinks: false } do %>
+                <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <% end %>
+              <%= link_to admin_service_schedule_path(schedule),
+                          class: 'btn btn-sm btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: t('.confirm') } do %>
+                <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @schedules %>
+</div>

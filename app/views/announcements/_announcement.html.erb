@@ -1,13 +1,12 @@
-<h1 class="text-center"><%= announcement.title %></h1>
-<p class="my-2"><%= announcement.description %></p>
-<hr>
-<div class="my-4 d-flex">
-  <span><%= Announcement.human_attribute_name :created_at %>:</span>
-  <span> <%= l announcement.created_at %></span>
-  <span class="ml-auto"><%= Announcement.human_attribute_name :updated_at %>:</span>
-  <span> <%= l announcement.updated_at %></span>
+<h2 class="text-center"><%= announcement.title %></h2>
+<div class="mt-2 d-flex flex-wrap">
+  <div class="w-100"></div>
+  <p><%= Announcement.human_attribute_name :description %> : <%= announcement.description %></p>
+  <div class="w-100"></div>
+  <span><%= Announcement.human_attribute_name :created_at %> : <%= l announcement.created_at %></span>
+  <span class="ml-auto"><%= Announcement.human_attribute_name :updated_at %> : <%= l announcement.updated_at %></span>
 </div>
 <hr>
-<div class="p-4 markdown-body bg-light">
+<div class="container-fluid markdown-body bg-light">
   <%= markdown announcement.content %>
 </div>

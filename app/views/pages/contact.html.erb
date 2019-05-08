@@ -64,6 +64,13 @@
   <hr>
   <h2><%= t '.contact_form.title' %></h2>
   <p class="text-muted"><%= t '.contact_form.subtitle' %></p>
-  <%= render 'contacts/form' %>
+  <%= simple_form_for(@contact, url: contacts_path) do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.input :message, as: :text, input_html: {rows: 8} %>
+    <%= f.button :submit, t('.submit'), class: 'btn-block btn-purple' %>
+  <% end %>
 </div>
 </div>

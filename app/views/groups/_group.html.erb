@@ -1,38 +1,43 @@
 <% stage ||= :frontstage %>
 <div class="card">
-  <div class="card-body">
-    <h3 class="card-title text-center"><%= group.name %></h3>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item d-flex justify-content-between">
+      <h5><%= Group.human_attribute_name :name %> :</h5>
+      <span><%= group.name %></span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+      <h5><%= Group.human_attribute_name :leader %> :</h5>
+      <span><%= group.leader&.profile&.name %></span>
+    </li>
     <% if stage == :backstage %>
-      <div class="d-flex justify-content-between">
-        <span><%= Group.human_attribute_name :created_at %> : <%= l group.created_at %></span>
-        <span><%= Group.human_attribute_name :updated_at %> : <%= l group.updated_at %></span>
-      </div>
+      <li class="list-group-item d-flex justify-content-between">
+        <h5><%= Group.human_attribute_name :created_at %> :</h5>
+        <span> <%= l group.created_at %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <h5><%= Group.human_attribute_name :updated_at %> :</h5>
+        <span><%= l group.updated_at %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <h5><%= Group.human_attribute_name :creater %> :</h5>
+        <span><%= group.creater&.profile&.name %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <h5><%= Group.human_attribute_name :members_count %> :</h5>
+        <span><%= group.members_count %></span>
+      </li>
     <% end %>
-    <div class="d-flex justify-content-between">
-      <span><%= Group.human_attribute_name :leader %> : <%= group.leader&.profile&.name %></span>
-      <span><%= Group.human_attribute_name :members_count %> : <%= group.members_count %></span>
-      <% if stage == :backstage %>
-        <span><%= Group.human_attribute_name :creater %> : <%= group.creater&.profile&.name %></span>
-      <% end %>
-    </div>
-    <hr>
-    <div>
-      <h4><%= Group.human_attribute_name :introduction %> : </h4>
-      <%= simple_format group.introduction %>
-    </div>
-    <div>
-      <h4><%= Group.human_attribute_name :description %> : </h4>
-      <%= simple_format group.description %>
-    </div>
-  </div>
+    <li class="list-group-item">
+      <h5><%= Group.human_attribute_name :introduction %> :</h5>
+      <div class="card-body">
+        <%= simple_format group.introduction %>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <h5><%= Group.human_attribute_name :description %> :</h5>
+      <div class="card-body">
+        <%= simple_format group.description %>
+      </div>
+    </li>
+  </ul>
 </div>
-<% if stage == :backstage %>
-  <div class="card mt-2">
-    <div class="card-body">
-      <h3 class="card-title text-center"><%= GroupReport.model_name.human %></h3>
-      <%= paginate @reports %>
-      <%= render 'group_reports/table', reports: @reports, stage: stage %>
-      <%= paginate @reports %>
-    </div>
-  </div>
-<% end %>

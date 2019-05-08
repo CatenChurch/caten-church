@@ -9,7 +9,7 @@
     <div class="form-group">
       <label><%= Service::Team.human_attribute_name :leader %></label>
       <button v-on:click="editLeader" v-show="!leader.editMode" type="button" class="btn btn-sm btn-primary ml-2">
-        {{ leader.name }}<i class="ml-1 fa fa-times"></i>
+        {{ leader.name }}<i class="ml-1 fas fa-times"></i>
       </button>
       <input v-model="leader.name" v-show="leader.editMode" v-on:compositionstart="typing = true" v-on:compositionend="typing = false" v-on:input="searchLeader" type="text" class="form-control">
       <div class="mt-2">
@@ -23,7 +23,7 @@
     <div class="form-group">
       <label><%= Service::TeamUser.model_name.human %></label>
       <button v-on:click="newTeamUser" type="button" class="btn btn-sm btn-outline-success">
-        <i class="mr-1 fa fa-plus"></i><%= t('button.new') %>
+        <i class="mr-1 fas fa-plus"></i><%= t 'button.new' %>
       </button>
     </div>
     <div v-for="(teamUser, index) in teamUsers" class="ml-4 mt-2">
@@ -32,7 +32,7 @@
           <label><%= Profile.human_attribute_name :name %></label>
           <input v-model="teamUser.name" v-show="teamUser.editMode" v-on:compositionstart="typing = true" v-on:compositionend="typing = false" v-on:input="searchTeamUser(index, teamUser.name)" type="text" class="form-control ml-1">
           <button v-on:click="editTeamUser(index)" v-show="!teamUser.editMode" type="button" class="btn btn-sm btn-primary ml-2">
-            {{ teamUser.name }}<i class="ml-1 fa fa-times"></i>
+            {{ teamUser.name }}<i class="ml-1 fas fa-times"></i>
           </button>
         </div>
         <div class="form-group mr-2">
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group">
           <button v-on:click="deleteTeamUser(index)" type="button" class="btn btn-sm btn-outline-danger">
-            <i class="mr-1 fa fa-trash"></i><%= t('button.delete') %>
+            <i class="mr-1 fas fa-trash"></i><%= t 'button.delete' %>
           </button>
         </div>
         <div v-show="teamUser.editMode" class="w-100 mt-2">
@@ -60,13 +60,13 @@
       </div>
       <div v-show="teamUser.deleted">
         <button v-on:click="recoverTeamUser(index)" type="button" class="btn btn-sm btn-outline-primary">
-          <i class="mr-1 fa fa-undo"></i><%= t('button.undo') %>
+          <i class="mr-1 fas fa-undo"></i><%= t 'button.undo' %>
         </button>
       </div>
     </div>
     <hr>
     <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-      <i class="mr-1 fa fa-floppy-o"></i><%= t('button.submit') %>
+      <i class="fas fa-save"></i> <%= t 'button.save' %>
     <% end %>
   <% end %>
 </div>
@@ -93,15 +93,15 @@
       },
       mounted: function() {
          if(!this.leader.id) { this.leader.editMode = true }
-         this.teamUsers.forEach((user, index)=>{
-           this.$set(user, 'editMode', false)
+         this.teamUsers.forEach((user, index)=> {
+           this.$set(user, 'editMode', !user.id)
          })
       },
       methods: {
         searchLeader: function () {
           if(this.typing) return;
           getUsers(this.leader.name).then(res => {
-            this.leader.candidates = res.users
+            this.$set(this.leader, 'candidates', res.users)
           })
         },
         editLeader: function() {
@@ -129,7 +129,7 @@
         searchTeamUser: function (index, name) {
           if(this.typing) return;
           getUsers(name).then(res => {
-            this.teamUsers[index].candidates = res.users
+            this.$set(this.teamUsers[index], 'candidates', res.users)
           })
         },
         setTeamUser: function (index, userId, name) {

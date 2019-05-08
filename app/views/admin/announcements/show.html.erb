@@ -1,8 +1,19 @@
-<%= link_to fa_icon('list', text: t('.back')), admin_announcements_path, class: 'btn btn-outline-secondary' %>
-<h1 class="my-2 text-center"><%= Announcement.model_name.human %></h1>
-<div class="my-2 d-flex">
-  <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_announcement_path(@announcement) , class: 'btn btn-outline-primary ml-auto' %>
-  <%= link_to fa_icon('trash', text: t('button.delete')), admin_announcement_path(@announcement), class: 'btn btn-outline-danger ml-1', method: :delete, data: { confirm: t('.confirm') } %>
+<%= link_to admin_announcements_path, class: 'btn btn-outline-secondary' do %>
+  <i class="fas fa-list"></i> <%= t '.back' %>
+<% end %>
+<h1 class="mt-2 text-center"><%= Announcement.model_name.human %></h1>
+<div class="my-2 btn-toolbar">
+  <div class="btn-group ml-auto">
+    <%= link_to edit_admin_announcement_path(@announcement), class: 'btn btn-sm btn-outline-secondary' do %>
+      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+    <% end %>
+    <%= link_to admin_announcement_path(@announcement),
+              class: 'btn btn-sm btn-outline-danger',
+              method: :delete,
+              data: { confirm: t('.confirm') } do %>
+      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+    <% end %>
+  </div>
 </div>
-<%= render 'announcements/announcement', announcement: @announcement%>
-<%= link_to t('.post_to_fb'), post_to_facebook_admin_announcement_path, class: 'btn btn-primary pull-right', method: :post %>
+<%= render 'announcements/announcement', announcement: @announcement %>
+<%# link_to t('.post_to_fb'), post_to_facebook_admin_announcement_path, class: 'btn btn-primary', method: :post %>

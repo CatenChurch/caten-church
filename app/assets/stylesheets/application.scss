@@ -16,13 +16,16 @@
 @import "font-awesome";
 @import "pagedown_bootstrap";
 @import "github-markdown";
-@import "sidebar";
-@import "admin";
+
 $iframe_width: 500px;
 $iframe_height: $iframe_width * 9 / 16;
 
 main {
   min-height: 360px;
+}
+
+#sidebar {
+  min-width: 140px;
 }
 
 .bg-black-opacity04{

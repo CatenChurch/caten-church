@@ -2,6 +2,6 @@
   <%= f.error_notification %>
   <%= f.input :name %>
   <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-    <%= fa_icon('floppy-o', text: t('button.submit')) %>
+    <i class="fas fa-save"></i> <%= t 'button.save' %>
   <% end %>
 <% end %>

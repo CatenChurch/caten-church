@@ -1,6 +1,6 @@
 'zh-TW':
   admin:
-    common:
+    shared:
       navbar:
         brand: 茄典教會-管理介面
         users: 會員

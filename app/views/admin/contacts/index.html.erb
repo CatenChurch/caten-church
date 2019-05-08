@@ -1,60 +1,87 @@
 <h1 class="text-center"><%= t '.title' %></h1>
-<div class="my-2 d-flex">
-  <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
-    <%= fa_icon('search', text: t('button.search_conditions')) %>
+<div class="mt-2 btn-toolbar">
+  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
+    <i class="fas fa-search"></i> <%= t('button.search_conditions') %>
   </a>
 </div>
-<div class="collapse" id="collapse-search">
-  <div class="card my-2">
+<div class="collapse mt-2" id="collapse-search">
+  <div class="card">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_contacts_url, class: 'form-inline my-2 mx-5' do |f| %>
-        <%= f.label Contact.human_attribute_name(:handled), class: 'mr-1' %>
-        <%= f.check_box :handled_eq, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= f.label Contact.human_attribute_name(:name), class: 'mr-1' %>
-        <%= f.search_field :name_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= f.label Contact.human_attribute_name(:phone), class: 'mr-1' %>
-        <%= f.search_field :phone_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= f.label Contact.human_attribute_name(:email), class: 'mr-1' %>
-        <%= f.search_field :email_cont, class: 'form-control mr-2' %>
-        <div class="w-100 my-1"></div>
-        <%= link_to fa_icon('undo', text: t('button.clear')), admin_contacts_path, class: 'btn btn-outline-secondary ml-auto' %>
-        <%= f.button fa_icon('search', text: t('button.search')), class: 'btn btn-outline-secondary mx-2 ml-1' %>
+      <%= search_form_for @q, url: admin_contacts_url, class: 'form-inline' do |f| %>
+        <div class="input-group">
+          <%= f.search_field :name_cont, class: 'form-control', placeholder: Contact.human_attribute_name(:name) %>
+          <%= f.search_field :phone_cont, class: 'form-control', placeholder: Contact.human_attribute_name(:phone) %>
+          <%= f.search_field :email_cont, class: 'form-control', placeholder: Contact.human_attribute_name(:email) %>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <%= Contact.human_attribute_name(:handled) %>
+              <%= f.check_box :handled_eq, class: 'ml-1' %>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 mt-2"></div>
+        <%= link_to admin_contacts_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+          <i class="fas fa-eraser"></i> <%= t 'button.clear' %>
+        <% end %>
+        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+          <i class="fas fa-search"></i> <%= t 'button.search' %>
+        </button>
       <% end %>
     </div>
   </div>
 </div>
-<%= paginate @contacts %>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th><%= Contact.human_attribute_name :name %></th>
-      <th><%= Contact.human_attribute_name :phone %></th>
-      <th><%= Contact.human_attribute_name :email %></th>
-      <th><%= Contact.human_attribute_name :message %></th>
-      <th><%= Contact.human_attribute_name :created_at %></th>
-      <th><%= Contact.human_attribute_name :handled %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @contacts.each do |contact| %>
+<div class="my-2">
+  <%= paginate @contacts %>
+  <table class="table d-sm-table d-none my-2">
+    <thead class="thead-light">
       <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.phone %></td>
-        <td><%= mail_to contact.email %></td>
-        <td><%= truncate(contact.message, length: 20) %></td>
-        <td><%= l contact.created_at %></td>
-        <td><%= Contact.human_attribute_name "handled.#{contact.handled}" %></td>
-        <td>
-          <%= link_to fa_icon('info-circle', text: t('button.show')), admin_contact_path(contact), class: 'btn btn-sm btn-outline-secondary' %>
-          <%= link_to fa_icon('pencil', text: t('button.edit')), edit_admin_contact_path(contact), class: 'btn btn-sm btn-outline-primary' %>
-          <%= link_to fa_icon('trash', text: t('button.delete')), admin_contact_path(contact), class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: t('.confirm') } %>
-        </td>
+        <th><%= Contact.human_attribute_name :name %></th>
+        <th><%= Contact.human_attribute_name :phone %></th>
+        <th><%= Contact.human_attribute_name :email %></th>
+        <th><%= Contact.human_attribute_name :created_at %></th>
+        <th><%= Contact.human_attribute_name :handled %></th>
+        <th></th>
       </tr>
+    </thead>
+    <tbody>
+      <% @contacts.each do |contact| %>
+        <tr>
+          <td><%= contact.name %></td>
+          <td><%= contact.phone %></td>
+          <td><%= mail_to contact.email %></td>
+          <td><%= l contact.created_at %></td>
+          <td><%= Contact.human_attribute_name "handled.#{contact.handled}" %></td>
+          <td class="btn-toolbar">
+            <div class="btn-group">
+              <%= link_to admin_contact_path(contact), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <% end %>
+              <%= link_to edit_admin_contact_path(contact), class: 'btn btn-sm btn-outline-secondary' do %>
+                <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <% end %>
+              <%= link_to admin_contact_path(contact),
+                          class: 'btn btn-sm btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: t('.confirm') } do %>
+                <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- moblie -->
+  <div class="list-group d-sm-none my-2">
+    <% @contacts.each do |contact| %>
+      <%= link_to admin_contact_path(contact), class: 'list-group-item list-group-item-action' do %>
+        <p><%= Contact.human_attribute_name :name %> : <%= contact.name %></p>
+        <p><%= Contact.human_attribute_name :phone %> : <%= contact.phone %></p>
+        <p><%= Contact.human_attribute_name :email %> : <%= contact.email %></p>
+        <p><%= Contact.human_attribute_name :created_at %> : <%= l contact.created_at %></p>
+        <p><%= Contact.human_attribute_name :handled %> : <%= Contact.human_attribute_name "handled.#{contact.handled}" %></p>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @contacts %>
+  </div>
+  <%= paginate @contacts %>
+</div>
