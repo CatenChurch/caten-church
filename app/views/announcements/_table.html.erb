@@ -15,20 +15,20 @@
         <td>
           <% if stage == :backstage %>
             <%= link_to admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' do %>
-              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <i class="fas fa-info-circle"></i> 查看
             <% end %>
             <%= link_to edit_admin_announcement_path(announcement), class: 'btn btn-sm btn-outline-primary' do %>
-              <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <i class="fas fa-edit"></i> 編輯
             <% end %>
             <%= link_to admin_announcement_path(announcement),
                           class: 'btn btn-sm btn-outline-danger',
                           method: :delete,
-                          data: { confirm: t('.confirm') } do %>
-              <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+                          data: { confirm: '確定要刪除？' } do %>
+              <i class="fas fa-trash"></i> 刪除
             <% end %>
           <% elsif stage == :frontstage %>
             <%= link_to announcement_path(announcement), class: 'btn btn-sm btn-outline-secondary' do %>
-              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <i class="fas fa-info-circle"></i> 查看
             <% end %>
           <% end %>
         </td>

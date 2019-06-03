@@ -1,7 +1,4 @@
 'zh-TW':
-  breadcrumb:
-    root: 首頁
-    account: 會員中心
   button:
     show: 查看
     new: 新增

@@ -102,12 +102,12 @@
   </div>
   <% if stage == :frontstage %>
     <div class="card-body">
-      <%= link_to t('.quit'), quit_event_path(@event), method: :post, class: 'btn btn-warning' if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
-      <%= link_to t('.participants'), participants_event_path(@event), class: 'btn btn-outline-dark' if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
+      <%= link_to '取消報名', quit_event_path(@event), method: :post, class: 'btn btn-warning' if user_signed_in? && current_user.joined?(@event) && @event.on_registration? %>
+      <%= link_to '看有誰報名', participants_event_path(@event), class: 'btn btn-outline-dark' if user_signed_in? && current_user.joined?(@event) && @event.show_participants %>
       <%= form_tag join_event_path(@event), method: :post, class: 'form-inline' do %>
         <label class="mr-2"><%= EventUser.human_attribute_name :remark %></label>
         <%= text_field_tag :remark, nil, class: 'form-control' %>
-        <%= submit_tag t('.join'), class: 'ml-auto btn btn-success', data: { disable_with: t('.submitting') } %>
+        <%= submit_tag '報名活動', class: 'ml-auto btn btn-success', data: { disable_with: '報名中...' } %>
       <% end if user_signed_in? && !current_user.joined?(@event) && @event.on_registration? %>
     </div>
   <% end %>

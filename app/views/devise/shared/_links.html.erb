@@ -1,26 +1,26 @@
 <%- if controller_name != 'sessions' %>
   <div class="card-title">已經註冊過了嗎?</div>
-  <%= link_to t('button.sign_in'), new_session_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
+  <%= link_to '登入', new_session_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
 <% end -%>
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <div class="card-title">還沒有帳號?</div>
-  <%= link_to t('button.sign_up'), new_registration_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
+  <%= link_to '註冊', new_registration_path(resource_name), class: "mb-2 btn btn-outline-info btn-block" %>
 <% end -%>
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
   <div class="card-title">忘記密碼?</div>
-  <%= link_to t('pages.reset_password'), new_password_path(resource_name), class: "mb-2 btn btn-outline-warning btn-block" %>
+  <%= link_to '重設密碼', new_password_path(resource_name), class: "mb-2 btn btn-outline-warning btn-block" %>
 <% end -%>
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
   <div class="card-title">沒有收到驗證信?</div>
-  <%= link_to t('pages.confirmation'), new_confirmation_path(resource_name), class: "mb-2 btn btn-outline-secondary btn-block" %>
+  <%= link_to '重寄驗證信', new_confirmation_path(resource_name), class: "mb-2 btn btn-outline-secondary btn-block" %>
 <% end -%>
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+  <%= link_to '重寄解鎖信', new_unlock_path(resource_name) %><br />
 <% end -%>
 <!--
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <br>
-    or <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-default" %><br />
+    or <%= link_to "以#{OmniAuth::Utils.camelize(provider)}登入", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-default" %><br />
   <% end -%>
 <% end -%> -->

@@ -1,10 +1,8 @@
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <% content_for :breadcrumb do %>
-  >
-  <%= link_to @group.name, '#' %>
+  > <%= link_to @group.name, '#' %>
 <% end %>
-
 <div class="container">
-  <%= link_to t('.back'), groups_path, class: 'btn btn-outline-secondary mb-2' %>
+  <%= link_to '返回', groups_path, class: 'btn btn-outline-secondary mb-2' %>
   <%= render 'group', group: @group %>
 </div>

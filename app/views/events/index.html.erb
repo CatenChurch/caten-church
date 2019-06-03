@@ -1,16 +1,13 @@
-<% set_meta_tags title: t('.title'),
-  description: t('.subtitle'),
+<% set_meta_tags title: '活動專區',
+  description: '點選活動以報名與查看詳情。',
   og: {
-    title: t('.title'),
-    description: t('.subtitle'),
-    image: t('pages.index.seo.img_url')
+    title: '活動專區',
+    description: '點選活動以報名與查看詳情。',
+    image: 'http://i.imgur.com/Kgv2wwl.jpg'
   } %>
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <div class="container">
-  <h2>
-    <%= t '.current' %>
-    <span class="badge badge-primary ml-2"><%= t '.new' %></span>
-  </h2>
+  <h2>當前的活動 <span class="badge badge-primary ml-2">New</span></h2>
   <div class="row">
     <% @events.each do |event| %>
       <div class="col-12 col-md-4 my-2">
@@ -19,7 +16,7 @@
     <% end %>
   </div>
   <hr>
-  <h2><%= t '.expired' %></h2>
+  <h2>過期的活動</h2>
   <div class="row">
     <% @expired_events.each do |event| %>
       <div class="col-12 col-md-4 my-2">

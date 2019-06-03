@@ -1,16 +1,16 @@
-<% set_meta_tags title: t('.title'),
-  description: t('.subtitle'),
+<% set_meta_tags title: GroupReport.model_name.human,
+  description: '小組出席報告統計資料',
   og: {
-    title: t('.title'),
-    description: t('.subtitle'),
-    image: t('pages.index.seo.img_url')
+    title: GroupReport.model_name.human,
+    description: '小組出席報告統計資料',
+    image: 'http://i.imgur.com/Kgv2wwl.jpg'
   } %>
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <div class="d-flex align-items-end flex-column">
   <%= link_to new_group_report_path, class: 'btn btn-outline-primary' do %>
-    <i class="fas fa-plus"></i> <%= t '.new' %>
+    <i class="fas fa-plus"></i> 填寫小組回報
   <% end if current_user&.group_leader? %>
-  <p class="small text-muted"><%= t('.hint') %></p>
+  <p class="small text-muted">必須是小組長才能填寫小組回報</p>
 </div>
 <nav>
   <div class="nav nav-tabs" id="week-tab" role="tablist">

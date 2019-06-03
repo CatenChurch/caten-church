@@ -1,4 +1,4 @@
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <div class="container">
   <div class="card-deck">
     <div class="card">
@@ -8,9 +8,9 @@
         </h3>
       </div>
       <div class="list-group list-group-flush">
-        <%= messenger_list_item(User.human_attribute_name(:email), t('.default_used'), current_user.email) %>
+        <%= messenger_list_item User.human_attribute_name(:email), '默認啟用', current_user.email %>
         <% if current_user.facebook_messenger.blank? %>
-          <%= messenger_list_item t('.fb_messenger'), t('.not_auth') do %>
+          <%= messenger_list_item 'Facebook Messenger', '尚未開通' do %>
             <div class="fb-send-to-messenger"
                  messenger_app_id="<%= Rails.application.credentials[:facebook][:app_id] %>"
                  page_id="<%= Rails.application.credentials[:facebook][:page_id] %>"
@@ -26,19 +26,19 @@
             </div>
           <% end %>
         <% elsif current_user.facebook_messenger.activated? %>
-          <%= messenger_list_item t('.fb_messenger'), Messenger.human_attribute_name('activated.true') do %>
+          <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.true') do %>
             <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: false }),
                         method: :patch,
                         class: 'btn btn-sm btn-outline-warning ml-auto' do %>
-              <i class="fas fa-bell-slash mr-1"></i> <%= t '.pause' %>
+              <i class="fas fa-bell-slash mr-1"></i> 暫停使用
             <% end %>
           <% end %>
         <% else %>
-          <%= messenger_list_item t('.fb_messenger'), Messenger.human_attribute_name('activated.true') do %>
+          <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.true') do %>
             <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: true }),
                         method: :patch,
                         class: 'btn btn-sm btn-outline-primary ml-auto' do %>
-              <i class="fas fa-bell mr-1"></i> <%= t '.start' %>
+              <i class="fas fa-bell mr-1"></i> 啟用
             <% end %>
           <% end %>
         <% end %>
@@ -49,7 +49,7 @@
         <h3 class="card-title text-center">
           <i class="fas fa-paper-plane mr-1"></i> <%= Subscription.model_name.human %>
           <%= link_to edit_account_subscription_path, class: 'btn btn-sm btn-outline-primary ml-1' do %>
-            <i class="fas fa-edit mr-1"></i> <%= t '.edit' %>
+            <i class="fas fa-edit mr-1"></i> 編輯
           <% end %>
         </h3>
       </div>

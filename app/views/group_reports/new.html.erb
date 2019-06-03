@@ -1,6 +1,6 @@
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <div class="container">
-  <h1><%= t '.title' %></h1>
+  <h1>填寫本週的小組回報</h1>
   <% if params.dig(:group_report, :group_id) %>
     <%= simple_form_for(@report) do |f| %>
       <%= f.error_notification %>
@@ -21,5 +21,5 @@
       <%= f.button :submit, t('button.next') %>
     <% end %>
   <% end %>
-  <%= link_to t('.back'), group_reports_path, class: 'btn btn-outline-secondary mt-2' %>
+  <%= link_to '取消', group_reports_path, class: 'btn btn-outline-secondary mt-2' %>
 </div>

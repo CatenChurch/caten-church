@@ -1,8 +1,6 @@
-<%# TODO: i18n %>
+<%= render 'devise/shared/breadcrumb' %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('pages.root'), root_path %>
-  >
-  <%= "#{@provider.capitalize} #{t('pages.sign_up')}" %>
+  > <%= "#{@provider.capitalize} #{t('pages.sign_up')}" %>
 <% end %>
 <% content_for :jumbotron do %>
   <h1 class="display-4 text-center"><%= "#{@provider.capitalize} #{t('pages.sign_up')}" %></h1>
@@ -12,7 +10,6 @@
     我們會預設使用您 <%= @provider.capitalize %> 填寫的 email 作為帳號。
   </p>
   <p class="text-warning text-center">
-
   </p>
 <% end %>
 <div class="container">

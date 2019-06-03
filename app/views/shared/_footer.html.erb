@@ -1,31 +1,31 @@
 <footer class="footer bg-light p-2 text-center">
   <div class="container p-2">
     <div class="d-flex flex-wrap align-items-center justify-content-between">
-      <h5><%= link_to t('.about'), about_path, class: 'no_ text-dark' %></h5>
-      <h5><%= link_to t('.contact'), contact_path, class: 'no_ text-dark' %></h5>
-      <h5><%= link_to t('.term'), term_path, class: 'no_ text-dark' %></h5>
+      <h5><%= link_to '關於茄典', about_path, class: 'no_ text-dark' %></h5>
+      <h5><%= link_to '聯絡我們', contact_path, class: 'no_ text-dark' %></h5>
+      <h5><%= link_to '隱私條款', term_path, class: 'no_ text-dark' %></h5>
       <div class="w-100 d-sm-none"></div>
-      <%= link_to t('.my_contact.facebook'), class: 'no_ text-dark' do %>
+      <%= link_to 'https://facebook.com/caten.church.teens', class: 'no_ text-dark' do %>
         <i class="fab fa-facebook fa-3x"></i>
       <% end %>
-      <%= link_to t('.my_contact.youtube'), class: 'no_ text-dark' do %>
+      <%= link_to 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w', class: 'no_ text-dark' do %>
         <i class="fab fa-youtube fa-3x"></i>
       <% end %>
-      <%= link_to t('.my_contact.github'), class: 'no_ text-dark' do %>
+      <%= link_to 'https://github.com/CatenChurch', class: 'no_ text-dark' do %>
         <i class="fab fa-github fa-3x"></i>
       <% end %>
     </div>
     <div class="row mt-2 align-items-center">
       <div class="col-12 col-md-6 text-muted p-2">
-        <div><%= t('.my_contact.worship_time') %></div>
-        <div><%= t('.my_contact.office_hour') %></div>
+        <div>主日崇拜：日 09:50 - 11:30</div>
+        <div>上班時間：二 - 日 / 09:30 - 18:00</div>
       </div>
       <div class="col-12 col-md-6 p-2">
-        <div class="lead text-purple"><%= t('.my_contact.tel') %></div>
-        <%= mail_to t('.my_contact.email'), t('.my_contact.email'), class: 'no_ text-dark' %>
-        <div><%= t('.my_contact.address') %></div>
+        <div class="lead text-purple">076178379</div>
+        <%= mail_to 'catenforjesus@gmail.com', 'catenforjesus@gmail.com', class: 'no_ text-dark' %>
+        <div>826-47 高雄市梓官區茄苳里嘉展路 467 號</div>
       </div>
     </div>
   </div>
-  © <%= Time.now.year %> Hong Xin Yang.
+  © 2014 - <%= Time.now.year %> Hong Xin Yang.
 </footer>

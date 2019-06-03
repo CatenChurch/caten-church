@@ -1,16 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
   <a class="navbar-brand" href="/">
-    <%= image_tag 'brand.png', height: 30 %>
-    <%= t '.brand' %>
+    <%= image_tag 'brand.png', height: 30 %> 茄典教會
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar-content">
-    <% if (can? :manage, :admin) %>
+    <% if can? :manage, :admin %>
       <div class="navbar-nav">
         <%= link_to admin_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
-          <i class="fas fa-tachometer-alt mr-1"></i> <%= t '.backstage' %>
+          <i class="fas fa-tachometer-alt mr-1"></i> 後台
         <% end %>
       </div>
     <% end %>
@@ -27,32 +26,32 @@
       <% if user_signed_in? %>
         <div class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle d-flex align-items-center justify-content-between" data-toggle="dropdown">
-            <i class="fas fa-user mr-1"></i> <%= t '.account._' %>
+            <i class="fas fa-user mr-1"></i> 會員中心
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <%= link_to account_events_path, class: 'dropdown-item' do %>
-              <i class="fas fa-running mr-1"></i> <%= t '.account.events' %>
+              <i class="fas fa-running mr-1"></i> 我的活動
             <% end %>
             <%= link_to account_profile_path, class: 'dropdown-item' do %>
-              <i class="fas fa-address-card mr-1"></i> <%= t '.account.profile' %>
+              <i class="fas fa-address-card mr-1"></i> 個人資料
             <% end %>
             <%= link_to account_subscription_path, class: 'dropdown-item' do %>
-              <i class="fas fa-bell mr-1"></i> <%= t '.account.subscription' %>
+              <i class="fas fa-bell mr-1"></i> 通知設定
             <% end %>
             <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
-              <i class="fas fa-cog mr-1"></i> <%= t '.account.edit' %>
+              <i class="fas fa-cog mr-1"></i> 帳號設定
             <% end %>
           </div>
         </div>
         <%= link_to destroy_user_session_path, method: :delete, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
-          <i class="fas fa-sign-out-alt mr-1"></i> <%= t '.log_out' %>
+          <i class="fas fa-sign-out-alt mr-1"></i> 登出
         <% end %>
       <% else %>
         <%= link_to new_user_registration_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
-          <i class="fas fa-user-plus mr-1"></i> <%= t '.sign_up' %>
+          <i class="fas fa-user-plus mr-1"></i> 註冊
         <% end %>
         <%= link_to new_user_session_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
-          <i class="fas fa-sign-in-alt mr-1"></i> <%= t '.log_in' %>
+          <i class="fas fa-sign-in-alt mr-1"></i> 登入
         <% end %>
       <% end %>
     </div>

@@ -1,7 +1,3 @@
-<%# TODO: i18n %>
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
+<p>茄典教會網站會員驗證信</p>
 <p>點擊下面的連結，啟用你的帳號。</p>
-
-<p><%= link_to 'Confirm my account 啟用帳號', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to '啟用帳號', confirmation_url(@resource, confirmation_token: @token) %></p>

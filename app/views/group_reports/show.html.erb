@@ -1,5 +1,5 @@
-<%= render 'jumbotron' %>
-<%= link_to t('.back'), group_reports_path, class: 'btn btn-outline-secondary' %>
+<%= render 'breadcrumb' %>
+<%= link_to '返回', group_reports_path, class: 'btn btn-outline-secondary' %>
 <div class="container">
   <p><strong class="mr-2"><%= Group.model_name.human %></strong><%= @report.group.name %></p>
   <p><strong class="mr-2"><%= Group.human_attribute_name :leader %></strong><%= @report.group.leader&.profile&.name %></p>

@@ -1,76 +1,81 @@
-<% set_meta_tags title: t('.title'),
-  description: t('.subtitle'),
+<% set_meta_tags title: '聯絡我們',
+  description: '有任何問題嗎？馬上填寫表單聯絡我們。',
   og: {
-    title: t('.title'),
-    description: t('.subtitle'),
-    image: t('pages.index.seo.img_url')
+    title: '聯絡我們',
+    description: '有任何問題嗎？馬上填寫表單聯絡我們。',
+    image: 'http://i.imgur.com/Kgv2wwl.jpg'
   } %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('breadcrumb.root'), root_path %>
-  >
-  <%= link_to t('.title'), contact_path %>
+  > <%= link_to '聯絡我們', contact_path %>
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t '.title' %></h1>
-  <p class="lead text-center"><%= t '.subtitle' %></p>
+  <h1 class="display-4 text-center">聯絡我們</h1>
+  <p class="lead text-center">有任何問題嗎？馬上填寫表單聯絡我們。</p>
 <% end %>
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-md-12 d-flex flex-wrap justify-content-between my-2">
-      <h2><%= t '.name' %></h2>
+      <h2>茄典教會</h2>
       <div class="w-100"></div>
-      <address><%= t '.address' %></address>
+      <address>826-47 高雄市梓官區茄苳里嘉展路 467 號</address>
       <div class="w-100"></div>
-      <h3><%= t '.worship_time' %></h3>
+      <h3>聚會時間</h3>
       <div class="w-100"></div>
-      <p><%= t '.worship._' %></p>
-      <p><%= t '.worship.time' %></p>
+      <p>主日崇拜</p>
+      <p>每週日 09:50 至 11:30</p>
       <div class="w-100"></div>
-      <p><%= t '.youth_fellowship._' %></p>
-      <p><%= t '.youth_fellowship.time' %></p>
+      <p>青少年團契</p>
+      <p>每週六 19:00 至 21:00</p>
       <div class="w-100"></div>
-      <h3><%= t '.contact_ways' %></h3>
+      <h3>聯絡方式</h3>
       <div class="w-100"></div>
-      <p><%= t '.tel._' %></p>
-      <p><%= t '.tel.number' %></p>
+      <p>電話</p>
+      <p>076178379</p>
       <div class="w-100"></div>
-      <p><%= t '.fax._' %></p>
-      <p><%= t '.fax.number' %></p>
+      <p>傳真</p>
+      <p>076191553</p>
       <div class="w-100"></div>
-      <p><%= t '.tax._' %></p>
-      <p><%= t '.tax.number' %></p>
+      <p>統一編號</p>
+      <p>20252897</p>
       <div class="w-100"></div>
-      <p><%= t '.email._' %></p>
-      <%= mail_to t('.email.url') %>
+      <p>Email</p>
+      <%= mail_to 'catenforjesus@gmail.com' %>
       <div class="w-100"></div>
-      <h3><%= t '.social_media' %></h3>
+      <h3>網路社群</h3>
       <div class="w-100"></div>
-      <p><%= t '.website' %></p>
+      <p>網站</p>
       <%= link_to root_url, root_path %>
       <div class="w-100"></div>
-      <p><%= t '.facebook._' %></p>
-      <%= link_to t('.facebook.url'), t('.facebook.url') %>
+      <p>Facebook</p>
+      <%= link_to 'https://facebook.com/caten.church.teens', 'https://facebook.com/caten.church.teens' %>
       <div class="w-100"></div>
-      <p><%= t '.youtube._' %></p>
-      <%= link_to t('.youtube.url'), t('.youtube.url') %>
+      <p>Youtube</p>
+      <%= link_to 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w', 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w' %>
       <div class="w-100"></div>
-      <p><%= t '.line@._' %></p>
-      <%= link_to t('.line@.url'), t('.line@.url') %>
+      <p>Line @</p>
+      <%= link_to 'https://line.me/R/ti/p/%40kfi8062r', 'https://line.me/R/ti/p/%40kfi8062r' %>
     </div>
     <div class="col-md-12 col-lg-6 my-2">
-      <%= t '.google_map_html' %>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3822.8183443691373!2d120.25129795923615!3d22.734788517827976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0f351291d611%3A0x875c9a5e732e89d4!2z6Ie654Gj5Z-6552j6ZW36ICB5pWZ5pyDIOiMhOWFuOaVmeacgw!5e0!3m2!1szh-TW!2stw!4v1501388342293"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        style="min-height: 500px;"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
   <hr>
-  <h2><%= t '.contact_form.title' %></h2>
-  <p class="text-muted"><%= t '.contact_form.subtitle' %></p>
+  <h2>填寫連絡表單</h2>
+  <p class="text-muted">任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！</p>
   <%= simple_form_for(@contact, url: contacts_path) do |f| %>
     <%= f.error_notification %>
     <%= f.input :name %>
     <%= f.input :email %>
     <%= f.input :phone %>
     <%= f.input :message, as: :text, input_html: {rows: 8} %>
-    <%= f.button :submit, t('.submit'), class: 'btn-block btn-purple' %>
+    <%= f.button :submit, class: 'btn-block btn-purple' %>
   <% end %>
 </div>
 </div>

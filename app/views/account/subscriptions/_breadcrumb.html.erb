@@ -1,0 +1,8 @@
+<%= render 'account/shared/breadcrumb' %>
+<% content_for :breadcrumb do %>
+  > <%= link_to Subscription.model_name.human, account_subscription_path %>
+<% end %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= Subscription.model_name.human %></h1>
+  <p class="lead text-center">管理訂閱的訊息通知以及通知的管道</p>
+<% end %>

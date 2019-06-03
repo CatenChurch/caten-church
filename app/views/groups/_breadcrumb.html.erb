@@ -1,0 +1,7 @@
+<% content_for :breadcrumb do %>
+  > <%= link_to Group.model_name.human, groups_path %>
+<% end %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= title ||= Group.model_name.human %></h1>
+  <p class="lead text-center"><%= subtitle ||= '教會團契與小組' %></p>
+<% end %>

@@ -1,11 +1,10 @@
+<%= render 'devise/shared/breadcrumb' %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('breadcrumb.root'), root_path %>
-  >
-  <%= t('.title') %>
+  > 帳號驗證
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('.title') %></h1>
-  <p class="lead text-center"><%= t('.subtitle') %></p>
+  <h1 class="display-4 text-center">帳號驗證</h1>
+  <p class="lead text-center">沒有收到驗證信嗎，輸入 Email 重新寄送驗證信，以啟用會員。</p>
 <% end %>
 <div class="container">
   <div class="card-deck">
@@ -17,7 +16,7 @@
           <%= f.input :email, required: true, autofocus: true %>
         </div>
         <div class="card-body">
-          <%= f.button :submit, t('.submit'), class: 'btn-block' %>
+          <%= f.button :submit, '重寄驗證信', class: 'btn-block' %>
         </div>
       <% end %>
     </div>

@@ -1,11 +1,10 @@
+<%= render 'devise/shared/breadcrumb' %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('breadcrumb.root'), root_path %>
-  >
-  <%= t('.title') %>
+  > 登入
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('.title') %></h1>
-  <p class="lead text-center"><%= t('.subtitle') %></p>
+  <h1 class="display-4 text-center">登入</h1>
+  <p class="lead text-center">登入會員以享受此網站提供的服務，本網站支援 Facebook 登入，還沒有帳號可以前往註冊，加入我們。</p>
 <% end %>
 <div class="container">
   <div class="card-deck">
@@ -17,14 +16,14 @@
           <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
         </div>
         <div class="card-body">
-          <%= f.button :submit, t('.submit'), class: "btn-block btn-purple" %>
+          <%= f.button :submit, '帳號登入', class: "btn-block btn-purple" %>
         </div>
       <% end %>
     </div>
     <div class="card my-2 text-center text-muted">
       <div class="card-body">
         <%= link_to omniauth_authorize_path(resource_name, :facebook), class: 'btn btn-outline-primary btn-block' do %>
-          <%= t '.fb_login_html', icon: '<i class="fab fa-facebook fa-3x ml-1"></i>'.html_safe %>
+          使用 <i class="fab fa-facebook fa-3x ml-1"></i> 登入網站
         <% end %>
       </div>
       <div class="card-body">

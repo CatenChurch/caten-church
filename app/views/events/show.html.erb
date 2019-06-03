@@ -3,13 +3,13 @@
     og: {
       title: @event.name,
       description: @event.description,
-      image: t('pages.index.seo.img_url')
+      image: 'http://i.imgur.com/Kgv2wwl.jpg'
     } %>
-<%= render 'jumbotron' %>
+<%= render 'breadcrumb' %>
 <% content_for :breadcrumb do %>
   > <%= link_to @event.name, event_path(@event) %>
 <% end %>
 <div class="container">
-  <%= link_to t('.list'), events_path, class: 'btn btn-outline-secondary mb-4' %>
+  <%= link_to '活動列表', events_path, class: 'btn btn-outline-secondary mb-4' %>
   <%= render 'event', event: @event %>
 </div>

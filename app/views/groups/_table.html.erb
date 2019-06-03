@@ -19,20 +19,20 @@
         <td>
           <% if stage == :backstage %>
             <%= link_to admin_group_path(group), class: 'btn btn-sm btn-outline-secondary' do %>
-              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <i class="fas fa-info-circle"></i> 查看
             <% end %>
             <%= link_to edit_admin_group_path(group), class: 'btn btn-sm btn-outline-primary' do %>
-              <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+              <i class="fas fa-edit"></i> 編輯
             <% end %>
             <%= link_to admin_group_path(group),
                           class: 'btn btn-sm btn-outline-danger',
                           method: :delete,
-                          data: { confirm: t('.confirm') } do %>
+                          data: { confirm: '確定要刪除小組嗎？' } do %>
               <i class="fas fa-trash"></i> <%= t 'button.delete' %>
             <% end %>
           <% elsif stage == :frontstage %>
             <%= link_to group_path(group), class: 'btn btn-sm btn-outline-secondary' do %>
-              <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+              <i class="fas fa-info-circle"></i> 查看
             <% end %>
           <% end %>
         </td>

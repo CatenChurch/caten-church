@@ -1,11 +1,10 @@
+<%= render 'devise/shared/breadcrumb' %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('breadcrumb.root'), root_path %>
-  >
-  <%= t('.title') %>
+  > 忘記密碼
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('.title') %></h1>
-  <p class="lead text-center"><%= t('.subtitle') %></p>
+  <h1 class="display-4 text-center">忘記密碼</h1>
+  <p class="lead text-center">輸入當初註冊的Email，系統將會寄送重設密碼的鏈結至你的 Email。</p>
 <% end %>
 <div class="container">
   <div class="card-deck">
@@ -16,7 +15,7 @@
           <%= f.input :email, required: true, autofocus: true %>
         </div>
         <div class="card-body">
-          <%= f.button :submit, t('.submit'), class: 'btn-block btn-warning' %>
+          <%= f.button :submit, '寄送密碼重設信', class: 'btn-block btn-warning' %>
         </div>
       <% end %>
     </div>

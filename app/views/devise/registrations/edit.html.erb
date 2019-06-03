@@ -1,55 +1,43 @@
+<%= render 'devise/shared/breadcrumb' %>
 <% content_for :breadcrumb do %>
-  <%= link_to t('breadcrumb.root'), root_path %>
-  >
-  <%= t('breadcrumb.account') %>
-  >
-  <%= t('.title') %>
+  > 帳號設定
 <% end %>
 <% content_for :jumbotron do %>
-  <h1 class="display-4 text-center"><%= t('.title') %></h1>
-  <p class="lead text-center"><%= t('.subtitle') %></p>
+  <h1 class="display-4 text-center">帳號設定</h1>
+  <p class="lead text-center">更改帳號或密碼，以及綁定社群帳號以使用社群帳號登入網站等功能。</p>
 <% end %>
 <div class="container">
   <div class="card-deck">
     <div class="card my-2">
       <div class="card-body">
-        <h2 class="card-title text-center"><%= t('.change') %></h2>
+        <h2 class="card-title text-center">更改帳號密碼</h2>
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.error_notification %>
-          <div class="form-inputs">
-            <%= f.input :email, required: true, autofocus: true %>
-            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <label for=""><%= t('.pending_email.label') %></label>
-              <p class="text-warning">
-                <%= resource.unconfirmed_email %>
-                <%= link_to t('.pending_email.cancel'),
-                            user_unconfirmed_email_path,
-                            class: "btn btn-sm btn-danger mx-2",
-                            method: :delete,
-                            data: { confirm: t('.pending_email.confirm') }
-                %>
-              </p>
-            <% end %>
-            <%= f.input :password, autocomplete: 'off', hint: t('.password.hint'), required: false, label: t('.password.label') %>
-            <%= f.input :password_confirmation, required: false, label: t('.password_confirmation.label') %>
-            <%= f.input :current_password, hint: t('.current_password.hint'), required: true %>
-          </div>
-          <div class="form-actions">
-            <%= f.button :submit, t('.submit'), class: "btn-block btn-warning" %>
-          </div>
+          <%= f.input :email, required: true, autofocus: true %>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <label>申請更改Email 等待驗證的帳號:</label>
+            <p class="text-warning">
+              <%= resource.unconfirmed_email %>
+              <%= link_to '取消', user_unconfirmed_email_path, class: "btn btn-sm btn-danger mx-2", method: :delete, data: { confirm: '確定要取消更改 Email 的申請嗎？' } %>
+            </p>
+          <% end %>
+          <%= f.input :password, autocomplete: 'off', hint: '如果沒有要更改密碼，本行請留空', required: false, label: '新密碼' %>
+          <%= f.input :password_confirmation, required: false, label: '再次輸入新密碼' %>
+          <%= f.input :current_password, hint: '請輸入原本的密碼，使得本次帳號密碼更改生效', required: true %>
+          <%= f.button :submit, '更改帳號密碼', class: "btn-block btn-warning" %>
         <% end %>
       </div>
     </div>
     <div class="card my-2 text-center">
       <div class="card-body">
-        <h2 class="card-title"><%= t('.oauths.title') %></h2>
+        <h2 class="card-title">社群帳號連結</h2>
       </div>
       <div class="list-group list-group-flush">
         <%= connect_facebook_link(current_user) %>
         <%= connect_google_link(current_user) %>
         <%= connect_instagram_link(current_user) %>
       </div>
-      <div class="card-footer"><%= t('.oauths.footer') %></div>
+      <div class="card-footer">可以使用已經連結的社群帳號登入本網站</div>
     </div>
   </div>
 </div>
