@@ -1,4 +1,4 @@
-class Admin::ServiceRolesController < Admin::BaseController
+class Admin::Service::RolesController < Admin::BaseController
   before_action :find_role, only: %i[show edit update destroy]
 
   def index
@@ -18,10 +18,10 @@ class Admin::ServiceRolesController < Admin::BaseController
     @role = Service::Role.new(role_params)
     @role.resource_type = 'Service::Team'
     if @role.save
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功建立服事角色'
       redirect_to admin_service_roles_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '建立服事角色失敗'
       render :new
     end
   end
@@ -30,19 +30,19 @@ class Admin::ServiceRolesController < Admin::BaseController
 
   def update
     if @role.update(role_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功更新服事角色'
       redirect_to admin_service_roles_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新服事角色失敗'
       render :edit
     end
   end
 
   def destroy
     if @role.destroy
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功刪除服事角色'
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '刪除服事角色失敗'
     end
     redirect_to admin_service_roles_url
   end

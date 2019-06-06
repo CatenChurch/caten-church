@@ -1,9 +1,9 @@
 <div class="btn-toolbar mb-2">
   <%= link_to admin_event_path(params[:event_id]), class: 'btn btn-outline-secondary' do %>
-    <i class="fas fa-undo"></i> <%= t '.back' %>
+    <i class="fas fa-undo"></i> 回到活動
   <% end %>
   <%= link_to edit_admin_event_event_users_path(params[:event_id]), class: 'btn btn-primary ml-auto' do %>
-    <i class="fas fa-edit"></i> <%= t '.edit' %>
+    <i class="fas fa-edit"></i> 繳費與報到
   <% end %>
 </div>
 <%= render 'event_users/table', event_users: @event_users, stage: :backstage %>

@@ -1,5 +1,5 @@
 <%= link_to admin_event_event_users_path, class: 'btn btn-outline-secondary mb-2' do %>
-  <i class="fas fa-undo"></i> <%= t 'button.cancel' %>
+  <i class="fas fa-undo"></i> 取消
 <% end %>
 <%= simple_form_for :event_users, url: admin_event_event_users_url, method: :patch do |f| %>
   <table class="table">
@@ -30,8 +30,8 @@
       <% end %>
     </tbody>
   </table>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: t('.submitting') } do %>
-    <i class="fas fa-save"></i> <%= t 'button.save' %>
+  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中' } do %>
+    <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>
 <script type="text/javascript">

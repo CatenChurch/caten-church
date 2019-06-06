@@ -1,6 +1,0 @@
-'zh-TW':
-  users:
-    confirmations:
-      cancel:
-        success: 取消申請更改 Email 成功
-        failed: 取消申請更改 Email 失敗，流程中出了些錯誤

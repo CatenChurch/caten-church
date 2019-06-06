@@ -28,7 +28,7 @@
                           class: 'btn btn-sm btn-outline-danger',
                           method: :delete,
                           data: { confirm: '確定要刪除小組嗎？' } do %>
-              <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              <i class="fas fa-trash"></i> 刪除
             <% end %>
           <% elsif stage == :frontstage %>
             <%= link_to group_path(group), class: 'btn btn-sm btn-outline-secondary' do %>

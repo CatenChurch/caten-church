@@ -1,7 +1,7 @@
 wb = xlsx_package.workbook
 
-wb.add_worksheet name: t('.title') do |sheet|
-  sheet.add_row [t('.title')]
+wb.add_worksheet name: User.model_name.human do |sheet|
+  sheet.add_row [User.model_name.human]
   sheet.merge_cells('A1:H1')
 
   sheet.add_row [

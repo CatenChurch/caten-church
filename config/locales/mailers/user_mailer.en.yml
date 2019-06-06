@@ -1,4 +1,0 @@
-'en':
-  user_mailer:
-    birth_notification:
-      subject: "茄典教會會員 %{month} 月份壽星通知"

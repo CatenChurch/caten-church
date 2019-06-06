@@ -24,13 +24,13 @@ class Admin::MembersController < Admin::BaseController
 
   def become_admin
     @member.become_admin
-    flash[:notice] = t('.success', email: @member.email)
+    flash[:notice] = "#{@member.email} 已成為管理員"
     redirect_to :back
   end
 
   def cancel_admin
     @member.cancel_admin
-    flash[:notice] = t('.success', email: @member.email)
+    flash[:notice] = "#{@member.email} 已不是管理員"
     redirect_to :back
   end
 

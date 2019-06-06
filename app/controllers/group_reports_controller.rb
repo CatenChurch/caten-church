@@ -25,10 +25,10 @@ class GroupReportsController < ApplicationController
     @report = current_user.created_group_reports.build(report_params)
 
     if @report.save
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功建立小組回報'
       redirect_to group_report_url(@report)
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '建立小組回報時發生錯誤'
       render :new
     end
   end
@@ -47,7 +47,7 @@ class GroupReportsController < ApplicationController
   def check_is_leader
     return if @lead_groups.present?
 
-    redirect_to group_reports_url, alert: t('group_reports.check_is_leader.failed')
+    redirect_to group_reports_url, alert: '你不是小組長'
   end
 
   def report_params

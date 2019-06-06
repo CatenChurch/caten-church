@@ -1,7 +1,0 @@
-'zh-TW':
-  users:
-    omniauth_callbacks:
-      facebook:
-        sign_up: 以 Facebook 帳號進行註冊
-        sign_in: 以 Facebook 帳號授權登入
-        connect: 帳號與 Facebook 帳號連結成功

@@ -1,11 +1,11 @@
 class Admin::BaseController < ApplicationController
   layout 'admin'
 
-  # 權限管理交給cancancan
+  # 權限管理交給 cancancan
   authorize_resource class: :admin
 
-  # cancancan拒絕後導向
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: t('cancancan.not_admin')
+  # cancancan 拒絕後導向
+  rescue_from CanCan::AccessDenied do |_exception|
+    redirect_to root_url, alert: '需要管理員權限'
   end
 end

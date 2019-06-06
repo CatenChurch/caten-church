@@ -1,7 +1,7 @@
 <%= link_to admin_contact_path, class: 'btn btn-outline-secondary' do %>
-  <i class="fas fa-undo"></i> <%= t 'button.cancel' %>
+  <i class="fas fa-undo"></i> 取消
 <% end %>
-<h1 class="my-2 text-center"><%= t '.title' %></h1>
+<h1 class="my-2 text-center">編輯<%= Contact.model_name.human %></h1>
 <%= simple_form_for @contact, url: admin_contact_url(@contact) do |f| %>
   <%= f.error_notification %>
   <%= f.input :name %>
@@ -9,7 +9,7 @@
   <%= f.input :phone %>
   <%= f.input :message, as: :text, input_html: { rows: 8 } %>
   <%= f.input :handled %>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-    <i class="fas fa-save"></i> <%= t 'button.save' %>
+  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
+    <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>

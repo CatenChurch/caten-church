@@ -1,7 +1,0 @@
-'zh-TW':
-  users:
-    registrations:
-      oauth_create:
-        success: 成功以 Facebook 帳號註冊本網站會員
-        failed: 以 Facebook 帳號註冊本網站會員尚未完成
-      no_oauth_provider: 若要使用社群網站註冊，請點擊社群網站登入按鈕

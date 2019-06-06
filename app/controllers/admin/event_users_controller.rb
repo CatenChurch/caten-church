@@ -1,5 +1,5 @@
 class Admin::EventUsersController < Admin::BaseController
-  before_action :set_event_users, only: [:edit, :show, :update]
+  before_action :set_event_users, only: %i[edit show update]
   def edit; end
 
   def show; end
@@ -31,10 +31,10 @@ class Admin::EventUsersController < Admin::BaseController
       query_success = (e.save || query_success) if change
     end
     if query_success
-      flash[:notice] = t('.success')
+      flash[:notice] = '更新報名者狀態成功'
       redirect_to admin_event_event_users_url
     else
-      flash[:warning] = t('.failed')
+      flash[:warning] = '更新報名者狀態失敗'
       render 'edit'
     end
   end

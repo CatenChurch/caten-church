@@ -1,5 +1,5 @@
 <%= link_to admin_members_path, class: 'btn btn-sm btn-outline-secondary' do %>
-  <i class="fas fa-list"></i> <%= t '.back' %>
+  <i class="fas fa-list"></i> <%= User.model_name.human %>一覽
 <% end %>
 <h1 class="mt-2 text-center"><%= User.model_name.human %></h1>
 <h2 class="mt-2 text-center"><%= @member.email %></h2>
@@ -8,14 +8,14 @@
     <%= link_to become_admin_admin_member_path(@member),
                 method: :post,
                 class: 'btn btn-sm btn-danger ml-auto',
-                data: { confirm: '確定要將此用戶降為一般會員嗎？', disable_with: t('button.submitting') } do %>
+                data: { confirm: '確定要將此用戶降為一般會員嗎？', disable_with: '送出中...' } do %>
       <i class="fas fa-ban"></i> 降為一般會員
     <% end %>
   <% else %>
     <%= link_to become_admin_admin_member_path(@member),
                 method: :post,
                 class: 'btn btn-sm btn-danger ml-auto',
-                data: { confirm: '確定要讓此用戶升為管理員嗎？', disable_with: t('button.submitting') } do %>
+                data: { confirm: '確定要讓此用戶升為管理員嗎？', disable_with: '送出中...' } do %>
       <i class="fas fa-gavel"></i> 升為管理員
     <% end %>
   <% end %>
@@ -24,7 +24,7 @@
 <%= render 'account/profiles/profile', profile: @member.profile, stage: :backstage %>
 <% if @service_teams.present? %>
   <div class="mt-2">
-    <h3 class="text-center"><%= t '.leaded' %><%= Service::Team.model_name.human %></h3>
+    <h3 class="text-center">領導的<%= Service::Team.model_name.human %></h3>
     <div class="card">
       <div class="list-group list-group-flush">
         <% @service_teams.each do |team| %>
@@ -36,7 +36,7 @@
 <% end %>
 <% if @serviced_teams.present? %>
   <div class="mt-2">
-    <h3 class="text-center"><%= t '.participated' %><%= Service::Team.model_name.human %></h3>
+    <h3 class="text-center">參加的<%= Service::Team.model_name.human %></h3>
     <div class="card">
       <div class="list-group list-group-flush">
         <% @serviced_teams.each do |team| %>
@@ -48,7 +48,7 @@
 <% end %>
 <% if @events.present? %>
   <div class="mt-2">
-    <h3 class="text-center"><%= t '.participated' %><%= Event.model_name.human %></h3>
+    <h3 class="text-center">參加的<%= Event.model_name.human %></h3>
     <div class="card">
       <div class="list-group list-group-flush">
         <% @events.each do |event| %>

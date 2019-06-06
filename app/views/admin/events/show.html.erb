@@ -1,23 +1,23 @@
 <%= link_to admin_events_path, class: 'btn btn-outline-secondary' do %>
-  <i class="fas fa-list"></i> <%= t '.back' %>
+  <i class="fas fa-list"></i> <%= Event.model_name.human %>一覽
 <% end %>
 <h1 class="mt-2 text-center"><%= Event.model_name.human %></h1>
 <div class="my-2 btn-toolbar">
   <%= link_to download_admin_event_path(@event,format: :xlsx), class: 'btn btn-sm btn-outline-success' do %>
-    <i class="fas fa-file-download"></i> <%= t 'button.download' %> Excel
+    <i class="fas fa-file-download"></i> 下載 Excel
   <% end %>
   <div class="btn-group ml-auto">
     <%= link_to admin_event_event_users_path(params[:id]), class: 'btn btn-sm btn-outline-secondary' do %>
       <i class="fas fa-users"></i> <%= EventUser.model_name.human %>
     <% end %>
     <%= link_to edit_admin_event_path(@event), class: 'btn btn-sm btn-outline-secondary' do %>
-      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+      <i class="fas fa-edit"></i> 編輯
     <% end %>
     <%= link_to admin_event_path(@event),
                 class: 'btn btn-sm btn-outline-danger',
                 method: :delete,
-                data: { confirm: t('.confirm') } do %>
-      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+                data: { confirm: '確定要刪除活動嗎？' } do %>
+      <i class="fas fa-trash"></i> 刪除
     <% end %>
   </div>
 </div>

@@ -1,5 +1,5 @@
 class Admin::ServiceSchedulesController < Admin::BaseController
-  before_action :find_schedule, only: [:edit, :update, :destroy]
+  before_action :find_schedule, only: %i[edit update destroy]
 
   def index
     @q = Service::Schedule.ransack(params[:q])
@@ -13,10 +13,10 @@ class Admin::ServiceSchedulesController < Admin::BaseController
   def create
     @schedule = Service::Schedule.new(schedule_params)
     if @schedule.save
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功建立服事時程表'
       redirect_to admin_service_schedules_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '建立服事時程表失敗'
       render :new
     end
   end
@@ -25,24 +25,25 @@ class Admin::ServiceSchedulesController < Admin::BaseController
 
   def update
     if @schedule.update(schedule_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功更新服事時程表'
       redirect_to admin_service_schedules_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新服事時程表失敗'
       render :edit
     end
   end
 
   def destroy
     if @schedule.destroy
-      flash[:notice] = t('.success')
+      flash[:notice] = '成功刪除服事時程表'
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '刪除服事時程表失敗'
     end
     redirect_to admin_service_schedules_url
   end
 
   private
+
   def schedule_params
     params.require(:service_schedule).permit(:service_team_id, :service_time)
   end

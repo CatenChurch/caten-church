@@ -23,7 +23,7 @@
     <div class="form-group">
       <label><%= Service::TeamUser.model_name.human %></label>
       <button v-on:click="newTeamUser" type="button" class="btn btn-sm btn-outline-success">
-        <i class="mr-1 fas fa-plus"></i><%= t 'button.new' %>
+        <i class="mr-1 fas fa-plus"></i> 新增
       </button>
     </div>
     <div v-for="(teamUser, index) in teamUsers" class="ml-4 mt-2">
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group">
           <button v-on:click="deleteTeamUser(index)" type="button" class="btn btn-sm btn-outline-danger">
-            <i class="mr-1 fas fa-trash"></i><%= t 'button.delete' %>
+            <i class="mr-1 fas fa-trash"></i> 刪除
           </button>
         </div>
         <div v-show="teamUser.editMode" class="w-100 mt-2">
@@ -60,13 +60,13 @@
       </div>
       <div v-show="teamUser.deleted">
         <button v-on:click="recoverTeamUser(index)" type="button" class="btn btn-sm btn-outline-primary">
-          <i class="mr-1 fas fa-undo"></i><%= t 'button.undo' %>
+          <i class="mr-1 fas fa-undo"></i> 復原
         </button>
       </div>
     </div>
     <hr>
-    <%= button_tag class: 'btn btn-primary', data: { disable_with: t('button.submitting') } do %>
-      <i class="fas fa-save"></i> <%= t 'button.save' %>
+    <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
+      <i class="fas fa-save"></i> 儲存
     <% end %>
   <% end %>
 </div>

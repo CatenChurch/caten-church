@@ -1,21 +1,21 @@
 <%= link_to admin_contacts_path, class: 'btn btn-outline-secondary' do %>
-  <i class="fas fa-list"></i> <%= t '.back' %>
+  <i class="fas fa-list"></i> <%= Contact.model_name.human %>一覽
 <% end %>
-<h1 class="mt-2 text-center"><%= t '.title' %></h1>
+<h1 class="mt-2 text-center"><%= Contact.model_name.human %></h1>
 <div class="mt-2 btn-toolbar">
   <div class="btn-group ml-auto">
     <%= link_to handle_admin_contact_path, method: :post, class: 'btn btn-sm btn-outline-secondary' do %>
       <% if @contact.handled %>
-        <i class="fas fa-times"></i> <%= t '.unhandle' %>
+        <i class="fas fa-times"></i> 標示為未處理
       <% else %>
-        <i class="fas fa-check"></i> <%= t '.handle' %>
+        <i class="fas fa-check"></i> 標示為處理
       <% end %>
     <% end %>
     <%= link_to admin_contact_path,
                 method: :delete,
                 class: 'btn btn-sm btn-outline-danger',
-                data: { confirm: t('.confirm') } do %>
-      <i class="fas fa-trash"></i> <%= t 'button.delete'%>
+                data: { confirm: '確定要刪除這個聯絡訊息嗎？' } do %>
+      <i class="fas fa-trash"></i> 刪除
     <% end %>
   </div>
 </div>

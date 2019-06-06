@@ -1,16 +1,16 @@
 wb = xlsx_package.workbook
 
 # event info worksheet
-wb.add_worksheet name: t('.info') do |sheet|
-  sheet.add_row [t('.info')]
+wb.add_worksheet name: '活動資訊' do |sheet|
+  sheet.add_row ['活動資訊']
   @event.attributes.each do |key, value|
     sheet.add_row [ Event.human_attribute_name(key), value]
   end
 end
 
 # event participants worksheet
-wb.add_worksheet name: t('.participants') do |sheet|
-  sheet.add_row [t('.participants')]
+wb.add_worksheet name: '報名者名單' do |sheet|
+  sheet.add_row ['報名者名單']
   sheet.add_row [
     Profile.human_attribute_name(:name),
     Profile.human_attribute_name(:sex),

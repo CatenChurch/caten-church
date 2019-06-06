@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <%= link_to admin_path, class: 'navbar-brand' do %>
     <%= image_tag 'brand.png', height: 30 %>
-    <%= t '.brand' %>
+    茄典教會 - 管理介面
   <% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
     <span class="navbar-toggler-icon"></span>
@@ -35,13 +35,13 @@
       <% end %>
       <hr class="w-100">
       <%= link_to sidekiq_web_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', target: :_blank do %>
-        <i class="fas fa-server"></i> <%= t '.sidekiq' %>
+        <i class="fas fa-server"></i> 網站任務
       <% end %>
       <hr class="w-100">
     </div>
     <div class="navbar-nav ml-auto">
       <%= link_to root_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
-        <i class="fas fa-sign-out-alt mr-1"></i> <%= t '.back' %>
+        <i class="fas fa-sign-out-alt mr-1"></i> 離開管理介面
       <% end %>
     </div>
   </div>

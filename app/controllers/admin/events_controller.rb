@@ -1,5 +1,5 @@
 class Admin::EventsController < Admin::BaseController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :download]
+  before_action :set_event, only: %i[show edit update destroy download]
 
   def index
     @q = Event.ransack(params[:q])
@@ -28,9 +28,9 @@ class Admin::EventsController < Admin::BaseController
     @event = current_user.events.build(resource_params)
     if @event.save
       redirect_to admin_event_path(@event)
-      flash[:notice] = t('.success')
+      flash[:notice] = '建立活動成功'
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '建立活動失敗'
       render :new
     end
   end
@@ -38,9 +38,9 @@ class Admin::EventsController < Admin::BaseController
   def update
     if @event.update(resource_params)
       redirect_to admin_event_path(@event)
-      flash[:notice] = t('.success')
+      flash[:notice] = '更新活動成功'
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新活動失敗'
       render :edit
     end
   end
@@ -48,7 +48,7 @@ class Admin::EventsController < Admin::BaseController
   def destroy
     @event.destroy
     redirect_to admin_events_url
-    flash[:alert] = t('.success')
+    flash[:alert] = '刪除活動成功'
   end
 
   def download

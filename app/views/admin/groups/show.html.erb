@@ -1,17 +1,17 @@
 <%= link_to admin_groups_path, class: 'btn btn-outline-secondary' do %>
-  <i class="fas fa-list"></i> <%= t '.back' %>
+  <i class="fas fa-list"></i> <%= Group.model_name.human %>一覽
 <% end %>
 <h1 class="mt-2 text-center"><%= Group.model_name.human %></h1>
 <div class="my-2 btn-toolbar">
   <div class="btn-group ml-auto">
     <%= link_to edit_admin_group_path(@group), class: 'btn btn-sm btn-outline-secondary' do %>
-      <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+      <i class="fas fa-edit"></i> 編輯
     <% end %>
     <%= link_to admin_group_path(@group),
               class: 'btn btn-sm btn-outline-danger',
               method: :delete,
-              data: { confirm: t('.confirm') } do %>
-      <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+              data: { confirm: '確定要刪除小組嗎？' } do %>
+      <i class="fas fa-trash"></i> 刪除
     <% end %>
   </div>
 </div>

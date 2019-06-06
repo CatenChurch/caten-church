@@ -1,6 +1,0 @@
-'zh-TW':
-  account:
-    messengers:
-      update:
-        success: '更新通知管道成功，%{provider} 通知管道%{activated}。'
-        failed: 更新通知管道失敗

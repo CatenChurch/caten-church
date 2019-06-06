@@ -1,11 +1,11 @@
 <% unless Rails.env.production? %>
-  <h1>Email Testing</h1>
+  <h1>本郵件為測試郵件</h1>
 <% end %>
-<p><%= @recipient.profile&.name %> <%= t '.greeting' %></p>
+<p><%= @recipient.profile&.name %> 弟兄姊妹，平安：</p>
 <p style="margin-left: 10px;">
-  <%= t '.participated_event' %>：<%= link_to @event.name, event_url(@event) %><br>
-  <%= t '.remaining_time', time: time_ago_in_words(@event.start) %><br>
-  <%= t '.start_at', time: l(@event.start) %><br>
-  <%= t '.forward' %>
+  你報名的活動：<%= link_to @event.name, event_url(@event) %><br>
+  距離開始只剩 <%= time_ago_in_words(@event.start) %> 囉，<br>
+  活動將於 <%= l(@event.start) %> 開始，<br>
+  我們非常期盼能夠見到你!
 </p>
-<p><%= t '.sign' %></p>
+<p>茄典教會</p>

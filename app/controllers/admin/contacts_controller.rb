@@ -1,30 +1,28 @@
 class Admin::ContactsController < Admin::BaseController
-  before_action :find_contact, only: [:show, :edit, :update, :destroy, :handle]
+  before_action :find_contact, only: %i[show edit update destroy handle]
 
   def index
     @q = Contact.ransack(params[:q])
     @contacts = @q.result(distinct: true).order(:id).page(params[:page])
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @contact.update(contact_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = '編輯聯絡訊息成功'
       redirect_to admin_contact_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '編輯聯絡訊息失敗'
       render :edit
     end
   end
 
   def destroy
     @contact.destroy
-    flash[:alert] = t('.success')
+    flash[:alert] = '刪除聯絡訊息成功'
     redirect_to admin_contacts_url
   end
 
@@ -36,6 +34,7 @@ class Admin::ContactsController < Admin::BaseController
   end
 
   private
+
   def contact_params
     params.require(:contact).permit(:name, :email, :phone, :message, :handled)
   end

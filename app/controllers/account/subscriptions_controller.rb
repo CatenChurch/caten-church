@@ -8,10 +8,10 @@ class Account::SubscriptionsController < Account::BaseController
 
   def update
     if @subscription.update(subscription_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = '更新消息訂閱成功'
       redirect_to account_subscription_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新消息訂閱失敗'
       render :edit
     end
   end

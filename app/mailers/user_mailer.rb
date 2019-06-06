@@ -4,9 +4,9 @@ class UserMailer < ApplicationMailer
     @month = month
 
     @users = User.birth_month(month).includes(:profile)
-    @days = Array.new(31) { Array.new }
+    @days = Array.new(31) { [] }
     @users.each { |user| @days[user.profile.birth.day] << user }
 
-    mail to: @recipient.email, subject: default_i18n_subject(month: @month)
+    mail to: @recipient.email, subject: "茄典教會會員 #{@month} 月份壽星通知"
   end
 end

@@ -1,5 +1,5 @@
 <%= link_to admin_service_schedules_path, class: 'btn btn-outline-secondary' do %>
-  <i class="fas fa-undo"></i> <%= t 'button.cancel' %>
+  <i class="fas fa-undo"></i> 取消
 <% end %>
-<h1 class="my-2 text-center"><%= t '.title' %></h1>
+<h1 class="my-2 text-center">新增<%= Service::Schedule.model_name.human %></h1>
 <%= render 'form' %>

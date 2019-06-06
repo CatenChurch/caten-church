@@ -2,9 +2,9 @@ class Account::MessengersController < ApplicationController
   before_action :find_messenger
   def update
     if @messenger.update(messenger_params)
-      flash[:notice] = t('.success', provider: @messenger.provider, activated: Messenger.human_attribute_name("activated.#{@messenger.activated}"))
+      flash[:notice] = "更新通知管道成功，#{@messenger.provider} 通知管道 #{Messenger.human_attribute_name('activated.' + @messenger.activated)}"
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新通知管道失敗'
     end
     redirect_to account_subscription_url
   end

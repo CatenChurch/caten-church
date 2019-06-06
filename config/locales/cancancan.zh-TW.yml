@@ -1,4 +1,0 @@
-'zh-TW':
-  cancancan:
-    login_first: 請先登入
-    not_admin: 需要管理員權限

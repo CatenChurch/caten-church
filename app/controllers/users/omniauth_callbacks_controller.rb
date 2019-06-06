@@ -20,18 +20,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session[:oauth_id] = @oauth.id
       session[:oauth_email] = email
       session[:oauth_provider] = provider
-      flash[:notice] = t('.sign_up')
+      flash[:notice] = '以 Facebook 帳號進行註冊'
       redirect_to new_oauth_user_registration_url
 
     # Sign in
     elsif !user_signed_in? && @oauth.connected?
-      flash[:notice] = t('.sign_in')
+      flash[:notice] = '以 Facebook 帳號授權登入'
       sign_in_and_redirect @oauth.user, event: :authentication # this will throw if @user is not activated
 
     # Connect
     elsif user_signed_in? && !@oauth.connected?
       @oauth.connect current_user
-      flash[:notice] = t('.connect')
+      flash[:notice] = '帳號與 Facebook 帳號連結成功'
       redirect_to edit_user_registration_url
 
     else

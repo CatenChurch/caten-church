@@ -1,30 +1,30 @@
-<h1 class="text-center"><%= t '.title' %></h1>
+<h1 class="text-center"><%= Event.model_name.human %>一覽</h1>
 <div class="mt-2 btn-toolbar">
   <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
-    <i class="fas fa-search"></i> <%= t('button.search_conditions') %>
+    <i class="fas fa-search"></i> 搜尋條件
   </a>
   <%= link_to new_admin_event_path, class: 'btn btn-outline-success ml-auto' do %>
-    <i class="fas fa-plus"></i> <%= t '.new' %>
+    <i class="fas fa-plus"></i> 新增<%= Event.model_name.human %>
   <% end %>
 </div>
 <div class="collapse mt-2" id="collapse-search">
   <div class="card">
     <div class="card-body">
       <div class="nav nav-pills">
-        <%= link_to t('.all'), admin_events_path, class: 'nav-item nav-link', id: 'event-nav-all' %>
-        <%= link_to t('.registration'), admin_events_path(status: :registration), class: 'nav-item nav-link', id: 'event-nav-registration' %>
-        <%= link_to t('.running'), admin_events_path(status: :running), class: 'nav-item nav-link', id: 'event-nav-running' %>
-        <%= link_to t('.closed'), admin_events_path(status: :closed), class: 'nav-item nav-link', id: 'event-nav-closed' %>
+        <%= link_to '全部', admin_events_path, class: 'nav-item nav-link', id: 'event-nav-all' %>
+        <%= link_to '報名中', admin_events_path(status: :registration), class: 'nav-item nav-link', id: 'event-nav-registration' %>
+        <%= link_to '進行中', admin_events_path(status: :running), class: 'nav-item nav-link', id: 'event-nav-running' %>
+        <%= link_to '已結束', admin_events_path(status: :closed), class: 'nav-item nav-link', id: 'event-nav-closed' %>
       </div>
       <%= search_form_for @q, url: admin_events_url, class: 'form-inline mt-2' do |f| %>
         <%= hidden_field_tag :status, params[:status] %>
         <%= f.search_field :name_cont, class: 'form-control', placeholder: Event.human_attribute_name(:name) %>
         <div class="w-100 mt-2"></div>
         <%= link_to admin_events_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
-          <i class="fas fa-eraser"></i> <%= t 'button.clear' %>
+          <i class="fas fa-eraser"></i> 清除條件
         <% end %>
         <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
-          <i class="fas fa-search"></i> <%= t 'button.search' %>
+          <i class="fas fa-search"></i> 搜尋
         </button>
       <% end %>
     </div>
@@ -56,16 +56,16 @@
           <td class="btn-toolbar">
             <div class="btn-group">
               <%= link_to admin_event_path(event), class: 'btn btn-sm btn-outline-secondary' do %>
-                <i class="fas fa-info-circle"></i> <%= t 'button.show' %>
+                <i class="fas fa-info-circle"></i> 查看
               <% end %>
               <%= link_to edit_admin_event_path(event), class: 'btn btn-sm btn-outline-secondary' do %>
-                <i class="fas fa-edit"></i> <%= t 'button.edit' %>
+                <i class="fas fa-edit"></i> 編輯
               <% end %>
               <%= link_to admin_event_path(event),
                           class: 'btn btn-sm btn-outline-danger',
                           method: :delete,
-                          data: { confirm: t('.confirm') } do %>
-                <i class="fas fa-trash"></i> <%= t 'button.delete' %>
+                          data: { confirm: '確定要刪除活動嗎？' } do %>
+                <i class="fas fa-trash"></i> 刪除
               <% end %>
             </div>
           </td>

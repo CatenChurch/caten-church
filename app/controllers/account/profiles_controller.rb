@@ -1,5 +1,5 @@
 class Account::ProfilesController < Account::BaseController
-  before_action :get_profile, only: [:show, :edit, :update]
+  before_action :get_profile, only: %i[show edit update]
 
   def new
     redirect_to edit_account_profile_url if current_user.profile.present?
@@ -9,10 +9,10 @@ class Account::ProfilesController < Account::BaseController
   def create
     @profile = current_user.build_profile(profile_params)
     if @profile.save
-      flash[:notice] = t('.success')
+      flash[:notice] = '建立個人資料成功'
       redirect_to account_profile_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '建立個人資料失敗'
       render :new
     end
   end
@@ -21,10 +21,10 @@ class Account::ProfilesController < Account::BaseController
 
   def update
     if @profile.update(profile_params)
-      flash[:notice] = t('.success')
+      flash[:notice] = '更新個人資料成功'
       redirect_to account_profile_url
     else
-      flash[:alert] = t('.failed')
+      flash[:alert] = '更新個人資料失敗'
       render :edit
     end
   end
@@ -35,7 +35,7 @@ class Account::ProfilesController < Account::BaseController
     @profile = current_user.profile
     @profile.valid_for_joining_event = session[:valid_for_joining_event]
     if @profile.blank?
-      flash[:warning] = t('account.profiles.no_profile')
+      flash[:warning] = '尚未建立個人資料'
       redirect_to new_account_profile_url
     end
   end

@@ -1,6 +1,0 @@
-'zh-TW':
-  account:
-    subscriptions:
-      update:
-        success: 更新消息訂閱成功
-        failed: 更新消息訂閱失敗

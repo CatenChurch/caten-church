@@ -18,7 +18,7 @@
     <%= simple_form_for(@report, url: new_group_report_url, method: :get) do |f| %>
       <%= f.error_notification %>
       <%= f.association :group, collection: @lead_groups %>
-      <%= f.button :submit, t('button.next') %>
+      <%= f.button :submit, '下一步' %>
     <% end %>
   <% end %>
   <%= link_to '取消', group_reports_path, class: 'btn btn-outline-secondary mt-2' %>
