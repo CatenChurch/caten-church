@@ -1,4 +1,4 @@
-class Admin::Service::RolesController < Admin::BaseController
+class Admin::ServiceRolesController < Admin::BaseController
   before_action :find_role, only: %i[show edit update destroy]
 
   def index
