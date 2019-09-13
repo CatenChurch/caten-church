@@ -5,7 +5,7 @@
 <h2 class="mt-2 text-center"><%= @member.email %></h2>
 <div class="btn-toolbar mt-2">
   <% if Ability.new(@member).can?(:manage, :admin) %>
-    <%= link_to become_admin_admin_member_path(@member),
+    <%= link_to cancel_admin_admin_member_path(@member),
                 method: :post,
                 class: 'btn btn-sm btn-danger ml-auto',
                 data: { confirm: '確定要將此用戶降為一般會員嗎？', disable_with: '送出中...' } do %>
