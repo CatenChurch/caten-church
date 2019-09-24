@@ -9,11 +9,19 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+# port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+# environment ENV.fetch("RAILS_ENV") { "development" }
+
+if ENV.fetch('RAILS_ENV') { 'development' } == 'development'
+  # using mkcert self-signed cert enable ssl
+  ssl_bind '0.0.0.0', ENV.fetch('PORT') { 3000 }, cert: Rails.root.join('localhost.pem'), key: Rails.root.join('localhost-key.pem')
+else
+  port        ENV.fetch('PORT') { 3000 }
+  environment ENV.fetch('RAILS_ENV') { 'development' }
+end
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

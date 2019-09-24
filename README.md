@@ -33,6 +33,21 @@ Copy example credentials from `config/credentials.yml.example`, then fill in you
 $ EDITOR="atom --wait" rails credentials:edit
 ```
 
+Using [mkcert](https://github.com/FiloSottile/mkcert) (brew install mkcert) self-signed certificate ssl
+
+```sh
+$ mkcert localhost
+
+Using the local CA at "/Users/username/Library/Application Support/mkcert" ✨
+
+Created a new certificate valid for the following names 📜
+ - "localhost"
+
+The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅
+```
+
+mkcert generated cert `localhost.pem` and key `localhost-key.pem`, puma will load these .pem files, then force http connection on https://localhost:3000.
+
 ## Usage
 
 migrate database
