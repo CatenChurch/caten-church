@@ -77,4 +77,7 @@ Rails.application.configure do
 
   # queuing backend jobs use sidekiq
   config.active_job.queue_adapter = :sidekiq
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
 end
