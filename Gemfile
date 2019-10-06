@@ -18,6 +18,8 @@ gem 'line-bot-api' # Line Bot, https://github.com/line/line-bot-sdk-ruby
 gem 'line-bot-message-builder', '~> 0.1.1' # Line Messaging API, https://github.com/jk195417/line-bot-message-builder
 
 # Assets
+# gem "webpacker", '~> 4.0.7'
+gem "webpacker", git: 'https://github.com/rails/webpacker.git', ref: 'd577bab' # For https://github.com/rails/webpacker/issues/2000
 gem 'font-awesome-sass', '~> 5.8.1' # Icon
 
 # Features
@@ -42,9 +44,8 @@ gem 'bootsnap', require: false
 # Default
 gem 'pg', '~> 1.1' # Use postgresql as the database for Active Record
 gem 'puma', '~> 4.3' # Use Puma as the app server
-gem 'rails', '~> 5.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.0' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
-gem 'uglifier', '~> 4.1' # Use Uglifier as compressor for JavaScript assets
 # gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
 # Default Assets
@@ -58,26 +59,32 @@ gem 'turbolinks', '~> 5.2' # Turbolinks makes navigating your web application fa
 # gem 'capistrano-rails', group: :development # Use Capistrano for deployment
 
 group :development, :test do
-  # Default
+  # Debugger
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'pry-rails'
   gem 'byebug', platforms: %i[mri mingw x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 
   # Test
   gem 'factory_bot_rails' # Factory Bot
   gem 'faker' # Fake Data
   gem 'rspec-rails', '~> 3.5' # Rspec
-
-  # Doc
-  gem 'rails-erd' # ER Model Dialogue https://github.com/voormedia/rails-erd
 end
 
 group :development do
-  # Development Tools
-  gem 'brakeman', require: false # brakeman
-  gem 'pry-rails' # Pretty rails c
+  # Document
+  gem 'rails-erd' # ER Model Dialogue https://github.com/voormedia/rails-erd
 
-  # Default
+  # Security
+  gem 'brakeman', require: false # brakeman
+
+  # Debugger
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'web-console', '~> 3.7.0' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+
+  # Hot Reload
   gem 'listen', '>= 3.1', '< 3.2' # config.file_watcher = ActiveSupport::EventedFileUpdateChecker depends on this gem.
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen'
-  gem 'web-console', '~> 3.7.0' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'spring-watcher-listen' # This gem makes Spring watch the filesystem for changes using Listen rather than by polling the filesystem.
 end
