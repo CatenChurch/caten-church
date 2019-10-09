@@ -8,49 +8,49 @@
   <div class="collapse navbar-collapse" id="navbar-content">
     <% if can? :manage, :admin %>
       <div class="navbar-nav">
-        <%= link_to admin_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
+        <%= nav_item_link_to admin_path do %>
           <i class="fas fa-tachometer-alt mr-1"></i> 後台
         <% end %>
       </div>
     <% end %>
     <div class="navbar-nav ml-auto">
-      <%= link_to announcements_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-announcements' do %>
+      <%= nav_item_link_to announcements_path, data: { active: 'announcements' } do %>
         <i class="fas fa-bullhorn mr-1"></i> <%= Announcement.model_name.human %>
       <% end %>
-      <%= link_to events_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-events' do %>
+      <%= nav_item_link_to events_path, data: { active: 'events' } do %>
         <i class="fas fa-running mr-1"></i> <%= Event.model_name.human %>
       <% end %>
-      <%= link_to group_reports_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'nav-group_reports' do %>
+      <%= nav_item_link_to group_reports_path, data: { active: 'group_reports' } do %>
         <i class="fas fa-chart-pie mr-1"></i> <%= GroupReport.model_name.human %>
       <% end %>
       <% if user_signed_in? %>
         <div class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle d-flex align-items-center justify-content-between" data-toggle="dropdown">
+          <%= nav_item_link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
             <i class="fas fa-user mr-1"></i> 會員中心
-          </a>
+          <% end %>
           <div class="dropdown-menu dropdown-menu-right">
-            <%= link_to account_events_path, class: 'dropdown-item' do %>
+            <%= link_to account_events_path, class: 'dropdown-item', data: { active: 'account-events' } do %>
               <i class="fas fa-running mr-1"></i> 我的活動
             <% end %>
-            <%= link_to account_profile_path, class: 'dropdown-item' do %>
+            <%= link_to account_profile_path, class: 'dropdown-item', data: { active: 'account-profile' } do %>
               <i class="fas fa-address-card mr-1"></i> 個人資料
             <% end %>
-            <%= link_to account_subscription_path, class: 'dropdown-item' do %>
+            <%= link_to account_subscription_path, class: 'dropdown-item', data: { active: 'account-subscription' } do %>
               <i class="fas fa-bell mr-1"></i> 通知設定
             <% end %>
-            <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+            <%= link_to edit_user_registration_path, class: 'dropdown-item', data: { active: 'users-edit' } do %>
               <i class="fas fa-cog mr-1"></i> 帳號設定
             <% end %>
           </div>
         </div>
-        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
+        <%= nav_item_link_to destroy_user_session_path, method: :delete do %>
           <i class="fas fa-sign-out-alt mr-1"></i> 登出
         <% end %>
       <% else %>
-        <%= link_to new_user_registration_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
+        <%= nav_item_link_to new_user_registration_path, data: { active: 'users-sign_up' } do %>
           <i class="fas fa-user-plus mr-1"></i> 註冊
         <% end %>
-        <%= link_to new_user_session_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between' do %>
+        <%= nav_item_link_to new_user_session_path, data: { active: 'users-sign_in' } do %>
           <i class="fas fa-sign-in-alt mr-1"></i> 登入
         <% end %>
       <% end %>

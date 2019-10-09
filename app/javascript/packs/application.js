@@ -30,3 +30,4 @@ ujs.start()
 turbolinks.start()
 
 // My javascripts
+import '../javascripts/main'
