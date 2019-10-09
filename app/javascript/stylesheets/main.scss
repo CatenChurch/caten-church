@@ -1,0 +1,12 @@
+@import "./variables";
+@import 'bootstrap/scss/bootstrap';
+@import "jumbotron";
+@import "event";
+
+main {
+  min-height: 360px;
+}
+
+#sidebar {
+  min-width: 140px;
+}

@@ -29,5 +29,6 @@ window.$ = $
 ujs.start()
 turbolinks.start()
 
-// My javascripts
+// My JavaScript and CSS
+import '../stylesheets/main'
 import '../javascripts/main'
