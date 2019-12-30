@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # SEO
@@ -18,19 +20,16 @@ gem 'line-bot-api' # Line Bot, https://github.com/line/line-bot-sdk-ruby
 gem 'line-bot-message-builder', '~> 0.1.1' # Line Messaging API, https://github.com/jk195417/line-bot-message-builder
 
 # Assets
-# gem "webpacker", '~> 4.0.7'
-gem "webpacker", git: 'https://github.com/rails/webpacker.git', ref: 'd577bab' # For https://github.com/rails/webpacker/issues/2000
 gem 'font-awesome-sass', '~> 5.8.1' # Icon
+gem 'webpacker', '~> 4.2.2'
 
 # Features
-gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844' # Excel, https://github.com/straydogstudio/axlsx_rails
-gem 'axlsx_rails' # Excel, https://github.com/straydogstudio/axlsx_rails
 gem 'cancancan' # Authorization, https://github.com/CanCanCommunity/cancancan
+gem 'caxlsx_rails' # Excel, https://github.com/caxlsx/caxlsx_rails
 gem 'devise' # User Login, https://github.com/plataformatec/devise
 gem 'kaminari' # Pagination, https://github.com/kaminari/kaminari, $ rails g kaminari:views bootstrap4
 gem 'ransack' # Searching, https://github.com/activerecord-hackery/ransack
 gem 'rolify' # Role management, https://github.com/RolifyCommunity/rolify
-gem 'rubyzip', '>= 1.2.1' # Excel, https://github.com/straydogstudio/axlsx_rails
 gem 'sidekiq' # Job Workers, https://github.com/mperham/sidekiq
 gem 'simple_form' # From, https://github.com/plataformatec/simple_form
 
@@ -60,10 +59,10 @@ gem 'turbolinks', '~> 5.2' # Turbolinks makes navigating your web application fa
 
 group :development, :test do
   # Debugger
+  gem 'byebug', platforms: %i[mri mingw x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry'
   gem 'pry-nav'
   gem 'pry-rails'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 
   # Test
   gem 'factory_bot_rails' # Factory Bot
@@ -79,8 +78,8 @@ group :development do
   gem 'brakeman', require: false # brakeman
 
   # Debugger
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'web-console', '~> 3.7.0' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
 
   # Hot Reload
