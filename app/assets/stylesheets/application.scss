@@ -10,79 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  */
-@import "variables";
-@import 'bootstrap/scss/bootstrap';
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "pagedown_bootstrap";
 @import "github-markdown";
-
-$iframe_width: 500px;
-$iframe_height: $iframe_width * 9 / 16;
-
-main {
-  min-height: 360px;
-}
-
-#sidebar {
-  min-width: 140px;
-}
-
-.bg-black-opacity04{
-  background-color: rgba(0,0,0,0.4);
-}
-
-.jumbotron-bg {
-  border-radius: 0;
-  background-image: url("https://i.imgur.com/trfZZjX.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  color: $white;
-
-  a {
-    color: $white;
-    &:hover {
-      color: $white;
-    }
-  }
-  @include media-breakpoint-down(xs) {
-    h1 {
-      font-size: 36px;
-    }
-  }
-}
-
-.event-card {
-  border-radius: 10px;
-  color: var(--dark);
-  border-color: var(--dark);
-  background-color: var(--white);
-
-  &:hover {
-    color: var(--white);
-    background-color: var(--secondary);
-
-    .card-text {
-      color: var(--light);
-    }
-  }
-  .card-body {
-    height: 250px;
-    overflow: auto;
-  }
-  @include media-breakpoint-up(md) {
-    .card-body {
-      height: 350px;
-      overflow: auto;
-    }
-  }
-}
-
-.no_ {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
-}

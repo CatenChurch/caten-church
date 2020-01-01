@@ -1,0 +1,24 @@
+.bg-black-opacity04{
+  background-color: rgba(0,0,0,0.4);
+}
+
+.jumbotron-bg {
+  border-radius: 0;
+  background-image: url("https://i.imgur.com/trfZZjX.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: $white;
+
+  a {
+    color: $white;
+    &:hover {
+      color: $white;
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+}

@@ -6,13 +6,13 @@ default: &default
 development:
   <<: *default
   database: caten_church_dev
-  username: Xin
+  username: xin
   password:
 
 test:
   <<: *default
   database: caten_church_test
-  username: Xin
+  username: xin
   password:
 
 production:

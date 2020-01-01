@@ -1,35 +1,3 @@
 <nav class="nav nav-pills nav-fill flex-column">
-  <%= link_to admin_members_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-members' do %>
-    <i class="fas fa-user"></i> <%= User.model_name.human %>
-  <% end %>
-  <%= link_to admin_events_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-events' do %>
-    <i class="fas fa-running"></i> <%= Event.model_name.human %>
-  <% end %>
-  <%= link_to admin_groups_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-groups' do %>
-    <i class="fas fa-users"></i> <%= Group.model_name.human %>
-  <% end %>
-  <%= link_to admin_announcements_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-announcements' do %>
-    <i class="fas fa-bullhorn"></i> <%= Announcement.model_name.human %>
-  <% end %>
-  <%= link_to admin_contacts_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-contacts' do %>
-    <i class="fas fa-inbox"></i> <%= Contact.model_name.human %>
-  <% end %>
-  <hr class="w-100">
-  <%= link_to admin_service_teams_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-service_teams' do %>
-    <i class="fas fa-users"></i> <%= Service::Team.model_name.human %>
-  <% end %>
-  <%= link_to admin_service_roles_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-service_roles' do %>
-    <i class="fas fa-user-tag"></i> <%= Service::Role.model_name.human %>
-  <% end %>
-  <%= link_to admin_service_schedules_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', id: 'pill-service_schedules' do %>
-    <i class="fas fa-calendar"></i> <%= Service::Schedule.model_name.human %>
-  <% end %>
-  <hr class="w-100">
-  <%= link_to sidekiq_web_path, class: 'nav-item nav-link d-flex align-items-center justify-content-between', target: :_blank do %>
-    <i class="fas fa-server"></i> 網站任務
-  <% end %>
+  <%= render 'admin/shared/navs'%>
 </nav>
-<script type="text/javascript">
-  paths = window.location.pathname.split('/')
-  $(`#pill-${paths[2]}`).addClass('active')
-</script>

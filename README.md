@@ -46,7 +46,14 @@ Created a new certificate valid for the following names 📜
 The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅
 ```
 
-mkcert generated cert `localhost.pem` and key `localhost-key.pem`, puma will load these .pem files, then force http connection on https://localhost:3000.
+mkcert generated cert `localhost.pem` and key `localhost-key.pem`, moving these to `config/ssl/`
+
+
+```sh
+mv ./localhost.pem ./localhost-key.pem ./config/ssl/
+```
+
+puma and webpack-dev-server will load these .pem files, then force http connection on https://localhost:3000 and https://localhost:3035.
 
 ## Usage
 
