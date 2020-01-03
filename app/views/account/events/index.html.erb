@@ -14,7 +14,7 @@
     <thead class="thead-light">
       <tr>
         <th><%= Event.human_attribute_name :name %></th>
-        <th><%= Event.human_attribute_name :nature %></th>
+        <th><%= Event.human_attribute_name :description %></th>
         <th><%= Event.human_attribute_name :participants_count %></th>
         <th><%= Event.human_attribute_name :time %></th>
       </tr>
@@ -23,7 +23,7 @@
       <% @events.each do |event| %>
         <tr>
           <td><%= link_to event.name, event_path(event) %></td>
-          <td><%= event.nature %></td>
+          <td><%= event.description %></td>
           <td><%= event.show_participants_count %> / <%= event.max_sign_up_number %></td>
           <td><%= l event.start %> ~ <%= l event.over %></td>
         </tr>

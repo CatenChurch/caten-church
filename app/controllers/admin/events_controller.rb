@@ -3,16 +3,17 @@ class Admin::EventsController < Admin::BaseController
 
   def index
     @q = Event.ransack(params[:q])
-    events = case params[:status]
-             when 'running'
-               @q.result(distinct: true).running
-             when 'registration'
-               @q.result(distinct: true).in_registration_time
-             when 'closed'
-               @q.result(distinct: true).closed
-             else
-               @q.result(distinct: true)
-             end
+    events =
+      case params[:status]
+      when 'running'
+        @q.result(distinct: true).running
+      when 'registration'
+        @q.result(distinct: true).in_registration_time
+      when 'closed'
+        @q.result(distinct: true).closed
+      else
+        @q.result(distinct: true)
+      end
     @events = events.order(id: :desc).page(params[:page])
   end
 
@@ -25,7 +26,7 @@ class Admin::EventsController < Admin::BaseController
   def edit; end
 
   def create
-    @event = current_user.events.build(resource_params)
+    @event = current_user.events.build(event_params)
     if @event.save
       redirect_to admin_event_path(@event)
       flash[:notice] = '建立活動成功'
@@ -36,7 +37,7 @@ class Admin::EventsController < Admin::BaseController
   end
 
   def update
-    if @event.update(resource_params)
+    if @event.update(event_params)
       redirect_to admin_event_path(@event)
       flash[:notice] = '更新活動成功'
     else
@@ -62,20 +63,18 @@ class Admin::EventsController < Admin::BaseController
     @event = Event.find(params[:id])
   end
 
-  def resource_params
-    params.require(:event).permit(
-      :name,
-      :nature,
-      :description,
-      :max_sign_up_number,
-      :min_sign_up_number,
-      :sign_up_begin,
-      :sign_up_end,
-      :start,
-      :over,
-      :check_arrival,
-      :registery_fee,
-      :show_participants
-    )
+  def event_params
+    params.require(:event).permit :name,
+                                  :description,
+                                  :content,
+                                  :max_sign_up_number,
+                                  :min_sign_up_number,
+                                  :sign_up_begin,
+                                  :sign_up_end,
+                                  :start,
+                                  :over,
+                                  :check_arrival,
+                                  :registery_fee,
+                                  :show_participants
   end
 end
