@@ -12,11 +12,16 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "@prettier/plugin-ruby": "^0.17.0",
     "@rails/webpacker": "^4.2.2",
-    "webpack": "^4.41.5",
-    "webpack-dev-server": "^3.10.1",
     "core-js": "^3.6.1",
+    "prettier": "^1.19.1",
     "rails-erb-loader": "^5.5.2",
-    "regenerator-runtime": "^0.13.3"
+    "regenerator-runtime": "^0.13.3",
+    "webpack": "^4.41.5",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "scripts": {
+    "code:format": "prettier --write '**/*.rb'"
   }
 }
