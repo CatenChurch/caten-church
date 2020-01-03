@@ -2,11 +2,11 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title"><%= event.name %></h3>
-    <p class="card-text my-4"><%= simple_format event.description %></p>
+    <p class="card-text my-4"><%= simple_format event.content %></p>
     <table class="table table-bordered d-none d-sm-table">
       <thead class="thead-light">
         <tr>
-          <th><%= Event.human_attribute_name :nature %></th>
+          <th><%= Event.human_attribute_name :description %></th>
           <th><%= Event.human_attribute_name :participants_count %></th>
           <th><%= Event.human_attribute_name :min_sign_up_number %></th>
           <th><%= Event.human_attribute_name :max_sign_up_number %></th>
@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= event.nature %></td>
+          <td><%= event.description %></td>
           <td><%= event.show_participants_count %></td>
           <td><%= event.min_sign_up_number %></td>
           <td><%= event.max_sign_up_number %></td>
@@ -54,8 +54,8 @@
     <table class="table table-bordered d-sm-none">
       <tbody>
         <tr>
-          <th class="bg-light"><%= Event.human_attribute_name :nature %></th>
-          <td><%= event.nature %></td>
+          <th class="bg-light"><%= Event.human_attribute_name :description %></th>
+          <td><%= event.description %></td>
         </tr>
         <tr>
           <th class="bg-light"><%= Event.human_attribute_name :participants_count %></th>

@@ -6,8 +6,8 @@
       event:
         id: ID
         name: 活動名稱
-        nature: 性質
         description: 簡述
+        content: 內容
         max_sign_up_number: 人數上限
         min_sign_up_number: 成立人數
         sign_up_begin: 報名開始
@@ -32,7 +32,6 @@
   simple_form:
     placeholders:
       event:
-        nature: 例如：小組活動
         description: 簡單描述一下活動的內容
         max_sign_up_number: 最多能有幾個人參加活動？
         min_sign_up_number: 活動要成立，最低必須要有幾個人報名？
