@@ -1,6 +1,6 @@
 # caten church
 
-本專案為茄典教會網站，網址是 <https://caten-church.com/>
+本專案為茄典教會網站，網址是 <https://caten-church.org/>
 
 專案的架構為 `Rails` + `Puma` + `Postgres` + `Redis`，架設在 Heroku 上
 
