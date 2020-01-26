@@ -10,11 +10,11 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.5",
+    "@rails/webpacker": "^4.2.2"
   },
   "devDependencies": {
     "@prettier/plugin-ruby": "^0.17.0",
-    "@rails/webpacker": "^4.2.2",
     "core-js": "^3.6.1",
     "prettier": "^1.19.1",
     "rails-erb-loader": "^5.5.2",
