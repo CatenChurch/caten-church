@@ -9,4 +9,4 @@ Disallow: /admin/
 Disallow: /account/
 Allow: /
 
-Sitemap: https://caten-church.com/sitemap.xml
+Sitemap: https://caten-church.org/sitemap.xml

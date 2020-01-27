@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = 'https://caten-church.com'
+SitemapGenerator::Sitemap.default_host = 'https://caten-church.org'
 # dont compress to .gz file
 SitemapGenerator::Sitemap.compress = false
 
@@ -7,16 +7,12 @@ SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
   add events_path, priority: 0.7, changefreq: 'daily'
   joinable_events = Event.in_registration_time.order(:id)
-  joinable_events.each do |event|
-    add event_path(event), priority: 0.6, lastmod: event.updated_at, changefreq: 'daily'
-  end
-  Event.where.not(id: joinable_events.ids).find_each do |event|
-    add event_path(event), lastmod: event.updated_at
-  end
+  joinable_events.each { |event| add event_path(event), priority: 0.6, lastmod: event.updated_at, changefreq: 'daily' }
+  Event.where.not(id: joinable_events.ids).find_each { |event| add event_path(event), lastmod: event.updated_at }
 
   add new_user_session_path
   add new_user_registration_path
-  
+
   add about_path
   add term_path
   add contact_path
