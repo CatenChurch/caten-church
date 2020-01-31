@@ -1,0 +1,2 @@
+class Weekly < ApplicationRecord
+end

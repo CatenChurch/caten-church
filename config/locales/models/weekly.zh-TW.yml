@@ -1,0 +1,12 @@
+'zh-TW':
+  activerecord:
+    models:
+      weekly: 週刊
+    attributes:
+      weekly:
+        id: 編號
+        title: 標題
+        issue: 刊號
+        published_at: 發布時間
+        created_at: 建立時間
+        updated_at: 更新時間
