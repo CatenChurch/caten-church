@@ -1,0 +1,29 @@
+<%# TODO: Meta tags %>
+<%= render 'breadcrumb' %>
+<div class="container">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th><%= Weekly.human_attribute_name :title %></th>
+        <th><%= Weekly.human_attribute_name :issue %></th>
+        <th><%= Weekly.human_attribute_name :published_at %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @weeklies.each do |weekly| %>
+        <tr>
+          <td><%= weekly.title %></td>
+          <td><%= weekly.issue %></td>
+          <td><%= weekly.published_at %></td>
+          <td>
+            <%= link_to weekly, class: 'btn btn-sm btn-outline-secondary' do %>
+              <i class="fas fa-info-circle"></i> 查看
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @weeklies %>
+</div>

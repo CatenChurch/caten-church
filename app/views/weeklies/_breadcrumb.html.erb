@@ -1,0 +1,7 @@
+<% content_for :breadcrumb do %>
+  > <%= link_to Weekly.model_name.human, weeklies_path %>
+<% end %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= Weekly.model_name.human %></h1>
+  <p class="lead text-center">可以來這裡查看每週教會的大小消息</p>
+<% end %>

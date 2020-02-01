@@ -18,6 +18,7 @@ set_meta_tags description: '大家好，這裡是茄典長老基督教會的網�
       <p class="card-text">點此前往查看最新的教會消息</p>
     </div>
     <div class="card-body">
+      <%= link_to Weekly.model_name.human, weeklies_path, class: 'btn btn-light btn-block' %>
       <%= link_to GroupReport.model_name.human, group_reports_path, class: 'btn btn-light btn-block' %>
       <%= link_to '查看公告', announcements_path, class: 'btn btn-light btn-block' %>
     </div>
