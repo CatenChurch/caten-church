@@ -1,17 +1,15 @@
 # caten church
 
-本專案為茄典教會網站，網址是 <https://caten-church.org/>
-
-專案的架構為 `Rails` + `Puma` + `Postgres` + `Redis`，架設在 Heroku 上
+本專案為茄典教會網站，網址是 <https://caten-church.org/>，架設在 Heroku 上
 
 ## Requirements
 
 - Ruby
 - Rails
-- Nodejs
+- NodeJS
 - Yarn
-- Postgresql (`brew install postgresql`)
-- Redis (`brew install redis`)
+- PostgresSQL
+- Redis
 
 ## Setup
 
