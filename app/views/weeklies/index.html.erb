@@ -1,4 +1,16 @@
-<%# TODO: Meta tags %>
+<% 
+title = Weekly.model_name.human
+description = '可以來這裡查看每週教會的大小消息'
+set_meta_tags(
+  title: title,
+  description: description,
+  og: {
+    title: title,
+    description: description,
+    image: 'https://i.imgur.com/Kgv2wwl.jpg'
+  }
+)
+%>
 <%= render 'breadcrumb' %>
 <div class="container">
   <table class="table">
