@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @weekly.title %>
+</p>
+
+<p>
+  <strong>Issue:</strong>
+  <%= @weekly.issue %>
+</p>
+
+<p>
+  <strong>Published at:</strong>
+  <%= @weekly.published_at %>
+</p>
+
+<%= link_to 'Edit', edit_weekly_path(@weekly) %> |
+<%= link_to 'Back', admin_weeklies_path %>

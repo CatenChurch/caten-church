@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Weeklies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Issue</th>
+      <th>Published at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weeklies.each do |weekly| %>
+      <tr>
+        <td><%= weekly.title %></td>
+        <td><%= weekly.issue %></td>
+        <td><%= weekly.published_at %></td>
+        <td><%= link_to 'Show', [:admin, weekly] %></td>
+        <td><%= link_to 'Edit', edit_admin_weekly_path(weekly) %></td>
+        <td><%= link_to 'Destroy', [:admin, weekly], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Weekly', new_admin_weekly_path %>
