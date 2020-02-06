@@ -1,5 +1,6 @@
 <% content_for :breadcrumb do %>
-  > <%= link_to Weekly.model_name.human, weeklies_path %>
+  >
+  <%= link_to Weekly.model_name.human, weeklies_path %>
 <% end %>
 <% content_for :jumbotron do %>
   <h1 class="display-4 text-center"><%= Weekly.model_name.human %></h1>

@@ -1,4 +1,4 @@
-<% 
+<%
 title = Weekly.model_name.human
 description = '可以來這裡查看每週教會的大小消息'
 set_meta_tags(
@@ -30,7 +30,8 @@ set_meta_tags(
           <td><%= weekly.published_at %></td>
           <td>
             <%= link_to weekly, class: 'btn btn-sm btn-outline-secondary' do %>
-              <i class="fas fa-info-circle"></i> 查看
+              <i class="fas fa-info-circle"></i>
+              查看
             <% end %>
           </td>
         </tr>

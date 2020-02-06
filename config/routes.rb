@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   # For /admin
   namespace :admin do
     get '/' => 'pages#index'
+    resources :weeklies
     resources :groups
     resources :service_teams
     resources :service_roles

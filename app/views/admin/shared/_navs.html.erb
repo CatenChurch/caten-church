@@ -1,6 +1,9 @@
 <%= nav_item_link_to admin_members_path, data: { active: 'admin-members' } do %>
   <i class="fas fa-user"></i> <%= User.model_name.human %>
 <% end %>
+<%= nav_item_link_to admin_weeklies_path, data: { active: 'admin-weeklies' } do %>
+  <i class="fas fa-newspaper"></i> <%= Weekly.model_name.human %>
+<% end %>
 <%= nav_item_link_to admin_events_path, data: { active: 'admin-events' } do %>
   <i class="fas fa-running"></i> <%= Event.model_name.human %>
 <% end %>
