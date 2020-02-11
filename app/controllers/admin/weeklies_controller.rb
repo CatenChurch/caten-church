@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::WeekliesController < ApplicationController
+class Admin::WeekliesController < Admin::BaseController
   before_action :set_weekly, only: %i[show edit update destroy]
 
   def index
