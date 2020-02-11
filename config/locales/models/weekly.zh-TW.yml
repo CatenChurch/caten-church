@@ -1,7 +1,7 @@
 'zh-TW':
   activerecord:
     models:
-      weekly: 週刊
+      weekly: 週報
     attributes:
       weekly:
         id: 編號
