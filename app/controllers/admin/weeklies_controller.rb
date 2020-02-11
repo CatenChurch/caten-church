@@ -4,7 +4,7 @@ class Admin::WeekliesController < Admin::BaseController
   before_action :set_weekly, only: %i[show edit update destroy]
 
   def index
-    @weeklies = Weekly.all
+    @weeklies = Weekly.all.order(id: :desc).page(params[:page])
   end
 
   def show; end
