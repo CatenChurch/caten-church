@@ -1,14 +1,36 @@
-<p>
-  <strong>Title:</strong>
-  <%= @weekly.title %>
-</p>
-<p>
-  <strong>Issue:</strong>
-  <%= @weekly.issue %>
-</p>
-<p>
-  <strong>Published at:</strong>
-  <%= @weekly.published_at %>
-</p>
-<%= link_to 'Edit', edit_admin_weekly_path(@weekly) %> |
-<%= link_to 'Back', admin_weeklies_path %>
+<%= link_to admin_weeklies_path, class: "btn btn-outline-secondary" do %>
+  <i class="fas fa-list"></i> <%= Weekly.model_name.human %>一覽
+<% end %>
+<h1 class="mt-2 text-center"><%= Weekly.model_name.human %></h1>
+<div class="mt-2 btn-toolbar">
+  <div class="btn-group ml-auto">
+    <%= link_to edit_admin_weekly_path(@weekly), class: "btn btn-sm btn-outline-secondary" do %>
+      <i class="fas fa-edit"></i><%= t("edit") %>
+    <% end %>
+    <%= link_to [:admin, @weekly], class: "btn btn-sm btn-outline-danger", method: :delete, data: { confirm: "確定要刪除#{Weekly.model_name.human}嗎？" } do %>
+      <i class="fas fa-trash"></i><%= t("destroy") %>
+    <% end %>
+  </div>
+</div>
+<div class="container">
+  <p>
+    <strong><%= Weekly.human_attribute_name :title %></strong>
+    <%= @weekly.title %>
+  </p>
+  <p>
+    <strong><%= Weekly.human_attribute_name :issue %></strong>
+    <%= @weekly.issue %>
+  </p>
+  <p>
+    <strong><%= Weekly.human_attribute_name :published_at %></strong>
+    <%= l @weekly.published_at %>
+  </p>
+  <p>
+    <strong><%= Weekly.human_attribute_name :created_at %></strong>
+    <%= l @weekly.published_at %>
+  </p>
+  <p>
+    <strong><%= Weekly.human_attribute_name :updated_at %></strong>
+    <%= l @weekly.published_at %>
+  </p>
+</div>
