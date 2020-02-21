@@ -13,6 +13,7 @@ set_meta_tags(
 %>
 <%= render 'breadcrumb' %>
 <div class="container">
+  <%= paginate @weeklies %>
   <table class="table">
     <thead class="thead-light">
       <tr>
