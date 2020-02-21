@@ -1,13 +1,11 @@
-<p>
-  <strong>Title:</strong>
-  <%= @weekly.title %>
-</p>
-<p>
-  <strong>Issue:</strong>
-  <%= @weekly.issue %>
-</p>
-<p>
-  <strong>Published at:</strong>
-  <%= @weekly.published_at %>
-</p>
-<%= link_to 'Back', weeklies_path %>
+<% set_meta_tags title: @weekly.title, og: { title: @weekly.title, image: 'https://i.imgur.com/Kgv2wwl.jpg' }%>
+<%= render 'breadcrumb' %>
+<% content_for :breadcrumb do %>
+  > <%= link_to @weekly.title, @weekly %>
+<% end %>
+<div class="container">
+  <%= link_to weeklies_path, class: "btn btn-outline-secondary mb-4" do %>
+    <i class="fas fa-list"></i> <%= Weekly.model_name.human %>一覽
+  <% end %>
+  <%= render 'weekly', weekly: @weekly %>
+</div>

@@ -13,24 +13,5 @@
   </div>
 </div>
 <div class="container">
-  <p>
-    <strong><%= Weekly.human_attribute_name :title %></strong>
-    <%= @weekly.title %>
-  </p>
-  <p>
-    <strong><%= Weekly.human_attribute_name :issue %></strong>
-    <%= @weekly.issue %>
-  </p>
-  <p>
-    <strong><%= Weekly.human_attribute_name :published_at %></strong>
-    <%= l @weekly.published_at %>
-  </p>
-  <p>
-    <strong><%= Weekly.human_attribute_name :created_at %></strong>
-    <%= l @weekly.published_at %>
-  </p>
-  <p>
-    <strong><%= Weekly.human_attribute_name :updated_at %></strong>
-    <%= l @weekly.published_at %>
-  </p>
+  <%= render 'weeklies/weekly', weekly: @weekly %>
 </div>
