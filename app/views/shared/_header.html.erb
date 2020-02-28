@@ -1,30 +1,27 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <!-- Rails Webpacker -->
-<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
 <%= favicon_link_tag asset_pack_path('media/images/favicon.png'), type: 'image/png' %>
-
 <!-- Rails Asset Pipeline -->
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
-
 <!-- SEO -->
 <meta property="og:type" content="website">
 <%= display_meta_tags site: '茄典教會' %>
-
 <% if Rails.env.production? %>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials[:google][:ga_track_id] %>"></script>
   <script type="text/javascript">
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '<%= Rails.application.credentials[:google][:ga_track_id] %>');
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+    gtag('config', '<%= Rails.application.credentials[:google][:ga_track_id] %>')
   </script>
 <% end %>
-
 <!-- CSRF -->
 <%= csrf_meta_tags %>

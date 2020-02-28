@@ -1,13 +1,8 @@
 {
-  "editor.formatOnSave": true,
   "emmet.includeLanguages": { "erb": "html" },
-  "files.associations": {
-    "*.erb": "erb"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[ruby]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "[ruby][javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "eslint.validate": ["javascript", "html", "erb", "vue"],
+  "eslint.options": { "extensinons": [".js", ".html", ".erb", ".vue"] }
 }

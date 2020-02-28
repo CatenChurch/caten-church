@@ -6,22 +6,31 @@
   "license": "MIT",
   "dependencies": {
     "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.4.1",
+    "core-js": "^3.6.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
+    "rails-erb-loader": "^5.5.2",
+    "regenerator-runtime": "^0.13.3",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.41.5",
-    "@rails/webpacker": "^4.2.2"
+    "webpack": "^4.41.5"
   },
   "devDependencies": {
     "@prettier/plugin-ruby": "^0.17.0",
-    "core-js": "^3.6.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-html-erb": "^1.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.2.1",
     "prettier": "^1.19.1",
-    "rails-erb-loader": "^5.5.2",
-    "regenerator-runtime": "^0.13.3",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
-    "code:format": "prettier --write '**/*.rb'"
+    "ruby:format": "prettier --write '**/*.rb'",
+    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue app"
   }
 }

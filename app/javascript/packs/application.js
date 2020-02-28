@@ -12,23 +12,23 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import ujs from '@rails/ujs'
 import turbolinks from 'turbolinks'
-import $ from 'jquery/dist/jquery'
+import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap'
+
+// My JavaScript and CSS
+import '../stylesheets/main.scss'
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
 //
 const images = require.context('../images', true)
-const imagePath = (name) => images(name, true)
+// eslint-disable-next-line no-unused-vars
+const imagePath = name => images(name, true)
 
-// Expose libaries to window object
+// Expose libraries to window object
 window.$ = $
 
 // Rails javascripts support
 ujs.start()
 turbolinks.start()
-
-// My JavaScript and CSS
-import '../stylesheets/main'
-import '../javascripts/main'
