@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <div id="app">
   <%= simple_form_for [:admin, @team] do |f| %>
     <%= f.error_notification %>
@@ -72,49 +71,48 @@
 </div>
 <script type="text/javascript">
   async function getUsers(name) {
-    url = '<%= admin_members_url(format: :json) %>'
-    params = $.param({ q: { profile_name_cont: name }})
-    resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
-    res = await resPromise.json()
-    return res;
+    const url = '<%= admin_members_url(format: :json) %>'
+    const params = window.$.param({ q: { profile_name_cont: name }})
+    const resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
+    const res = await resPromise.json()
+    return res
   }
-  document.addEventListener('turbolinks:load', ()=>{
-    var app = new Vue({
+  document.addEventListener('turbolinks:load', () => {
+    // eslint-disable-next-line no-unused-vars
+    const app = new window.Vue({
       el: '#app',
       data: {
         leader: {
           id: <%= @team.leader&.id || 'null' %>,
-          name: "<%= @team.leader&.profile&.name %>",
+          name: '<%= @team.leader&.profile&.name %>',
           candidates: [],
           editMode: false
         },
         teamUsers: <%== @team.team_users.map { |u| { id: u.id, userId: u.user_id, name: u.user&.profile&.name, roleId: u.role_id }}.to_json %>,
         typing: false
       },
-      mounted: function() {
-         if(!this.leader.id) { this.leader.editMode = true }
-         this.teamUsers.forEach((user, index)=> {
-           this.$set(user, 'editMode', !user.id)
-         })
+      mounted: function mounted() {
+        if (!this.leader.id) this.leader.editMode = true
+  
+        this.teamUsers.forEach(user => this.$set(user, 'editMode', !user.id))
       },
       methods: {
-        searchLeader: function () {
-          if(this.typing) return;
-          getUsers(this.leader.name).then(res => {
-            this.$set(this.leader, 'candidates', res.users)
-          })
+        searchLeader() {
+          if (this.typing) return
+  
+          getUsers(this.leader.name).then(res => this.$set(this.leader, 'candidates', res.users))
         },
-        editLeader: function() {
+        editLeader() {
           this.leader.editMode = true
           this.leader.id = null
         },
-        setLeader: function(id, name) {
+        setLeader(id, name) {
           this.leader.editMode = false
           this.leader.id = id
           this.leader.name = name
         },
-        newTeamUser: function functionName() {
-          user = {
+        newTeamUser() {
+          const user = {
             id: null,
             userId: null,
             roleId: null,
@@ -126,24 +124,23 @@
           }
           this.teamUsers.push(user)
         },
-        searchTeamUser: function (index, name) {
-          if(this.typing) return;
-          getUsers(name).then(res => {
-            this.$set(this.teamUsers[index], 'candidates', res.users)
-          })
+        searchTeamUser(index, name) {
+          if (this.typing) return
+  
+          getUsers(name).then(res => this.$set(this.teamUsers[index], 'candidates', res.users))
         },
-        setTeamUser: function (index, userId, name) {
+        setTeamUser(index, userId, name) {
           this.teamUsers[index].editMode = false
           this.teamUsers[index].userId = userId
           this.teamUsers[index].name = name
         },
-        editTeamUser: function (index) {
+        editTeamUser(index) {
           this.teamUsers[index].editMode = true
         },
-        deleteTeamUser: function (index) {
+        deleteTeamUser(index) {
           this.$set(this.teamUsers[index], 'deleted', true)
         },
-        recoverTeamUser: function (index) {
+        recoverTeamUser(index) {
           this.teamUsers[index].deleted = false
         }
       }
