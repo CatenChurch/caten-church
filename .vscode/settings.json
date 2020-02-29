@@ -1,8 +1,24 @@
 {
   "emmet.includeLanguages": { "erb": "html" },
+  "emmet.triggerExpansionOnTab": true,
+  "files.associations": {
+    ".prettierrc": "yaml",
+    // "*.html.erb": "html.erb",
+    // "*.vue.erb": "html.erb",
+    // "*.js.erb": "js.erb",
+    "*.erb": "erb"
+  },
   "[ruby][javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[erb]": { "editor.defaultFormatter": "aliariff.vscode-erb-beautify" },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": { "source.fixAll": true },
-  "eslint.validate": ["javascript", "html", "erb", "vue"],
-  "eslint.options": { "extensinons": [".js", ".html", ".erb", ".vue"] }
+  "eslint.packageManager": "yarn",
+  "eslint.validate": [
+    "javascript",
+    "html",
+    "erb",
+    "vue"
+    // "html.erb",
+    // "js.erb"
+  ]
 }
