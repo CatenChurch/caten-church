@@ -14,6 +14,7 @@ import ujs from '@rails/ujs'
 import turbolinks from 'turbolinks'
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap'
+import Vue from 'vue/dist/vue.esm'
 
 // My JavaScript and CSS
 import '../stylesheets/main.scss'
@@ -28,6 +29,7 @@ const imagePath = name => images(name, true)
 
 // Expose libraries to window object
 window.$ = $
+window.Vue = Vue
 
 // Rails javascripts support
 ujs.start()
