@@ -36,6 +36,6 @@
   },
   "scripts": {
     "ruby:format": "prettier --write '**/*.rb'",
-    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue app"
+    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue {app,config}"
   }
 }
