@@ -34,7 +34,7 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.true') do %>
+          <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.false') do %>
             <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: true }),
                         method: :patch,
                         class: 'btn btn-sm btn-outline-primary ml-auto' do %>
@@ -68,20 +68,27 @@
 </div>
 <!-- fb js sdk -->
 <script type="text/javascript">
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
-      status: true,
-      autoLogAppEvents: true,
-      xfbml: true,
-      version: 'v3.2'
-    });
-  };
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+  /* eslint-disable func-names */
+  /* eslint-disable prettier/prettier */
+  /* eslint-disable no-undef */
+  /* eslint-disable no-var */
+  /* eslint-disable one-var */
+  document.addEventListener('turbolinks:load', () => {
+    window.fbAsyncInit = function(){
+      FB.init({
+        appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
+        status: true,
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v3.2'
+      });
+    };
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  })
 </script>

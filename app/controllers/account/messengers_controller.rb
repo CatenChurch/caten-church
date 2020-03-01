@@ -2,7 +2,8 @@ class Account::MessengersController < ApplicationController
   before_action :find_messenger
   def update
     if @messenger.update(messenger_params)
-      flash[:notice] = "更新通知管道成功，#{@messenger.provider} 通知管道 #{Messenger.human_attribute_name('activated.' + @messenger.activated)}"
+      flash[:notice] =
+        "更新通知管道成功，#{@messenger.provider}: #{Messenger.human_attribute_name('activated.' + @messenger.activated.to_s)}"
     else
       flash[:alert] = '更新通知管道失敗'
     end
