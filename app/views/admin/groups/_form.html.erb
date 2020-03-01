@@ -16,74 +16,86 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-  var originalLeaderId = $('#leader-id').val()
-  var originalLeaderName = $('#leader-name').val()
+  document.addEventListener('turbolinks:load', () => {
+    const leader = document.getElementById('leader')
+    const leaderId = document.getElementById('leader-id')
+    const leaderName = document.getElementById('leader-name')
+    const originalLeader = { id: leaderId.value, name: leaderName.value }
+    let inputLock = false
   
-  if (originalLeaderId !== '') {
-    setLeader(originalLeaderId, originalLeaderName)
-  }
+    async function getUsers(name) {
+      const url = '<%= admin_members_url(format: :json) %>'
+      const params = window.$.param({ q: { profile_name_cont: name } })
+      const resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
+      const res = await resPromise.json()
+      return res
+    }
   
-  async function getUsers(name) {
-    url = '<%= admin_members_url(format: :json) %>'
-    params = $.param({ q: { profile_name_cont: name }})
-    resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
-    res = await resPromise.json()
-    return res;
-  }
+    function removeChildren(dom) {
+      dom.children.forEach(child => child.remove())
+    }
   
-  function resetLeader(){
-    $('#leader-name').removeClass('d-none')
-    $('#leader').html('')
-    $('#leader-id').val(originalLeaderId)
-  }
+    function resetLeader() {
+      leaderName.classList.remove('d-none')
+      leaderId.value = originalLeader.id
+      removeChildren(leader)
+    }
   
-  function leaderBtn(name) {
-    const leader = $('<button type="button" class="btn btn-sm btn-primary m-1 leader"></button>')
-    const closeBtn = $('<i class="ml-2 fas fa-times"></i>')
-    leader.text(name)
-    leader.append(closeBtn)
-    leader.on('click', () => {
-      resetLeader()
+    function leaderBtn(name) {
+      const button = document.createElement('button')
+      button.setAttribute('type', 'button')
+      button.classList.add('btn', 'btn-sm', 'btn-primary', 'm-1', 'leader')
+      const icon = document.createElement('i')
+      icon.classList.add('fas', 'fa-times', 'ml-2')
+      button.append(name, icon)
+      button.addEventListener('click', () => {
+        resetLeader()
+      })
+      return button
+    }
+  
+    function setLeader(id, name) {
+      leaderId.value = id
+      leaderName.classList.add('d-none')
+      removeChildren(leader)
+      leader.append(leaderBtn(name))
+    }
+  
+    function candidateLeaderBtn(id, name, email) {
+      const button = document.createElement('button')
+      button.setAttribute('type', 'button')
+      button.classList.add('btn', 'btn-sm', 'btn-outline-secondary', 'm-1', 'leader')
+      button.setAttribute('data-user-id', id)
+      button.setAttribute('title', `email is ${email}`)
+      button.append(name)
+      button.addEventListener('click', () => {
+        setLeader(id, name)
+      })
+      return button
+    }
+  
+    function addCandidateLeaderBtns() {
+      const input = leaderName.value
+      const labels = document.getElementById('leader-labels')
+      getUsers(input).then(res => {
+        removeChildren(labels)
+        res.users.forEach(user => {
+          labels.append(candidateLeaderBtn(user.id, user.name, user.email))
+        })
+      })
+    }
+    if (originalLeader.id) setLeader(originalLeader.id, originalLeader.name)
+  
+    leaderName.addEventListener('compositionstart', () => {
+      inputLock = true
     })
-    return leader
-  }
-  
-  function setLeader(id, name) {
-    const leader = leaderBtn(name)
-    $('#leader-id').val(id)
-    $('#leader-name').addClass('d-none')
-    $('#leader').html(leader)
-  }
-  
-  function candidateLeaderBtn(id, name, email) {
-    const dom = $('<button type="button" class="btn btn-sm btn-outline-secondary m-1 leader"></button>')
-    dom.attr('data-user-id', id)
-    dom.attr('title', `email is ${email}`)
-    dom.text(name)
-    dom.on('click', () => {
-      setLeader(id, name)
+    leaderName.addEventListener('input', () => {
+      if (inputLock) return
+      addCandidateLeaderBtns()
     })
-    return dom
-  }
-  
-  function addCandidateLeaderBtns() {
-    let input = $('#leader-name').val()
-    getUsers(input).then(res => {
-      $('#leader-labels').empty()
-      for (user of res.users) {
-        $('#leader-labels').append(candidateLeaderBtn(user.id, user.name, user.email))
-      }
+    leaderName.addEventListener('compositionend', () => {
+      inputLock = false
+      addCandidateLeaderBtns()
     })
-  }
-  
-  let inputLock = false
-  $("#leader-name").on("compositionstart", function() {
-    inputLock = true
-  }).on("input", () => {
-    if(inputLock) return;
-    addCandidateLeaderBtns()
-  }).on("compositionend", () => {
-    inputLock = false
-    addCandidateLeaderBtns()
   })
 </script>

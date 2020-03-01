@@ -9,11 +9,11 @@
         <th><%= User.human_attribute_name :email %></th>
         <th>
           <%= EventUser.human_attribute_name :paid %>
-          <input type="checkbox" onclick="checkAll(this, paidCheckboxs)">
+          <input id="paid-all-checkbox" type="checkbox">
         </th>
         <th>
           <%= EventUser.human_attribute_name :arrival %>
-          <input type="checkbox" onclick="checkAll(this, arrivalCheckboxs)">
+          <input id="arrival-all-checkbox" type="checkbox">
         </th>
       </tr>
     </thead>
@@ -35,9 +35,22 @@
   <% end %>
 <% end %>
 <script type="text/javascript">
-  var paidCheckboxs = document.querySelectorAll(".paid-check");
-  var arrivalCheckboxs = document.querySelectorAll(".arrival-check");
-  function checkAll(obj, checkboxs) {
-    checkboxs.forEach((dom) => (dom.checked = obj.checked))
-  }
+  document.addEventListener('turbolinks:load', () => {
+    const paidCheckboxes = document.querySelectorAll('.paid-check')
+    const arrivalCheckboxes = document.querySelectorAll('.arrival-check')
+    const paidAllCheckbox = document.getElementById('paid-all-checkbox')
+    const arrivalAllCheckbox = document.getElementById('arrival-all-checkbox')
+    function checkAll(isChecked, checkboxes) {
+      checkboxes.forEach(checkbox => {
+        // eslint-disable-next-line no-param-reassign
+        checkbox.checked = isChecked
+      })
+    }
+    paidAllCheckbox.addEventListener('click', () => {
+      checkAll(paidAllCheckbox.checked, paidCheckboxes)
+    })
+    arrivalAllCheckbox.addEventListener('click', () => {
+      checkAll(arrivalAllCheckbox.checked, arrivalCheckboxes)
+    })
+  })
 </script>

@@ -70,14 +70,14 @@
   <% end %>
 </div>
 <script type="text/javascript">
-  async function getUsers(name) {
-    const url = '<%= admin_members_url(format: :json) %>'
-    const params = window.$.param({ q: { profile_name_cont: name }})
-    const resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
-    const res = await resPromise.json()
-    return res
-  }
   document.addEventListener('turbolinks:load', () => {
+    async function getUsers(name) {
+      const url = '<%= admin_members_url(format: :json) %>'
+      const params = window.$.param({ q: { profile_name_cont: name } })
+      const resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
+      const res = await resPromise.json()
+      return res
+    }
     // eslint-disable-next-line no-unused-vars
     const app = new window.Vue({
       el: '#app',

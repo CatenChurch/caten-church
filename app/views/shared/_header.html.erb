@@ -14,13 +14,15 @@
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials[:google][:ga_track_id] %>"></script>
   <script type="text/javascript">
-    window.dataLayer = window.dataLayer || []
-    function gtag() {
-      // eslint-disable-next-line prefer-rest-params
-      window.dataLayer.push(arguments)
-    }
-    gtag('js', new Date())
-    gtag('config', '<%= Rails.application.credentials[:google][:ga_track_id] %>')
+    document.addEventListener('turbolinks:load', () => {
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        window.dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', '<%= Rails.application.credentials[:google][:ga_track_id] %>')
+    })
   </script>
 <% end %>
 <!-- CSRF -->

@@ -86,7 +86,9 @@
   <%= paginate @events %>
 </div>
 <script type="text/javascript">
-  var href = new URL(window.location.href)
-  var status = href.searchParams.get('status') || 'all'
-  $(`#event-nav-${status}`).addClass('active')
+  document.addEventListener('turbolinks:load', () => {
+    const href = new URL(window.location.href)
+    const status = href.searchParams.get('status') || 'all'
+    document.getElementById(`event-nav-${status}`).classList.add('active')
+  })
 </script>
