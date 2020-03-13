@@ -12,9 +12,14 @@
 </p>
 <p>
   <strong><%= Weekly.human_attribute_name :created_at %></strong>
-  <%= l weekly.published_at %>
+  <%= l weekly.created_at %>
 </p>
 <p>
   <strong><%= Weekly.human_attribute_name :updated_at %></strong>
-  <%= l weekly.published_at %>
+  <%= l weekly.updated_at %>
 </p>
+<% if weekly.pdf.attached? %>
+  <p>
+    <%= link_to 'PDF', rails_blob_path(weekly.pdf) %>
+  </p>
+<% end %>

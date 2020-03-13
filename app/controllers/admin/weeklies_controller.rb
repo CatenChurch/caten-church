@@ -17,7 +17,6 @@ class Admin::WeekliesController < Admin::BaseController
 
   def create
     @weekly = Weekly.new(weekly_params)
-
     respond_to do |format|
       if @weekly.save
         format.html { redirect_to [:admin, @weekly], notice: 'Weekly was successfully created.' }
@@ -56,6 +55,6 @@ class Admin::WeekliesController < Admin::BaseController
   end
 
   def weekly_params
-    params.require(:weekly).permit(:title, :issue, :published_at)
+    params.require(:weekly).permit(:title, :issue, :published_at, :pdf)
   end
 end
