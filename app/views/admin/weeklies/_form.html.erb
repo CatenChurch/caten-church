@@ -4,7 +4,10 @@
   <%= f.input :issue %>
   <%= f.input :published_at %>
   <% if @weekly.pdf.attached? %>
-    <p><%= link_to 'PDF', rails_blob_path(weekly.pdf) %></p>
+    <p>
+      <%= Weekly.human_attribute_name :pdf %>
+      <%= link_to weekly.pdf.filename, rails_blob_path(weekly.pdf) %>
+    </p>
   <% end %>
   <%= f.input :pdf, label: '上傳新的 PDF', label_html: { class: 'mr-1' } %>
   <%= f.button :submit %>

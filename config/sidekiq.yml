@@ -3,4 +3,6 @@
 :concurrency: 3
 :queues:
   - ['default', 1]
-  - ["mailers", 1]
+  - ['mailers', 1]
+  - ['active_storage_analysis', 1]
+  - ['active_storage_purge', 1]

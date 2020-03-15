@@ -12,7 +12,8 @@
 <%= display_meta_tags site: '茄典教會' %>
 <% if Rails.env.production? %>
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials[:google][:ga_track_id] %>"></script>
+  <% track_id = Rails.application.credentials.dig(:ga, :track_id) %> %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= track_id %>"></script>
   <script type="text/javascript">
     document.addEventListener('turbolinks:load', () => {
       window.dataLayer = window.dataLayer || []
@@ -21,7 +22,7 @@
         window.dataLayer.push(arguments)
       }
       gtag('js', new Date())
-      gtag('config', '<%= Rails.application.credentials[:google][:ga_track_id] %>')
+      gtag('config', '<%= track_id %>')
     })
   </script>
 <% end %>

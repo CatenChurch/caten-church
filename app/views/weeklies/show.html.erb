@@ -1,4 +1,5 @@
-<% set_meta_tags title: @weekly.title, og: { title: @weekly.title, image: 'https://i.imgur.com/Kgv2wwl.jpg' }%>
+<% title = "#{Weekly.model_name.human} #{@weekly.title}" %>
+<% set_meta_tags title: title, og: { title: title, image: 'https://i.imgur.com/Kgv2wwl.jpg' } %>
 <%= render 'breadcrumb' %>
 <% content_for :breadcrumb do %>
   > <%= link_to @weekly.title, @weekly %>

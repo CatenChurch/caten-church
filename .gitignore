@@ -3,6 +3,9 @@
 /tmp
 .byebug_history
 
+# Active Storage blobs
+/storage/*
+
 # Credentials
 /config/master.key
 *.pem

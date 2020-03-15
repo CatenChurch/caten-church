@@ -32,6 +32,7 @@ gem 'ransack', '~> 2.3' # Searching, https://github.com/activerecord-hackery/ran
 gem 'rolify', '~> 5.2' # Role management, https://github.com/RolifyCommunity/rolify
 gem 'sidekiq', '~> 6.0' # Job Workers, https://github.com/mperham/sidekiq
 gem 'simple_form', '~> 5.0' # From, https://github.com/plataformatec/simple_form
+gem 'google-cloud-storage', '~> 1.25' # Active Storage provider, https://github.com/googleapis/google-cloud-ruby/tree/master/google-cloud-storage
 
 # I18n
 gem 'devise-i18n', '~> 1.9'
