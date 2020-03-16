@@ -1,6 +1,6 @@
-# caten church
+# Caten Church
 
-本專案為茄典教會網站，網址是 <https://caten-church.org/>，架設在 Heroku 上
+本專案為茄典教會網站，網址是 <https://caten-church.org/>
 
 ## Requirements
 
@@ -14,21 +14,21 @@
 ## Setup
 
 ```sh
-$ git clone https://github.com/CatenChurch/caten-church.git
-$ cd caten-church
-$ bundle install
+git clone https://github.com/CatenChurch/caten-church.git
+cd caten-church
+bundle install
 ```
 
 Fill in database connection in `config/database.yml`, then create database
 
 ```sh
-$ rails db:setup
+rails db:setup
 ```
 
 Copy example credentials from `config/credentials.yml.example`, then fill in your credentials
 
 ```sh
-$ EDITOR="atom --wait" rails credentials:edit
+EDITOR="code --wait" rails credentials:edit
 ```
 
 Using [mkcert](https://github.com/FiloSottile/mkcert) (brew install mkcert) self-signed certificate ssl
@@ -46,19 +46,18 @@ The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅
 
 mkcert generated cert `localhost.pem` and key `localhost-key.pem`, moving these to `config/ssl/`
 
-
 ```sh
 mv ./localhost.pem ./localhost-key.pem ./config/ssl/
 ```
 
-puma and webpack-dev-server will load these .pem files, then force http connection on https://localhost:3000 and https://localhost:3035.
+puma and webpack-dev-server will load these .pem files, then force http connection on <https://localhost:3000> and <https://localhost:3035.>
 
 ## Usage
 
 migrate database
 
 ```sh
-$ rails db:migrate
+rails db:migrate
 ```
 
 run server
@@ -74,7 +73,7 @@ $ puma -C config/puma.rb
 run worker
 
 ```sh
-$ sidekiq -C config/sidekiq.yml
+sidekiq -C config/sidekiq.yml
 ```
 
 rake tasks
@@ -92,5 +91,7 @@ $ rake sitemap:refresh
 
 ## Deploy
 
- - make sure `ENV["RAILS_MASTER_KEY"]` or `config/master.key` exists
- - make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists
+- make sure `ENV["RAILS_MASTER_KEY"]` or `config/master.key` exists
+- make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists
+
+This application currently deploy on Heroku, and using Google Cloud Storage to store uploaded files, if you want to store file locally in development environment, go to `config/environments/development.rb` and let `config.active_storage.service = :local`
