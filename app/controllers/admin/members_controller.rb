@@ -25,13 +25,13 @@ class Admin::MembersController < Admin::BaseController
   def become_admin
     @member.become_admin
     flash[:notice] = "#{@member.email} 已成為管理員"
-    redirect_to :back
+    redirect_back fallback_location: admin_members_url
   end
 
   def cancel_admin
     @member.cancel_admin
     flash[:notice] = "#{@member.email} 已不是管理員"
-    redirect_to :back
+    redirect_back fallback_location: admin_members_url
   end
 
   private
