@@ -30,7 +30,7 @@ set_meta_tags(
           <td><%= weekly.issue %></td>
           <td><%= l weekly.published_at %></td>
           <td>
-            <%= link_to weekly, class: 'btn btn-sm btn-outline-secondary' do %>
+            <%= link_to weekly_path(weekly, format: :pdf), class: 'btn btn-sm btn-outline-secondary' do %>
               <i class="fas fa-info-circle"></i>
               查看
             <% end %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Weekly < ApplicationRecord
   has_one_attached :pdf
   validates_presence_of :title, :issue, :published_at
@@ -7,11 +9,15 @@ class Weekly < ApplicationRecord
   private
 
   def pdf_validations
-    errors.add(:pdf, '需附加檔案') && return if !pdf.attached?
+    errors.add(:pdf, '需附加檔案') && return unless pdf.attached?
     accept_types = %w[application/pdf]
-    errors.add(:pdf, "檔案類型須為 'application/pdf', 目前是 #{pdf.content_type}") if accept_types.include? pdf.content_type
+    unless accept_types.include? pdf.content_type
+      errors.add(:pdf, "檔案類型須為 application/pdf, 目前是 #{pdf.content_type}")
+    end
     max_size = 3.megabytes
-    errors.add(:pdf, "檔案須小於 #{human_size max_size}, 目前是 #{human_size pdf.byte_size}") if pdf.byte_size > max_size
+    if pdf.byte_size > max_size
+      errors.add(:pdf, "檔案須小於 #{human_size max_size}, 目前是 #{human_size pdf.byte_size}")
+    end
   end
 
   def human_size(bytes)
