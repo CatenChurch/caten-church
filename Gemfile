@@ -72,6 +72,10 @@ group :development, :test do
 end
 
 group :development do
+  # Developing
+  gem 'solargraph' # Language server
+  gem 'rubocop' # Formatter
+
   # Document
   gem 'rails-erd' # ER Model Dialogue https://github.com/voormedia/rails-erd
 

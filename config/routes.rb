@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'pages#index'
@@ -6,7 +8,9 @@ Rails.application.routes.draw do
   resources :contacts, only: %i[create]
   resources :groups, only: %i[index show]
   resources :group_reports, only: %i[index show new create]
-  resources :weeklies, only: %i[index show]
+  resources :weeklies, only: %i[index show] do
+    get :latest, on: :collection
+  end
   resources :announcements, only: %i[index show]
   resources :events, only: %i[index show] do
     member do
