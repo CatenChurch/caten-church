@@ -20,5 +20,7 @@
     "vue"
     // "html.erb",
     // "js.erb"
-  ]
+  ],
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true
 }

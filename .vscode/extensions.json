@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "aliariff.vscode-erb-beautify",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bung87.rails",
+    "rebornix.ruby",
+    "castwide.solargraph",
+    "hridoy.rails-snippets",
+    "vortizhe.simple-ruby-erb",
+    "bung87.vscode-gemfile",
+    "wingrunr21.vscode-ruby",
+    "aki77.rails-db-schema",
+    "kaiwood.endwise"
+  ]
+}

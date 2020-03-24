@@ -58,7 +58,10 @@ GEM
       zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ast (2.4.0)
+    backport (1.1.2)
     bcrypt (3.1.13)
+    benchmark (0.1.0)
     better_errors (2.5.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -105,6 +108,7 @@ GEM
       devise (>= 4.7.1)
     diff-lcs (1.3)
     digest-crc (0.5.1)
+    e2mmap (0.1.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (5.1.1)
@@ -154,6 +158,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     json (2.3.0)
@@ -186,6 +191,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    maruku (0.7.3)
     memoist (0.16.2)
     meta-tags (2.13.0)
       actionpack (>= 3.2.0, < 6.1)
@@ -219,6 +225,9 @@ GEM
     os (1.0.1)
     pagedown-bootstrap-rails (2.1.4)
       railties (> 3.1)
+    parallel (1.19.1)
+    parser (2.7.0.5)
+      ast (~> 2.4.0)
     pg (1.2.2)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
@@ -273,6 +282,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     rake (13.0.1)
     ransack (2.3.2)
       activerecord (>= 5.2.1)
@@ -292,6 +302,9 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     retriable (3.1.2)
+    reverse_markdown (1.4.0)
+      nokogiri
+    rexml (3.2.4)
     rolify (5.2.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
@@ -310,7 +323,16 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
+    rubocop (0.80.1)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rexml
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
     ruby-graphviz (1.2.4)
+    ruby-progressbar (1.10.1)
     rubyzip (2.1.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -337,6 +359,20 @@ GEM
       activemodel (>= 5.0)
     sitemap_generator (6.1.0)
       builder (~> 3.0)
+    solargraph (0.38.6)
+      backport (~> 1.1)
+      benchmark
+      bundler (>= 1.17.2)
+      e2mmap
+      jaro_winkler (~> 1.5)
+      maruku (~> 0.7, >= 0.7.3)
+      nokogiri (~> 1.9, >= 1.9.1)
+      parser (~> 2.3)
+      reverse_markdown (~> 1.0, >= 1.0.5)
+      rubocop (~> 0.52)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -357,6 +393,7 @@ GEM
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uber (0.1.0)
+    unicode-display_width (1.6.1)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -371,6 +408,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    yard (0.9.24)
     zeitwerk (2.2.2)
 
 PLATFORMS
@@ -414,10 +452,12 @@ DEPENDENCIES
   redis (~> 4.1)
   rolify (~> 5.2)
   rspec-rails
+  rubocop
   sass-rails (~> 6.0)
   sidekiq (~> 6.0)
   simple_form (~> 5.0)
   sitemap_generator (~> 6.1)
+  solargraph
   spring
   spring-watcher-listen
   turbolinks (~> 5.2)
@@ -428,4 +468,4 @@ RUBY VERSION
    ruby 2.6.4p104
 
 BUNDLED WITH
-   2.1.0.pre.1
+   2.1.4
