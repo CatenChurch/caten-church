@@ -66,16 +66,5 @@
       </iframe>
     </div>
   </div>
-  <hr>
-  <h2>填寫連絡表單</h2>
-  <p class="text-muted">任何問題都歡迎您透過以下表單詢問，我們會盡快回覆您！</p>
-  <%= simple_form_for(@contact, url: contacts_path) do |f| %>
-    <%= f.error_notification %>
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :phone %>
-    <%= f.input :message, as: :text, input_html: {rows: 8} %>
-    <%= f.button :submit, class: 'btn-block btn-purple' %>
-  <% end %>
 </div>
 </div>

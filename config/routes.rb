@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'index', 'term', 'about', 'contact', controller: 'pages'
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification' # google site verification
-  resources :contacts, only: %i[create]
   resources :groups, only: %i[index show]
   resources :group_reports, only: %i[index show new create]
   resources :weeklies, only: %i[index show] do
