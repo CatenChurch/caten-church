@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Account::MessengersController < ApplicationController
   before_action :find_messenger
   def update

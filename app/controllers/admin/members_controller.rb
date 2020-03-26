@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::MembersController < Admin::BaseController
   before_action :set_member, only: %i[show become_admin cancel_admin]
 

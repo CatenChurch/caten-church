@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   authorize_resource # cancancan Event
 
@@ -44,9 +46,13 @@ class EventsController < ApplicationController
 
   def check_participants
     # can't show participants
-    redirect_to(event_url(@event), alert: '報名情況未公開') && return unless @event.show_participants
+    unless @event.show_participants
+      redirect_to(event_url(@event), alert: '報名情況未公開') && return
+    end
     # didn't join this event
-    redirect_to(event_url(@event), alert: '報名活動後才能觀看報名情況') && return unless current_user&.joined?(@event)
+    unless current_user&.joined?(@event)
+      redirect_to(event_url(@event), alert: '報名活動後才能觀看報名情況') && return
+    end
   end
 
   def check_profile
@@ -58,10 +64,12 @@ class EventsController < ApplicationController
   end
 
   def check_registration
-    redirect_to(event_url(@event), alert: '目前不在報名時間內') and return unless @event.on_registration?
+    unless @event.on_registration?
+      redirect_to(event_url(@event), alert: '目前不在報名時間內') && return
+    end
   end
 
   def check_full
-    redirect_to(event_url(@event), alert: '報名人數已滿') and return if @event.full?
+    redirect_to(event_url(@event), alert: '報名人數已滿') && return if @event.full?
   end
 end

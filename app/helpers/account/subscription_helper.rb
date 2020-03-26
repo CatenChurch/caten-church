@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Account::SubscriptionHelper
   def messenger_list_item(title, hint, content = nil, &block)
     content_tag :div, class: 'list-group-item d-flex flex-wrap' do

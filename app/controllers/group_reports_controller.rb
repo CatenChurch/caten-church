@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupReportsController < ApplicationController
   before_action :set_report, only: [:show]
   before_action :set_lead_groups, only: %i[new create]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :mail do
   namespace :admin do
     desc '寄送下月壽星列表給管理員'

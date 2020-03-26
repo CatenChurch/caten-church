@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::EventUsersController < Admin::BaseController
   before_action :set_event_users, only: %i[edit show update]
   def edit; end

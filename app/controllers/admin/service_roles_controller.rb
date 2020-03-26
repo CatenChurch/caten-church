@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ServiceRolesController < Admin::BaseController
   before_action :find_role, only: %i[show edit update destroy]
 

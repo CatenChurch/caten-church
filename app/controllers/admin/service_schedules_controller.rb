@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ServiceSchedulesController < Admin::BaseController
   before_action :find_schedule, only: %i[edit update destroy]
 

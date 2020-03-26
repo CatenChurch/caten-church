@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Account::SubscriptionsController < Account::BaseController
   before_action :find_subscription
   before_action :check_user_auth_token, only: [:show]

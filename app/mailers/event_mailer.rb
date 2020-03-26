@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventMailer < ApplicationMailer
   default from: '茄典教會 <notify@caten-church.org>'
 

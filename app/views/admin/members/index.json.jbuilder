@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.users @members do |user|
   json.id user.id
   json.email user.email

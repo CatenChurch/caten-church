@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupUser < ApplicationRecord
   # relations
   belongs_to :group, counter_cache: :members_count

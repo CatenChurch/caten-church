@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Account::ProfilesController < Account::BaseController
   before_action :get_profile, only: %i[show edit update]
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def notice_message
     # 配合 Bootstrap 的警告元件

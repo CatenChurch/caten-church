@@ -1,5 +1,6 @@
-class AnnouncementsController < ApplicationController
+# frozen_string_literal: true
 
+class AnnouncementsController < ApplicationController
   def index
     @announcements = Announcement.all.order(id: :desc).page(params[:page])
   end
@@ -7,5 +8,4 @@ class AnnouncementsController < ApplicationController
   def show
     @announcement = Announcement.find(params[:id])
   end
-  
 end

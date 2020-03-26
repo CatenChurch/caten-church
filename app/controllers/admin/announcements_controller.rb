@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::AnnouncementsController < Admin::BaseController
-  before_action :set_announcement, only: [:show, :edit, :update, :destroy, :post_to_facebook]
+  before_action :set_announcement, only: %i[show edit update destroy post_to_facebook]
 
   def index
     @announcements = Announcement.all.order(id: :desc).page(params[:page])
@@ -43,7 +45,7 @@ class Admin::AnnouncementsController < Admin::BaseController
       fb_object_id = '244141208966188'
       message = @announcement.content
       # link = "https://www.facebook.com/#{fb_object_id}"
-      link = announcement_url(@announcement)
+      # link = announcement_url(@announcement)
       # post feed
       fb_post = @graph.put_connections(fb_object_id, 'feed', message: message)
       # post photo

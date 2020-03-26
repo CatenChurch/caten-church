@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Chatbot::LinesController < Chatbot::BaseController
   def callback
     bot = LineBotService.new(request)

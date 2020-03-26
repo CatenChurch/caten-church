@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 wb = xlsx_package.workbook
 
 wb.add_worksheet name: User.model_name.human do |sheet|
