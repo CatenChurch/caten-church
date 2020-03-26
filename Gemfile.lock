@@ -384,6 +384,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    squasher (0.6.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -460,6 +461,7 @@ DEPENDENCIES
   solargraph
   spring
   spring-watcher-listen
+  squasher
   turbolinks (~> 5.2)
   web-console
   webpacker (~> 4.2.2)
