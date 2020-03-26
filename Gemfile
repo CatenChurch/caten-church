@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-ruby "2.6.4"
+
+ruby '2.6.4'
 source 'https://rubygems.org'
 
 # SEO
@@ -73,8 +74,9 @@ end
 
 group :development do
   # Developing
-  gem 'solargraph' # Language server
   gem 'rubocop' # Formatter
+  gem 'solargraph' # Language server
+  gem 'squasher' # Squash migration
 
   # Document
   gem 'rails-erd' # ER Model Dialogue https://github.com/voormedia/rails-erd
