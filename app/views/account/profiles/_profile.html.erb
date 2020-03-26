@@ -17,7 +17,7 @@
     </li>
     <li class="list-group-item d-flex justify-content-between px-5">
       <div><strong><%= Profile.human_attribute_name :birth %></strong></div>
-      <div><%= l profile&.birth %></div>
+      <div><%= profile&.birth ? l(profile.birth) : '' %></div>
     </li>
     <li class="list-group-item d-flex justify-content-between px-5">
       <div><strong><%= Profile.human_attribute_name :id_number %></strong></div>
@@ -25,7 +25,7 @@
     </li>
     <li class="list-group-item d-flex justify-content-between px-5">
       <div><strong><%= Profile.human_attribute_name :email %></strong></div>
-      <div><%= profile&.user.email %></div>
+      <div><%= profile&.user&.email %></div>
     </li>
     <li class="list-group-item d-flex justify-content-between px-5">
       <div><strong><%= Profile.human_attribute_name :phone %></strong></div>
