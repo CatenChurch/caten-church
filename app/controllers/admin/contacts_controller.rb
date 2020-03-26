@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ContactsController < Admin::BaseController
   before_action :find_contact, only: %i[show edit update destroy handle]
 

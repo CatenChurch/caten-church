@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module EventsHelper
   def fee(money)
-    money ? money : t(:free)
+    money || t(:free)
   end
 end

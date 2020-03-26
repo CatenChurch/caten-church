@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OauthsHelper
   def connect_facebook_link(user)
     if user.facebook_oauth.present?

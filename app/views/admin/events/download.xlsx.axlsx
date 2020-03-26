@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 wb = xlsx_package.workbook
 
 # event info worksheet
 wb.add_worksheet name: '活動資訊' do |sheet|
   sheet.add_row ['活動資訊']
   @event.attributes.each do |key, value|
-    sheet.add_row [ Event.human_attribute_name(key), value]
+    sheet.add_row [Event.human_attribute_name(key), value]
   end
 end
 
@@ -21,7 +23,7 @@ wb.add_worksheet name: '報名者名單' do |sheet|
     Profile.human_attribute_name(:emergency_contact)
   ]
   @participants.each do |user|
-    profile = (user.profile.blank? ? Profile.new : user.profile )
+    profile = (user.profile.blank? ? Profile.new : user.profile)
     sheet.add_row [
       profile.name,
       profile.sex,

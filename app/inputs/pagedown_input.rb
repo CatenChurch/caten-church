@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PagedownInput < SimpleForm::Inputs::TextInput
   def input
     out = "<div id=\"wmd-button-bar-#{attribute_name}\"></div>#{wmd_input}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::EventsController < Admin::BaseController
   before_action :set_event, only: %i[show edit update destroy download]
 

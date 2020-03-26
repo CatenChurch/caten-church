@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Announcement < ApplicationRecord
   resourcify
   # 發布公告者

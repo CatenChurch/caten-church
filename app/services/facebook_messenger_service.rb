@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class FacebookMessengerService
   def initialize(params)
     @entry = params[:entry]
-    @messages = @entry.map { |e| e.fetch(:messaging){ [] } }.flatten(1)
+    @messages = @entry.map { |e| e.fetch(:messaging) { [] } }.flatten(1)
   end
 
   def perform
@@ -13,11 +15,13 @@ class FacebookMessengerService
       if ref.present?
         ref_hash = ref.split('::').map { |e| e.split('=') }.to_h
         user = User.find_by(id: ref_hash['user_id'], auth_token: ref_hash['auth_token'])
-        messenger.update!(activated: true, user_id: user.id) if ref_hash['action'] == 'activate_messenger'
+        if ref_hash['action'] == 'activate_messenger'
+          messenger.update!(activated: true, user_id: user.id)
+        end
       end
       # normal conversation
       ## no code yet
-    rescue
+    rescue StandardError
       next
     end
   end

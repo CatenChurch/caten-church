@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ServiceTeamsController < Admin::BaseController
   before_action :find_team, only: %i[show update destroy]
   before_action :find_roles, only: %i[new create edit update]

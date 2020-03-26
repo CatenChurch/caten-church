@@ -1,5 +1,6 @@
-module DeviseRedirectable
+# frozen_string_literal: true
 
+module DeviseRedirectable
   protected
 
   def after_sign_in_path_for(user)
