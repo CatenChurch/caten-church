@@ -2,7 +2,7 @@
   <%= f.error_notification %>
   <%= f.input :title %>
   <%= f.input :issue %>
-  <%= f.input :published_at %>
+  <%= f.input :published_at, as: :string %>
   <% if @weekly.pdf.attached? %>
     <p>
       <%= Weekly.human_attribute_name :pdf %>
@@ -13,3 +13,10 @@
   <%= f.button :submit %>
 <% end %>
 <%= javascript_pack_tag 'bootstrap-file-upload' %>
+<script>
+  document.addEventListener('turbolinks:load', () => {
+    window.flatpickr('#weekly_published_at', {
+      enableTime: true
+    })
+  })
+</script>
