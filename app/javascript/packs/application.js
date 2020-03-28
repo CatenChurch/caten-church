@@ -15,7 +15,6 @@ import turbolinks from 'turbolinks'
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap'
 import Vue from 'vue/dist/vue.esm'
-import flatpickr from 'flatpickr/dist/flatpickr'
 
 // My JavaScript and CSS
 import '../stylesheets/main.scss'
@@ -31,7 +30,6 @@ const imagePath = name => images(name, true)
 // Expose libraries to window object
 window.$ = $
 window.Vue = Vue
-window.flatpickr = flatpickr
 
 // Rails javascripts support
 ujs.start()
