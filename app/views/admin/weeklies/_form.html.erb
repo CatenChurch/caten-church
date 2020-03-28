@@ -13,4 +13,4 @@
   <%= f.button :submit %>
 <% end %>
 <%= javascript_pack_tag 'bootstrap-file-upload', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'datetime-picker', 'data-turbolinks-track': 'reload', data: { selector: '#weekly_published_at', options: { enableTime: true }} %>
+<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload', data: { 'datetime-pickers': [{ selector: '#weekly_published_at' }]} %>
