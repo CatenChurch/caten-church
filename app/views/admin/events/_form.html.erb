@@ -5,10 +5,10 @@
   <%= f.input :content, as: :text, input_html: { rows: 8 } %>
   <%= f.input :max_sign_up_number %>
   <%= f.input :min_sign_up_number %>
-  <%= f.input :sign_up_begin %>
-  <%= f.input :sign_up_end %>
-  <%= f.input :start %>
-  <%= f.input :over %>
+  <%= f.input :sign_up_begin, as: :string %>
+  <%= f.input :sign_up_end, as: :string %>
+  <%= f.input :start, as: :string %>
+  <%= f.input :over, as: :string %>
   <%= f.input :check_arrival %>
   <%= f.input :registery_fee %>
   <%= f.input :show_participants %>
@@ -16,3 +16,10 @@
     <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>
+<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload',
+  data: { 'datetime-pickers': [
+    { selector: '#event_sign_up_begin' },
+    { selector: '#event_sign_up_end' },
+    { selector: '#event_start' },
+    { selector: '#event_over' }
+  ]} %>
