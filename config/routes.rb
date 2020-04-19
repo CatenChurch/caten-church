@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :weeklies, only: %i[index show] do
     get :latest, on: :collection
   end
-  resources :announcements, only: %i[index show]
   resources :events, only: %i[index show] do
     member do
       post 'join'
@@ -47,9 +46,6 @@ Rails.application.routes.draw do
     resources :service_schedules, except: %i[show]
     resources :contacts, except: %i[new create] do
       member { post 'handle' }
-    end
-    resources :announcements do
-      member { post 'post_to_facebook' }
     end
     resources :members, only: %i[index show edit update] do
       get 'download', on: :collection

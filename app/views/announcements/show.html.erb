@@ -1,7 +1,0 @@
-<%= render 'breadcrumb' %>
-<% content_for :breadcrumb do %>
-  > <%= link_to @announcement.title, announcement_path(@announcement) %>
-<% end %>
-<div class="container">
-  <%= render 'announcement', announcement: @announcement %>
-</div>
