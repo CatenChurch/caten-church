@@ -1,9 +1,0 @@
-<%= simple_form_for [:admin, @announcement] do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :content, as: :pagedown, input_html: { preview: false, rows: 20 } %>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
-    <i class="fas fa-save"></i> 儲存
-  <% end %>
-<% end %>

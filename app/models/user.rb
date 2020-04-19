@@ -11,7 +11,6 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_one :subscription, dependent: :destroy
-  has_many :announcements
   has_many :events, dependent: :nullify
   has_many :event_users, dependent: :destroy
   has_many :participated_events, through: :event_users, source: :event

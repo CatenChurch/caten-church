@@ -10,9 +10,6 @@
 <%= nav_item_link_to admin_groups_path, data: { active: 'admin-groups' } do %>
   <i class="fas fa-users"></i> <%= Group.model_name.human %>
 <% end %>
-<%= nav_item_link_to admin_announcements_path, data: { active: 'admin-announcements' } do %>
-  <i class="fas fa-bullhorn"></i> <%= Announcement.model_name.human %>
-<% end %>
 <hr class="w-100">
 <%= nav_item_link_to admin_service_teams_path, data: { active: 'admin-service_teams' } do %>
   <i class="fas fa-users"></i> <%= Service::Team.model_name.human %>
