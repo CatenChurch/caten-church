@@ -245,8 +245,8 @@ Devise.setup do |config|
                   Rails.application.credentials[:facebook][:app_id],
                   Rails.application.credentials[:facebook][:app_secret],
                   client_options: {
-                    site: 'https://graph.facebook.com/v3.2',
-                    authorize_url: 'https://www.facebook.com/v3.2/dialog/oauth'
+                    site: 'https://graph.facebook.com/v6.0',
+                    authorize_url: 'https://www.facebook.com/v6.0/dialog/oauth'
                   }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
