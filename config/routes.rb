@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'pages#index'
-  get 'index', 'term', 'about', 'contact', controller: 'pages'
+  get 'index', 'term', 'about', 'contact', 'tithing', controller: 'pages'
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification' # google site verification
   resources :groups, only: %i[index show]
   resources :group_reports, only: %i[index show new create]

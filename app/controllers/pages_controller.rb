@@ -9,6 +9,8 @@ class PagesController < ApplicationController
 
   def term; end
 
+  def tithing; end
+
   def google_site_verification
     render layout: false
   end
