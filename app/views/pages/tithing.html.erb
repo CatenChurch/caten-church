@@ -1,0 +1,40 @@
+<% title = '奉獻方式'
+  description = '弟兄姊妹平安，在外工作或讀書的你可以透過線上奉獻囉，本頁將指引你如何透過匯款線上奉獻給教會'
+%>
+<% set_meta_tags title: title ,
+  description: description,
+  og: {
+    title: title,
+    description: description,
+    image: 'https://i.imgur.com/Kgv2wwl.jpg'
+  } %>
+<% content_for :breadcrumb do %>
+  > <%= link_to title, tithing_path %>
+<% end %>
+<% content_for :jumbotron do %>
+  <h1 class="display-4 text-center"><%= title %></h1>
+  <p class="lead text-center"><%= description %></p>
+<% end %>
+<div class="container">
+  <h3>線上奉獻的方式有哪些呢?</h3>
+  <ul>
+    <li>可以使用 ATM 轉帳</li>
+    <li>可以使用手機轉帳，需要在備註寫上奉獻人姓名 + 奉獻用途</li>
+    <li>可以到銀行，郵局或農漁會臨櫃匯款，在匯款單寫奉獻人姓名 + 奉獻用途</li>
+  </ul>
+  <hr>
+  <h3>茄典教會的帳號是什麼呢?</h3>
+  <ul>
+    <li>農會：梓官農會</li>
+    <li>銀行代碼：619</li>
+    <li>帳戶：00141211139150</li>
+    <li>戶名：財團法人台灣基督長老教會高雄中會茄典教會</li>
+  </ul>
+  <hr>
+  <h3>奉獻後需要做什麼呢?</h3>
+  <p class="text-purple"><strong>線上奉獻後，請提供您的帳號後 5 碼和奉獻項目</strong></p>
+  <ul>
+    <li>通知茄典教會財務部出納，洪淑琴執事或陳志明執事</li>
+    <li>撥打教會電話：07-6178379 通知教會幹事</li>
+  </ul>
+</div>
