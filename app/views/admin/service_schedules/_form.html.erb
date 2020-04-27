@@ -1,9 +1,0 @@
-<%= simple_form_for [:admin, @schedule] do |f| %>
-  <%= f.error_notification %>
-  <%= f.association :team, collection: Service::Team.all.pluck(:name, :id), prompt: :translate %>
-  <%= f.input :service_time, as: :string %>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
-    <i class="fas fa-save"></i> 儲存
-  <% end %>
-<% end %>
-<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload', data: { 'datetime-pickers': [{ selector: '#service_schedule_service_time' }]} %>

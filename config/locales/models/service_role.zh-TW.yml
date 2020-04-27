@@ -1,8 +1,0 @@
-'zh-TW':
-  activerecord:
-    models:
-      service/role: 服事角色
-    attributes:
-      service/role:
-        name: 服事角色名稱
-        users_count: 服事角色人數

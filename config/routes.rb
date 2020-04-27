@@ -41,9 +41,6 @@ Rails.application.routes.draw do
     get '/' => 'pages#index'
     resources :weeklies
     resources :groups
-    resources :service_teams
-    resources :service_roles
-    resources :service_schedules, except: %i[show]
     resources :contacts, except: %i[new create] do
       member { post 'handle' }
     end

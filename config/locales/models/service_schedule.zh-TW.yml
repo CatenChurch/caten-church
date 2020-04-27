@@ -1,8 +1,0 @@
-'zh-TW':
-  activerecord:
-    models:
-      service/schedule: '服事時程'
-    attributes:
-      service/schedule:
-        team: '團隊名稱'
-        service_time: '服事時間'
