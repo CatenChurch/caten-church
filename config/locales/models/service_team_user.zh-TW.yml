@@ -1,4 +1,0 @@
-'zh-TW':
-  activerecord:
-    models:
-      service/team_user: '服事團隊成員'

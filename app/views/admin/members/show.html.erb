@@ -22,30 +22,6 @@
 </div>
 <br>
 <%= render 'account/profiles/profile', profile: @member.profile, stage: :backstage %>
-<% if @service_teams.present? %>
-  <div class="mt-2">
-    <h3 class="text-center">領導的<%= Service::Team.model_name.human %></h3>
-    <div class="card">
-      <div class="list-group list-group-flush">
-        <% @service_teams.each do |team| %>
-          <%= link_to team.name, admin_service_team_path(team), class: 'list-group-item list-group-item-action' %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
-<% if @serviced_teams.present? %>
-  <div class="mt-2">
-    <h3 class="text-center">參加的<%= Service::Team.model_name.human %></h3>
-    <div class="card">
-      <div class="list-group list-group-flush">
-        <% @serviced_teams.each do |team| %>
-          <%= link_to team.name, admin_service_team_path(team), class: 'list-group-item list-group-item-action' %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-<% end %>
 <% if @events.present? %>
   <div class="mt-2">
     <h3 class="text-center">參加的<%= Event.model_name.human %></h3>

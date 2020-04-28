@@ -14,8 +14,6 @@ class Admin::MembersController < Admin::BaseController
   end
 
   def show
-    @service_teams = @member.service_teams.order(id: :desc)
-    @serviced_teams = @member.serviced_teams.order(id: :desc)
     @events = @member.participated_events.order(id: :desc)
   end
 
