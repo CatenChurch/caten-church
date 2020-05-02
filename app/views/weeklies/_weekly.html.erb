@@ -7,6 +7,10 @@
   <%= weekly.issue %>
 </p>
 <p>
+  <strong><%= Weekly.human_attribute_name :viewed_count %></strong>
+  <%= weekly.viewed_count %>
+</p>
+<p>
   <strong><%= Weekly.human_attribute_name :published_at %></strong>
   <%= l weekly.published_at %>
 </p>

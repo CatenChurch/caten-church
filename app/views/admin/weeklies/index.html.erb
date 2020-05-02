@@ -11,6 +11,7 @@
       <tr>
         <th><%= Weekly.human_attribute_name :title %></th>
         <th><%= Weekly.human_attribute_name :issue %></th>
+        <th><%= Weekly.human_attribute_name :viewed_count %></th>
         <th><%= Weekly.human_attribute_name :published_at %></th>
         <th><%= Weekly.human_attribute_name :created_at %></th>
         <th><%= Weekly.human_attribute_name :updated_at %></th>
@@ -22,6 +23,7 @@
         <tr>
           <td><%= weekly.title %></td>
           <td><%= weekly.issue %></td>
+          <td><%= weekly.viewed_count %></td>
           <td><%= l weekly.published_at %></td>
           <td><%= l weekly.created_at %></td>
           <td><%= l weekly.updated_at %></td>

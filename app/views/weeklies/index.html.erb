@@ -19,6 +19,7 @@ set_meta_tags(
       <tr>
         <th><%= Weekly.human_attribute_name :title %></th>
         <th><%= Weekly.human_attribute_name :issue %></th>
+        <th><%= Weekly.human_attribute_name :viewed_count %></th>
         <th><%= Weekly.human_attribute_name :published_at %></th>
         <th></th>
       </tr>
@@ -28,6 +29,7 @@ set_meta_tags(
         <tr>
           <td><%= weekly.title %></td>
           <td><%= weekly.issue %></td>
+          <td><%= weekly.viewed_count %></td>
           <td><%= l weekly.published_at %></td>
           <td>
             <%= link_to weekly_path(weekly, format: :pdf), class: 'btn btn-sm btn-outline-secondary' do %>
