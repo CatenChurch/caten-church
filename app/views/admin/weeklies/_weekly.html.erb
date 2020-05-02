@@ -1,0 +1,34 @@
+<p>
+  <strong><%= Weekly.human_attribute_name :title %></strong>
+  <%= weekly.title %>
+</p>
+<p>
+  <strong><%= Weekly.human_attribute_name :issue %></strong>
+  <%= weekly.issue %>
+</p>
+<p>
+  <strong><%= Weekly.human_attribute_name :viewed_count %></strong>
+  <%= weekly.viewed_count %>
+</p>
+<p>
+  <strong><%= Weekly.human_attribute_name :published_at %></strong>
+  <%= l weekly.published_at %>
+</p>
+<p>
+  <strong><%= Weekly.human_attribute_name :created_at %></strong>
+  <%= l weekly.created_at %>
+</p>
+<p>
+  <strong><%= Weekly.human_attribute_name :updated_at %></strong>
+  <%= l weekly.updated_at %>
+</p>
+<% if weekly.pdf.attached? %>
+  <p>
+    <strong><%= Weekly.human_attribute_name :pdf %></strong>
+    <%= link_to weekly.pdf.filename, rails_blob_path(weekly.pdf) %>
+  </p>
+  <!-- 16:9 aspect ratio -->
+  <div class="embed-responsive embed-responsive-16by9">
+    <embed src="<%= rails_blob_path(weekly.pdf) %>" type="<%= weekly.pdf.content_type %>" class="embed-responsive-item">
+  </div>
+<% end %>
