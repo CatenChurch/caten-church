@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.array! @weeklies, partial: 'weeklies/weekly', as: :weekly
+json.array! @weeklies, partial: 'weekly', as: :weekly
