@@ -74,7 +74,8 @@ end
 
 group :development do
   # Developing
-  gem 'rubocop' # Formatter
+  gem 'htmlbeautifier' # ERB Formatter
+  gem 'rubocop' # Ruby Formatter
   gem 'solargraph' # Language server
   gem 'squasher' # Squash migration
 
