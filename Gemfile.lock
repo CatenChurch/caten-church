@@ -164,18 +164,18 @@ GEM
       activesupport (>= 5.0.0)
     json (2.3.0)
     jwt (2.2.1)
-    kaminari (1.2.0)
+    kaminari (1.2.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.0)
-      kaminari-activerecord (= 1.2.0)
-      kaminari-core (= 1.2.0)
-    kaminari-actionview (1.2.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
       actionview
-      kaminari-core (= 1.2.0)
-    kaminari-activerecord (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
       activerecord
-      kaminari-core (= 1.2.0)
-    kaminari-core (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     koala (3.0.0)
       addressable
       faraday
@@ -436,7 +436,7 @@ DEPENDENCIES
   google-cloud-storage (~> 1.25)
   htmlbeautifier
   jbuilder (~> 2.9)
-  kaminari (~> 1.1)
+  kaminari (~> 1.2)
   koala (~> 3.0)
   line-bot-api (~> 1.13)
   line-bot-message-builder (~> 0.1.1)

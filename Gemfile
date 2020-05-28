@@ -29,7 +29,7 @@ gem 'cancancan', '~> 3.0' # Authorization, https://github.com/CanCanCommunity/ca
 gem 'caxlsx_rails', '~> 0.6' # Excel, https://github.com/caxlsx/caxlsx_rails
 gem 'devise', '~> 4.7' # User Login, https://github.com/plataformatec/devise
 gem 'google-cloud-storage', '~> 1.25' # Active Storage provider, https://github.com/googleapis/google-cloud-ruby/tree/master/google-cloud-storage
-gem 'kaminari', '~> 1.1' # Pagination, https://github.com/kaminari/kaminari, $ rails g kaminari:views bootstrap4
+gem 'kaminari', '~> 1.2' # Pagination, https://github.com/kaminari/kaminari, $ rails g kaminari:views bootstrap4
 gem 'ransack', '~> 2.3' # Searching, https://github.com/activerecord-hackery/ransack
 gem 'rolify', '~> 5.2' # Role management, https://github.com/RolifyCommunity/rolify
 gem 'sidekiq', '~> 6.0' # Job Workers, https://github.com/mperham/sidekiq
