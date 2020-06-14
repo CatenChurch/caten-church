@@ -22,5 +22,7 @@
     // "js.erb"
   ],
   "solargraph.diagnostics": true,
-  "solargraph.formatting": true
+  "solargraph.formatting": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n"
 }
