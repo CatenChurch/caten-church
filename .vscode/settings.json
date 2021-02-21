@@ -8,8 +8,15 @@
     // "*.js.erb": "js.erb",
     "*.erb": "erb"
   },
-  "[ruby][javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[erb]": { "editor.defaultFormatter": "aliariff.vscode-erb-beautify" },
+  "[ruby]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[erb]": {
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": { "source.fixAll": true },
   "eslint.packageManager": "yarn",
