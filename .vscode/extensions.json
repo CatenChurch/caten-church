@@ -14,6 +14,7 @@
     "aki77.rails-db-schema",
     "kaiwood.endwise",
     "donjayamanne.githistory",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "ninoseki.vscode-gem-lens"
   ]
 }
