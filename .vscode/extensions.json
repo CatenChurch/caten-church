@@ -12,6 +12,8 @@
     "bung87.vscode-gemfile",
     "wingrunr21.vscode-ruby",
     "aki77.rails-db-schema",
-    "kaiwood.endwise"
+    "kaiwood.endwise",
+    "donjayamanne.githistory",
+    "gruntfuggly.todo-tree"
   ]
 }
