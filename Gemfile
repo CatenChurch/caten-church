@@ -38,10 +38,6 @@ gem 'sitemap_generator', '~> 6.1' # Sitemap, https://github.com/kjvarga/sitemap_
 gem 'devise-i18n', '~> 1.9'
 gem 'rails-i18n', '~> 6.0'
 
-# Markdown
-gem 'pagedown-bootstrap-rails', '~> 2.1' # Markdown Editor, https://github.com/hughevans/pagedown-bootstrap-rails
-gem 'redcarpet', '~> 3.5' # Markdown to HTML, https://github.com/vmg/redcarpet, see https://ruby-china.org/topics/474
-
 # Facebook
 gem 'koala', '~> 3.0' # Facebook Graph API, https://github.com/arsduo/koala
 

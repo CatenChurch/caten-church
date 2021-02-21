@@ -227,8 +227,6 @@ GEM
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
     os (1.1.1)
-    pagedown-bootstrap-rails (2.1.4)
-      railties (> 3.1)
     parallel (1.19.2)
     parser (2.7.1.5)
       ast (~> 2.4.1)
@@ -295,7 +293,6 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.5.1)
     redis (4.2.2)
     regexp_parser (1.8.0)
     representable (3.0.4)
@@ -447,7 +444,6 @@ DEPENDENCIES
   meta-tags (~> 2.13)
   omniauth (~> 1.9)
   omniauth-facebook (~> 5.0)
-  pagedown-bootstrap-rails (~> 2.1)
   pg (~> 1.2)
   pry
   pry-nav
@@ -457,7 +453,6 @@ DEPENDENCIES
   rails-erd
   rails-i18n (~> 6.0)
   ransack (~> 2.3)
-  redcarpet (~> 3.5)
   redis (~> 4.1)
   rolify (~> 5.2)
   rspec-rails
