@@ -4,10 +4,7 @@
 <!-- Rails Webpacker -->
 <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
-<%= favicon_link_tag asset_pack_path('media/images/favicon.png'), type: 'image/png' %>
-<!-- Rails Asset Pipeline -->
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+<%= favicon_pack_tag 'favicon.png', type: 'image/png' %>
 <!-- SEO -->
 <meta property="og:type" content="website">
 <%= display_meta_tags site: '茄典教會' %>
