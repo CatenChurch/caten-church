@@ -5,6 +5,7 @@
   "author": "楊竑昕 <jk195417@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "^4.4.1",
