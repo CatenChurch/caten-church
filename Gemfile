@@ -15,11 +15,7 @@ gem 'pg', '~> 1.2' # Use postgresql as the database for Active Record
 gem 'redis', '~> 4.1' # Use Redis as cache and message queue
 
 # Assets
-gem 'coffee-rails', '~> 5.0' # Use CoffeeScript for .coffee assets and views
-gem 'font-awesome-sass', '~> 5.8.1' # Icon
-gem 'sass-rails', '~> 6.0' # Use SCSS for stylesheets
-gem 'turbolinks', '~> 5.2' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'webpacker', '~> 4.2.2'
+gem 'webpacker', '~> 5.x'
 
 # Auth
 gem 'cancancan', '~> 3.0' # Authorization, https://github.com/CanCanCommunity/cancancan
