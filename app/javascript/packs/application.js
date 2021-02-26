@@ -7,17 +7,15 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-// node_modules
+// Import from node_modules
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-import ujs from '@rails/ujs'
-import turbolinks from 'turbolinks'
+import Rails from '@rails/ujs'
+import Turbolinks from 'turbolinks'
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap'
 import Vue from 'vue/dist/vue.esm'
-
-// My JavaScript and CSS
-import '../stylesheets/main.scss'
+import '@fortawesome/fontawesome-free/js/all'
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -25,12 +23,12 @@ import '../stylesheets/main.scss'
 //
 const images = require.context('../images', true)
 // eslint-disable-next-line no-unused-vars
-const imagePath = name => images(name, true)
+const imagePath = (name) => images(name, true)
 
 // Expose libraries to window object
 window.$ = $
 window.Vue = Vue
 
-// Rails javascripts support
-ujs.start()
-turbolinks.start()
+// Using Rails default JavaScript packages
+Rails.start()
+Turbolinks.start()

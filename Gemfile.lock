@@ -85,13 +85,6 @@ GEM
       caxlsx (>= 3.0)
     choice (0.2.0)
     coderay (1.1.3)
-    coffee-rails (5.0.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 5.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
     crass (1.0.6)
@@ -111,7 +104,6 @@ GEM
       rake (~> 13.0)
     e2mmap (0.1.0)
     erubi (1.9.0)
-    execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.1.0)
@@ -122,8 +114,6 @@ GEM
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
-    font-awesome-sass (5.8.1)
-      sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.45.0)
@@ -339,16 +329,7 @@ GEM
       rexml
     ruby-progressbar (1.10.1)
     rubyzip (2.3.0)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
+    semantic_range (2.3.1)
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -392,9 +373,6 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -406,10 +384,11 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (4.2.2)
-      activesupport (>= 4.2)
+    webpacker (5.2.1)
+      activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -427,12 +406,10 @@ DEPENDENCIES
   byebug
   cancancan (~> 3.0)
   caxlsx_rails (~> 0.6)
-  coffee-rails (~> 5.0)
   devise (~> 4.7)
   devise-i18n (~> 1.9)
   factory_bot_rails
   faker
-  font-awesome-sass (~> 5.8.1)
   google-cloud-storage (~> 1.25)
   htmlbeautifier
   jbuilder (~> 2.9)
@@ -457,7 +434,6 @@ DEPENDENCIES
   rolify (~> 5.2)
   rspec-rails
   rubocop
-  sass-rails (~> 6.0)
   sidekiq (~> 6.0)
   simple_form (~> 5.0)
   sitemap_generator (~> 6.1)
@@ -465,9 +441,8 @@ DEPENDENCIES
   spring
   spring-watcher-listen
   squasher
-  turbolinks (~> 5.2)
   web-console
-  webpacker (~> 4.2.2)
+  webpacker (~> 5.x)
 
 RUBY VERSION
    ruby 2.7.1p83

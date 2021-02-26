@@ -1,0 +1,10 @@
+// Import styles from node_modules
+@import 'flatpickr';
+
+// Override bootstrap
+@import '../stylesheets/variables';
+@import '~bootstrap/scss/bootstrap';
+
+// Import my styles
+@import '../stylesheets/jumbotron';
+@import '../stylesheets/event';
