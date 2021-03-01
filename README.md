@@ -19,7 +19,14 @@ cd caten-church
 bundle install
 ```
 
-Fill in database connection in `config/database.yml`, then create database
+Create database user `caten_church` with password `caten_church` and create db `caten_church` or Fill in your database connection in `config/database.yml`
+
+```sh 
+createuser caten_church --interactive -P
+createdb caten_church -U caten_church
+```
+
+Then create database
 
 ```sh
 rails db:setup
@@ -50,7 +57,7 @@ mkcert generated cert `localhost.pem` and key `localhost-key.pem`, moving these 
 mv ./localhost.pem ./localhost-key.pem ./config/ssl/
 ```
 
-puma and webpack-dev-server will load these .pem files, then force http connection on <https://localhost:3000> and <https://localhost:3035.>
+puma and webpack-dev-server will load these .pem files, then force http connection on <https://localhost:3000> and <https://localhost:3035>
 
 ## Usage
 

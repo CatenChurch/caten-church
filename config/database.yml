@@ -7,13 +7,13 @@ development:
   <<: *default
   database: caten_church_dev
   username: caten_church
-  password:
+  password: caten_church
 
 test:
   <<: *default
   database: caten_church_test
   username: caten_church
-  password:
+  password: caten_church
 
 production:
   <<: *default
