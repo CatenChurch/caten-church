@@ -1,8 +1,8 @@
 <h1 class="text-center">管理介面</h1>
 <br>
 <div class="d-flex flex-wrap">
-  <div class="flex-grow-1"><%= render 'card_link', title: User.model_name.human, icon: icon('fas', 'user'), path: admin_members_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Event.model_name.human, icon: icon('fas', 'running'), path: admin_events_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Weekly.model_name.human, icon: icon('fas', 'newspaper'), path: admin_weeklies_path %></div>
-  <div class="flex-grow-1"><%= render 'card_link', title: Group.model_name.human, icon: icon('fas', 'users'), path: admin_groups_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: User.model_name.human, icon: 'fas fa-user', path: admin_members_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Event.model_name.human, icon: 'fas fa-running', path: admin_events_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Weekly.model_name.human, icon: 'fas fa-newspaper', path: admin_weeklies_path %></div>
+  <div class="flex-grow-1"><%= render 'card_link', title: Group.model_name.human, icon: 'fas fa-users', path: admin_groups_path %></div>
 </div>
