@@ -23,7 +23,7 @@ gem 'devise', '~> 4.7' # User Login, https://github.com/plataformatec/devise
 gem 'rolify', '~> 5.2' # Role management, https://github.com/RolifyCommunity/rolify
 
 # Oauth2
-gem 'omniauth', '~> 1.9' # Omniauth, https://github.com/omniauth/omniauth
+gem 'omniauth', '~> 2.0' # Omniauth, https://github.com/omniauth/omniauth
 gem 'omniauth-facebook', '~> 5.0' # Facebook Omniauth, https://github.com/mkdynamic/omniauth-facebook
 
 # SEO
