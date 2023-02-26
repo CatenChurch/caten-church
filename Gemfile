@@ -19,7 +19,7 @@ gem 'webpacker', '~> 5.x'
 
 # Auth
 gem 'cancancan', '~> 3.0' # Authorization, https://github.com/CanCanCommunity/cancancan
-gem 'devise', '~> 4.7' # User Login, https://github.com/plataformatec/devise
+gem 'devise', '~> 4.9' # User Login, https://github.com/plataformatec/devise
 gem 'rolify', '~> 5.2' # Role management, https://github.com/RolifyCommunity/rolify
 
 # Oauth2
