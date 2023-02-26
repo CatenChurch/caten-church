@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-url = Rails.application.credentials.dig(Rails.env.to_sym, :redis_url) ||
-      ENV['REDIS_URL'] ||
+url = ENV.key('REDIS_URL') ||
+      Rails.application.credentials.dig(Rails.env.to_sym, :redis_url) ||
       'redis://localhost:6379/1'
 
 Sidekiq.configure_server do |config|
