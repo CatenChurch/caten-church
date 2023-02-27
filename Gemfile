@@ -26,6 +26,9 @@ gem 'rolify', '~> 6.0.1' # Role management, https://github.com/RolifyCommunity/r
 # Oauth2
 gem 'omniauth', '~> 2.1.1' # Omniauth, https://github.com/omniauth/omniauth
 gem 'omniauth-facebook', '~> 9.0.0' # Facebook Omniauth, https://github.com/mkdynamic/omniauth-facebook
+# Omniauth & Rails CSRF intergration, https://github.com/cookpad/omniauth-rails_csrf_protection
+# See: https://github.com/omniauth/omniauth/wiki/Upgrading-to-2.0#rails
+gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 
 # SEO
 gem 'meta-tags', '~> 2.18.0' # Meta Tags, https://github.com/kpumuk/meta-tags
@@ -91,7 +94,7 @@ group :development do
   gem 'web-console', '~> 4.2.0' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
 
   # Hot Reload
-  gem 'listen', '~> 3.8' # config.file_watcher = ActiveSupport::EventedFileUpdateChecker depends on this gem.
+  gem 'listen', '~> 3.8.0' # config.file_watcher = ActiveSupport::EventedFileUpdateChecker depends on this gem.
   gem 'spring', '~> 4.1.1' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.1.0' # This gem makes Spring watch the filesystem for changes using Listen rather than by polling the filesystem.
 end

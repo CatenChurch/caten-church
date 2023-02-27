@@ -22,7 +22,7 @@
     </div>
     <div class="card my-2 text-center text-muted">
       <div class="card-body">
-        <%= link_to omniauth_authorize_path(resource_name, :facebook), class: 'btn btn-outline-primary btn-block' do %>
+        <%= link_to omniauth_authorize_path(resource_name, :facebook), method: :post, class: 'btn btn-outline-primary btn-block' do %>
           使用 <i class="fab fa-facebook fa-3x ml-1"></i> 登入網站
         <% end %>
       </div>
