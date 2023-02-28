@@ -10,16 +10,19 @@ max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
 min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
-if ENV.fetch('RAILS_ENV') { 'development' } == 'development'
-  # Using mkcert self-signed cert, to enable SSL.
-  ssl_bind '0.0.0.0', ENV.fetch('PORT') { 3000 }, cert: 'config/ssl/localhost.pem', key: 'config/ssl/localhost-key.pem'
-else
-  # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-  port        ENV.fetch('PORT') { 3000 }
+# Specifies the `worker_timeout` threshold that Puma will use to wait before
+# terminating a worker in development environments.
+#
+worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 
-  # Specifies the `environment` that Puma will run in.
-  environment ENV.fetch('RAILS_ENV') { 'development' }
-end
+# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+#
+# port ENV.fetch('PORT') { 3000 }
+port ENV.fetch('PORT') { 3000 } if ENV.fetch('RAILS_ENV') { 'development' } != 'development'
+
+# Specifies the `environment` that Puma will run in.
+#
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
@@ -38,6 +41,11 @@ pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
 # process behavior so workers use less memory.
 #
 # preload_app!
+
+# Using mkcert self-signed cert, to enable SSL at https://localhost:3000.
+if ENV.fetch('RAILS_ENV') { 'development' } == 'development'
+  ssl_bind '0.0.0.0', ENV.fetch('PORT') { 3000 }, cert: 'config/ssl/localhost.pem', key: 'config/ssl/localhost-key.pem'
+end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
