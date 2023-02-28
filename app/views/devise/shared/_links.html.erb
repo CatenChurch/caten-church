@@ -21,6 +21,6 @@
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <br>
-    or <%= link_to "以#{OmniAuth::Utils.camelize(provider)}登入", omniauth_authorize_path(resource_name, provider), class: "btn btn-sm btn-default" %><br />
+    or <%= link_to "以#{OmniAuth::Utils.camelize(provider)}登入", omniauth_authorize_path(resource_name, provider), method: :post, class: "btn btn-sm btn-default" %><br />
   <% end -%>
 <% end -%> -->

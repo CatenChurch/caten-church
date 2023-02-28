@@ -10,6 +10,7 @@ module OauthsHelper
       end
     else
       link_to user_facebook_omniauth_authorize_path,
+              method: :post,
               class: 'btn btn-outline-primary list-group-item' do
         content_tag(:i, nil, class: 'fab fa-facebook fa-3x mr-1') + '尚未連結'
       end
