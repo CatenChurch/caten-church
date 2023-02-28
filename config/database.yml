@@ -6,14 +6,16 @@ default: &default
 development:
   <<: *default
   database: caten_church_dev
-  username: caten_church
-  password: caten_church
+  host: localhost # add this line will use tcp instead of unix socket
+  username: postgres
+  password: postgres
 
 test:
   <<: *default
   database: caten_church_test
-  username: caten_church
-  password: caten_church
+  host: localhost # add this line will use tcp instead of unix socket
+  username: postgres
+  password: postgres
 
 production:
   <<: *default
