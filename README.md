@@ -21,7 +21,7 @@ bundle install
 
 Create database user `caten_church` with password `caten_church` and create db `caten_church` or Fill in your database connection in `config/database.yml`
 
-```sh 
+```sh
 createuser caten_church --interactive -P
 createdb caten_church -U caten_church
 ```
@@ -102,3 +102,11 @@ $ rake sitemap:refresh
 - make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists
 
 This application currently deploy on Heroku, and using Google Cloud Storage to store uploaded files, if you want to store file locally in development environment, go to `config/environments/development.rb` and let `config.active_storage.service = :local`
+
+## Heroku
+
+Dumping database to local
+
+```sh
+heroku pg:pull DATABASE_URL postgres://$USERNAME:$PASSWORD@$HOST:$PORT/$DB_NAME --app $APP_NAME
+```
