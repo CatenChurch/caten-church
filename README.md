@@ -110,3 +110,9 @@ Dumping database to local
 ```sh
 heroku pg:pull DATABASE_URL postgres://$USERNAME:$PASSWORD@$HOST:$PORT/$DB_NAME --app $APP_NAME
 ```
+
+Migrate heroku database
+
+```
+heroku run rails db:migrate
+```
