@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-url = ENV.key('REDIS_URL') ||
+url = ENV.fetch('REDIS_URL') ||
       Rails.application.credentials.dig(Rails.env.to_sym, :redis_url) ||
       'redis://localhost:6379/1'
 
