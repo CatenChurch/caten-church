@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "楊竑昕 <jk195417@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "ruby:format": "prettier --write '**/*.rb'",
+    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue {app,config}"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@rails/ujs": "^6.0.0",
@@ -35,8 +39,7 @@
     "prettier": "^2.2",
     "webpack-dev-server": "^3.11.2"
   },
-  "scripts": {
-    "ruby:format": "prettier --write '**/*.rb'",
-    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue {app,config}"
+  "engines": {
+    "node": "16.19.1"
   }
 }
