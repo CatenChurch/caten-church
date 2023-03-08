@@ -126,12 +126,10 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'caten-church.org' }
   config.action_mailer.smtp_settings = {
-    user_name:
-      ENV.fetch('SENDGRID_USERNAME') ||
-        Rails.application.credentials.dig(:sendgrid, :username),
+    user_name: 'apikey',
     password:
-      ENV.fetch('SENDGRID_PASSWORD') ||
-        Rails.application.credentials.dig(:sendgrid, :password),
+      ENV.fetch('SENDGRID_API_KEY') ||
+        Rails.application.credentials.dig(:sendgrid, :api_key),
     domain: 'caten-church.org',
     address: 'smtp.sendgrid.net',
     port: 587,
