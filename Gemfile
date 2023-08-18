@@ -9,7 +9,7 @@ gem 'rails', '~> 6.1.7' # Bundle edge Rails instead: gem 'rails', github: 'rails
 
 # Booting Web Server
 gem 'bootsnap', '~> 1.16.0', require: false # Speed up application
-gem 'puma', '~> 6.1.0' # Use Puma as the app server
+gem 'puma', '~> 6.3.1' # Use Puma as the app server
 
 # Database
 gem 'pg', '~> 1.4.6' # Use postgresql as the database for Active Record
