@@ -51,7 +51,7 @@ gem 'google-cloud-storage', '~> 1.44.0' # Active Storage provider, https://githu
 gem 'jbuilder', '~> 2.11.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'kaminari', '~> 1.2.2' # Pagination, https://github.com/kaminari/kaminari, $ rails g kaminari:views bootstrap4
 gem 'ransack', '~> 2.6.0' # Searching, https://github.com/activerecord-hackery/ransack
-gem 'sidekiq', '~> 7.0.6' # Job Workers, https://github.com/mperham/sidekiq
+gem 'sidekiq', '~> 7.1.3' # Job Workers, https://github.com/mperham/sidekiq
 gem 'simple_form', '~> 5.2.0' # From, https://github.com/plataformatec/simple_form
 
 # gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
