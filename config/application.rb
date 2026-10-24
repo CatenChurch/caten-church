@@ -30,6 +30,9 @@ module CatenChurchWeb
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks templates])
 
+    # Uploads are PDFs only; no image variants (avoids requiring image_processing/libvips)
+    config.active_storage.variant_processor = :disabled
+
     # Time zone
     config.time_zone = 'Taipei'
 

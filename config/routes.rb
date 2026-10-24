@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   root 'pages#index'
-  get 'index', 'term', 'about', 'contact', 'tithing', controller: 'pages'
+  # Rails 8.1 no longer accepts several paths in one `get`
+  %w[index term about contact tithing].each { |page| get page, controller: 'pages' }
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification' # google site verification
   resources :groups, only: %i[index show]
   resources :group_reports, only: %i[index show new create]
