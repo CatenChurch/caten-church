@@ -1,0 +1,9 @@
+// variables
+$sky: #3097D1;
+$caten-blue: #05092E;
+$purple: #7952b3;
+
+// extra theme colors, merged into Bootstrap's $theme-colors in application.bootstrap.scss
+$custom-theme-colors: (
+  "purple": $purple
+);

@@ -1,0 +1,40 @@
+# Regenerates Gemfile.lock and package-lock.json and commits them to the branch it runs on.
+# Run it from the Actions tab ("Run workflow") after changing Gemfile or package.json.
+name: Update lockfiles
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      - name: Resolve gems
+        run: |
+          bundle lock --update
+          bundle lock --add-platform x86_64-linux aarch64-linux
+
+      - name: Resolve node modules
+        run: npm install --package-lock-only --no-audit --no-fund
+
+      - name: Commit lockfiles
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Gemfile.lock package-lock.json
+          git diff --cached --quiet && echo "Lockfiles already up to date" && exit 0
+          git commit -m "chore: update Gemfile.lock and package-lock.json"
+          git push

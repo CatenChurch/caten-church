@@ -9,7 +9,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     else
       flash[:alert] = '無法取消申請更改 Email，流程中出了些錯誤'
     end
-    redirect_to edit_user_registration_path
+    redirect_to edit_user_registration_path, status: :see_other
   end
 
   protected

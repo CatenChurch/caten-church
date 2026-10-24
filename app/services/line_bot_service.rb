@@ -32,7 +32,7 @@ class LineBotService
       text = chat['message'].fetch('text') { '' }
       return help if text.match?(/^caten help/)
 
-      echo
+      echo(text)
     end
   end
 

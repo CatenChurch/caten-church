@@ -1,21 +1,22 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <%= link_to admin_path, class: 'navbar-brand' do %>
-    <%= image_pack_tag 'brand.png', height: 30 %>
-    茄典教會 - 管理介面
-  <% end %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbar-content">
-    <div class="navbar-nav mr-auto d-sm-none">
-      <%= render 'admin/shared/navs'%>
-      <hr class="w-100">
-    </div>
-    <div class="navbar-nav ml-auto">
-      <%= nav_item_link_to root_path do %>
-        <i class="fas fa-sign-out-alt mr-1"></i> 離開管理介面
-      <% end %>
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
+  <div class="container-fluid">
+    <%= link_to admin_path, class: 'navbar-brand' do %>
+      <%= image_tag 'brand.png', height: 30, alt: '' %>
+      茄典教會 - 管理介面
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <div class="navbar-nav me-auto d-sm-none">
+        <%= render 'admin/shared/navs'%>
+        <hr class="w-100">
+      </div>
+      <div class="navbar-nav ms-auto">
+        <%= nav_item_link_to root_path do %>
+          <i class="fas fa-sign-out-alt me-1"></i> 離開管理介面
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>
-<%= javascript_pack_tag 'active-nav', 'data-turbolinks-track': 'reload' %>

@@ -23,6 +23,15 @@ class Event < ApplicationRecord
   validates_numericality_of :registery_fee, allow_nil: true
   validate :time_validations
 
+  # ransack (admin search & sort)
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id name]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
+
   # instance method
   def full?
     participants_count >= max_sign_up_number
@@ -52,12 +61,12 @@ class Event < ApplicationRecord
 
   def time_validations
     if max_sign_up_number.to_i < min_sign_up_number.to_i
-      errors[:max_sign_up_number] << '報名活動的人數上限要比活動成立的人數高吧!'
+      errors.add(:max_sign_up_number, '報名活動的人數上限要比活動成立的人數高吧!')
     end
     if sign_up_begin.to_i >= sign_up_end.to_i
-      errors[:sign_up_end] << '結束報名的時間要比開始報名的時間後面喔!'
+      errors.add(:sign_up_end, '結束報名的時間要比開始報名的時間後面喔!')
     end
-    errors[:start] << '活動開始的時間要比活動結束的時間還前面吧!' if start.to_i >= over.to_i
-    errors[:over] << '報名截止的時間要在活動結束的時間之前喔!' if sign_up_end.to_i >= over.to_i
+    errors.add(:start, '活動開始的時間要比活動結束的時間還前面吧!') if start.to_i >= over.to_i
+    errors.add(:over, '報名截止的時間要在活動結束的時間之前喔!') if sign_up_end.to_i >= over.to_i
   end
 end

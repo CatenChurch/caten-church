@@ -1,22 +1,22 @@
 <h1 class="text-center"><%= Group.model_name.human %>一覽</h1>
 <div class="mt-2 btn-toolbar">
-  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
+  <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapse-search">
     <i class="fas fa-search"></i> 搜尋條件
   </a>
-  <%= link_to new_admin_group_path, class: 'btn btn-outline-success ml-auto' do %>
+  <%= link_to new_admin_group_path, class: 'btn btn-outline-success ms-auto' do %>
     <i class="fas fa-plus"></i> 新增<%= Group.model_name.human %>
   <% end %>
 </div>
 <div class="collapse mt-2" id="collapse-search">
   <div class="card">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_groups_url, class: 'form-inline' do |f| %>
-        <%= f.search_field :name_cont, class: 'form-control', placeholder: Group.human_attribute_name(:name) %>
-        <div class="w-100 mt-2"></div>
-        <%= link_to admin_groups_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+      <%= search_form_for @q, url: admin_groups_url, class: 'd-flex flex-wrap align-items-center gap-2' do |f| %>
+        <%= f.search_field :name_cont, class: 'form-control w-auto', placeholder: Group.human_attribute_name(:name) %>
+        <div class="w-100"></div>
+        <%= link_to admin_groups_path, class: 'btn btn-sm btn-outline-secondary ms-auto' do %>
           <i class="fas fa-eraser"></i> 清除條件
         <% end %>
-        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+        <button type="submit" class="btn btn-sm btn-outline-primary ms-1">
           <i class="fas fa-search"></i> 搜尋
         </button>
       <% end %>
@@ -26,7 +26,7 @@
 <div class="my-2">
   <%= paginate @groups %>
   <table class="table d-sm-table d-none my-2">
-    <thead class="thead-light">
+    <thead class="table-light">
       <tr>
         <th>
           <%= sort_link @q, :sequence do %>
@@ -56,8 +56,7 @@
               <% end %>
               <%= link_to admin_group_path(group),
                           class: 'btn btn-sm btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '確定要刪除小組嗎？' } do %>
+                          data: { turbo_method: :delete, turbo_confirm: '確定要刪除小組嗎？' } do %>
                 <i class="fas fa-trash"></i> 刪除
               <% end %>
             </div>

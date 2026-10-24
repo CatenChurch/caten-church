@@ -31,7 +31,7 @@ class GroupReportsController < ApplicationController
       redirect_to group_report_url(@report)
     else
       flash[:alert] = '建立小組回報時發生錯誤'
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 

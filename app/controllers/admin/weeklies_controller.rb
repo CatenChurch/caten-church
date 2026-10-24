@@ -22,8 +22,8 @@ class Admin::WeekliesController < Admin::BaseController
         format.html { redirect_to [:admin, @weekly], notice: 'Weekly was successfully created.' }
         format.json { render :show, status: :created, location: @weekly }
       else
-        format.html { render :new }
-        format.json { render json: @weekly.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @weekly.errors, status: :unprocessable_content }
       end
     end
   end
@@ -34,8 +34,8 @@ class Admin::WeekliesController < Admin::BaseController
         format.html { redirect_to [:admin, @weekly], notice: 'Weekly was successfully updated.' }
         format.json { render :show, status: :ok, location: @weekly }
       else
-        format.html { render :edit }
-        format.json { render json: @weekly.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @weekly.errors, status: :unprocessable_content }
       end
     end
   end
@@ -43,7 +43,7 @@ class Admin::WeekliesController < Admin::BaseController
   def destroy
     @weekly.destroy
     respond_to do |format|
-      format.html { redirect_to admin_weeklies_url, notice: 'Weekly was successfully destroyed.' }
+      format.html { redirect_to admin_weeklies_url, notice: 'Weekly was successfully destroyed.', status: :see_other }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,145 @@
+# Default values for caten-church.
+
+image:
+  repository: ghcr.io/catenchurch/caten-church
+  # Defaults to the chart appVersion.
+  tag: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Non-secret environment, rendered into a ConfigMap.
+env:
+  RAILS_ENV: production
+  RAILS_LOG_LEVEL: info
+  APP_HOST: caten-church.org
+  # TLS is terminated at the ingress.
+  RAILS_ASSUME_SSL: "true"
+  RAILS_FORCE_SSL: "true"
+  # "production" = Google Cloud Storage (credentials come from RAILS_MASTER_KEY), "local" = disk.
+  ACTIVE_STORAGE_SERVICE: production
+  RAILS_MAX_THREADS: "5"
+  WEB_CONCURRENCY: "0"
+
+# Secret environment. Either reference an existing Secret (recommended) ...
+existingSecret: ""
+# ... or let the chart create one from these values (keep them out of git, e.g. `--set-file` or helm-secrets).
+# Keys are exposed to the app as environment variables.
+secrets: {}
+  # RAILS_MASTER_KEY: ""
+  # DATABASE_URL: postgres://user:password@host:5432/caten_church
+  # REDIS_URL: redis://host:6379/1
+  # SENDGRID_API_KEY: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+
+web:
+  replicaCount: 2
+  # Thruster listens on 8080 and proxies to Puma.
+  containerPort: 8080
+  resources:
+    requests:
+      cpu: 100m
+      memory: 384Mi
+    limits:
+      memory: 768Mi
+  livenessProbe:
+    httpGet:
+      path: /up
+      port: http
+    initialDelaySeconds: 20
+    periodSeconds: 10
+    timeoutSeconds: 5
+  readinessProbe:
+    httpGet:
+      path: /up
+      port: http
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 5
+  autoscaling:
+    enabled: false
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+worker:
+  enabled: true
+  replicaCount: 1
+  command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+  resources:
+    requests:
+      cpu: 50m
+      memory: 384Mi
+    limits:
+      memory: 768Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+# Runs `rails db:prepare` as a Helm pre-install/pre-upgrade hook.
+migrations:
+  enabled: true
+  command: ["./bin/rails", "db:prepare"]
+  backoffLimit: 2
+  activeDeadlineSeconds: 600
+  resources: {}
+
+# Scheduled rake tasks (lib/tasks/mail.rake). Requires Kubernetes >= 1.27 for timeZone.
+cronJobs:
+  birth-notification:
+    enabled: false
+    # 寄送下月壽星列表給管理員: 25th of every month, 09:00
+    schedule: "0 9 25 * *"
+    timeZone: Asia/Taipei
+    command: ["./bin/rails", "mail:admin:birth_notification"]
+  event-opening-notice:
+    enabled: false
+    # 於活動開始前一天提醒報名活動者: every day, 09:00
+    schedule: "0 9 * * *"
+    timeZone: Asia/Taipei
+    command: ["./bin/rails", "mail:event:opening_notice_before_1"]
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: caten-church.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: caten-church-tls
+  #    hosts:
+  #      - caten-church.org

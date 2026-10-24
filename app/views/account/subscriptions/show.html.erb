@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title text-center">
-          <i class="fas fa-bell mr-1"></i> <%= Messenger.model_name.human %>
+          <i class="fas fa-bell me-1"></i> <%= Messenger.model_name.human %>
         </h3>
       </div>
       <div class="list-group list-group-flush">
@@ -12,15 +12,15 @@
         <% if current_user.facebook_messenger.blank? %>
           <%= messenger_list_item 'Facebook Messenger', '尚未開通' do %>
             <div class="fb-send-to-messenger"
-                 messenger_app_id="<%= Rails.application.credentials[:facebook][:app_id] %>"
-                 page_id="<%= Rails.application.credentials[:facebook][:page_id] %>"
+                 messenger_app_id="<%= (ENV['FACEBOOK_APP_ID'] || Rails.application.credentials.dig(:facebook, :app_id)) %>"
+                 page_id="<%= (ENV['FACEBOOK_PAGE_ID'] || Rails.application.credentials.dig(:facebook, :page_id)) %>"
                  data-ref="user_id=<%= current_user.id %>::auth_token=<%= current_user.auth_token %>::action=activate_messenger"
                  color="blue"
                  size="standard">
             </div>
             <div>
               <%# link_to 'Send to FB Messenger',
-                          "https://m.me/#{Rails.application.credentials[:facebook][:page_id]}?ref=user@#{current_user.id}",
+                          "https://m.me/#{(ENV['FACEBOOK_PAGE_ID'] || Rails.application.credentials.dig(:facebook, :page_id))}?ref=user@#{current_user.id}",
                           class: 'btn btn-primary',
                           target: '_' %>
             </div>
@@ -28,17 +28,17 @@
         <% elsif current_user.facebook_messenger.activated? %>
           <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.true') do %>
             <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: false }),
-                        method: :patch,
-                        class: 'btn btn-sm btn-outline-warning ml-auto' do %>
-              <i class="fas fa-bell-slash mr-1"></i> 暫停使用
+                        data: { turbo_method: :patch },
+                        class: 'btn btn-sm btn-outline-warning ms-auto' do %>
+              <i class="fas fa-bell-slash me-1"></i> 暫停使用
             <% end %>
           <% end %>
         <% else %>
           <%= messenger_list_item 'Facebook Messenger', Messenger.human_attribute_name('activated.false') do %>
             <%= link_to account_messenger_path(current_user.facebook_messenger, messenger: { activated: true }),
-                        method: :patch,
-                        class: 'btn btn-sm btn-outline-primary ml-auto' do %>
-              <i class="fas fa-bell mr-1"></i> 啟用
+                        data: { turbo_method: :patch },
+                        class: 'btn btn-sm btn-outline-primary ms-auto' do %>
+              <i class="fas fa-bell me-1"></i> 啟用
             <% end %>
           <% end %>
         <% end %>
@@ -47,20 +47,20 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title text-center">
-          <i class="fas fa-paper-plane mr-1"></i> <%= Subscription.model_name.human %>
-          <%= link_to edit_account_subscription_path, class: 'btn btn-sm btn-outline-primary ml-1' do %>
-            <i class="fas fa-edit mr-1"></i> 編輯
+          <i class="fas fa-paper-plane me-1"></i> <%= Subscription.model_name.human %>
+          <%= link_to edit_account_subscription_path, class: 'btn btn-sm btn-outline-primary ms-1' do %>
+            <i class="fas fa-edit me-1"></i> 編輯
           <% end %>
         </h3>
       </div>
       <div class="list-group list-group-flush">
         <div class="list-group-item d-flex flex-wrap">
           <strong><%= Subscription.human_attribute_name :new_events %></strong>
-          <span class="text-muted small ml-auto"><%= Subscription.human_attribute_name "new_events.#{@subscription.new_events}" %></span>
+          <span class="text-muted small ms-auto"><%= Subscription.human_attribute_name "new_events.#{@subscription.new_events}" %></span>
         </div>
         <div class="list-group-item d-flex flex-wrap">
           <strong><%= Subscription.human_attribute_name :joined_events %></strong>
-          <span class="text-muted small ml-auto"><%= Subscription.human_attribute_name "joined_events.#{@subscription.joined_events}" %></span>
+          <span class="text-muted small ms-auto"><%= Subscription.human_attribute_name "joined_events.#{@subscription.joined_events}" %></span>
         </div>
       </div>
     </div>
@@ -73,10 +73,10 @@
   /* eslint-disable no-undef */
   /* eslint-disable no-var */
   /* eslint-disable one-var */
-  document.addEventListener('turbolinks:load', () => {
+  (() => {
     window.fbAsyncInit = function(){
       FB.init({
-        appId: '<%= Rails.application.credentials[:facebook][:app_id] %>',
+        appId: '<%= (ENV['FACEBOOK_APP_ID'] || Rails.application.credentials.dig(:facebook, :app_id)) %>',
         status: true,
         autoLogAppEvents: true,
         xfbml: true,
@@ -90,5 +90,7 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-  })
+    // Re-parse the "send to messenger" plugin when Turbo renders this page again
+    if (window.FB) window.FB.XFBML.parse();
+  })()
 </script>

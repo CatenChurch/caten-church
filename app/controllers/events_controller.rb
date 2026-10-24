@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   rescue ActiveRecord::RecordInvalid => e
     flash[:alert] = "報名活動失敗 : #{e.record.errors.messages.values.join(',')}"
   ensure
-    redirect_to event_url(@event)
+    redirect_to event_url(@event), status: :see_other
   end
 
   def quit
@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   rescue ActiveRecord::RecordNotFound => e
     flash[:alert] = "取消報名活動失敗: #{e.record.errors.messages.values.join(',')}"
   ensure
-    redirect_to event_url(@event)
+    redirect_to event_url(@event), status: :see_other
   end
 
   def participants

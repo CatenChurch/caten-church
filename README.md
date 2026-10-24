@@ -2,106 +2,142 @@
 
 本專案為茄典教會網站，網址是 <https://caten-church.org/>
 
-## Requirements
+## Stack
 
-- Ruby
-- Rails
-- NodeJS
-- Yarn
-- PostgresSQL
-- Redis
+| | |
+|---|---|
+| Ruby | 3.4 (`.ruby-version`) |
+| Rails | 8.1 |
+| Front end | Bootstrap 5.3, Hotwire Turbo, Font Awesome 6, flatpickr |
+| Assets | jsbundling-rails (esbuild) + cssbundling-rails (Dart Sass) + Propshaft |
+| Database / queue | PostgreSQL, Redis + Sidekiq |
+| Node.js | 24 (`.nvmrc`, only needed to build assets) |
 
 ## Setup
 
 ```sh
 git clone https://github.com/CatenChurch/caten-church.git
 cd caten-church
-bundle install
+bin/setup --skip-server   # bundle install, npm install, build assets, db:prepare
 ```
 
-Create database user `caten_church` with password `caten_church` and create db `caten_church` or Fill in your database connection in `config/database.yml`
-
-```sh
-createuser caten_church --interactive -P
-createdb caten_church -U caten_church
-```
-
-Then create database
-
-```sh
-rails db:setup
-```
+Database connection defaults to `postgres:postgres@localhost:5432` and can be changed with
+`DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` (see `config/database.yml`).
 
 Copy example credentials from `config/credentials.yml.example`, then fill in your credentials
 
 ```sh
-EDITOR="code --wait" rails credentials:edit
+EDITOR="code --wait" bin/rails credentials:edit
 ```
 
-Using [mkcert](https://github.com/FiloSottile/mkcert) (brew install mkcert) self-signed certificate ssl
+Uploads go to Google Cloud Storage by default. To keep them on disk in development without GCS credentials:
 
 ```sh
-$ mkcert localhost
-
-Using the local CA at "/Users/username/Library/Application Support/mkcert" ✨
-
-Created a new certificate valid for the following names 📜
- - "localhost"
-
-The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅
+ACTIVE_STORAGE_SERVICE=local bin/dev
 ```
 
-mkcert generated cert `localhost.pem` and key `localhost-key.pem`, moving these to `config/ssl/`
+Optional: using [mkcert](https://github.com/FiloSottile/mkcert) self-signed certificate to serve <https://localhost:3000>
 
 ```sh
+mkcert localhost
 mv ./localhost.pem ./localhost-key.pem ./config/ssl/
 ```
 
-puma and webpack-dev-server will load these .pem files, then force http connection on <https://localhost:3000> and <https://localhost:3035>
+Puma only binds SSL when both files exist in `config/ssl/`.
 
 ## Usage
 
-migrate database
-
 ```sh
-rails db:migrate
-```
+# web server + esbuild/sass watchers + sidekiq (Procfile.dev)
+bin/dev
 
-run server
+# migrate database
+bin/rails db:migrate
 
-```sh
-# rails way
-$ rails s
-
-# via puma
-$ puma -C config/puma.rb
-```
-
-run worker
-
-```sh
-sidekiq -C config/sidekiq.yml
+# tests (build assets first: npm run build && npm run build:css)
+bundle exec rspec
 ```
 
 rake tasks
 
 ```sh
 # 寄送下月壽星列表給管理員
-$ rails mail:admin:birth_notification
+bin/rails mail:admin:birth_notification
 
 # 於活動開始前一天提醒報名活動者
-$ rails mail:event:opening_notice_before_1
+bin/rails mail:event:opening_notice_before_1
 
-# generate public/sitmap.xml
-$ rake sitemap:refresh
+# generate public/sitemap.xml
+bin/rake sitemap:refresh
 ```
 
-## Deploy
+## Docker
 
-- make sure `ENV["RAILS_MASTER_KEY"]` or `config/master.key` exists
-- make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists
+The `Dockerfile` builds a production image (Thruster in front of Puma on port 8080, non-root user).
+The same image runs the Sidekiq worker with `bundle exec sidekiq -C config/sidekiq.yml`.
 
-This application currently deploy on Heroku, and using Google Cloud Storage to store uploaded files, if you want to store file locally in development environment, go to `config/environments/development.rb` and let `config.active_storage.service = :local`
+```sh
+# whole stack: postgres + redis + web + worker, uploads on local disk
+docker compose up --build
+open http://localhost:8080
+```
+
+Optional secrets for compose (e.g. `RAILS_MASTER_KEY`, `SENDGRID_API_KEY`) go in a `.env` file.
+
+### Environment variables
+
+Every secret can come from `RAILS_MASTER_KEY` + `config/credentials.yml.enc` or be overridden with an environment variable:
+
+| Variable | Purpose |
+|---|---|
+| `RAILS_MASTER_KEY` | decrypts `config/credentials.yml.enc` (GCS keys, Facebook, LINE, ...) |
+| `SECRET_KEY_BASE` | overrides `credentials.secret_key_base` |
+| `DATABASE_URL` | PostgreSQL connection |
+| `REDIS_URL` | Sidekiq and Action Cable |
+| `SENDGRID_API_KEY` | outgoing mail |
+| `APP_HOST` | host used in mail links (default `caten-church.org`) |
+| `ACTIVE_STORAGE_SERVICE` | `production` (GCS, default) or `local` |
+| `RAILS_FORCE_SSL` / `RAILS_ASSUME_SSL` | `true` by default (TLS terminated by the proxy/ingress) |
+| `MAILER_SENDER`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`, `FACEBOOK_PAGE_ID`, `FACEBOOK_MESSAGE_TOKEN`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_TOKEN`, `GA_TRACK_ID` | optional overrides of the matching credentials |
+| `DB_PREPARE=true` | run `rails db:prepare` when the container starts |
+
+## Kubernetes (Helm)
+
+The chart in `charts/caten-church` deploys the web server, the Sidekiq worker, a pre-install/pre-upgrade
+migration Job (`rails db:prepare`) and optional CronJobs for the rake tasks above.
+PostgreSQL and Redis are expected to be provided separately.
+
+```sh
+kubectl create secret generic caten-church-secrets \
+  --from-literal=RAILS_MASTER_KEY=... \
+  --from-literal=DATABASE_URL=postgres://... \
+  --from-literal=REDIS_URL=redis://... \
+  --from-literal=SENDGRID_API_KEY=...
+
+helm install caten-church oci://ghcr.io/catenchurch/charts/caten-church \
+  --set existingSecret=caten-church-secrets \
+  --set ingress.enabled=true \
+  --set ingress.className=nginx \
+  --set cronJobs.birth-notification.enabled=true \
+  --set cronJobs.event-opening-notice.enabled=true
+```
+
+See `charts/caten-church/values.yaml` for all options.
+
+## CI / CD
+
+GitHub Actions (`.github/workflows/ci.yml`):
+
+- **Test** — RSpec against PostgreSQL and Redis service containers, ESLint, asset build
+- **Security scan** — Brakeman (report only for now)
+- **Helm lint** — `helm lint` / `helm template`
+- **Build image** — builds on every run, pushes to `ghcr.io/catenchurch/caten-church` on `master` and `v*` tags
+  (tags: `sha-<short>`, `master`, `latest`, and `X.Y.Z` / `X.Y` for releases)
+- **Publish chart** — pushes the chart to `oci://ghcr.io/catenchurch/charts/caten-church`
+  (`X.Y.Z` for release tags, a pre-release version pointing at `sha-<short>` for `master`)
+
+`Update lockfiles` (`.github/workflows/lockfiles.yml`, manual) regenerates `Gemfile.lock` and
+`package-lock.json` on the selected branch. Dependabot keeps gems, npm packages, actions and base images up to date.
 
 ## Heroku
 
@@ -113,6 +149,6 @@ heroku pg:pull DATABASE_URL postgres://$USERNAME:$PASSWORD@$HOST:$PORT/$DB_NAME 
 
 Migrate heroku database
 
-```
+```sh
 heroku run rails db:migrate
 ```

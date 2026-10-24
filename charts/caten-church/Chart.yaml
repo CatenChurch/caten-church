@@ -1,0 +1,14 @@
+apiVersion: v2
+name: caten-church
+description: 茄典教會網站 (Rails) — web, Sidekiq worker, migrations and scheduled mail jobs
+type: application
+# Chart version. CI overrides this when publishing (tag vX.Y.Z -> X.Y.Z).
+version: 0.1.0
+# Default image tag when values.image.tag is empty. CI sets it to the published image tag.
+appVersion: "latest"
+home: https://caten-church.org
+sources:
+  - https://github.com/CatenChurch/caten-church
+keywords:
+  - rails
+  - church

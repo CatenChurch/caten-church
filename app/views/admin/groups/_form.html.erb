@@ -3,20 +3,20 @@
   <%= f.input :name %>
   <%= f.input :introduction %>
   <%= f.input :description %>
-  <div class="form-group">
-    <label for="leader-name"><%= Group.human_attribute_name :leader %></label>
+  <div class="mb-3">
+    <label for="leader-name" class="form-label"><%= Group.human_attribute_name :leader %></label>
     <div id="leader"></div>
     <input id="leader-name" type="text" class="form-control" value="<%= f.object.leader&.profile&.name %>">
     <div id="leader-labels" class="mt-2"></div>
   </div>
   <input id="leader-id" name="leader[id]" type="hidden" value="<%= f.object.leader&.id %>">
   <%= f.input :sequence %>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
+  <%= button_tag class: 'btn btn-primary', data: { turbo_submits_with: '送出中...' } do %>
     <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>
 <script type="text/javascript">
-  document.addEventListener('turbolinks:load', () => {
+  (() => {
     const leader = document.getElementById('leader')
     const leaderId = document.getElementById('leader-id')
     const leaderName = document.getElementById('leader-name')
@@ -25,14 +25,14 @@
   
     async function getUsers(name) {
       const url = '<%= admin_members_url(format: :json) %>'
-      const params = window.$.param({ q: { profile_name_cont: name } })
+      const params = new URLSearchParams({ 'q[profile_name_cont]': name })
       const resPromise = await fetch(`${url}?${params}`, { credentials: 'same-origin' })
       const res = await resPromise.json()
       return res
     }
   
     function removeChildren(dom) {
-      dom.children.forEach(child => child.remove())
+      dom.replaceChildren()
     }
   
     function resetLeader() {
@@ -46,7 +46,7 @@
       button.setAttribute('type', 'button')
       button.classList.add('btn', 'btn-sm', 'btn-primary', 'm-1', 'leader')
       const icon = document.createElement('i')
-      icon.classList.add('fas', 'fa-times', 'ml-2')
+      icon.classList.add('fas', 'fa-times', 'ms-2')
       button.append(name, icon)
       button.addEventListener('click', () => {
         resetLeader()
@@ -97,5 +97,5 @@
       inputLock = false
       addCandidateLeaderBtns()
     })
-  })
+  })()
 </script>

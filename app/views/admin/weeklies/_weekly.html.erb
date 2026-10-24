@@ -28,7 +28,7 @@
     <%= link_to weekly.pdf.filename, rails_blob_path(weekly.pdf) %>
   </p>
   <!-- 16:9 aspect ratio -->
-  <div class="embed-responsive embed-responsive-16by9">
-    <embed src="<%= rails_blob_path(weekly.pdf) %>" type="<%= weekly.pdf.content_type %>" class="embed-responsive-item">
+  <div class="ratio ratio-16x9">
+    <embed src="<%= rails_blob_path(weekly.pdf) %>" type="<%= weekly.pdf.content_type %>">
   </div>
 <% end %>

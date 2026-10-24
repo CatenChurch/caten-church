@@ -1,51 +1,33 @@
 # frozen_string_literal: true
 
-# Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is set to 5 threads for minimum
-# and maximum; this matches the default thread size of Active Record.
-#
-max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
-min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
-threads min_threads_count, max_threads_count
+# This configuration file will be evaluated by Puma. The top-level methods that
+# are invoked here are part of Puma's configuration DSL. For more information
+# about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.
 
-# Specifies the `worker_timeout` threshold that Puma will use to wait before
-# terminating a worker in development environments.
-#
-worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
+# Puma serves each request in a thread from an internal thread pool. Keep the
+# thread count at or below the database pool size (config/database.yml).
+threads_count = ENV.fetch('RAILS_MAX_THREADS', 5)
+threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-#
-# port ENV.fetch('PORT') { 3000 }
-port ENV.fetch('PORT') { 3000 } if ENV.fetch('RAILS_ENV') { 'development' } != 'development'
+rails_env = ENV.fetch('RAILS_ENV', 'development')
+port_number = ENV.fetch('PORT', 3000)
 
-# Specifies the `environment` that Puma will run in.
-#
-environment ENV.fetch('RAILS_ENV') { 'development' }
-
-# Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
-
-# Specifies the number of `workers` to boot in clustered mode.
-# Workers are forked web server processes. If using threads and workers together
-# the concurrency of the application would be max `threads` * `workers`.
-# Workers do not work on JRuby or Windows (both of which do not support
-# processes).
-#
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-
-# Use the `preload_app!` method when specifying a `workers` number.
-# This directive tells Puma to first boot the application and load code
-# before forking the application. This takes advantage of Copy On Write
-# process behavior so workers use less memory.
-#
-# preload_app!
-
-# Using mkcert self-signed cert, to enable SSL at https://localhost:3000.
-if ENV.fetch('RAILS_ENV') { 'development' } == 'development'
-  ssl_bind '0.0.0.0', ENV.fetch('PORT') { 3000 }, cert: 'config/ssl/localhost.pem', key: 'config/ssl/localhost-key.pem'
+# Using mkcert self-signed cert, to enable SSL at https://localhost:3000 (see README).
+ssl_cert = File.expand_path('ssl/localhost.pem', __dir__)
+ssl_key = File.expand_path('ssl/localhost-key.pem', __dir__)
+if rails_env == 'development' && File.exist?(ssl_cert) && File.exist?(ssl_key)
+  ssl_bind '0.0.0.0', port_number, cert: ssl_cert, key: ssl_key
+else
+  port port_number
 end
 
-# Allow puma to be restarted by `rails restart` command.
+# Specifies the number of `workers` to boot in clustered mode. Leave at 0 inside
+# containers and scale with more pods instead.
+workers ENV.fetch('WEB_CONCURRENCY', 0).to_i
+
+# Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+# Specify the PID file. Defaults to tmp/pids/server.pid in development.
+# In other environments, only set the PID file if requested.
+pidfile ENV['PIDFILE'] if ENV['PIDFILE']

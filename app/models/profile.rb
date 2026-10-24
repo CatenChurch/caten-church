@@ -11,6 +11,15 @@ class Profile < ApplicationRecord
   validates_presence_of :id_number, :emergency_contact, if: :valid_for_joining_event
   validates_format_of :id_number, with: /\A[a-z][1-2]\d{8}\z/i, if: :valid_for_joining_event
 
+  # ransack (admin member search through User)
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name phone cellphone sex]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
+
   def self.birth_month(month = nil)
     return all if month.blank?
 

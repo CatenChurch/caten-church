@@ -15,11 +15,13 @@ class Account::ProfilesController < Account::BaseController
       redirect_to account_profile_url
     else
       flash[:alert] = '建立個人資料失敗'
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
   def show; end
+
+  def edit; end
 
   def update
     if @profile.update(profile_params)
@@ -27,7 +29,7 @@ class Account::ProfilesController < Account::BaseController
       redirect_to account_profile_url
     else
       flash[:alert] = '更新個人資料失敗'
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 

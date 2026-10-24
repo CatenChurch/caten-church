@@ -17,6 +17,15 @@ class Group < ApplicationRecord
   validates_presence_of :name, :introduction
   validates_uniqueness_of :name
 
+  # ransack (admin search & sort)
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name sequence]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
+
   def change_leader(user)
     unless user == leader
       ApplicationRecord.transaction do

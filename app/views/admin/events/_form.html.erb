@@ -12,11 +12,11 @@
   <%= f.input :check_arrival %>
   <%= f.input :registery_fee %>
   <%= f.input :show_participants %>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中...' } do %>
+  <%= button_tag class: 'btn btn-primary', data: { turbo_submits_with: '送出中...' } do %>
     <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>
-<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload',
+<%= javascript_include_tag 'datetime_pickers',
   data: { 'datetime-pickers': [
     { selector: '#event_sign_up_begin' },
     { selector: '#event_sign_up_end' },

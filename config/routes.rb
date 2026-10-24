@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # Health check for load balancers and Kubernetes probes
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
   root 'pages#index'
   get 'index', 'term', 'about', 'contact', 'tithing', controller: 'pages'
   get 'google9107c43bb8511ce3' => 'pages#google_site_verification' # google site verification
