@@ -37,6 +37,10 @@ jobs:
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        # explicit bash => -eo pipefail, so `cmd | tee` still fails the step
+        shell: bash
     env:
       RAILS_ENV: test
       CI: "true"
