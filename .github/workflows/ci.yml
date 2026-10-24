@@ -58,19 +58,27 @@ jobs:
           cache: npm
 
       - name: Install JavaScript dependencies
-        run: npm ci
+        run: (npm ci) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
 
       - name: Lint JavaScript
-        run: npm run lint
+        run: (npm run lint) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
 
       - name: Build assets
-        run: npm run build && npm run build:css
+        run: (npm run build && npm run build:css) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
 
       - name: Prepare database
-        run: bin/rails db:create db:schema:load
+        run: (bin/rails db:create db:schema:load) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
 
       - name: Run specs
-        run: bundle exec rspec
+        run: (bundle exec rspec) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      # Surface the end of the output as an annotation (visible in the PR checks and via the API)
+      - name: Report failure output
+        if: failure()
+        run: |
+          [ -f "$RUNNER_TEMP/test.log" ] || exit 0
+          msg="$(tail -n 80 "$RUNNER_TEMP/test.log" | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
+          echo "::error title=Test output (last 80 lines)::${msg}"
 
   security:
     name: Security scan
