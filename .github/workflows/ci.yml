@@ -160,6 +160,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # build-push-action logs aren't exposed through annotations; re-run the build stage
+      # with plain progress and surface the tail so failures are readable from the PR checks.
+      - name: Report build failure output
+        if: failure()
+        run: |
+          docker buildx build --progress=plain --target build --load -t debug . > "$RUNNER_TEMP/build.log" 2>&1 || true
+          msg="$(grep -v '^#[0-9]* \(sha256\|DONE\|CACHED\)' "$RUNNER_TEMP/build.log" | tail -n 80 | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
+          echo "::error title=Docker build output (last 80 lines)::${msg}"
+
   chart:
     name: Publish chart
     if: github.event_name == 'push'
