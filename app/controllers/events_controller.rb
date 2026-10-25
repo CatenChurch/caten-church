@@ -28,8 +28,8 @@ class EventsController < ApplicationController
   def quit
     current_user.quit! @event
     flash[:notice] = '取消報名活動成功'
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:alert] = "取消報名活動失敗: #{e.record.errors.messages.values.join(',')}"
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = '取消報名活動失敗: 尚未報名此活動'
   ensure
     redirect_to event_url(@event), status: :see_other
   end
