@@ -18,3 +18,10 @@ Try it locally:
   kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ include "caten-church.fullname" . }} 8080:{{ .Values.service.port }}
   open http://localhost:8080 (set env.RAILS_FORCE_SSL="false" to skip the https redirect)
 {{- end }}
+
+{{- if .Values.migrations.enabled }}
+
+`helm uninstall` keeps the hook-managed ConfigMap{{ if .Values.secrets }} and Secret{{ end }} (hooks so the
+migration Job can use them). Remove them afterwards with:
+  kubectl --namespace {{ .Release.Namespace }} delete configmap{{ if .Values.secrets }},secret{{ end }} {{ include "caten-church.fullname" . }}
+{{- end }}

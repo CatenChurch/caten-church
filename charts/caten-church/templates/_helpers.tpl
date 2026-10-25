@@ -61,11 +61,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 ConfigMap/Secret created by the chart are also Helm hooks when migrations run,
 so they already exist when the pre-install migration Job starts.
+pre-rollback re-renders them from the target revision on `helm rollback`.
+Hook resources are not removed by `helm uninstall` (see NOTES.txt).
 */}}
 {{- define "caten-church.configHookAnnotations" -}}
 {{- if .Values.migrations.enabled }}
 annotations:
-  helm.sh/hook: pre-install,pre-upgrade
+  helm.sh/hook: pre-install,pre-upgrade,pre-rollback
   helm.sh/hook-weight: "-10"
   helm.sh/hook-delete-policy: before-hook-creation
 {{- end }}
