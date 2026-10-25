@@ -136,10 +136,27 @@ GitHub Actions (`.github/workflows/ci.yml`):
 - **Publish chart** — pushes the chart to `oci://ghcr.io/catenchurch/charts/caten-church`
   (`X.Y.Z` for release tags, a pre-release version pointing at `sha-<short>` for `master`)
 
-`Update lockfiles` (`.github/workflows/lockfiles.yml`, manual) regenerates `Gemfile.lock` and
-`package-lock.json` on the selected branch. Dependabot keeps gems, npm packages, actions and base images up to date.
+`Update lockfiles` (`.github/workflows/lockfiles.yml`) regenerates `Gemfile.lock` and
+`package-lock.json` when `Gemfile`/`package.json` change on a branch (or manually on the selected branch),
+re-resolving only what changed, then dispatches CI for the new commit. Dependabot keeps gems, npm packages, actions and base images up to date.
 
 ## Heroku
+
+Before deploying this version to an existing Heroku app:
+
+- Assets are built with npm (jsbundling/cssbundling), so the app needs Node.js during `assets:precompile`.
+  Add the Node.js buildpack in front of the Ruby one:
+
+  ```sh
+  heroku buildpacks:add --index 1 heroku/nodejs --app $APP_NAME
+  heroku buildpacks --app $APP_NAME # heroku/nodejs, then heroku/ruby
+  ```
+
+- Sidekiq 8 needs Redis 7.0 or newer. Check the attached Redis before deploying, or the worker won't start:
+
+  ```sh
+  heroku redis:info --app $APP_NAME
+  ```
 
 Dumping database to local
 
