@@ -42,6 +42,11 @@ module CatenChurchWeb
     config.i18n.available_locales = [:en, 'zh-TW']
     config.i18n.default_locale = 'zh-TW'
 
+    # Default "from" address for ApplicationMailer and Devise
+    config.x.mailer_sender = ENV['MAILER_SENDER'] ||
+                             credentials.dig(Rails.env.to_sym, :mail, :username) ||
+                             '茄典教會 <notify@caten-church.org>'
+
     # Generators use RSpec instead of Minitest
     config.generators do |g|
       g.test_framework :rspec
