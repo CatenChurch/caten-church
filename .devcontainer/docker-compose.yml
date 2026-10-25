@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/caten-church:cached
+      - bundle:/usr/local/bundle
+      - node_modules:/workspaces/caten-church/node_modules
+    command: sleep infinity
+    # Share the db container's network so the `localhost` default in config/database.yml reaches Postgres
+    network_mode: service:db
+    environment:
+      REDIS_URL: redis://redis:6379/1
+      # Keep uploads on disk so GCS credentials are not needed in development
+      ACTIVE_STORAGE_SERVICE: local
+
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  redis:
+    image: redis:8-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+volumes:
+  bundle:
+  node_modules:
+  postgres-data:
+  redis-data:
