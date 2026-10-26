@@ -99,29 +99,9 @@ jobs:
       - name: Brakeman
         run: bundle exec brakeman --no-pager --no-exit-on-warn
 
-  helm:
-    name: Helm lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: azure/setup-helm@v4
-
-      - name: Lint chart
-        run: |
-          helm lint charts/caten-church
-          helm lint charts/caten-church \
-            --set secrets.RAILS_MASTER_KEY=x \
-            --set ingress.enabled=true \
-            --set cronJobs.birth-notification.enabled=true \
-            --set web.autoscaling.enabled=true
-
-      - name: Render chart
-        run: helm template caten-church charts/caten-church --set secrets.RAILS_MASTER_KEY=x > /dev/null
-
   image:
     name: Build image
-    needs: [test, helm]
+    needs: [test]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -172,36 +152,3 @@ jobs:
           docker buildx build --progress=plain --target build --load -t debug . > "$RUNNER_TEMP/build.log" 2>&1 || true
           msg="$(grep -v '^#[0-9]* \(sha256\|DONE\|CACHED\)' "$RUNNER_TEMP/build.log" | tail -n 80 | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
           echo "::error title=Docker build output (last 80 lines)::${msg}"
-
-  chart:
-    name: Publish chart
-    if: github.event_name == 'push'
-    needs: [image]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: azure/setup-helm@v4
-
-      - name: Package chart
-        id: package
-        run: |
-          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            version="${GITHUB_REF_NAME#v}"
-            app_version="${version}"
-          else
-            base="$(grep '^version:' charts/caten-church/Chart.yaml | awk '{print $2}')"
-            version="${base}-${GITHUB_RUN_NUMBER}.g${GITHUB_SHA::7}"
-            app_version="sha-${GITHUB_SHA::7}"
-          fi
-          helm package charts/caten-church --version "${version}" --app-version "${app_version}" --destination dist
-          echo "file=$(ls dist/*.tgz)" >> "$GITHUB_OUTPUT"
-
-      - name: Push chart to GitHub Container Registry
-        run: |
-          owner="${GITHUB_REPOSITORY_OWNER,,}"
-          echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io --username "${{ github.actor }}" --password-stdin
-          helm push "${{ steps.package.outputs.file }}" "oci://ghcr.io/${owner}/charts"

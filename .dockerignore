@@ -37,7 +37,6 @@
 /public/assets
 
 # Not needed in the image
-/charts/
 /spec/
 /wiki/
 /.vscode/

@@ -101,40 +101,14 @@ Every secret can come from `RAILS_MASTER_KEY` + `config/credentials.yml.enc` or 
 | `MAILER_SENDER`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`, `FACEBOOK_PAGE_ID`, `FACEBOOK_MESSAGE_TOKEN`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_TOKEN`, `GA_TRACK_ID` | optional overrides of the matching credentials |
 | `DB_PREPARE=true` | run `rails db:prepare` when the container starts |
 
-## Kubernetes (Helm)
-
-The chart in `charts/caten-church` deploys the web server, the Sidekiq worker, a pre-install/pre-upgrade
-migration Job (`rails db:prepare`) and optional CronJobs for the rake tasks above.
-PostgreSQL and Redis are expected to be provided separately.
-
-```sh
-kubectl create secret generic caten-church-secrets \
-  --from-literal=RAILS_MASTER_KEY=... \
-  --from-literal=DATABASE_URL=postgres://... \
-  --from-literal=REDIS_URL=redis://... \
-  --from-literal=SENDGRID_API_KEY=...
-
-helm install caten-church oci://ghcr.io/catenchurch/charts/caten-church \
-  --set existingSecret=caten-church-secrets \
-  --set ingress.enabled=true \
-  --set ingress.className=nginx \
-  --set cronJobs.birth-notification.enabled=true \
-  --set cronJobs.event-opening-notice.enabled=true
-```
-
-See `charts/caten-church/values.yaml` for all options.
-
 ## CI / CD
 
 GitHub Actions (`.github/workflows/ci.yml`):
 
 - **Test** — RSpec against PostgreSQL and Redis service containers, ESLint, asset build
 - **Security scan** — Brakeman (report only for now)
-- **Helm lint** — `helm lint` / `helm template`
 - **Build image** — builds on every run, pushes to `ghcr.io/catenchurch/caten-church` on `master` and `v*` tags
   (tags: `sha-<short>`, `master`, `latest`, and `X.Y.Z` / `X.Y` for releases)
-- **Publish chart** — pushes the chart to `oci://ghcr.io/catenchurch/charts/caten-church`
-  (`X.Y.Z` for release tags, a pre-release version pointing at `sha-<short>` for `master`)
 
 `Update lockfiles` (`.github/workflows/lockfiles.yml`) regenerates `Gemfile.lock` and
 `package-lock.json` when `Gemfile`/`package.json` change on a branch (or manually on the selected branch),
