@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'open3'
 
-# Boots the production environment in a separate process, since config/environments/production.rb
-# can't be loaded into the test process.
-RSpec.describe 'Production Active Job adapter' do
+RSpec.describe 'Production Active Job adapter', type: :production_boot do
   def production_queue_adapter(env = {})
-    env = { 'RAILS_ENV' => 'production', 'SECRET_KEY_BASE_DUMMY' => '1',
-            'ACTIVE_JOB_QUEUE_ADAPTER' => nil }.merge(env)
-    output, status = Open3.capture2e(env, 'bin/rails', 'runner', 'print ActiveJob::Base.queue_adapter_name',
-                                     chdir: Rails.root.to_s)
+    output, status = run_in_production('print ActiveJob::Base.queue_adapter_name',
+                                       { 'ACTIVE_JOB_QUEUE_ADAPTER' => nil }.merge(env))
     expect(status).to be_success, output
     output.lines.last.strip
   end

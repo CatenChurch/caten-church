@@ -26,10 +26,13 @@ Rails.application.configure do
   # Store uploaded files on Google Cloud Storage (see config/storage.yml for options).
   config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', 'production').to_sym
 
-  # The app runs behind a TLS-terminating proxy (Kubernetes ingress, Heroku router).
-  # Set RAILS_ASSUME_SSL / RAILS_FORCE_SSL to "false" to serve plain HTTP.
+  # The app runs behind a TLS-terminating proxy (Cloudflare, Heroku router).
+  # Set RAILS_ASSUME_SSL to "false" to serve plain HTTP.
   config.assume_ssl = ENV.fetch('RAILS_ASSUME_SSL', 'true') == 'true'
-  config.force_ssl = ENV.fetch('RAILS_FORCE_SSL', 'true') == 'true'
+
+  # Off by default for now: force_ssl also sends HSTS (2 years, including subdomains), which
+  # browsers keep even if it is turned off later. Set RAILS_FORCE_SSL=true to redirect to HTTPS.
+  config.force_ssl = ENV.fetch('RAILS_FORCE_SSL', 'false') == 'true'
 
   # Skip http-to-https redirect for the default health check endpoint.
   config.ssl_options = { redirect: { exclude: ->(request) { request.path == '/up' } } }

@@ -98,7 +98,8 @@ Every secret can come from `RAILS_MASTER_KEY` + `config/credentials.yml.enc` or 
 | `APP_HOST` | host used in mail links (default `caten-church.org`) |
 | `ACTIVE_STORAGE_SERVICE` | `production` (GCS, default) or `local` |
 | `ACTIVE_JOB_QUEUE_ADAPTER` | Active Job backend in production: `async` (default, runs jobs in the web process) or `sidekiq` (needs a Sidekiq worker and Redis; `docker-compose.yml` uses this) |
-| `RAILS_FORCE_SSL` / `RAILS_ASSUME_SSL` | `true` by default (TLS terminated by the proxy/ingress) |
+| `RAILS_ASSUME_SSL` | `true` by default (TLS terminated by the proxy) |
+| `RAILS_FORCE_SSL` | `false` by default; `true` redirects to HTTPS and sends HSTS (2 years, including subdomains — browsers keep it even after turning it off) |
 | `MAILER_SENDER`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`, `FACEBOOK_PAGE_ID`, `FACEBOOK_MESSAGE_TOKEN`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_TOKEN`, `GA_TRACK_ID` | optional overrides of the matching credentials |
 | `DB_PREPARE=true` | run `rails db:prepare` when the container starts |
 
