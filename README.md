@@ -98,6 +98,7 @@ Every secret can come from `RAILS_MASTER_KEY` + `config/credentials.yml.enc` or 
 | `APP_HOST` | host used in mail links (default `caten-church.org`) |
 | `ACTIVE_STORAGE_SERVICE` | `production` (GCS, default) or `local` |
 | `ACTIVE_JOB_QUEUE_ADAPTER` | Active Job backend in production: `async` (default, runs jobs in the web process) or `sidekiq` (needs a Sidekiq worker and Redis; `docker-compose.yml` uses this) |
+| `SKIP_REQUIRED_SETTINGS_CHECK=1` | boot production without the required settings check (`config/initializers/required_settings.rb`); used by `docker-compose.yml`, which runs without real secrets |
 | `RAILS_ASSUME_SSL` | `true` by default (TLS terminated by the proxy) |
 | `RAILS_FORCE_SSL` | `false` by default; `true` redirects to HTTPS and sends HSTS (2 years, including subdomains — browsers keep it even after turning it off) |
 | `MAILER_SENDER`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`, `FACEBOOK_PAGE_ID`, `FACEBOOK_MESSAGE_TOKEN`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_TOKEN`, `GA_TRACK_ID` | optional overrides of the matching credentials |
@@ -119,6 +120,9 @@ re-resolving only what changed, then dispatches CI for the new commit. Dependabo
 ## Heroku
 
 Before deploying this version to an existing Heroku app:
+
+- Production refuses to boot when a required setting is missing (database, SendGrid, Facebook, LINE, GCS keys, `secret_key_base`; see `config/initializers/required_settings.rb`).
+  On Heroku the check also runs during `assets:precompile`, so a missing setting fails the build and the running release is kept.
 
 - Assets are built with npm (jsbundling/cssbundling), so the app needs Node.js during `assets:precompile`.
   Add the Node.js buildpack in front of the Ruby one:
