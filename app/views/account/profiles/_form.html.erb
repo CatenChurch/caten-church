@@ -1,5 +1,5 @@
 <%= simple_form_for [:account, @profile], url: account_profile_url do |f| %>
-  <div class="form-group">
+  <div class="mb-3">
     <%= f.input :name %>
     <%= f.input :sex, collection: ['男', '女'], prompt: :translate %>
     <%= f.input :birth, as: :string %>
@@ -11,7 +11,7 @@
     <%= f.input :education %>
   </div>
   <%= f.input :terms_of_service, as: :boolean, label: sanitize("我已閱讀並且接受 #{link_to '隱私條款', term_path} 的內容") %>
-  <%= f.button :submit, data: { disable_with: '更新中...' } %>
+  <%= f.button :submit, data: { turbo_submits_with: '更新中...' } %>
 <% end %>
-<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload',
+<%= javascript_include_tag 'datetime_pickers',
   data: { 'datetime-pickers': [{ selector: '#profile_birth', options: { enableTime: false } }]} %>

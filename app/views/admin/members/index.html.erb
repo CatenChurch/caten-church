@@ -1,29 +1,29 @@
 <h1 class="text-center"><%= User.model_name.human %>一覽</h1>
 <div class="mt-2 btn-toolbar">
-  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapse-search">
+  <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#collapse-search">
     <i class="fas fa-search"></i> 搜尋條件
   </a>
-  <%= link_to download_admin_members_path(format: :xlsx), class: 'btn btn-outline-success ml-auto' do %>
+  <%= link_to download_admin_members_path(format: :xlsx), class: 'btn btn-outline-success ms-auto' do %>
     <i class="fas fa-file-download"></i> 下載<%= User.model_name.human %>報表
   <% end %>
 </div>
 <div class="collapse mt-2" id="collapse-search">
   <div class="card">
     <div class="card-body">
-      <%= search_form_for @q, url: admin_members_url, class: 'form-inline' do |f| %>
+      <%= search_form_for @q, url: admin_members_url, class: 'd-flex flex-wrap align-items-center gap-2' do |f| %>
         <div class="input-group">
           <%= f.search_field :email_cont, class: 'form-control', placeholder: User.human_attribute_name(:email) %>
           <%= f.search_field :profile_name_cont, class: 'form-control', placeholder: Profile.human_attribute_name(:name) %>
           <%= f.search_field :profile_phone_or_profile_cellphone_cont, class: 'form-control', placeholder: Profile.human_attribute_name(:phone) %>
-          <%= f.select :profile_sex_eq, ['男', '女'], { include_blank: Profile.human_attribute_name(:sex) }, { class: 'form-control' } %>
-          <%= f.select :birth_month, (1..12).to_a, { include_blank: Profile.human_attribute_name(:birth) }, { class: 'form-control' } %>
-          <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), { include_blank: Role.model_name.human }, { class: 'form-control' } %>
+          <%= f.select :profile_sex_eq, ['男', '女'], { include_blank: Profile.human_attribute_name(:sex) }, { class: 'form-select' } %>
+          <%= f.select :birth_month, (1..12).to_a, { include_blank: Profile.human_attribute_name(:birth) }, { class: 'form-select' } %>
+          <%= f.select :roles_id_eq, Role.all.pluck(:name, :id), { include_blank: Role.model_name.human }, { class: 'form-select' } %>
         </div>
-        <div class="w-100 mt-2"></div>
-        <%= link_to admin_members_path, class: 'btn btn-sm btn-outline-secondary ml-auto' do %>
+        <div class="w-100"></div>
+        <%= link_to admin_members_path, class: 'btn btn-sm btn-outline-secondary ms-auto' do %>
           <i class="fas fa-eraser"></i> 清除條件
         <% end %>
-        <button type="submit" class="btn btn-sm btn-outline-primary ml-1">
+        <button type="submit" class="btn btn-sm btn-outline-primary ms-1">
           <i class="fas fa-search"></i> 搜尋
         </button>
       <% end %>
@@ -33,7 +33,7 @@
 <div class="my-2">
   <%= paginate @members %>
   <table class="table d-sm-table d-none my-2">
-    <thead class="thead-light">
+    <thead class="table-light">
       <tr>
         <th>
           <%= sort_link @q, :id, default_order: :asc do %>

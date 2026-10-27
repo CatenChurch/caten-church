@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Runs once when the dev container is created.
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+
+# Named volumes are created root-owned
+sudo chown -R "$(id -u):$(id -g)" /usr/local/bundle node_modules
+
+# bundle install, npm install, build assets, db:prepare
+bin/setup --skip-server
+RAILS_ENV=test bin/rails db:prepare

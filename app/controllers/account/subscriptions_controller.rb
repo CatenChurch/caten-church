@@ -14,7 +14,7 @@ class Account::SubscriptionsController < Account::BaseController
       redirect_to account_subscription_url
     else
       flash[:alert] = '更新消息訂閱失敗'
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 

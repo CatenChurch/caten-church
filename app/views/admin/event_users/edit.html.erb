@@ -3,7 +3,7 @@
 <% end %>
 <%= simple_form_for :event_users, url: admin_event_event_users_url, method: :patch do |f| %>
   <table class="table">
-    <thead class="thead-light">
+    <thead class="table-light">
       <tr>
         <th><%= Profile.human_attribute_name :name %></th>
         <th><%= User.human_attribute_name :email %></th>
@@ -30,12 +30,12 @@
       <% end %>
     </tbody>
   </table>
-  <%= button_tag class: 'btn btn-primary', data: { disable_with: '送出中' } do %>
+  <%= button_tag class: 'btn btn-primary', data: { turbo_submits_with: '送出中' } do %>
     <i class="fas fa-save"></i> 儲存
   <% end %>
 <% end %>
 <script type="text/javascript">
-  document.addEventListener('turbolinks:load', () => {
+  (() => {
     const paidCheckboxes = document.querySelectorAll('.paid-check')
     const arrivalCheckboxes = document.querySelectorAll('.arrival-check')
     const paidAllCheckbox = document.getElementById('paid-all-checkbox')
@@ -52,5 +52,5 @@
     arrivalAllCheckbox.addEventListener('click', () => {
       checkAll(arrivalAllCheckbox.checked, arrivalCheckboxes)
     })
-  })
+  })()
 </script>

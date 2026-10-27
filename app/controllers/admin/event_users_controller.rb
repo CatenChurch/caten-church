@@ -37,7 +37,7 @@ class Admin::EventUsersController < Admin::BaseController
       redirect_to admin_event_event_users_url
     else
       flash[:warning] = '更新報名者狀態失敗'
-      render 'edit'
+      render :edit, status: :unprocessable_content
     end
   end
 

@@ -9,6 +9,15 @@ class Role < ApplicationRecord
 
   scopify
 
+  # ransack (admin member search by role)
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id name]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
+
   # scope
   scope :group_leader, -> { Role.find_or_create_by!(name: 'leader', resource_type: 'Group') }
   scope :group_member, -> { Role.find_or_create_by!(name: 'member', resource_type: 'Group') }

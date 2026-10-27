@@ -5,7 +5,7 @@ gcs: &gcs
     type: <%= Rails.application.credentials.dig(:gcs, :type) %>
     project_id: <%= Rails.application.credentials.dig(:gcs, :project_id) %>
     private_key_id: <%= Rails.application.credentials.dig(:gcs, :private_key_id) %>
-    private_key: <%= Rails.application.credentials.dig(:gcs, :private_key).dump %>
+    private_key: <%= Rails.application.credentials.dig(:gcs, :private_key).to_s.dump %>
     client_email: <%= Rails.application.credentials.dig(:gcs, :client_email) %>
     client_id: <%= Rails.application.credentials.dig(:gcs, :client_id) %>
     auth_uri: <%= Rails.application.credentials.dig(:gcs, :auth_uri) %>

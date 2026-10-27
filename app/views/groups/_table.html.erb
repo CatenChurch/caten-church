@@ -1,6 +1,6 @@
 <% stage ||= :frontstage %>
 <table class="table">
-  <thead class="thead-light">
+  <thead class="table-light">
     <tr>
       <th><%= Group.human_attribute_name :sequence %></th>
       <th><%= Group.human_attribute_name :name %></th>
@@ -26,8 +26,7 @@
             <% end %>
             <%= link_to admin_group_path(group),
                           class: 'btn btn-sm btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '確定要刪除小組嗎？' } do %>
+                          data: { turbo_method: :delete, turbo_confirm: '確定要刪除小組嗎？' } do %>
               <i class="fas fa-trash"></i> 刪除
             <% end %>
           <% elsif stage == :frontstage %>

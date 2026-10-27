@@ -1,0 +1,59 @@
+# Regenerates Gemfile.lock and package-lock.json and commits them to the branch it runs on.
+# Runs automatically when Gemfile/package.json change on a branch (not master or Dependabot branches),
+# or manually from the Actions tab ("Run workflow").
+# Only the gems/packages affected by the change are re-resolved; everything else keeps its locked version.
+name: Update lockfiles
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [master, 'dependabot/**']
+    paths:
+      - Gemfile
+      - package.json
+      - .ruby-version
+      - .github/workflows/lockfiles.yml
+
+permissions:
+  contents: write
+  # Pushes made with GITHUB_TOKEN don't trigger other workflows, so CI is dispatched explicitly
+  actions: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      - name: Resolve gems
+        run: |
+          bundle lock
+          bundle lock --add-platform x86_64-linux aarch64-linux
+
+      - name: Resolve node modules
+        run: npm install --package-lock-only --no-audit --no-fund
+
+      - name: Commit lockfiles
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Gemfile.lock package-lock.json
+          git diff --cached --quiet && echo "Lockfiles already up to date" && exit 0
+          git commit -m "chore: update Gemfile.lock and package-lock.json"
+          git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Run CI on the new lockfiles
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"

@@ -28,7 +28,7 @@ class Admin::GroupsController < Admin::BaseController
       redirect_to admin_group_url(@group), notice: '建立小組成功'
     else
       flash[:alert] = '建立小組失敗'
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -40,13 +40,13 @@ class Admin::GroupsController < Admin::BaseController
       redirect_to admin_group_url(@group), notice: '更新小組成功'
     else
       flash[:alert] = '更新小組失敗'
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     @group.destroy
-    redirect_to admin_groups_url, notice: '刪除小組成功'
+    redirect_to admin_groups_url, notice: '刪除小組成功', status: :see_other
   end
 
   private

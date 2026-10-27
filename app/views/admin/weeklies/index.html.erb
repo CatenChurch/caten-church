@@ -1,13 +1,13 @@
 <h1 class="text-center"><%= Weekly.model_name.human %>一覽</h1>
 <div class="mt-2 btn-toolbar">
-  <%= link_to new_admin_weekly_path, class: 'btn btn-outline-success ml-auto' do %>
+  <%= link_to new_admin_weekly_path, class: 'btn btn-outline-success ms-auto' do %>
     <i class="fas fa-plus"></i> 新增<%= Weekly.model_name.human %>
   <% end %>
 </div>
 <div class="my-2">
   <%= paginate @weeklies %>
   <table class="table">
-    <thead class="thead-light">
+    <thead class="table-light">
       <tr>
         <th><%= Weekly.human_attribute_name :title %></th>
         <th><%= Weekly.human_attribute_name :issue %></th>
@@ -35,7 +35,7 @@
               <%= link_to edit_admin_weekly_path(weekly), class: 'btn btn-sm btn-outline-secondary' do %>
                 <i class="fas fa-edit"></i> <%= t('edit') %>
               <% end %>
-              <%= link_to [:admin, weekly], class: 'btn btn-sm btn-outline-danger', method: :delete, data: { confirm: "確定要刪除#{Weekly.model_name.human}嗎？" } do %>
+              <%= link_to [:admin, weekly], class: 'btn btn-sm btn-outline-danger', data: { turbo_method: :delete, turbo_confirm: "確定要刪除#{Weekly.model_name.human}嗎？" } do %>
                 <i class="fas fa-trash"></i> <%= t('destroy') %>
               <% end %>
             </div>

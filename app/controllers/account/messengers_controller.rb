@@ -9,7 +9,7 @@ class Account::MessengersController < ApplicationController
     else
       flash[:alert] = '更新通知管道失敗'
     end
-    redirect_to account_subscription_url
+    redirect_to account_subscription_url, status: :see_other
   end
 
   private

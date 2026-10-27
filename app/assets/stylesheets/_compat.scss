@@ -1,0 +1,29 @@
+// Bootstrap 4 components that were removed in Bootstrap 5 but are still used in the views.
+
+// .card-deck: equal-width cards in a row from the sm breakpoint up.
+.card-deck {
+  display: flex;
+  flex-direction: column;
+
+  .card {
+    margin-bottom: $spacer;
+  }
+
+  @include media-breakpoint-up(sm) {
+    flex-flow: row wrap;
+    margin-right: -$spacer;
+    margin-left: -$spacer;
+
+    .card {
+      flex: 1 0 0%;
+      margin-right: $spacer;
+      margin-bottom: 0;
+      margin-left: $spacer;
+    }
+  }
+}
+
+// .btn-block was replaced by .w-100; keep the spacing between stacked full-width buttons.
+.btn.w-100 + .btn.w-100 {
+  margin-top: $spacer * .5;
+}

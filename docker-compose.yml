@@ -1,0 +1,83 @@
+# Local stack: PostgreSQL + Redis + the production image (web + Sidekiq worker).
+#   docker compose up --build
+#   open http://localhost:8080
+# Uploads are kept on local disk (ACTIVE_STORAGE_SERVICE=local) so GCS credentials are optional.
+# Optional secrets (RAILS_MASTER_KEY, SENDGRID_API_KEY, FACEBOOK_APP_ID, ...) go in a .env file next to this one.
+
+x-app: &app
+  build: .
+  image: caten-church:local
+  env_file:
+    - path: .env
+      required: false
+  environment: &app-env
+    SECRET_KEY_BASE: ${SECRET_KEY_BASE:-local-only-secret-key-base-change-me-0123456789abcdef0123456789abcdef}
+    DATABASE_URL: postgres://postgres:postgres@db:5432/caten_church_production
+    REDIS_URL: redis://redis:6379/1
+    ACTIVE_JOB_QUEUE_ADAPTER: sidekiq
+    # Runs without real secrets, so skip config/initializers/required_settings.rb
+    SKIP_REQUIRED_SETTINGS_CHECK: "1"
+    ACTIVE_STORAGE_SERVICE: local
+    APP_HOST: localhost
+    RAILS_ASSUME_SSL: "false"
+    RAILS_FORCE_SSL: "false"
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  volumes:
+    - storage:/rails/storage
+
+services:
+  web:
+    <<: *app
+    environment:
+      <<: *app-env
+      DB_PREPARE: "true"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    <<: *app
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+    depends_on:
+      web:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:8-alpine
+    volumes:
+      - redis:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres:
+  redis:
+  storage:

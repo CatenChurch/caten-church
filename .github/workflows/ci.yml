@@ -1,0 +1,154 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    tags: ["v*.*.*"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:8-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        # explicit bash => -eo pipefail, so `cmd | tee` still fails the step
+        shell: bash
+    env:
+      RAILS_ENV: test
+      CI: "true"
+      DATABASE_HOST: localhost
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      REDIS_URL: redis://localhost:6379/1
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install JavaScript dependencies
+        run: (npm ci) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      - name: Lint JavaScript
+        run: (npm run lint) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      - name: Build assets
+        run: (npm run build && npm run build:css) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      - name: Prepare database
+        run: (bin/rails db:create db:schema:load) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      - name: Run specs
+        run: (bundle exec rspec) 2>&1 | tee -a "$RUNNER_TEMP/test.log"
+
+      # Surface the end of the output as an annotation (visible in the PR checks and via the API)
+      - name: Report failure output
+        if: failure()
+        run: |
+          [ -f "$RUNNER_TEMP/test.log" ] || exit 0
+          msg="$(tail -n 80 "$RUNNER_TEMP/test.log" | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
+          echo "::error title=Test output (last 80 lines)::${msg}"
+
+  security:
+    name: Security scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      # Reports warnings without failing the build; tighten with `--exit-on-warn` once triaged.
+      - name: Brakeman
+        run: bundle exec brakeman --no-pager --no-exit-on-warn
+
+  image:
+    name: Build image
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,format=short,prefix=sha-
+            type=ref,event=branch
+            type=ref,event=pr
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # build-push-action logs aren't exposed through annotations; re-run the build stage
+      # with plain progress and surface the tail so failures are readable from the PR checks.
+      - name: Report build failure output
+        if: failure()
+        run: |
+          docker buildx build --progress=plain --target build --load -t debug . > "$RUNNER_TEMP/build.log" 2>&1 || true
+          msg="$(grep -v '^#[0-9]* \(sha256\|DONE\|CACHED\)' "$RUNNER_TEMP/build.log" | tail -n 80 | sed 's/%/%25/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
+          echo "::error title=Docker build output (last 80 lines)::${msg}"

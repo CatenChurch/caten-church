@@ -9,8 +9,7 @@
       <%= link_to weekly.pdf.filename, rails_blob_path(weekly.pdf) %>
     </p>
   <% end %>
-  <%= f.input :pdf, label: '上傳新的 PDF', label_html: { class: 'mr-1' }, input_html: { accept: 'application/pdf,.pdf' } %>
+  <%= f.input :pdf, label: '上傳新的 PDF', label_html: { class: 'me-1' }, input_html: { accept: 'application/pdf,.pdf' } %>
   <%= f.button :submit %>
 <% end %>
-<%= javascript_pack_tag 'bootstrap-file-upload', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'datetime-pickers', 'data-turbolinks-track': 'reload', data: { 'datetime-pickers': [{ selector: '#weekly_published_at' }]} %>
+<%= javascript_include_tag 'datetime_pickers', data: { 'datetime-pickers': [{ selector: '#weekly_published_at' }]} %>

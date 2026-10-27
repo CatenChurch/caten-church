@@ -1,22 +1,23 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 10
+  pool: <%= ENV.fetch("DB_POOL", 10) %>
+
+local: &local
+  <<: *default
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %> # tcp instead of unix socket
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "postgres") %>
 
 development:
-  <<: *default
+  <<: *local
   database: caten_church_dev
-  host: localhost # add this line will use tcp instead of unix socket
-  username: postgres
-  password: postgres
 
 test:
-  <<: *default
+  <<: *local
   database: caten_church_test
-  host: localhost # add this line will use tcp instead of unix socket
-  username: postgres
-  password: postgres
 
 production:
   <<: *default
-  url: <%= ENV.fetch('DATABASE_URL') || Rails.application.credentials[:production][:database_url] %>
+  url: <%= ENV["DATABASE_URL"] || Rails.application.credentials.dig(:production, :database_url) %>

@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in_and_redirect @user, event: :authentication
     else
       flash[:alert] = '尚未完成 Facebook 帳號註冊會員'
-      render :oauth_new
+      render :oauth_new, status: :unprocessable_content
     end
   end
 

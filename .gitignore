@@ -1,22 +1,33 @@
+# Ignore bundler config.
+/.bundle/*
+!/.bundle/config
+
 # Log and temp files.
-/log
-/tmp
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 .byebug_history
 
 # Active Storage blobs
 /storage/*
+!/storage/.keep
 
 # Credentials
 /config/master.key
+/config/credentials/*.key
 *.pem
 
-# Webpacker
-/public/packs
-/public/packs-test
+# Assets built by jsbundling/cssbundling and precompiled by Propshaft
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/public/assets
+
+# Node
 /node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+
+# Environment
+.env
 
 # Mac OS X system file
 .DS_Store

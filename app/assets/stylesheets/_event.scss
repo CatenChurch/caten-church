@@ -1,0 +1,25 @@
+.event-card {
+  border-radius: 10px;
+  color: var(--bs-dark);
+  border-color: var(--bs-dark);
+  background-color: var(--bs-white);
+
+  &:hover {
+    color: var(--bs-white);
+    background-color: var(--bs-secondary);
+
+    .card-text {
+      color: var(--bs-light);
+    }
+  }
+  .card-body {
+    height: 250px;
+    overflow: auto;
+  }
+  @include media-breakpoint-up(md) {
+    .card-body {
+      height: 350px;
+      overflow: auto;
+    }
+  }
+}

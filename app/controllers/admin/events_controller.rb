@@ -34,7 +34,7 @@ class Admin::EventsController < Admin::BaseController
       flash[:notice] = '建立活動成功'
     else
       flash[:alert] = '建立活動失敗'
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -44,13 +44,13 @@ class Admin::EventsController < Admin::BaseController
       flash[:notice] = '更新活動成功'
     else
       flash[:alert] = '更新活動失敗'
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     @event.destroy
-    redirect_to admin_events_url
+    redirect_to admin_events_url, status: :see_other
     flash[:alert] = '刪除活動成功'
   end
 

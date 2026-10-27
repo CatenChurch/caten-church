@@ -34,6 +34,14 @@ class User < ApplicationRecord
     [:birth_month]
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id email]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[profile roles]
+  end
+
   def self.birth_month(month = nil)
     return all if month.blank?
 

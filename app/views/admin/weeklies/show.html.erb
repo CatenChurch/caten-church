@@ -3,11 +3,11 @@
 <% end %>
 <h1 class="mt-2 text-center"><%= Weekly.model_name.human %></h1>
 <div class="mt-2 btn-toolbar">
-  <div class="btn-group ml-auto">
+  <div class="btn-group ms-auto">
     <%= link_to edit_admin_weekly_path(@weekly), class: "btn btn-sm btn-outline-secondary" do %>
       <i class="fas fa-edit"></i><%= t("edit") %>
     <% end %>
-    <%= link_to [:admin, @weekly], class: "btn btn-sm btn-outline-danger", method: :delete, data: { confirm: "確定要刪除#{Weekly.model_name.human}嗎？" } do %>
+    <%= link_to [:admin, @weekly], class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: "確定要刪除#{Weekly.model_name.human}嗎？" } do %>
       <i class="fas fa-trash"></i><%= t("destroy") %>
     <% end %>
   </div>

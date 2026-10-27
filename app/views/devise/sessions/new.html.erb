@@ -16,14 +16,14 @@
           <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
         </div>
         <div class="card-body">
-          <%= f.button :submit, '帳號登入', class: "btn-block btn-purple" %>
+          <%= f.button :submit, '帳號登入', class: "w-100 btn-purple" %>
         </div>
       <% end %>
     </div>
     <div class="card my-2 text-center text-muted">
       <div class="card-body">
-        <%= link_to omniauth_authorize_path(resource_name, :facebook), method: :post, class: 'btn btn-outline-primary btn-block' do %>
-          使用 <i class="fab fa-facebook fa-3x ml-1"></i> 登入網站
+        <%= button_to omniauth_authorize_path(resource_name, :facebook), class: 'btn btn-outline-primary w-100', form: { data: { turbo: false } } do %>
+          使用 <i class="fab fa-facebook fa-3x ms-1"></i> 登入網站
         <% end %>
       </div>
       <div class="card-body">

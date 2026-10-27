@@ -14,7 +14,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = Rails.application.credentials[Rails.env.to_sym][:mail][:username]
+  config.mailer_sender = Rails.application.config.x.mailer_sender
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -242,12 +242,19 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook,
-                  Rails.application.credentials[:facebook][:app_id],
-                  Rails.application.credentials[:facebook][:app_secret],
+                  ENV['FACEBOOK_APP_ID'] || Rails.application.credentials.dig(:facebook, :app_id),
+                  ENV['FACEBOOK_APP_SECRET'] || Rails.application.credentials.dig(:facebook, :app_secret),
                   client_options: {
                     site: 'https://graph.facebook.com/v6.0',
                     authorize_url: 'https://www.facebook.com/v6.0/dialog/oauth'
                   }
+
+  # ==> Hotwire/Turbo configuration
+  # When using Devise with Hotwire/Turbo, the http status for error responses
+  # and some redirects must match the following.
+  config.responder.error_status = :unprocessable_content
+  config.responder.redirect_status = :see_other
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
