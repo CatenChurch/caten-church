@@ -97,6 +97,7 @@ Every secret can come from `RAILS_MASTER_KEY` + `config/credentials.yml.enc` or 
 | `SENDGRID_API_KEY` | outgoing mail |
 | `APP_HOST` | host used in mail links (default `caten-church.org`) |
 | `ACTIVE_STORAGE_SERVICE` | `production` (GCS, default) or `local` |
+| `ACTIVE_JOB_QUEUE_ADAPTER` | Active Job backend in production: `async` (default, runs jobs in the web process) or `sidekiq` (needs a Sidekiq worker and Redis; `docker-compose.yml` uses this) |
 | `RAILS_FORCE_SSL` / `RAILS_ASSUME_SSL` | `true` by default (TLS terminated by the proxy/ingress) |
 | `MAILER_SENDER`, `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET`, `FACEBOOK_PAGE_ID`, `FACEBOOK_MESSAGE_TOKEN`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_TOKEN`, `GA_TRACK_ID` | optional overrides of the matching credentials |
 | `DB_PREPARE=true` | run `rails db:prepare` when the container starts |
@@ -126,7 +127,8 @@ Before deploying this version to an existing Heroku app:
   heroku buildpacks --app $APP_NAME # heroku/nodejs, then heroku/ruby
   ```
 
-- Sidekiq 8 needs Redis 7.0 or newer. Check the attached Redis before deploying, or the worker won't start:
+- Production runs Active Job in the web dyno (`ACTIVE_JOB_QUEUE_ADAPTER` defaults to `async`), so no worker dyno or Redis is needed.
+  If you switch to `sidekiq`, Sidekiq 8 needs Redis 7.0 or newer:
 
   ```sh
   heroku redis:info --app $APP_NAME

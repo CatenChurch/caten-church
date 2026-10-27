@@ -50,8 +50,11 @@ Rails.application.configure do
   # Replace the default in-process memory cache store with a durable alternative.
   # config.cache_store = :mem_cache_store
 
-  # Use sidekiq as the queuing backend for Active Job.
-  config.active_job.queue_adapter = :sidekiq
+  # Run Active Job in-process by default: Heroku runs no worker dyno, so jobs sent to Sidekiq
+  # (e.g. Active Storage purges when a weekly PDF is replaced or deleted) were never processed,
+  # and enqueueing raised whenever Redis was unreachable.
+  # Set ACTIVE_JOB_QUEUE_ADAPTER=sidekiq where a Sidekiq worker and Redis are running.
+  config.active_job.queue_adapter = ENV.fetch('ACTIVE_JOB_QUEUE_ADAPTER', 'async').to_sym
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
