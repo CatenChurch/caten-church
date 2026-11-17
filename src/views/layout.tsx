@@ -255,9 +255,18 @@ export function SimpleFormat({ text }: { text: string | null | undefined }) {
   );
 }
 
-export function Pagination(props: { page: number; totalPages: number; path: string }) {
+export function Pagination(props: {
+  page: number;
+  totalPages: number;
+  path: string;
+  /** Other query parameters to keep on every page link, without the leading `?`. */
+  query?: string;
+}) {
   if (props.totalPages <= 1) return null;
-  const href = (page: number) => (page === 1 ? props.path : `${props.path}?page=${page}`);
+  const href = (page: number) => {
+    const params = [props.query, page === 1 ? '' : `page=${page}`].filter(Boolean).join('&');
+    return params ? `${props.path}?${params}` : props.path;
+  };
   const first = Math.max(1, props.page - 4);
   const last = Math.min(props.totalPages, props.page + 4);
   const pages = Array.from({ length: last - first + 1 }, (_, i) => first + i);

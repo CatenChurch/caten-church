@@ -13,7 +13,12 @@ function taipeiDate(now: Date) {
 }
 
 /** Sends every admin the list of members whose birthday is next month. */
-export async function sendBirthdayList(d1: D1Database, send: MailSender, now = new Date()) {
+export async function sendBirthdayList(
+  d1: D1Database,
+  send: MailSender,
+  siteUrl: string,
+  now = new Date(),
+) {
   const today = taipeiDate(now);
   const month = (today.month % 12) + 1;
   const year = month === 1 ? today.year + 1 : today.year;
@@ -40,11 +45,13 @@ export async function sendBirthdayList(d1: D1Database, send: MailSender, now = n
   const days = [...new Set(lines.map((line) => line.day))];
   const section = (day: number) => lines.filter((line) => line.day === day).map((l) => l.text);
   const title = `茄典教會${month}月份壽星通知`;
+  const link = `${siteUrl}/admin/members?month=${month}`;
   const text =
     `${title}\n\n` +
     (days.length === 0
       ? '下個月沒有壽星。\n'
-      : days.map((day) => `${month} 月 ${day} 號\n${section(day).join('\n')}\n`).join('\n'));
+      : days.map((day) => `${month} 月 ${day} 號\n${section(day).join('\n')}\n`).join('\n')) +
+    `\n前往網站查看會友資料(需要管理員權限) : ${link}\n`;
   const html =
     `<h1>${title}</h1>` +
     (days.length === 0
@@ -57,7 +64,8 @@ export async function sendBirthdayList(d1: D1Database, send: MailSender, now = n
                 .map((line) => `<p>${escapeHtml(line)}</p>`)
                 .join(''),
           )
-          .join(''));
+          .join('')) +
+    `<p><a href="${escapeHtml(link)}">前往網站查看會友資料(需要管理員權限)</a></p>`;
 
   let sent = 0;
   for (const admin of admins) {

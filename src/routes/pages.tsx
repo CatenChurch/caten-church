@@ -71,6 +71,22 @@ pages.get('/', async (c) => {
             </div>
           </div>
         </div>
+        <div class="col">
+          <div class={card}>
+            <div class="card-body">
+              <h2 class="card-title">會員中心</h2>
+              <p class="card-text">登入後可以填寫與更新個人資料</p>
+            </div>
+            <div class="list-group list-group-flush">
+              <a class="btn btn-light list-group-item" href="/account/profile">
+                個人資料
+              </a>
+              <a class="btn btn-light list-group-item" href="/account/logins">
+                登入方式
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </Page>,
   );

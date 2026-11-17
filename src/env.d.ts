@@ -11,6 +11,8 @@ interface OptionalEnv {
   SENDGRID_API_KEY?: string;
   /** Sender, e.g. `茄典教會 <notify@caten-church.org>` (the default). */
   MAIL_FROM?: string;
+  /** Public address used in links inside emails (set in wrangler.jsonc). */
+  SITE_URL?: string;
   /** `true` enables the localhost-only development sign-in. Never set in production. */
   DEV_LOGIN?: string;
 }

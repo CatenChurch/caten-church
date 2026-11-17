@@ -38,9 +38,12 @@ export default {
   fetch: app.fetch,
   async scheduled(controller, env, ctx) {
     ctx.waitUntil(
-      sendBirthdayList(env.DB, sendGridSender(env), new Date(controller.scheduledTime)).then(
-        (result) => console.log('birthday list', JSON.stringify(result)),
-      ),
+      sendBirthdayList(
+        env.DB,
+        sendGridSender(env),
+        env.SITE_URL || 'https://caten-church.org',
+        new Date(controller.scheduledTime),
+      ).then((result) => console.log('birthday list', JSON.stringify(result))),
     );
   },
 } satisfies ExportedHandler<Env>;

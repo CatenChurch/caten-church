@@ -16,6 +16,7 @@ import { events, settingChanges, settings as settingsTable, users, weeklies } fr
 import { formatDateTime, fromTaipeiInput, parseId, parsePage, toTaipeiInput } from '../format';
 import { DEFAULT_SETTINGS, SETTING_GROUPS, type SettingKey } from '../settings';
 import { Page, Pagination } from '../views/layout';
+import { registerMemberRoutes } from './admin-members';
 
 /** Everything under /admin is for administrators only. */
 export const admin = new Hono<AppEnv>();
@@ -65,6 +66,7 @@ admin.get('/', (c) =>
     children: (
       <div class="row row-cols-1 row-cols-md-2 g-3">
         {[
+          ['會友', '/admin/members', 'bi-people'],
           ['週報', '/admin/weeklies', 'bi-newspaper'],
           ['活動', '/admin/events', 'bi-calendar-event'],
           ['站台設定', '/admin/settings', 'bi-gear'],
@@ -80,6 +82,8 @@ admin.get('/', (c) =>
     ),
   }),
 );
+
+registerMemberRoutes(admin, adminPage);
 
 // --- Weeklies ---
 

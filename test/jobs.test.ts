@@ -5,6 +5,7 @@ import { sendBirthdayList } from '../src/jobs';
 import { sendGridSender, type Mail } from '../src/mail';
 import { db } from './helpers';
 
+const SITE = 'https://caten-church.org';
 const NOW = new Date('2026-11-25T03:00:00.000Z');
 
 function outbox() {
@@ -42,7 +43,7 @@ describe('birthday list', () => {
     await person('同一天', { birth: '1970-12-20' });
 
     const { sent, send } = outbox();
-    const result = await sendBirthdayList(env.DB, send, NOW);
+    const result = await sendBirthdayList(env.DB, send, SITE, NOW);
     expect(result).toEqual({ month: 12, people: 3, admins: 1, sent: 1 });
     expect(sent[0]).toMatchObject({
       to: '管理員@example.com',
@@ -54,6 +55,7 @@ describe('birthday list', () => {
     expect(text).toContain('十二月二十日 26 歲');
     expect(text).toContain('同一天 56 歲');
     expect(text).not.toContain('一般會員');
+    expect(text).toContain(`${SITE}/admin/members?month=12`);
   });
 
   it('goes only to admins who have an email', async () => {
@@ -61,7 +63,7 @@ describe('birthday list', () => {
     await person('沒信箱的管理員', { isAdmin: true, email: null });
     await person('一般會員');
     const { sent, send } = outbox();
-    await sendBirthdayList(env.DB, send, NOW);
+    await sendBirthdayList(env.DB, send, SITE, NOW);
     expect(sent.map((mail) => mail.to)).toEqual(['有信箱的管理員@example.com']);
   });
 
@@ -69,7 +71,7 @@ describe('birthday list', () => {
     await person('管理員', { isAdmin: true, birth: '1980-05-05' });
     await person('元旦寶寶', { birth: '2000-01-01' });
     const { sent, send } = outbox();
-    const result = await sendBirthdayList(env.DB, send, new Date('2026-12-25T03:00:00Z'));
+    const result = await sendBirthdayList(env.DB, send, SITE, new Date('2026-12-25T03:00:00Z'));
     expect(result.month).toBe(1);
     expect(sent[0]!.text).toContain('元旦寶寶 27 歲');
   });
@@ -77,7 +79,7 @@ describe('birthday list', () => {
   it('still tells admins when nobody has a birthday', async () => {
     await person('管理員', { isAdmin: true, birth: '1980-05-05' });
     const { sent, send } = outbox();
-    await sendBirthdayList(env.DB, send, NOW);
+    await sendBirthdayList(env.DB, send, SITE, NOW);
     expect(sent[0]!.text).toContain('下個月沒有壽星');
   });
 
@@ -85,9 +87,9 @@ describe('birthday list', () => {
     await person('管理員', { isAdmin: true, birth: '1980-05-05' });
     await person('<b>小明</b>', { birth: '1990-12-03' });
     const { sent, send } = outbox();
-    await sendBirthdayList(env.DB, send, NOW);
+    await sendBirthdayList(env.DB, send, SITE, NOW);
     expect(sent[0]!.html).toContain('&lt;b&gt;小明&lt;/b&gt;');
-    expect((await sendBirthdayList(env.DB, async () => false, NOW)).sent).toBe(0);
+    expect((await sendBirthdayList(env.DB, async () => false, SITE, NOW)).sent).toBe(0);
   });
 });
 
