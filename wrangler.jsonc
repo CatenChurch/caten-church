@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "caten-church",
+  // Not a secret; the account that also hosts danmu-classroom and the caten-church.org zone
+  "account_id": "c74b247e8c747f6ca397cca820da6319",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
   "observability": { "enabled": true },
@@ -10,8 +12,7 @@
     {
       "binding": "DB",
       "database_name": "caten-church",
-      // Placeholder: replace with the id from `wrangler d1 create caten-church` before deploying
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "fc5c6b22-7ba8-4bcd-8bd1-46bf263d4116",
       "migrations_dir": "migrations",
     },
   ],
