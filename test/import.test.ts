@@ -119,6 +119,24 @@ describe('import from the Rails database', () => {
     expect(await (await get('/weeklies/3850')).text()).toContain('主日週報');
   });
 
+  it('keeps an account someone already made on the new site, updated with the old data', async () => {
+    const now = '2026-11-17T00:00:00.000Z';
+    await env.DB.batch([
+      env.DB.prepare(
+        "INSERT INTO users (id, email, is_admin, created_at, updated_at) VALUES (2, 'member@example.com', 1, ?, ?)",
+      ).bind(now, now),
+      env.DB.prepare(
+        "INSERT INTO profiles (user_id, name, created_at, updated_at) VALUES (2, '新名字', ?, ?)",
+      ).bind(now, now),
+    ]);
+    await load(buildImport(dump()));
+
+    const user = await env.DB.prepare('SELECT * FROM users WHERE id = 2').first();
+    expect(user).toMatchObject({ is_admin: 1, created_at: '2020-05-02T13:04:45.123Z' });
+    const profile = await env.DB.prepare('SELECT name FROM profiles WHERE user_id = 2').first();
+    expect(profile).toEqual({ name: '新名字' });
+  });
+
   it('maps each weekly PDF to weeklies/<id>.pdf and lists the copy to make', () => {
     const result = buildImport(dump());
     expect(result.pdfCopies).toEqual([
