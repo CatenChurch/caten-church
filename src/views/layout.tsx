@@ -1,5 +1,6 @@
 import type { Child } from 'hono/jsx';
 import { raw } from 'hono/html';
+import type { ViewState } from '../app';
 import type { Settings } from '../settings';
 
 const BOOTSTRAP = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist';
@@ -12,11 +13,13 @@ export interface Crumb {
 
 export interface PageProps {
   settings: Settings;
+  /** Who is signed in and the one-time message, from `viewState(c)`. */
+  view: ViewState;
   /** Page title; omitted on the home page. */
   title?: string;
   description?: string;
   /** Navbar item to highlight. */
-  active?: 'weeklies' | 'events' | 'groups';
+  active?: 'weeklies' | 'events' | 'groups' | 'account';
   breadcrumb?: Crumb[];
   /** Large heading and lead text shown over the hero image. */
   heading: string;
@@ -34,6 +37,51 @@ function Analytics({ id }: { id: string }) {
           `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}');`,
         )}
       </script>
+    </>
+  );
+}
+
+function AccountNav({ view, active }: { view: ViewState; active: boolean }) {
+  if (!view.user) {
+    return (
+      <a class="nav-link" href="/login">
+        <i class="bi bi-box-arrow-in-right me-1"></i>登入
+      </a>
+    );
+  }
+  return (
+    <>
+      <div class="nav-item dropdown">
+        <a
+          class={`nav-link dropdown-toggle${active ? ' active' : ''}`}
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person me-1"></i>
+          {view.user.name ?? '會員中心'}
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="/account/events">
+            我的活動
+          </a>
+          <a class="dropdown-item" href="/account/profile">
+            個人資料
+          </a>
+          <a class="dropdown-item" href="/account/subscription">
+            通知設定
+          </a>
+          <a class="dropdown-item" href="/account/logins">
+            登入方式
+          </a>
+        </div>
+      </div>
+      <form method="post" action="/logout" class="d-flex">
+        <button type="submit" class="nav-link btn btn-link">
+          <i class="bi bi-box-arrow-right me-1"></i>登出
+        </button>
+      </form>
     </>
   );
 }
@@ -91,6 +139,7 @@ export function Page(props: PageProps) {
                 <a class={navClass('groups')} href="/groups">
                   <i class="bi bi-people me-1"></i>小組
                 </a>
+                <AccountNav view={props.view} active={props.active === 'account'} />
               </div>
             </div>
           </div>
@@ -114,6 +163,14 @@ export function Page(props: PageProps) {
           </div>
         </div>
 
+        {props.view.flash && (
+          <div
+            class={`alert ${props.view.flash.type === 'alert' ? 'alert-danger' : 'alert-success'} rounded-0 mb-0 text-center`}
+            role="alert"
+          >
+            {props.view.flash.message}
+          </div>
+        )}
         <main class="p-4">{props.children}</main>
 
         <footer class="bg-light p-2 text-center">

@@ -169,3 +169,17 @@ export const settings = sqliteTable('settings', {
   updatedAt: text('updated_at').notNull().default(now),
   updatedBy: integer('updated_by').references(() => users.id, { onDelete: 'set null' }),
 });
+
+/** Sign-in sessions; `id` is the SHA-256 of the cookie token, so a database leak reveals no usable token. */
+export const sessions = sqliteTable(
+  'sessions',
+  {
+    id: text('id').primaryKey(),
+    userId: integer('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    expiresAt: text('expires_at').notNull(),
+    createdAt: text('created_at').notNull().default(now),
+  },
+  (t) => [index('sessions_user').on(t.userId)],
+);

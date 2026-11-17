@@ -18,6 +18,7 @@
     "lint": "prettier --check ."
   },
   "dependencies": {
+    "arctic": "^3.7.0",
     "drizzle-orm": "^0.45.4",
     "hono": "^4.13.18"
   },

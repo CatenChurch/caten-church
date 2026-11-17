@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getSettings, type AppEnv } from '../app';
+import { getSettings, viewState, type AppEnv } from '../app';
 import {
   findEvent,
   listExpiredEvents,
@@ -57,6 +57,7 @@ events.get('/', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="活動專區"
       description={description}
       active="events"
@@ -98,6 +99,7 @@ events.get('/:id', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title={event.name}
       description={event.description ?? undefined}
       active="events"

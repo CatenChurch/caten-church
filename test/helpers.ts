@@ -1,12 +1,61 @@
 import { env } from 'cloudflare:test';
 import { exports } from 'cloudflare:workers';
 import { drizzle } from 'drizzle-orm/d1';
+import { sha256Hex } from '../src/auth/tokens';
 import * as schema from '../src/db/schema';
 
 export const BASE = 'http://caten.test';
 
-export function get(path: string) {
-  return exports.default.fetch(new Request(`${BASE}${path}`, { redirect: 'manual' }));
+export function get(path: string, cookie?: string) {
+  return exports.default.fetch(
+    new Request(`${BASE}${path}`, {
+      redirect: 'manual',
+      headers: cookie ? { Cookie: cookie } : {},
+    }),
+  );
+}
+
+/** Submits a form the way a browser on this site would (same-origin, url-encoded). */
+export function post(path: string, fields: Record<string, string> = {}, cookie?: string) {
+  return exports.default.fetch(
+    new Request(`${BASE}${path}`, {
+      method: 'POST',
+      redirect: 'manual',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Origin: BASE,
+        ...(cookie ? { Cookie: cookie } : {}),
+      },
+      body: new URLSearchParams(fields),
+    }),
+  );
+}
+
+/** A session cookie for this member, as if they had just signed in. */
+export async function signInAs(userId: number, expiresAt = hoursFromNow(1)) {
+  const token = `token-${userId}-${crypto.randomUUID()}`;
+  await db()
+    .insert(schema.sessions)
+    .values({ id: await sha256Hex(token), userId, expiresAt });
+  return `caten_session=${token}`;
+}
+
+/** The value a response sets for a cookie, or undefined. */
+export function setCookieValue(response: Response, name: string) {
+  for (const header of response.headers.getSetCookie()) {
+    const [pair] = header.split(';');
+    const [key, ...rest] = pair!.split('=');
+    if (key === name) return rest.join('=');
+  }
+  return undefined;
+}
+
+/** The one-time message a response leaves for the next page. */
+export function flashOf(response: Response) {
+  const value = setCookieValue(response, 'flash');
+  return value
+    ? (JSON.parse(decodeURIComponent(value)) as { type: string; message: string })
+    : null;
 }
 
 export const db = () => drizzle(env.DB);
@@ -29,7 +78,9 @@ export async function createWeekly(values: Partial<typeof schema.weeklies.$infer
 }
 
 const HOUR = 3_600_000;
-const at = (offsetHours: number) => new Date(Date.now() + offsetHours * HOUR).toISOString();
+function at(offsetHours: number) {
+  return new Date(Date.now() + offsetHours * HOUR).toISOString();
+}
 
 /** An event whose registration is open now unless the offsets say otherwise. */
 export async function createEvent(values: Partial<typeof schema.events.$inferInsert> = {}) {

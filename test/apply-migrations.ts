@@ -8,6 +8,7 @@ beforeEach(async () => {
   await env.DB.batch(
     [
       'DELETE FROM settings',
+      'DELETE FROM sessions',
       'DELETE FROM event_users',
       'DELETE FROM events',
       'DELETE FROM group_users',

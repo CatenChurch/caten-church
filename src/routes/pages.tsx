@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getSettings, type AppEnv } from '../app';
+import { getSettings, viewState, type AppEnv } from '../app';
 import { Page } from '../views/layout';
 
 export const pages = new Hono<AppEnv>();
@@ -10,6 +10,7 @@ pages.get('/', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       heading={s.siteName}
       lead={
         <>
@@ -89,6 +90,7 @@ pages.get('/about', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="關於茄典"
       description={paragraphs.join('\n')}
       breadcrumb={[{ label: '關於茄典', href: '/about' }]}
@@ -123,6 +125,7 @@ pages.get('/contact', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="聯絡我們"
       description={description}
       breadcrumb={[{ label: '聯絡我們', href: '/contact' }]}
@@ -167,6 +170,7 @@ pages.get('/tithing', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="奉獻方式"
       description={description}
       breadcrumb={[{ label: '奉獻方式', href: '/tithing' }]}
@@ -208,6 +212,7 @@ pages.get('/term', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="隱私條款"
       description={description}
       breadcrumb={[{ label: '隱私條款', href: '/term' }]}

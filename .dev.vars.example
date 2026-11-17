@@ -1,0 +1,19 @@
+# Copy to .dev.vars for `pnpm dev`. A sign-in provider appears only when both of its values are set.
+
+# Google Cloud console → APIs & Services → Credentials → OAuth client ID (Web application)
+# Authorized redirect URI: http://localhost:8787/auth/google/callback
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# LINE Developers console → LINE Login channel
+# Callback URL: http://localhost:8787/auth/line/callback
+LINE_CHANNEL_ID=
+LINE_CHANNEL_SECRET=
+
+# Meta for Developers → the same app the Rails site used, so existing members keep their ids
+# Valid OAuth redirect URI: http://localhost:8787/auth/facebook/callback
+FACEBOOK_APP_ID=
+FACEBOOK_APP_SECRET=
+
+# Localhost-only sign-in button for development without a provider. Never set in production.
+DEV_LOGIN=true

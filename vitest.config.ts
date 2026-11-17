@@ -8,7 +8,15 @@ export default defineConfig(async () => {
     plugins: [
       cloudflareTest({
         wrangler: { configPath: './wrangler.jsonc' },
-        miniflare: { bindings: { TEST_MIGRATIONS: migrations } },
+        miniflare: {
+          bindings: {
+            TEST_MIGRATIONS: migrations,
+            // Google is configured, LINE and Facebook are not
+            GOOGLE_CLIENT_ID: 'test-google-client',
+            GOOGLE_CLIENT_SECRET: 'test-google-secret',
+            DEV_LOGIN: 'true',
+          },
+        },
       }),
     ],
     test: {

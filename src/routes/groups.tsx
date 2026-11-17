@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getSettings, type AppEnv } from '../app';
+import { getSettings, viewState, type AppEnv } from '../app';
 import { findGroup, listGroups } from '../data/groups';
 import { parseId } from '../format';
 import { Page, SimpleFormat } from '../views/layout';
@@ -12,7 +12,15 @@ const lead = <p class="lead">教會團契與小組</p>;
 groups.get('/', async (c) => {
   const [s, list] = await Promise.all([getSettings(c), listGroups(c.env.DB)]);
   return c.html(
-    <Page settings={s} title="小組" active="groups" breadcrumb={[crumb]} heading="小組" lead={lead}>
+    <Page
+      settings={s}
+      view={viewState(c)}
+      title="小組"
+      active="groups"
+      breadcrumb={[crumb]}
+      heading="小組"
+      lead={lead}
+    >
       <div class="container">
         <div class="table-responsive">
           <table class="table">
@@ -53,6 +61,7 @@ groups.get('/:id', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title={group.name}
       description={group.introduction}
       active="groups"

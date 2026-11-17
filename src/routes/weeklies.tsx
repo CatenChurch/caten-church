@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getSettings, type AppEnv } from '../app';
+import { getSettings, viewState, type AppEnv } from '../app';
 import { countWeeklyView, findLatestWeekly, findWeekly, listWeeklies } from '../data/weeklies';
 import { formatDateTime, parseId, parsePage } from '../format';
 import { Page, Pagination } from '../views/layout';
@@ -16,6 +16,7 @@ weeklies.get('/', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title="週報"
       description={description}
       active="weeklies"
@@ -106,6 +107,7 @@ weeklies.get('/:file', async (c) => {
   return c.html(
     <Page
       settings={s}
+      view={viewState(c)}
       title={title}
       active="weeklies"
       breadcrumb={[crumb, { label: weekly.title, href: `/weeklies/${weekly.id}` }]}
