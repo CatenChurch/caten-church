@@ -4,6 +4,7 @@ import { takeFlash, type AppEnv } from './app';
 import { auth } from './auth/routes';
 import { loadCurrentUser } from './auth/sessions';
 import { account } from './routes/account';
+import { admin } from './routes/admin';
 import { runDailyJobs } from './jobs';
 import { sendGridSender } from './mail';
 import { events } from './routes/events';
@@ -28,6 +29,7 @@ app.use('*', async (c, next) => {
 app.route('/', pages);
 app.route('/', auth);
 app.route('/account', account);
+app.route('/admin', admin);
 app.route('/weeklies', weeklies);
 app.route('/groups', groups);
 app.route('/events', events);

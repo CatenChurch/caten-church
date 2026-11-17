@@ -42,3 +42,15 @@ export function parsePage(value: string | undefined) {
 export function parseId(value: string | undefined) {
   return value && /^[1-9]\d{0,14}$/.test(value) ? Number(value) : null;
 }
+
+/** UTC ISO time → the value of an `<input type="datetime-local">` showing Taipei time. */
+export function toTaipeiInput(iso: string) {
+  return formatDateTime(iso).replace(' ', 'T');
+}
+
+/** A `datetime-local` value entered as Taipei time → UTC ISO, or null when it is not a time. */
+export function fromTaipeiInput(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(value)) return null;
+  const date = new Date(`${value}+08:00`);
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+}

@@ -3,10 +3,13 @@ import { beforeEach } from 'vitest';
 
 await applyD1Migrations(env.DB, env.TEST_MIGRATIONS);
 
-// D1 is shared by the tests in a file; start each test from empty tables.
+// D1 and R2 are shared by the tests in a file; start each test from empty tables and an empty bucket.
 beforeEach(async () => {
+  const stored = await env.FILES.list();
+  if (stored.objects.length > 0) await env.FILES.delete(stored.objects.map((object) => object.key));
   await env.DB.batch(
     [
+      'DELETE FROM setting_changes',
       'DELETE FROM settings',
       'DELETE FROM sessions',
       'DELETE FROM event_users',

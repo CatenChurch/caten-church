@@ -15,6 +15,13 @@
       "when": 1794891203420,
       "tag": "0001_pale_mockingbird",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1794896411997,
+      "tag": "0002_bright_freak",
+      "breakpoints": true
     }
   ]
 }

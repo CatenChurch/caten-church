@@ -75,6 +75,14 @@ function AccountNav({ view, active }: { view: ViewState; active: boolean }) {
           <a class="dropdown-item" href="/account/logins">
             登入方式
           </a>
+          {view.user.isAdmin && (
+            <>
+              <hr class="dropdown-divider" />
+              <a class="dropdown-item" href="/admin">
+                後台
+              </a>
+            </>
+          )}
         </div>
       </div>
       <form method="post" action="/logout" class="d-flex">

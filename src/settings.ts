@@ -38,6 +38,69 @@ export const DEFAULT_SETTINGS = {
 export type SettingKey = keyof typeof DEFAULT_SETTINGS;
 export type Settings = Record<SettingKey, string>;
 
+/** How the admin settings page groups and labels the settings. */
+export const SETTING_GROUPS: {
+  title: string;
+  note?: string;
+  fields: { key: SettingKey; label: string }[];
+}[] = [
+  {
+    title: '基本資料',
+    fields: [
+      { key: 'siteName', label: '站名' },
+      { key: 'siteDescription', label: '網站簡介（搜尋結果與分享時顯示）' },
+      { key: 'legalName', label: '法人全名（奉獻戶名）' },
+    ],
+  },
+  {
+    title: '聯絡方式',
+    fields: [
+      { key: 'phone', label: '電話' },
+      { key: 'fax', label: '傳真' },
+      { key: 'email', label: 'Email' },
+      { key: 'address', label: '地址' },
+      { key: 'taxId', label: '統一編號' },
+      { key: 'mapEmbedUrl', label: 'Google 地圖嵌入網址' },
+    ],
+  },
+  {
+    title: '聚會與上班時間',
+    fields: [
+      { key: 'sundayService', label: '主日崇拜' },
+      { key: 'youthFellowship', label: '青少年團契' },
+      { key: 'officeHours', label: '上班時間' },
+    ],
+  },
+  {
+    title: '網路社群',
+    fields: [
+      { key: 'facebookUrl', label: 'Facebook' },
+      { key: 'youtubeUrl', label: 'YouTube' },
+      { key: 'lineUrl', label: 'Line @' },
+      { key: 'githubUrl', label: 'GitHub' },
+    ],
+  },
+  {
+    title: '奉獻帳號',
+    note: '這裡的資料會直接顯示在奉獻方式頁面，改錯會讓奉獻匯到別的帳戶。修改前請再三確認，每次修改都會留下紀錄。',
+    fields: [
+      { key: 'tithingBank', label: '金融機構' },
+      { key: 'tithingBankCode', label: '銀行代碼' },
+      { key: 'tithingAccount', label: '帳戶' },
+    ],
+  },
+  {
+    title: '圖片與分析',
+    fields: [
+      { key: 'logoUrl', label: 'Logo 網址' },
+      { key: 'faviconUrl', label: 'Favicon 網址' },
+      { key: 'heroImageUrl', label: '頁首背景圖網址' },
+      { key: 'shareImageUrl', label: '分享預覽圖網址' },
+      { key: 'gaMeasurementId', label: 'Google Analytics 評估 ID（例如 G-XXXXXXXXXX）' },
+    ],
+  },
+];
+
 export async function loadSettings(db: D1Database): Promise<Settings> {
   const rows = await drizzle(db).select().from(settingsTable);
   const merged: Settings = { ...DEFAULT_SETTINGS };

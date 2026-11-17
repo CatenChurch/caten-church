@@ -183,3 +183,13 @@ export const sessions = sqliteTable(
   },
   (t) => [index('sessions_user').on(t.userId)],
 );
+
+/** Who changed which site setting, and from what to what. */
+export const settingChanges = sqliteTable('setting_changes', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  key: text('key').notNull(),
+  oldValue: text('old_value').notNull(),
+  newValue: text('new_value').notNull(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'set null' }),
+  createdAt: text('created_at').notNull().default(now),
+});
