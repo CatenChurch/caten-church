@@ -74,3 +74,13 @@ describe('site settings', () => {
     expect(html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
   });
 });
+
+describe('search engines', () => {
+  it('keeps the preview address out of search results but not the real domain', async () => {
+    const { exports } = await import('cloudflare:workers');
+    const preview = await get('/');
+    expect(preview.headers.get('x-robots-tag')).toBe('noindex, nofollow');
+    const official = await exports.default.fetch(new Request('https://caten-church.org/'));
+    expect(official.headers.get('x-robots-tag')).toBeNull();
+  });
+});

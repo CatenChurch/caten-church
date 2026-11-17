@@ -17,6 +17,15 @@ const app = new Hono<AppEnv>();
 
 app.get('/up', (c) => c.text('ok'));
 
+// Only the real domain should be in search results, not the workers.dev preview address
+app.use('*', async (c, next) => {
+  await next();
+  const official = c.env.SITE_URL ? new URL(c.env.SITE_URL).hostname : null;
+  if (official && new URL(c.req.url).hostname !== official) {
+    c.header('X-Robots-Tag', 'noindex, nofollow');
+  }
+});
+
 // Form posts must come from this site (checks the Origin header)
 app.use('*', csrf());
 
