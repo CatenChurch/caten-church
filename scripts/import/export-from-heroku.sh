@@ -9,12 +9,19 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 
 app="${HEROKU_APP:-caten-church}"
-config=$(curl -sf --netrc -H 'Accept: application/vnd.heroku+json; version=3' \
-  "https://api.heroku.com/apps/$app/config-vars") || {
-  echo "Could not read the Heroku config of $app. Log in with \`heroku login\` first." >&2
-  exit 1
-}
-DATABASE_URL=$(printf '%s' "$config" | sed -n 's/.*"DATABASE_URL": *"\([^"]*\)".*/\1/p')
+if [ "${1:-}" = "--stdin" ]; then
+  # export-from-heroku.ps1 pipes in `heroku config:get DATABASE_URL` from the Windows CLI
+  IFS= read -r DATABASE_URL || true
+  DATABASE_URL="${DATABASE_URL%$'\r'}"
+else
+  config=$(curl -sf --netrc -H 'Accept: application/vnd.heroku+json; version=3' \
+    "https://api.heroku.com/apps/$app/config-vars") || {
+    echo "Could not read the Heroku config of $app. Log in with \`heroku login\` first," >&2
+    echo "or log in on Windows and run scripts/import/export-from-heroku.ps1 instead." >&2
+    exit 1
+  }
+  DATABASE_URL=$(printf '%s' "$config" | sed -n 's/.*"DATABASE_URL": *"\([^"]*\)".*/\1/p')
+fi
 if [ -z "$DATABASE_URL" ]; then
   echo "DATABASE_URL is not set on $app" >&2
   exit 1

@@ -52,10 +52,24 @@ export function sqlLiteral(value: unknown): string {
   return `'${String(value).replace(/'/g, "''")}'`;
 }
 
+// The new site may already have a few accounts (people who signed in to the preview before the
+// import). Users keep their id, so an existing row is updated with the old site's data; any
+// sign-in or profile they already set up on the new site is kept as it is.
+const onConflict: Record<string, (columns: string[]) => string> = {
+  users: (columns) =>
+    ` ON CONFLICT(id) DO UPDATE SET ${columns
+      .filter((c) => c !== 'id')
+      .map((c) => (c === 'is_admin' ? 'is_admin = max(is_admin, excluded.is_admin)' : `${c} = excluded.${c}`))
+      .join(', ')}`,
+  oauth_accounts: () => ' ON CONFLICT DO NOTHING',
+  profiles: () => ' ON CONFLICT DO NOTHING',
+};
+
 function insert(table: string, row: Record<string, unknown>) {
   const columns = Object.keys(row);
   const values = columns.map((column) => sqlLiteral(row[column]));
-  return `INSERT INTO ${table} (${columns.join(', ')}) VALUES (${values.join(', ')});`;
+  const conflict = onConflict[table]?.(columns) ?? '';
+  return `INSERT INTO ${table} (${columns.join(', ')}) VALUES (${values.join(', ')})${conflict};`;
 }
 
 const text = (value: unknown) => (value === null || value === undefined ? null : String(value));
