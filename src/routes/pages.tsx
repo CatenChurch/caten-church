@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { getSettings, viewState, type AppEnv } from '../app';
 import { findLatestWeekly } from '../data/weeklies';
 import { formatDate, taipeiDateParts } from '../format';
+import { socialLinks } from '../settings';
 import { Page } from '../views/layout';
 
 export const pages = new Hono<AppEnv>();
@@ -119,21 +120,12 @@ pages.get('/', async (c) => {
                 <h3>跟我們保持聯繫</h3>
                 <p class="muted">追蹤教會的社群，收到最新的聚會與活動消息。</p>
                 <div class="d-grid gap-2">
-                  {s.facebookUrl && (
-                    <a class="btn btn-outline-primary" href={s.facebookUrl}>
-                      <i class="bi bi-facebook me-1"></i>Facebook 粉絲專頁
+                  {socialLinks(s).map((link) => (
+                    <a class="btn btn-outline-primary" href={link.url}>
+                      <i class={`bi bi-${link.icon} me-1`}></i>
+                      {link.name} {link.label}
                     </a>
-                  )}
-                  {s.youtubeUrl && (
-                    <a class="btn btn-outline-primary" href={s.youtubeUrl}>
-                      <i class="bi bi-youtube me-1"></i>YouTube 頻道
-                    </a>
-                  )}
-                  {s.lineUrl && (
-                    <a class="btn btn-outline-primary" href={s.lineUrl}>
-                      <i class="bi bi-line me-1"></i>LINE 官方帳號
-                    </a>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>
@@ -196,18 +188,13 @@ pages.get('/contact', async (c) => {
     ['青少年團契', s.youthFellowship],
     ['辦公時間', s.officeHours],
   ];
-  // A social link left empty in the settings is not shown
-  const contacts = (
-    [
+  const contacts: [string, string, string?][] = [
     ['電話', s.phone, `tel:${s.phone}`],
     ['傳真', s.fax],
     ['Email', s.email, `mailto:${s.email}`],
     ['統一編號', s.taxId],
-    ['Facebook', '粉絲專頁', s.facebookUrl],
-    ['YouTube', '頻道', s.youtubeUrl],
-    ['LINE', '官方帳號', s.lineUrl],
-    ] as [string, string, string?][]
-  ).filter(([, , href]) => href !== '');
+    ...socialLinks(s).map((link): [string, string, string] => [link.name, link.label, link.url]),
+  ];
   return c.html(
     <Page
       settings={s}

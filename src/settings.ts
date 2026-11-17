@@ -24,10 +24,11 @@ export const DEFAULT_SETTINGS = {
   sundayService: '每週日 09:50 至 11:30',
   youthFellowship: '每週六 19:00 至 21:00',
   officeHours: '二 - 日 / 09:30 - 18:00',
-  facebookUrl: 'https://facebook.com/caten.church.teens',
+  facebookUrl: 'https://www.facebook.com/caten.church',
+  instagramUrl: 'https://www.instagram.com/caten_church',
+  threadsUrl: 'https://www.threads.com/@caten_church',
   youtubeUrl: 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w',
-  /** The old @kfi8062r account no longer exists; empty hides every LINE link. */
-  lineUrl: '',
+  lineUrl: 'https://line.me/R/ti/p/@caten-church',
   githubUrl: 'https://github.com/CatenChurch',
   tithingBank: '梓官農會',
   tithingBankCode: '619',
@@ -74,10 +75,13 @@ export const SETTING_GROUPS: {
   },
   {
     title: '網路社群',
+    note: '留空的社群不會出現在網站上。',
     fields: [
       { key: 'facebookUrl', label: 'Facebook' },
+      { key: 'instagramUrl', label: 'Instagram' },
+      { key: 'threadsUrl', label: 'Threads' },
       { key: 'youtubeUrl', label: 'YouTube' },
-      { key: 'lineUrl', label: 'LINE 官方帳號（加好友連結，留空就不顯示）' },
+      { key: 'lineUrl', label: 'LINE 官方帳號（加好友連結）' },
       { key: 'githubUrl', label: 'GitHub' },
     ],
   },
@@ -101,6 +105,19 @@ export const SETTING_GROUPS: {
     ],
   },
 ];
+
+/** The church's social accounts, in the order the site shows them; empty ones are left out. */
+const SOCIAL_LINKS = [
+  { key: 'facebookUrl', name: 'Facebook', label: '粉絲專頁', icon: 'facebook' },
+  { key: 'instagramUrl', name: 'Instagram', label: '帳號', icon: 'instagram' },
+  { key: 'threadsUrl', name: 'Threads', label: '帳號', icon: 'threads' },
+  { key: 'youtubeUrl', name: 'YouTube', label: '頻道', icon: 'youtube' },
+  { key: 'lineUrl', name: 'LINE', label: '官方帳號', icon: 'line' },
+] as const;
+
+export function socialLinks(s: Settings) {
+  return SOCIAL_LINKS.map((link) => ({ ...link, url: s[link.key] })).filter((link) => link.url);
+}
 
 export async function loadSettings(db: D1Database): Promise<Settings> {
   const rows = await drizzle(db).select().from(settingsTable);

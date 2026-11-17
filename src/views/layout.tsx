@@ -1,7 +1,7 @@
 import type { Child } from 'hono/jsx';
 import { raw } from 'hono/html';
 import type { ViewState } from '../app';
-import type { Settings } from '../settings';
+import { socialLinks, type Settings } from '../settings';
 
 const BOOTSTRAP = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist';
 const ICONS = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';
@@ -223,21 +223,11 @@ export function Page(props: PageProps) {
                 </div>
                 <p class="footer-muted">{s.legalName}</p>
                 <div class="footer-social">
-                  {s.facebookUrl && (
-                    <a href={s.facebookUrl} aria-label="Facebook">
-                      <i class="bi bi-facebook"></i>
+                  {socialLinks(s).map((link) => (
+                    <a href={link.url} aria-label={link.name}>
+                      <i class={`bi bi-${link.icon}`}></i>
                     </a>
-                  )}
-                  {s.youtubeUrl && (
-                    <a href={s.youtubeUrl} aria-label="YouTube">
-                      <i class="bi bi-youtube"></i>
-                    </a>
-                  )}
-                  {s.lineUrl && (
-                    <a href={s.lineUrl} aria-label="LINE">
-                      <i class="bi bi-line"></i>
-                    </a>
-                  )}
+                  ))}
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-lg-4">

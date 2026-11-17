@@ -68,17 +68,18 @@ describe('site settings', () => {
   });
 
   it('shows a social link only when its address is set', async () => {
+    const links = (html: string) => html.match(/href="https:\/\/www\.threads\.com\/@caten_church"/g);
+    // Home: button + footer; contact: list + footer
+    expect(links(await (await get('/')).text())).toHaveLength(2);
+    expect(links(await (await get('/contact')).text())).toHaveLength(2);
+
+    await db().insert(settings).values({ key: 'threadsUrl', value: '' });
     for (const path of ['/', '/contact']) {
       const html = await (await get(path)).text();
-      expect(html).not.toContain('aria-label="LINE"');
-      expect(html).not.toContain('bi-line');
+      expect(links(html)).toBeNull();
+      expect(html).not.toContain('bi-threads');
+      expect(html).toContain('bi-instagram');
     }
-    await db().insert(settings).values({ key: 'lineUrl', value: 'https://lin.ee/test' });
-    const home = await (await get('/')).text();
-    expect(home).toContain('LINE 官方帳號');
-    expect(home.match(/href="https:\/\/lin\.ee\/test"/g)).toHaveLength(2); // button + footer
-    const contact = await (await get('/contact')).text();
-    expect(contact.match(/href="https:\/\/lin\.ee\/test"/g)).toHaveLength(2); // list + footer
   });
 
   it('escapes stored values', async () => {
