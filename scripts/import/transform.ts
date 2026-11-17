@@ -10,11 +10,9 @@ export interface Dump {
   users: Row[];
   oauths: Row[];
   profiles: Row[];
-  subscriptions: Row[];
   groups: Row[];
   group_users: Row[];
   events: Row[];
-  event_users: Row[];
   weeklies: Row[];
   weekly_pdfs: Row[];
 }
@@ -23,11 +21,9 @@ export const DUMP_TABLES = [
   'users',
   'oauths',
   'profiles',
-  'subscriptions',
   'groups',
   'group_users',
   'events',
-  'event_users',
   'weeklies',
   'weekly_pdfs',
 ] as const satisfies readonly (keyof Dump)[];
@@ -155,24 +151,6 @@ export function buildImport(dump: Dump): ImportResult {
     });
   }
 
-  const subscribed = new Set<unknown>();
-  for (const s of dump.subscriptions) {
-    if (!hasUser('subscriptions', s)) continue;
-    if (subscribed.has(s.user_id)) {
-      skipped.push(`subscriptions id=${s.id}: user ${s.user_id} already has one`);
-      continue;
-    }
-    subscribed.add(s.user_id);
-    add('subscriptions', {
-      id: s.id,
-      user_id: s.user_id,
-      new_events: Boolean(s.new_events),
-      joined_events: s.joined_events === null ? true : Boolean(s.joined_events),
-      created_at: toIso(s.created_at),
-      updated_at: toIso(s.updated_at),
-    });
-  }
-
   const groupIds = new Set<unknown>();
   for (const g of dump.groups) {
     groupIds.add(g.id);
@@ -211,44 +189,19 @@ export function buildImport(dump: Dump): ImportResult {
     });
   }
 
-  const eventIds = new Set<unknown>();
+  // Sign-up moved to external forms: registrations and their settings are not carried over
   for (const e of dump.events) {
-    eventIds.add(e.id);
     add('events', {
       id: e.id,
       name: required('events', e, 'name'),
       description: text(e.description),
       content: text(e.content),
-      max_sign_up_number: required('events', e, 'max_sign_up_number'),
-      min_sign_up_number: e.min_sign_up_number ?? null,
-      sign_up_begin: toIso(required('events', e, 'sign_up_begin')),
-      sign_up_end: toIso(required('events', e, 'sign_up_end')),
       start: toIso(required('events', e, 'start')),
       over: toIso(required('events', e, 'over')),
+      signup_url: null,
       organizer_id: userOrNull(e.user_id),
-      registration_fee: e.registery_fee ?? 0,
-      check_arrival: Boolean(e.check_arrival),
-      show_participants: e.show_participants === null ? true : Boolean(e.show_participants),
       created_at: toIso(e.created_at),
       updated_at: toIso(e.updated_at),
-    });
-  }
-
-  for (const eu of dump.event_users) {
-    if (!hasUser('event_users', eu)) continue;
-    if (!eventIds.has(eu.event_id)) {
-      skipped.push(`event_users id=${eu.id}: event ${eu.event_id} does not exist`);
-      continue;
-    }
-    add('event_users', {
-      id: eu.id,
-      event_id: eu.event_id,
-      user_id: eu.user_id,
-      paid: Boolean(eu.paid),
-      arrival: Boolean(eu.arrival),
-      remark: blankToNull(eu.remark),
-      created_at: toIso(eu.created_at),
-      updated_at: toIso(eu.updated_at),
     });
   }
 

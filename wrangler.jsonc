@@ -17,7 +17,6 @@
   ],
   // Weekly PDFs (weeklies/<id>.pdf) and admin-uploaded site images (site/...)
   "r2_buckets": [{ "binding": "FILES", "bucket_name": "caten-church" }],
-  "vars": { "SITE_URL": "https://caten-church.org" },
-  // 03:00 UTC = 11:00 in Taipei: event reminders daily, the birthday list on the 25th
-  "triggers": { "crons": ["0 3 * * *"] },
+  // 03:00 UTC on the 25th = 11:00 in Taipei: next month's birthdays go to the admins
+  "triggers": { "crons": ["0 3 25 * *"] },
 }

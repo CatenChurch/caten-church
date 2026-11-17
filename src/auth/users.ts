@@ -1,6 +1,6 @@
 import { and, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
-import { oauthAccounts, profiles, sessions, subscriptions, users } from '../db/schema';
+import { oauthAccounts, profiles, sessions, users } from '../db/schema';
 
 /** The signed-in member as pages need it. */
 export interface CurrentUser {
@@ -92,7 +92,7 @@ export async function signInWithIdentity(
     .values({ email: sameEmail ? null : email, lastSignInAt: new Date().toISOString() })
     .returning({ id: users.id });
   const userId = created!.id;
-  await db.batch([link(userId), db.insert(subscriptions).values({ userId })]);
+  await link(userId);
   return { userId, outcome: 'created' };
 }
 

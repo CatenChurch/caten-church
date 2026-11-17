@@ -24,13 +24,11 @@ export_rows users "
   from users u order by u.id"
 export_rows oauths "select id, user_id, provider, uid, created_at from oauths order by id"
 export_rows profiles "select * from profiles order by id"
-export_rows subscriptions "select * from subscriptions order by id"
 export_rows groups "select * from groups order by id"
 export_rows group_users "
   select gu.id, gu.group_id, gu.user_id, r.name as role, gu.created_at, gu.updated_at
   from group_users gu left join roles r on r.id = gu.role_id order by gu.id"
 export_rows events "select * from events order by id"
-export_rows event_users "select * from event_users order by id"
 export_rows weeklies "select * from weeklies order by id"
 export_rows weekly_pdfs "
   select a.record_id as weekly_id, b.key, b.filename, b.byte_size, b.checksum

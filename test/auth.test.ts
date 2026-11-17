@@ -3,7 +3,7 @@ import { exports } from 'cloudflare:workers';
 import { eq } from 'drizzle-orm';
 import { describe, expect, it } from 'vitest';
 import { IdentityInUseError, signInWithIdentity, type SsoProfile } from '../src/auth/users';
-import { oauthAccounts, sessions, subscriptions, users } from '../src/db/schema';
+import { oauthAccounts, sessions, users } from '../src/db/schema';
 import { BASE, db, flashOf, get, hoursFromNow, post, setCookieValue, signInAs } from './helpers';
 
 const google = (overrides: Partial<SsoProfile> = {}): SsoProfile => ({
@@ -24,17 +24,11 @@ const identitiesOf = (userId: number) =>
   db().select().from(oauthAccounts).where(eq(oauthAccounts.userId, userId));
 
 describe('finding the member behind a sign-in', () => {
-  it('creates a member with default notification settings on first sign-in', async () => {
+  it('creates a member on first sign-in', async () => {
     const result = await signInWithIdentity(env.DB, google());
     expect(result.outcome).toBe('created');
     const [user] = await db().select().from(users).where(eq(users.id, result.userId));
     expect(user).toMatchObject({ email: 'member@example.com', isAdmin: false });
-    const [subscription] = await db().select().from(subscriptions);
-    expect(subscription).toMatchObject({
-      userId: result.userId,
-      newEvents: false,
-      joinedEvents: true,
-    });
   });
 
   it('signs the same member in again without creating another', async () => {
@@ -159,11 +153,11 @@ describe('sign-in pages', () => {
           'Content-Type': 'application/x-www-form-urlencoded',
           Origin: 'http://localhost',
         },
-        body: 'next=/account/events',
+        body: 'next=/account/logins',
       }),
     );
     expect(local.status).toBe(302);
-    expect(local.headers.get('location')).toBe('/account/events');
+    expect(local.headers.get('location')).toBe('/account/logins');
     expect(setCookieValue(local, 'caten_session')).toBeTruthy();
   });
 });
@@ -180,8 +174,8 @@ describe('sessions', () => {
   it('ignores and removes an expired session', async () => {
     const member = await importedMember();
     const cookie = await signInAs(member.id, hoursFromNow(-1));
-    const response = await get('/account/events', cookie);
-    expect(response.headers.get('location')).toBe('/login?next=%2Faccount%2Fevents');
+    const response = await get('/account/logins', cookie);
+    expect(response.headers.get('location')).toBe('/login?next=%2Faccount%2Flogins');
     expect(await db().select().from(sessions)).toHaveLength(0);
   });
 
@@ -192,7 +186,7 @@ describe('sessions', () => {
     expect(response.status).toBe(302);
     expect(flashOf(response)).toEqual({ type: 'notice', message: '已登出' });
     expect(await db().select().from(sessions)).toHaveLength(0);
-    expect((await get('/account/events', cookie)).status).toBe(302);
+    expect((await get('/account/logins', cookie)).status).toBe(302);
   });
 
   it('refuses a form posted from another site', async () => {

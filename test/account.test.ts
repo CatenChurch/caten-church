@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { describe, expect, it } from 'vitest';
-import { eventUsers, oauthAccounts, profiles, subscriptions, users } from '../src/db/schema';
-import { createEvent, db, flashOf, get, post, signInAs } from './helpers';
+import { oauthAccounts, profiles, users } from '../src/db/schema';
+import { db, flashOf, get, post, signInAs } from './helpers';
 
 async function member() {
   const [user] = await db().insert(users).values({ email: 'me@example.com' }).returning();
@@ -22,18 +22,14 @@ const validProfile = {
 };
 
 describe('member area', () => {
-  it.each([
-    '/account',
-    '/account/profile',
-    '/account/profile/edit',
-    '/account/subscription',
-    '/account/events',
-    '/account/logins',
-  ])('sends a visitor who is not signed in from %s to the sign-in page', async (path) => {
-    const response = await get(path);
-    expect(response.status).toBe(302);
-    expect(response.headers.get('location')).toBe(`/login?next=${encodeURIComponent(path)}`);
-  });
+  it.each(['/account', '/account/profile', '/account/profile/edit', '/account/logins'])(
+    'sends a visitor who is not signed in from %s to the sign-in page',
+    async (path) => {
+      const response = await get(path);
+      expect(response.status).toBe(302);
+      expect(response.headers.get('location')).toBe(`/login?next=${encodeURIComponent(path)}`);
+    },
+  );
 
   it('does not accept a profile from a visitor who is not signed in', async () => {
     const response = await post('/account/profile', validProfile);
@@ -135,53 +131,6 @@ describe('profile', () => {
     expect(html).not.toContain('甲的資料');
     const [aProfile] = await db().select().from(profiles).where(eq(profiles.userId, a.user.id));
     expect(aProfile!.name).toBe('甲的資料');
-  });
-});
-
-describe('notification settings', () => {
-  it('shows the defaults for a member without a stored row and saves changes', async () => {
-    const { user, cookie } = await member();
-    const before = await (await get('/account/subscription', cookie)).text();
-    expect(before).toMatch(/name="joinedEvents" value="1" checked/);
-    expect(before).not.toMatch(/name="newEvents" value="1" checked/);
-
-    // An unticked checkbox is simply absent from the form
-    const response = await post('/account/subscription', { newEvents: '1' }, cookie);
-    expect(flashOf(response)?.message).toBe('更新通知設定成功');
-    const [saved] = await db()
-      .select()
-      .from(subscriptions)
-      .where(eq(subscriptions.userId, user.id));
-    expect(saved).toMatchObject({ newEvents: true, joinedEvents: false });
-
-    await post('/account/subscription', { joinedEvents: '1' }, cookie);
-    expect(await db().select().from(subscriptions)).toHaveLength(1);
-  });
-});
-
-describe('my events', () => {
-  it('lists only the registrations of the signed-in member', async () => {
-    const { user, cookie } = await member();
-    const [other] = await db().insert(users).values({ email: 'b@example.com' }).returning();
-    const mine = await createEvent({ name: '我報名的活動' });
-    const theirs = await createEvent({ name: '別人報名的活動' });
-    await db()
-      .insert(eventUsers)
-      .values([
-        { eventId: mine.id, userId: user.id },
-        { eventId: mine.id, userId: other!.id },
-        { eventId: theirs.id, userId: other!.id },
-      ]);
-
-    const html = await (await get('/account/events', cookie)).text();
-    expect(html).toContain('我報名的活動');
-    expect(html).not.toContain('別人報名的活動');
-    expect(html).toContain('2 / 30');
-  });
-
-  it('says so when there are none', async () => {
-    const { cookie } = await member();
-    expect(await (await get('/account/events', cookie)).text()).toContain('還沒有報名過活動');
   });
 });
 

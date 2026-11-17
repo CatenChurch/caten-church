@@ -1,6 +1,6 @@
-import { desc, eq, getTableColumns, sql } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
-import { events, eventUsers, profiles, subscriptions } from '../db/schema';
+import { profiles } from '../db/schema';
 
 export type Profile = typeof profiles.$inferSelect;
 
@@ -38,13 +38,12 @@ function isRealDate(value: string) {
 }
 
 /**
- * Same rules as the Rails site: name, sex and birth are always required and the terms must
- * be accepted. `forEvent` adds what an event registration needs (ID number and an emergency
- * contact); outside of that the ID number is optional but must be well-formed when given.
+ * Name, sex and birth are required and the terms must be accepted. The ID number is optional
+ * but must be well-formed when given.
  */
 export function validateProfile(
   input: ProfileInput,
-  options: { termsAccepted: boolean; forEvent?: boolean },
+  options: { termsAccepted: boolean },
 ): ProfileErrors {
   const errors: ProfileErrors = {};
   if (!input.name) errors.name = '請填寫姓名';
@@ -54,12 +53,8 @@ export function validateProfile(
   else if (input.birth > new Date().toISOString().slice(0, 10)) errors.birth = '生日不能是未來';
 
   const idNumberOk = /^[a-z][12]\d{8}$/i.test(input.idNumber);
-  if (options.forEvent && !input.idNumber) errors.idNumber = '報名活動需要填寫身分證字號';
-  else if (input.idNumber && !idNumberOk) {
+  if (input.idNumber && !idNumberOk) {
     errors.idNumber = '身分證字號為 10 碼：第 1 碼英文字母，第 2 碼 1 或 2，後 8 碼數字';
-  }
-  if (options.forEvent && !input.emergencyContact) {
-    errors.emergencyContact = '報名活動需要填寫緊急聯絡人電話';
   }
   if (!options.termsAccepted) errors.terms = '請閱讀並接受隱私條款';
   return errors;
@@ -93,41 +88,4 @@ export async function saveProfile(d1: D1Database, userId: number, input: Profile
       target: profiles.userId,
       set: { ...values, updatedAt: new Date().toISOString() },
     });
-}
-
-export async function findSubscription(d1: D1Database, userId: number) {
-  const [row] = await drizzle(d1)
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId))
-    .limit(1);
-  // Members imported without a row get the defaults
-  return { newEvents: row?.newEvents ?? false, joinedEvents: row?.joinedEvents ?? true };
-}
-
-export async function saveSubscription(
-  d1: D1Database,
-  userId: number,
-  values: { newEvents: boolean; joinedEvents: boolean },
-) {
-  await drizzle(d1)
-    .insert(subscriptions)
-    .values({ userId, ...values })
-    .onConflictDoUpdate({
-      target: subscriptions.userId,
-      set: { ...values, updatedAt: new Date().toISOString() },
-    });
-}
-
-/** Events the member registered for, newest first. */
-export function listJoinedEvents(d1: D1Database, userId: number) {
-  return drizzle(d1)
-    .select({
-      ...getTableColumns(events),
-      participantsCount: sql<number>`(select count(*) from event_users where event_users.event_id = events.id)`,
-    })
-    .from(eventUsers)
-    .innerJoin(events, eq(events.id, eventUsers.eventId))
-    .where(eq(eventUsers.userId, userId))
-    .orderBy(desc(events.start));
 }

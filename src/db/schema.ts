@@ -59,17 +59,6 @@ export const profiles = sqliteTable(
   (t) => [index('profiles_birth').on(t.birth)],
 );
 
-export const subscriptions = sqliteTable('subscriptions', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: integer('user_id')
-    .notNull()
-    .unique()
-    .references(() => users.id, { onDelete: 'cascade' }),
-  newEvents: bool('new_events').notNull().default(false),
-  joinedEvents: bool('joined_events').notNull().default(true),
-  ...timestamps,
-});
-
 export const groups = sqliteTable(
   'groups',
   {
@@ -102,6 +91,7 @@ export const groupUsers = sqliteTable(
   (t) => [uniqueIndex('group_users_membership').on(t.groupId, t.userId)],
 );
 
+/** Announcements of church events. Sign-up happens in an external form linked by `signupUrl`. */
 export const events = sqliteTable(
   'events',
   {
@@ -109,40 +99,14 @@ export const events = sqliteTable(
     name: text('name').notNull(),
     description: text('description'),
     content: text('content'),
-    maxSignUpNumber: integer('max_sign_up_number').notNull(),
-    minSignUpNumber: integer('min_sign_up_number'),
-    signUpBegin: text('sign_up_begin').notNull(),
-    signUpEnd: text('sign_up_end').notNull(),
     start: text('start').notNull(),
     over: text('over').notNull(),
+    /** Link to the sign-up form (e.g. a Google Form); null when there is nothing to sign up for. */
+    signupUrl: text('signup_url'),
     organizerId: integer('organizer_id').references(() => users.id, { onDelete: 'set null' }),
-    registrationFee: integer('registration_fee').default(0),
-    checkArrival: bool('check_arrival').notNull().default(false),
-    showParticipants: bool('show_participants').notNull().default(true),
     ...timestamps,
   },
-  (t) => [index('events_sign_up_end').on(t.signUpEnd), index('events_start').on(t.start)],
-);
-
-export const eventUsers = sqliteTable(
-  'event_users',
-  {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    eventId: integer('event_id')
-      .notNull()
-      .references(() => events.id, { onDelete: 'cascade' }),
-    userId: integer('user_id')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    paid: bool('paid').notNull().default(false),
-    arrival: bool('arrival').notNull().default(false),
-    remark: text('remark'),
-    ...timestamps,
-  },
-  (t) => [
-    uniqueIndex('event_users_registration').on(t.eventId, t.userId),
-    index('event_users_user').on(t.userId),
-  ],
+  (t) => [index('events_start').on(t.start), index('events_over').on(t.over)],
 );
 
 export const weeklies = sqliteTable(

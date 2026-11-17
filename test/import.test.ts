@@ -45,9 +45,6 @@ function dump(overrides: Partial<Dump> = {}): Dump {
         updated_at: T,
       },
     ],
-    subscriptions: [
-      { id: 1, user_id: 2, new_events: true, joined_events: false, created_at: T, updated_at: T },
-    ],
     groups: [
       {
         id: 3,
@@ -80,18 +77,6 @@ function dump(overrides: Partial<Dump> = {}): Dump {
         registery_fee: 500,
         check_arrival: true,
         show_participants: false,
-        created_at: T,
-        updated_at: T,
-      },
-    ],
-    event_users: [
-      {
-        id: 1,
-        event_id: 10,
-        user_id: 2,
-        paid: true,
-        arrival: false,
-        remark: '吃素',
         created_at: T,
         updated_at: T,
       },
@@ -159,11 +144,9 @@ describe('import from the Rails database', () => {
       users: 2,
       oauth_accounts: 1,
       profiles: 1,
-      subscriptions: 1,
       groups: 1,
       group_users: 1,
       events: 1,
-      event_users: 1,
       weeklies: 2,
     });
 
@@ -175,18 +158,28 @@ describe('import from the Rails database', () => {
     });
     const profile = await env.DB.prepare('SELECT * FROM profiles WHERE user_id = 2').first();
     expect(profile).toMatchObject({ name: "O'Brien 陳", phone: null, birth: '1990-03-09' });
-    const event = await env.DB.prepare('SELECT * FROM events WHERE id = 10').first();
-    expect(event).toMatchObject({
-      organizer_id: 1,
-      registration_fee: 500,
-      check_arrival: 1,
-      show_participants: 0,
-    });
 
     // Old URLs keep their ids
     expect(await (await get('/weeklies/3850')).text()).toContain('主日週報');
     expect(await (await get('/groups/3')).text()).toContain('O&#39;Brien 陳');
     expect(await (await get('/events/10')).text()).toContain('夏令營');
+  });
+
+  it('keeps events as announcements and leaves the registration details behind', async () => {
+    await load(buildImport(dump()));
+    const event = await env.DB.prepare('SELECT * FROM events WHERE id = 10').first();
+    expect(event).toEqual({
+      id: 10,
+      name: '夏令營',
+      description: '三天兩夜',
+      content: '內容',
+      start: '2020-07-01T01:00:00.000Z',
+      over: '2020-07-03T09:00:00.000Z',
+      signup_url: null,
+      organizer_id: 1,
+      created_at: '2020-05-02T13:04:45.123Z',
+      updated_at: '2020-05-02T13:04:45.123Z',
+    });
   });
 
   it('maps each weekly PDF to weeklies/<id>.pdf and lists the copy to make', () => {
@@ -214,17 +207,8 @@ describe('import from the Rails database', () => {
       is_admin: false,
     });
     data.profiles.push({ ...data.profiles[0]!, id: 2, user_id: 3 });
-    data.event_users.push({
-      id: 2,
-      event_id: 10,
-      user_id: 3,
-      paid: false,
-      arrival: false,
-      remark: null,
-      created_at: T,
-      updated_at: T,
-    });
     data.groups[0]!.creater_id = 3;
+    data.events[0]!.user_id = 3;
 
     const result = buildImport(data);
     await load(result);
@@ -232,10 +216,11 @@ describe('import from the Rails database', () => {
     expect(result.skipped).toEqual([
       'users id=3: email never confirmed and no linked sign-in',
       'profiles id=2: user_id=3 was not imported',
-      'event_users id=2: user_id=3 was not imported',
     ]);
     const group = await env.DB.prepare('SELECT creater_id FROM groups WHERE id = 3').first();
     expect(group).toEqual({ creater_id: null });
+    const event = await env.DB.prepare('SELECT organizer_id FROM events WHERE id = 10').first();
+    expect(event).toEqual({ organizer_id: null });
   });
 
   it('keeps an unconfirmed account that signs in with Facebook, without its email', async () => {

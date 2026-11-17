@@ -8,7 +8,7 @@ import { settings as settingsTable } from './db/schema';
 export const DEFAULT_SETTINGS = {
   siteName: '茄典教會',
   siteDescription:
-    '大家好，這裡是茄典長老基督教會的網站，歡迎會友透過此網站報名活動以及查看教會最新消息!',
+    '大家好，這裡是茄典長老基督教會的網站，歡迎會友透過此網站查看教會最新消息與活動!',
   legalName: '財團法人台灣基督長老教會高雄中會茄典教會',
   logoUrl: '/brand.png',
   faviconUrl: '/favicon.png',

@@ -63,14 +63,8 @@ function AccountNav({ view, active }: { view: ViewState; active: boolean }) {
           {view.user.name ?? '會員中心'}
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="/account/events">
-            我的活動
-          </a>
           <a class="dropdown-item" href="/account/profile">
             個人資料
-          </a>
-          <a class="dropdown-item" href="/account/subscription">
-            通知設定
           </a>
           <a class="dropdown-item" href="/account/logins">
             登入方式

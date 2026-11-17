@@ -5,7 +5,7 @@ import { auth } from './auth/routes';
 import { loadCurrentUser } from './auth/sessions';
 import { account } from './routes/account';
 import { admin } from './routes/admin';
-import { runDailyJobs } from './jobs';
+import { sendBirthdayList } from './jobs';
 import { sendGridSender } from './mail';
 import { events } from './routes/events';
 import { groups } from './routes/groups';
@@ -37,10 +37,9 @@ app.route('/events', events);
 export default {
   fetch: app.fetch,
   async scheduled(controller, env, ctx) {
-    const siteUrl = env.SITE_URL || 'https://caten-church.org';
     ctx.waitUntil(
-      runDailyJobs(env.DB, sendGridSender(env), siteUrl, new Date(controller.scheduledTime)).then(
-        (result) => console.log('daily jobs', JSON.stringify(result)),
+      sendBirthdayList(env.DB, sendGridSender(env), new Date(controller.scheduledTime)).then(
+        (result) => console.log('birthday list', JSON.stringify(result)),
       ),
     );
   },

@@ -3,8 +3,16 @@ import { drizzle } from 'drizzle-orm/d1';
 import { Hono } from 'hono';
 import type { Child } from 'hono/jsx';
 import { getSettings, setFlash, viewState, type AppContext, type AppEnv } from '../app';
+import {
+  findEvent,
+  listAllEvents,
+  readEventForm,
+  validateEvent,
+  type EventErrors,
+  type EventForm,
+} from '../data/events';
 import { findWeekly, listWeeklies } from '../data/weeklies';
-import { settingChanges, settings as settingsTable, users, weeklies } from '../db/schema';
+import { events, settingChanges, settings as settingsTable, users, weeklies } from '../db/schema';
 import { formatDateTime, fromTaipeiInput, parseId, parsePage, toTaipeiInput } from '../format';
 import { DEFAULT_SETTINGS, SETTING_GROUPS, type SettingKey } from '../settings';
 import { Page, Pagination } from '../views/layout';
@@ -58,6 +66,7 @@ admin.get('/', (c) =>
       <div class="row row-cols-1 row-cols-md-2 g-3">
         {[
           ['週報', '/admin/weeklies', 'bi-newspaper'],
+          ['活動', '/admin/events', 'bi-calendar-event'],
           ['站台設定', '/admin/settings', 'bi-gear'],
         ].map(([label, href, icon]) => (
           <div class="col">
@@ -369,6 +378,258 @@ admin.post('/weeklies/:id/delete', async (c) => {
   if (weekly.pdfKey) await c.env.FILES.delete(weekly.pdfKey);
   setFlash(c, 'notice', '刪除週報成功');
   return c.redirect('/admin/weeklies');
+});
+
+// --- Events ---
+
+const eventsCrumb = { label: '活動', href: '/admin/events' };
+
+function EventFormView(props: {
+  action: string;
+  values: EventForm;
+  errors: EventErrors;
+  submit: string;
+}) {
+  const { values, errors } = props;
+  const cls = (field: keyof EventForm) => `form-control${errors[field] ? ' is-invalid' : ''}`;
+  const feedback = (field: keyof EventForm) =>
+    errors[field] && <div class="invalid-feedback">{errors[field]}</div>;
+  return (
+    <form method="post" action={props.action} novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="name">
+          活動名稱
+        </label>
+        <input class={cls('name')} id="name" name="name" value={values.name} />
+        {feedback('name')}
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">
+          簡述
+        </label>
+        <input
+          class={cls('description')}
+          id="description"
+          name="description"
+          value={values.description}
+          placeholder="簡單描述一下活動的內容"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="content">
+          內容
+        </label>
+        <textarea class={cls('content')} id="content" name="content" rows={8}>
+          {values.content}
+        </textarea>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="start">
+            活動開始（台灣時間）
+          </label>
+          <input
+            class={cls('start')}
+            id="start"
+            name="start"
+            type="datetime-local"
+            value={values.start}
+          />
+          {feedback('start')}
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="over">
+            活動結束（台灣時間）
+          </label>
+          <input
+            class={cls('over')}
+            id="over"
+            name="over"
+            type="datetime-local"
+            value={values.over}
+          />
+          {feedback('over')}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="signupUrl">
+          報名表單連結（例如 Google 表單；不需要報名就留空）
+        </label>
+        <input
+          class={cls('signupUrl')}
+          id="signupUrl"
+          name="signupUrl"
+          type="url"
+          value={values.signupUrl}
+          placeholder="https://forms.gle/..."
+        />
+        {feedback('signupUrl')}
+      </div>
+      <button type="submit" class="btn btn-purple">
+        {props.submit}
+      </button>
+    </form>
+  );
+}
+
+admin.get('/events', async (c) => {
+  const list = await listAllEvents(c.env.DB);
+  return adminPage(c, {
+    title: '活動',
+    crumbs: [eventsCrumb],
+    children: (
+      <>
+        <a class="btn btn-purple mb-3" href="/admin/events/new">
+          <i class="bi bi-plus-lg me-1"></i>新增活動
+        </a>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>活動名稱</th>
+                <th>活動時間</th>
+                <th>報名表單</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {list.map((event) => (
+                <tr>
+                  <td>
+                    <a href={`/events/${event.id}`}>{event.name}</a>
+                  </td>
+                  <td>
+                    {formatDateTime(event.start)} ~ {formatDateTime(event.over)}
+                  </td>
+                  <td>{event.signupUrl ? '有' : '沒有'}</td>
+                  <td class="text-nowrap">
+                    <a
+                      class="btn btn-sm btn-outline-primary me-1"
+                      href={`/admin/events/${event.id}/edit`}
+                    >
+                      編輯
+                    </a>
+                    <form
+                      method="post"
+                      action={`/admin/events/${event.id}/delete`}
+                      class="d-inline"
+                      onsubmit="return confirm('確定要刪除這個活動嗎？')"
+                    >
+                      <button type="submit" class="btn btn-sm btn-outline-danger">
+                        刪除
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    ),
+  });
+});
+
+const emptyEvent: EventForm = {
+  name: '',
+  description: '',
+  content: '',
+  start: '',
+  over: '',
+  signupUrl: '',
+};
+
+admin.get('/events/new', (c) =>
+  adminPage(c, {
+    title: '新增活動',
+    crumbs: [eventsCrumb, { label: '新增', href: '/admin/events/new' }],
+    children: (
+      <EventFormView action="/admin/events" values={emptyEvent} errors={{}} submit="新增活動" />
+    ),
+  }),
+);
+
+admin.post('/events', async (c) => {
+  const form = readEventForm(await c.req.parseBody());
+  const { errors, values } = validateEvent(form);
+  if (!values) {
+    return adminPage(c, {
+      title: '新增活動',
+      crumbs: [eventsCrumb, { label: '新增', href: '/admin/events/new' }],
+      status: 422,
+      children: (
+        <EventFormView action="/admin/events" values={form} errors={errors} submit="新增活動" />
+      ),
+    });
+  }
+  await drizzle(c.env.DB)
+    .insert(events)
+    .values({ ...values, organizerId: c.get('user')!.id });
+  setFlash(c, 'notice', '新增活動成功');
+  return c.redirect('/admin/events');
+});
+
+admin.get('/events/:id/edit', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  return adminPage(c, {
+    title: '編輯活動',
+    crumbs: [eventsCrumb, { label: event.name, href: `/admin/events/${event.id}/edit` }],
+    children: (
+      <EventFormView
+        action={`/admin/events/${event.id}`}
+        values={{
+          name: event.name,
+          description: event.description ?? '',
+          content: event.content ?? '',
+          start: toTaipeiInput(event.start),
+          over: toTaipeiInput(event.over),
+          signupUrl: event.signupUrl ?? '',
+        }}
+        errors={{}}
+        submit="更新活動"
+      />
+    ),
+  });
+});
+
+admin.post('/events/:id', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  const form = readEventForm(await c.req.parseBody());
+  const { errors, values } = validateEvent(form);
+  if (!values) {
+    return adminPage(c, {
+      title: '編輯活動',
+      crumbs: [eventsCrumb, { label: event.name, href: `/admin/events/${event.id}/edit` }],
+      status: 422,
+      children: (
+        <EventFormView
+          action={`/admin/events/${event.id}`}
+          values={form}
+          errors={errors}
+          submit="更新活動"
+        />
+      ),
+    });
+  }
+  await drizzle(c.env.DB)
+    .update(events)
+    .set({ ...values, updatedAt: new Date().toISOString() })
+    .where(eq(events.id, event.id));
+  setFlash(c, 'notice', '更新活動成功');
+  return c.redirect('/admin/events');
+});
+
+admin.post('/events/:id/delete', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  await drizzle(c.env.DB).delete(events).where(eq(events.id, event.id));
+  setFlash(c, 'notice', '刪除活動成功');
+  return c.redirect('/admin/events');
 });
 
 // --- Site settings ---

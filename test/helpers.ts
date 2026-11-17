@@ -82,20 +82,11 @@ function at(offsetHours: number) {
   return new Date(Date.now() + offsetHours * HOUR).toISOString();
 }
 
-/** An event whose registration is open now unless the offsets say otherwise. */
+/** An event that starts in two days unless the values say otherwise. */
 export async function createEvent(values: Partial<typeof schema.events.$inferInsert> = {}) {
   const [event] = await db()
     .insert(schema.events)
-    .values({
-      name: '夏令營',
-      description: '三天兩夜',
-      maxSignUpNumber: 30,
-      signUpBegin: at(-24),
-      signUpEnd: at(24),
-      start: at(48),
-      over: at(72),
-      ...values,
-    })
+    .values({ name: '夏令營', description: '三天兩夜', start: at(48), over: at(72), ...values })
     .returning();
   return event!;
 }

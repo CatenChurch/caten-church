@@ -5,20 +5,16 @@ import { providerLabel, SSO_PROVIDERS } from '../auth/providers';
 import { listIdentities, type CurrentUser } from '../auth/users';
 import {
   findProfile,
-  findSubscription,
-  listJoinedEvents,
   PROFILE_LABELS,
   readProfileForm,
   saveProfile,
-  saveSubscription,
   SEXES,
   validateProfile,
   type ProfileErrors,
   type ProfileField,
   type ProfileInput,
 } from '../data/account';
-import { shownParticipantsCount } from '../data/events';
-import { formatDateTime, parseId } from '../format';
+import { formatDateTime } from '../format';
 import { Page } from '../views/layout';
 
 /** Every route here requires a signed-in member. */
@@ -79,13 +75,7 @@ const PROFILE_ORDER: ProfileField[] = [
   'education',
 ];
 
-function ProfileForm(props: {
-  values: ProfileInput;
-  errors: ProfileErrors;
-  isNew: boolean;
-  /** Set when the member was sent here while registering for this event. */
-  eventId?: number | null;
-}) {
+function ProfileForm(props: { values: ProfileInput; errors: ProfileErrors; isNew: boolean }) {
   const { values, errors } = props;
   const invalid = (field: ProfileField) => (errors[field] ? ' is-invalid' : '');
   const feedback = (field: ProfileField) =>
@@ -107,7 +97,6 @@ function ProfileForm(props: {
   );
   return (
     <form method="post" action="/account/profile" novalidate>
-      {props.eventId && <input type="hidden" name="event" value={String(props.eventId)} />}
       {textInput('name', { autocomplete: 'name' })}
       <div class="mb-3">
         <label class="form-label" for="sex">
@@ -161,7 +150,7 @@ account.get('/profile', async (c) => {
   return accountPage(c, {
     title: '個人資料',
     path: '/account/profile',
-    lead: '報名活動時會使用這些資料',
+    lead: '教會聯絡你時會使用這些資料',
     children: (
       <>
         <a class="btn btn-outline-primary mb-3" href="/account/profile/edit">
@@ -192,15 +181,8 @@ account.get('/profile/edit', async (c) => {
   return accountPage(c, {
     title: profile ? '編輯個人資料' : '建立個人資料',
     path: '/account/profile/edit',
-    lead: '報名活動時會使用這些資料',
-    children: (
-      <ProfileForm
-        values={values}
-        errors={{}}
-        isNew={!profile}
-        eventId={parseId(c.req.query('event'))}
-      />
-    ),
+    lead: '教會聯絡你時會使用這些資料',
+    children: <ProfileForm values={values} errors={{}} isNew={!profile} />,
   });
 });
 
@@ -208,11 +190,7 @@ account.post('/profile', async (c) => {
   const me = member(c);
   const form = await c.req.parseBody();
   const values = readProfileForm(form);
-  const eventId = parseId(typeof form.event === 'string' ? form.event : undefined);
-  const errors = validateProfile(values, {
-    termsAccepted: form.terms === '1',
-    forEvent: eventId !== null,
-  });
+  const errors = validateProfile(values, { termsAccepted: form.terms === '1' });
   const existing = await findProfile(c.env.DB, me.id);
   if (Object.keys(errors).length > 0) {
     return accountPage(c, {
@@ -220,120 +198,12 @@ account.post('/profile', async (c) => {
       path: '/account/profile/edit',
       lead: '有欄位需要修正',
       status: 422,
-      children: <ProfileForm values={values} errors={errors} isNew={!existing} eventId={eventId} />,
+      children: <ProfileForm values={values} errors={errors} isNew={!existing} />,
     });
   }
   await saveProfile(c.env.DB, me.id, values);
-  if (eventId !== null) {
-    setFlash(c, 'notice', '個人資料已更新，可以報名活動了');
-    return c.redirect(`/events/${eventId}`);
-  }
   setFlash(c, 'notice', existing ? '更新個人資料成功' : '建立個人資料成功');
   return c.redirect('/account/profile');
-});
-
-// --- Notification settings ---
-
-account.get('/subscription', async (c) => {
-  const subscription = await findSubscription(c.env.DB, member(c).id);
-  const checkbox = (name: 'newEvents' | 'joinedEvents', label: string) => (
-    <div class="form-check mb-3">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id={name}
-        name={name}
-        value="1"
-        checked={subscription[name]}
-      />
-      <label class="form-check-label" for={name}>
-        {label}
-      </label>
-    </div>
-  );
-  return accountPage(c, {
-    title: '通知設定',
-    path: '/account/subscription',
-    lead: '選擇要收到哪些 email 通知',
-    children: (
-      <div class="card">
-        <div class="card-body">
-          <form method="post" action="/account/subscription">
-            {checkbox('newEvents', '新活動通知')}
-            {checkbox('joinedEvents', '已加入的活動通知')}
-            <button type="submit" class="btn btn-purple">
-              更新通知設定
-            </button>
-          </form>
-          {!member(c).email && (
-            <p class="text-muted small mt-3 mb-0">
-              你的帳號目前沒有 email，所以收不到通知。用 Google 登入一次就會補上。
-            </p>
-          )}
-        </div>
-      </div>
-    ),
-  });
-});
-
-account.post('/subscription', async (c) => {
-  const form = await c.req.parseBody();
-  await saveSubscription(c.env.DB, member(c).id, {
-    newEvents: form.newEvents === '1',
-    joinedEvents: form.joinedEvents === '1',
-  });
-  setFlash(c, 'notice', '更新通知設定成功');
-  return c.redirect('/account/subscription');
-});
-
-// --- Events the member joined ---
-
-account.get('/events', async (c) => {
-  const list = await listJoinedEvents(c.env.DB, member(c).id);
-  return accountPage(c, {
-    title: '我的活動',
-    path: '/account/events',
-    lead: '顯示曾經報名了哪些活動',
-    children: (
-      <>
-        <a class="btn btn-outline-secondary mb-3" href="/events">
-          活動專區
-        </a>
-        {list.length === 0 ? (
-          <p class="text-muted">還沒有報名過活動</p>
-        ) : (
-          <div class="table-responsive">
-            <table class="table">
-              <thead class="table-light">
-                <tr>
-                  <th>活動名稱</th>
-                  <th>簡述</th>
-                  <th>報名人數</th>
-                  <th>活動時間</th>
-                </tr>
-              </thead>
-              <tbody>
-                {list.map((event) => (
-                  <tr>
-                    <td>
-                      <a href={`/events/${event.id}`}>{event.name}</a>
-                    </td>
-                    <td>{event.description}</td>
-                    <td>
-                      {shownParticipantsCount(event)} / {event.maxSignUpNumber}
-                    </td>
-                    <td>
-                      {formatDateTime(event.start)} ~ {formatDateTime(event.over)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </>
-    ),
-  });
 });
 
 // --- Ways to sign in ---
