@@ -119,15 +119,21 @@ pages.get('/', async (c) => {
                 <h3>跟我們保持聯繫</h3>
                 <p class="muted">追蹤教會的社群，收到最新的聚會與活動消息。</p>
                 <div class="d-grid gap-2">
-                  <a class="btn btn-outline-primary" href={s.facebookUrl}>
-                    <i class="bi bi-facebook me-1"></i>Facebook 粉絲專頁
-                  </a>
-                  <a class="btn btn-outline-primary" href={s.youtubeUrl}>
-                    <i class="bi bi-youtube me-1"></i>YouTube 頻道
-                  </a>
-                  <a class="btn btn-outline-primary" href={s.lineUrl}>
-                    <i class="bi bi-line me-1"></i>LINE 官方帳號
-                  </a>
+                  {s.facebookUrl && (
+                    <a class="btn btn-outline-primary" href={s.facebookUrl}>
+                      <i class="bi bi-facebook me-1"></i>Facebook 粉絲專頁
+                    </a>
+                  )}
+                  {s.youtubeUrl && (
+                    <a class="btn btn-outline-primary" href={s.youtubeUrl}>
+                      <i class="bi bi-youtube me-1"></i>YouTube 頻道
+                    </a>
+                  )}
+                  {s.lineUrl && (
+                    <a class="btn btn-outline-primary" href={s.lineUrl}>
+                      <i class="bi bi-line me-1"></i>LINE 官方帳號
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -190,7 +196,9 @@ pages.get('/contact', async (c) => {
     ['青少年團契', s.youthFellowship],
     ['辦公時間', s.officeHours],
   ];
-  const contacts: [string, string, string?][] = [
+  // A social link left empty in the settings is not shown
+  const contacts = (
+    [
     ['電話', s.phone, `tel:${s.phone}`],
     ['傳真', s.fax],
     ['Email', s.email, `mailto:${s.email}`],
@@ -198,7 +206,8 @@ pages.get('/contact', async (c) => {
     ['Facebook', '粉絲專頁', s.facebookUrl],
     ['YouTube', '頻道', s.youtubeUrl],
     ['LINE', '官方帳號', s.lineUrl],
-  ];
+    ] as [string, string, string?][]
+  ).filter(([, , href]) => href !== '');
   return c.html(
     <Page
       settings={s}

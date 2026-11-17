@@ -223,15 +223,21 @@ export function Page(props: PageProps) {
                 </div>
                 <p class="footer-muted">{s.legalName}</p>
                 <div class="footer-social">
-                  <a href={s.facebookUrl} aria-label="Facebook">
-                    <i class="bi bi-facebook"></i>
-                  </a>
-                  <a href={s.youtubeUrl} aria-label="YouTube">
-                    <i class="bi bi-youtube"></i>
-                  </a>
-                  <a href={s.lineUrl} aria-label="LINE">
-                    <i class="bi bi-line"></i>
-                  </a>
+                  {s.facebookUrl && (
+                    <a href={s.facebookUrl} aria-label="Facebook">
+                      <i class="bi bi-facebook"></i>
+                    </a>
+                  )}
+                  {s.youtubeUrl && (
+                    <a href={s.youtubeUrl} aria-label="YouTube">
+                      <i class="bi bi-youtube"></i>
+                    </a>
+                  )}
+                  {s.lineUrl && (
+                    <a href={s.lineUrl} aria-label="LINE">
+                      <i class="bi bi-line"></i>
+                    </a>
+                  )}
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-lg-4">

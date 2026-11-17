@@ -67,6 +67,20 @@ describe('site settings', () => {
     expect(await (await get('/')).text()).toContain('gtag/js?id=G-TEST123');
   });
 
+  it('shows a social link only when its address is set', async () => {
+    for (const path of ['/', '/contact']) {
+      const html = await (await get(path)).text();
+      expect(html).not.toContain('aria-label="LINE"');
+      expect(html).not.toContain('bi-line');
+    }
+    await db().insert(settings).values({ key: 'lineUrl', value: 'https://lin.ee/test' });
+    const home = await (await get('/')).text();
+    expect(home).toContain('LINE 官方帳號');
+    expect(home.match(/href="https:\/\/lin\.ee\/test"/g)).toHaveLength(2); // button + footer
+    const contact = await (await get('/contact')).text();
+    expect(contact.match(/href="https:\/\/lin\.ee\/test"/g)).toHaveLength(2); // list + footer
+  });
+
   it('escapes stored values', async () => {
     await db().insert(settings).values({ key: 'address', value: '<script>alert(1)</script>' });
     const html = await (await get('/contact')).text();

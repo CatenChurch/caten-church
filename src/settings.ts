@@ -26,7 +26,8 @@ export const DEFAULT_SETTINGS = {
   officeHours: '二 - 日 / 09:30 - 18:00',
   facebookUrl: 'https://facebook.com/caten.church.teens',
   youtubeUrl: 'https://youtube.com/channel/UC-MvdM-JEdQUsT5h7Ratc2w',
-  lineUrl: 'https://line.me/R/ti/p/%40kfi8062r',
+  /** The old @kfi8062r account no longer exists; empty hides every LINE link. */
+  lineUrl: '',
   githubUrl: 'https://github.com/CatenChurch',
   tithingBank: '梓官農會',
   tithingBankCode: '619',
@@ -76,7 +77,7 @@ export const SETTING_GROUPS: {
     fields: [
       { key: 'facebookUrl', label: 'Facebook' },
       { key: 'youtubeUrl', label: 'YouTube' },
-      { key: 'lineUrl', label: 'Line @' },
+      { key: 'lineUrl', label: 'LINE 官方帳號（加好友連結，留空就不顯示）' },
       { key: 'githubUrl', label: 'GitHub' },
     ],
   },
