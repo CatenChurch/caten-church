@@ -52,7 +52,7 @@ async function accountPage(
       active="account"
       breadcrumb={[accountCrumb, { label: props.title, href: props.path }]}
       heading={props.title}
-      lead={<p class="lead">{props.lead}</p>}
+      lead={props.lead}
     >
       <div class="container">{props.children}</div>
     </Page>,

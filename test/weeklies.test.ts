@@ -26,7 +26,7 @@ describe('weekly list', () => {
     await createWeekly({ title: '第二期', issue: 2, publishedAt: '2026-01-10T16:30:00.000Z' });
     const html = await (await get('/weeklies')).text();
     expect(html.indexOf('第二期')).toBeLessThan(html.indexOf('第一期'));
-    expect(html).toContain('2026-01-11 00:30');
+    expect(html).toContain('2026-01-11');
   });
 
   it('paginates 25 per page', async () => {

@@ -29,7 +29,7 @@ async function loginPage(c: AppContext, next: string, error?: string, status: 20
       title="登入"
       breadcrumb={[{ label: '登入', href: '/login' }]}
       heading="登入"
-      lead={<p class="lead">登入會員以管理個人資料</p>}
+      lead="登入後可以填寫與更新你的個人資料"
     >
       <div class="container" style="max-width: 480px">
         {error && (

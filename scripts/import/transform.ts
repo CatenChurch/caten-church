@@ -10,9 +10,6 @@ export interface Dump {
   users: Row[];
   oauths: Row[];
   profiles: Row[];
-  groups: Row[];
-  group_users: Row[];
-  events: Row[];
   weeklies: Row[];
   weekly_pdfs: Row[];
 }
@@ -21,9 +18,6 @@ export const DUMP_TABLES = [
   'users',
   'oauths',
   'profiles',
-  'groups',
-  'group_users',
-  'events',
   'weeklies',
   'weekly_pdfs',
 ] as const satisfies readonly (keyof Dump)[];
@@ -113,7 +107,6 @@ export function buildImport(dump: Dump): ImportResult {
     skipped.push(`${table} id=${row.id}: ${column}=${row[column]} was not imported`);
     return false;
   };
-  const userOrNull = (id: unknown) => (userIds.has(id) ? id : null);
 
   for (const o of dump.oauths) {
     if (!hasUser('oauths', o)) continue;
@@ -148,60 +141,6 @@ export function buildImport(dump: Dump): ImportResult {
       emergency_contact: blankToNull(p.emergency_contact),
       created_at: toIso(p.created_at),
       updated_at: toIso(p.updated_at),
-    });
-  }
-
-  const groupIds = new Set<unknown>();
-  for (const g of dump.groups) {
-    groupIds.add(g.id);
-    add('groups', {
-      id: g.id,
-      name: required('groups', g, 'name'),
-      introduction: text(g.introduction) ?? '',
-      description: text(g.description),
-      sequence: g.sequence ?? null,
-      creater_id: userOrNull(g.creater_id),
-      created_at: toIso(g.created_at),
-      updated_at: toIso(g.updated_at),
-    });
-  }
-
-  const memberships = new Set<string>();
-  for (const gu of dump.group_users) {
-    if (!hasUser('group_users', gu)) continue;
-    if (!groupIds.has(gu.group_id)) {
-      skipped.push(`group_users id=${gu.id}: group ${gu.group_id} does not exist`);
-      continue;
-    }
-    const pair = `${gu.group_id}:${gu.user_id}`;
-    if (memberships.has(pair)) {
-      skipped.push(`group_users id=${gu.id}: duplicate membership ${pair}`);
-      continue;
-    }
-    memberships.add(pair);
-    add('group_users', {
-      id: gu.id,
-      group_id: gu.group_id,
-      user_id: gu.user_id,
-      role: gu.role === 'leader' ? 'leader' : 'member',
-      created_at: toIso(gu.created_at),
-      updated_at: toIso(gu.updated_at),
-    });
-  }
-
-  // Sign-up moved to external forms: registrations and their settings are not carried over
-  for (const e of dump.events) {
-    add('events', {
-      id: e.id,
-      name: required('events', e, 'name'),
-      description: text(e.description),
-      content: text(e.content),
-      start: toIso(required('events', e, 'start')),
-      over: toIso(required('events', e, 'over')),
-      signup_url: null,
-      organizer_id: userOrNull(e.user_id),
-      created_at: toIso(e.created_at),
-      updated_at: toIso(e.updated_at),
     });
   }
 

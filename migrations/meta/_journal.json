@@ -8,6 +8,13 @@
       "when": 1794896985072,
       "tag": "0000_careful_sersi",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1794916669604,
+      "tag": "0001_secret_toxin",
+      "breakpoints": true
     }
   ]
 }

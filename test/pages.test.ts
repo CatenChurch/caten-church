@@ -5,7 +5,7 @@ import { db, get } from './helpers';
 describe('static pages', () => {
   it.each([
     ['/', '茄典教會'],
-    ['/about', '關於茄典'],
+    ['/about', '關於我們'],
     ['/contact', '聯絡我們'],
     ['/tithing', '奉獻方式'],
     ['/term', '個人資料提供告知暨同意書'],
@@ -35,8 +35,8 @@ describe('static pages', () => {
 describe('site settings', () => {
   it('shows the built-in defaults when the settings table is empty', async () => {
     const html = await (await get('/tithing')).text();
-    expect(html).toContain('銀行代碼：619');
-    expect(html).toContain('帳戶：00141211139150');
+    expect(html).toContain('代碼 619');
+    expect(html).toContain('00141211139150');
   });
 
   it('lets a stored value override the default on every page that uses it', async () => {

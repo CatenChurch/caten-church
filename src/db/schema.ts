@@ -59,56 +59,6 @@ export const profiles = sqliteTable(
   (t) => [index('profiles_birth').on(t.birth)],
 );
 
-export const groups = sqliteTable(
-  'groups',
-  {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    name: text('name').notNull().unique(),
-    introduction: text('introduction').notNull(),
-    description: text('description'),
-    sequence: integer('sequence'),
-    createrId: integer('creater_id').references(() => users.id, { onDelete: 'set null' }),
-    ...timestamps,
-  },
-  (t) => [index('groups_sequence').on(t.sequence)],
-);
-
-export const groupUsers = sqliteTable(
-  'group_users',
-  {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    groupId: integer('group_id')
-      .notNull()
-      .references(() => groups.id, { onDelete: 'cascade' }),
-    userId: integer('user_id')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    role: text('role', { enum: ['leader', 'member'] })
-      .notNull()
-      .default('member'),
-    ...timestamps,
-  },
-  (t) => [uniqueIndex('group_users_membership').on(t.groupId, t.userId)],
-);
-
-/** Announcements of church events. Sign-up happens in an external form linked by `signupUrl`. */
-export const events = sqliteTable(
-  'events',
-  {
-    id: integer('id').primaryKey({ autoIncrement: true }),
-    name: text('name').notNull(),
-    description: text('description'),
-    content: text('content'),
-    start: text('start').notNull(),
-    over: text('over').notNull(),
-    /** Link to the sign-up form (e.g. a Google Form); null when there is nothing to sign up for. */
-    signupUrl: text('signup_url'),
-    organizerId: integer('organizer_id').references(() => users.id, { onDelete: 'set null' }),
-    ...timestamps,
-  },
-  (t) => [index('events_start').on(t.start), index('events_over').on(t.over)],
-);
-
 export const weeklies = sqliteTable(
   'weeklies',
   {

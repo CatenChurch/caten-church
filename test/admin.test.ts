@@ -193,7 +193,7 @@ describe('site settings', () => {
     expect(flashOf(response)?.message).toBe('已更新 2 項設定');
 
     const tithing = await (await get('/tithing')).text();
-    expect(tithing).toContain('帳戶：99998888');
+    expect(tithing).toContain('<div class="number mb-3">99998888</div>');
     expect(tithing).toContain('07-1234567');
 
     const log = await db().select().from(settingChanges);

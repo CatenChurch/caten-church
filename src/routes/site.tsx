@@ -2,7 +2,7 @@ import { desc, lte } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { Hono } from 'hono';
 import type { AppEnv } from '../app';
-import { events, groups, weeklies } from '../db/schema';
+import { weeklies } from '../db/schema';
 
 /** Machine-facing routes: uploaded site images, the sitemap and search-engine verification. */
 export const site = new Hono<AppEnv>();
@@ -30,22 +30,14 @@ const xml = (text: string) => text.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeA
 site.get('/sitemap.xml', async (c) => {
   const base = (c.env.SITE_URL || new URL(c.req.url).origin).replace(/\/$/, '');
   const db = drizzle(c.env.DB);
-  const [eventRows, groupRows, weeklyRows] = await Promise.all([
-    db.select({ id: events.id, updatedAt: events.updatedAt }).from(events).orderBy(desc(events.id)),
-    db.select({ id: groups.id, updatedAt: groups.updatedAt }).from(groups).orderBy(groups.id),
-    db
-      .select({ id: weeklies.id, updatedAt: weeklies.updatedAt })
-      .from(weeklies)
-      .where(lte(weeklies.publishedAt, new Date().toISOString()))
-      .orderBy(desc(weeklies.id)),
-  ]);
+  const weeklyRows = await db
+    .select({ id: weeklies.id, updatedAt: weeklies.updatedAt })
+    .from(weeklies)
+    .where(lte(weeklies.publishedAt, new Date().toISOString()))
+    .orderBy(desc(weeklies.id));
 
   const urls: { path: string; lastmod?: string }[] = [
-    ...['/', '/about', '/contact', '/tithing', '/term', '/weeklies', '/events', '/groups'].map(
-      (path) => ({ path }),
-    ),
-    ...eventRows.map((row) => ({ path: `/events/${row.id}`, lastmod: row.updatedAt })),
-    ...groupRows.map((row) => ({ path: `/groups/${row.id}`, lastmod: row.updatedAt })),
+    ...['/', '/about', '/contact', '/tithing', '/term', '/weeklies'].map((path) => ({ path })),
     ...weeklyRows.map((row) => ({ path: `/weeklies/${row.id}`, lastmod: row.updatedAt })),
   ];
   const body =

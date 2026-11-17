@@ -105,14 +105,14 @@ describe('sign-in pages', () => {
   });
 
   it('sends the visitor to Google with a state and a callback on this site', async () => {
-    const response = await get('/auth/google?next=/events/3');
+    const response = await get('/auth/google?next=/weeklies/3');
     expect(response.status).toBe(302);
     const location = new URL(response.headers.get('location')!);
     expect(location.origin).toBe('https://accounts.google.com');
     expect(location.searchParams.get('client_id')).toBe('test-google-client');
     expect(location.searchParams.get('redirect_uri')).toBe(`${BASE}/auth/google/callback`);
     expect(location.searchParams.get('state')).toBe(setCookieValue(response, 'oauth_state'));
-    expect(decodeURIComponent(setCookieValue(response, 'oauth_next')!)).toBe('/events/3');
+    expect(decodeURIComponent(setCookieValue(response, 'oauth_next')!)).toBe('/weeklies/3');
   });
 
   it('returns 404 for a provider that is not configured or unknown', async () => {
@@ -138,8 +138,8 @@ describe('sign-in pages', () => {
       const response = await get(`/login?next=${encodeURIComponent(next)}`, cookie);
       expect(response.headers.get('location')).toBe('/account/profile');
     }
-    const ok = await get('/login?next=/events/3', cookie);
-    expect(ok.headers.get('location')).toBe('/events/3');
+    const ok = await get('/login?next=/weeklies/3', cookie);
+    expect(ok.headers.get('location')).toBe('/weeklies/3');
   });
 
   it('offers the development sign-in on localhost only', async () => {

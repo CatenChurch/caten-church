@@ -7,8 +7,6 @@ import { account } from './routes/account';
 import { admin } from './routes/admin';
 import { sendBirthdayList } from './jobs';
 import { sendGridSender } from './mail';
-import { events } from './routes/events';
-import { groups } from './routes/groups';
 import { pages } from './routes/pages';
 import { site } from './routes/site';
 import { weeklies } from './routes/weeklies';
@@ -42,8 +40,6 @@ app.route('/', auth);
 app.route('/account', account);
 app.route('/admin', admin);
 app.route('/weeklies', weeklies);
-app.route('/groups', groups);
-app.route('/events', events);
 
 export default {
   fetch: app.fetch,

@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { getSettings, viewState, type AppEnv } from '../app';
 import { countWeeklyView, findLatestWeekly, findWeekly, listWeeklies } from '../data/weeklies';
-import { formatDateTime, parseId, parsePage } from '../format';
+import { formatDate, parseId, parsePage, taipeiDateParts } from '../format';
 import { Page, Pagination } from '../views/layout';
 
 export const weeklies = new Hono<AppEnv>();
@@ -11,8 +11,7 @@ const crumb = { label: '週報', href: '/weeklies' };
 weeklies.get('/', async (c) => {
   const page = parsePage(c.req.query('page'));
   const [s, list] = await Promise.all([getSettings(c), listWeeklies(c.env.DB, page)]);
-  const description = '可以來這裡查看每週教會的大小消息';
-  const pagination = <Pagination page={page} totalPages={list.totalPages} path="/weeklies" />;
+  const description = '每週主日的程序、報告與代禱事項';
   return c.html(
     <Page
       settings={s}
@@ -22,48 +21,49 @@ weeklies.get('/', async (c) => {
       active="weeklies"
       breadcrumb={[crumb]}
       heading="週報"
-      lead={<p class="lead">{description}</p>}
+      lead={description}
     >
-      <div class="container">
-        {pagination}
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="table-light">
-              <tr>
-                <th>標題</th>
-                <th>刊號</th>
-                <th>瀏覽次數</th>
-                <th>發布時間</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {list.rows.map((weekly) => (
-                <tr>
-                  <td>
-                    <a class="text-decoration-none" href={`/weeklies/${weekly.id}`}>
+      <div class="container" style="max-width: 860px">
+        {list.rows.length === 0 ? (
+          <div class="empty-state">
+            <i class="bi bi-journal"></i>
+            還沒有週報
+          </div>
+        ) : (
+          <ul class="weekly-list">
+            {list.rows.map((weekly) => {
+              const date = taipeiDateParts(weekly.publishedAt);
+              return (
+                <li class="weekly-item">
+                  <div class="date-badge" aria-hidden="true">
+                    <span class="m">{date.month} 月</span>
+                    <span class="d">{date.day}</span>
+                    <span class="y">{date.year}</span>
+                  </div>
+                  <div class="body">
+                    <a class="title" href={`/weeklies/${weekly.id}`}>
                       {weekly.title}
                     </a>
-                  </td>
-                  <td>{weekly.issue}</td>
-                  <td>{weekly.viewedCount}</td>
-                  <td>{formatDateTime(weekly.publishedAt)}</td>
-                  <td>
-                    {weekly.pdfKey && (
-                      <a
-                        class="btn btn-sm btn-outline-secondary"
-                        href={`/weeklies/${weekly.id}.pdf`}
-                      >
-                        <i class="bi bi-file-earmark-pdf me-1"></i>查看
-                      </a>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {pagination}
+                    <div class="meta">
+                      第 {weekly.issue} 期 · {formatDate(weekly.publishedAt)}
+                    </div>
+                  </div>
+                  {weekly.pdfKey && (
+                    <a
+                      class="action btn btn-sm btn-outline-primary"
+                      href={`/weeklies/${weekly.id}.pdf`}
+                      aria-label={`${weekly.title} PDF`}
+                    >
+                      <i class="bi bi-file-earmark-pdf"></i>
+                      <span class="d-none d-sm-inline ms-1">PDF</span>
+                    </a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <Pagination page={page} totalPages={list.totalPages} path="/weeklies" />
       </div>
     </Page>,
   );
@@ -104,6 +104,7 @@ weeklies.get('/:file', async (c) => {
   const s = await getSettings(c);
   await countWeeklyView(c.env.DB, weekly.id);
   const title = `週報 ${weekly.title}`;
+  const pdf = `/weeklies/${weekly.id}.pdf`;
   return c.html(
     <Page
       settings={s}
@@ -111,32 +112,27 @@ weeklies.get('/:file', async (c) => {
       title={title}
       active="weeklies"
       breadcrumb={[crumb, { label: weekly.title, href: `/weeklies/${weekly.id}` }]}
-      heading="週報"
-      lead={<p class="lead">{weekly.title}</p>}
+      heading={weekly.title}
+      lead={`第 ${weekly.issue} 期 · ${formatDate(weekly.publishedAt)}`}
     >
       <div class="container">
-        <a class="btn btn-outline-secondary mb-4" href="/weeklies">
-          <i class="bi bi-list me-1"></i>週報一覽
-        </a>
-        <dl class="row">
-          <dt class="col-4 col-md-2">標題</dt>
-          <dd class="col-8 col-md-10">{weekly.title}</dd>
-          <dt class="col-4 col-md-2">刊號</dt>
-          <dd class="col-8 col-md-10">{weekly.issue}</dd>
-          <dt class="col-4 col-md-2">瀏覽次數</dt>
-          <dd class="col-8 col-md-10">{weekly.viewedCount + 1}</dd>
-          <dt class="col-4 col-md-2">發布時間</dt>
-          <dd class="col-8 col-md-10">{formatDateTime(weekly.publishedAt)}</dd>
-        </dl>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <a class="btn btn-outline-primary" href="/weeklies">
+            <i class="bi bi-arrow-left me-1"></i>所有週報
+          </a>
+          {weekly.pdfKey && (
+            <a class="btn btn-primary" href={pdf} target="_blank" rel="noopener">
+              <i class="bi bi-box-arrow-up-right me-1"></i>在新分頁開啟 PDF
+            </a>
+          )}
+        </div>
         {weekly.pdfKey ? (
-          <>
-            <p>
-              <a href={`/weeklies/${weekly.id}.pdf`}>{weekly.pdfFilename ?? 'PDF'}</a>
-            </p>
-            <iframe class="pdf-frame" src={`/weeklies/${weekly.id}.pdf`} title={title}></iframe>
-          </>
+          <iframe class="pdf-frame" src={pdf} title={title}></iframe>
         ) : (
-          <p class="text-muted">沒有上傳 PDF 附件</p>
+          <div class="empty-state">
+            <i class="bi bi-file-earmark"></i>
+            這期週報沒有上傳 PDF
+          </div>
         )}
       </div>
     </Page>,

@@ -5,11 +5,15 @@ import type { Settings } from '../settings';
 
 const BOOTSTRAP = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist';
 const ICONS = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css';
+const FONTS =
+  'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap';
 
 export interface Crumb {
   label: string;
   href: string;
 }
+
+export type NavKey = 'weeklies' | 'about' | 'contact' | 'tithing' | 'account';
 
 export interface PageProps {
   settings: Settings;
@@ -19,13 +23,22 @@ export interface PageProps {
   title?: string;
   description?: string;
   /** Navbar item to highlight. */
-  active?: 'weeklies' | 'events' | 'groups' | 'account';
+  active?: NavKey;
   breadcrumb?: Crumb[];
-  /** Large heading and lead text shown over the hero image. */
+  /** Page heading and the line under it. */
   heading: string;
   lead?: Child;
+  /** The home page shows the photo banner instead of the plain page header. */
+  hero?: Child;
   children?: Child;
 }
+
+const NAV: { key: NavKey; label: string; href: string }[] = [
+  { key: 'weeklies', label: '週報', href: '/weeklies' },
+  { key: 'about', label: '關於我們', href: '/about' },
+  { key: 'contact', label: '聚會與交通', href: '/contact' },
+  { key: 'tithing', label: '奉獻', href: '/tithing' },
+];
 
 function Analytics({ id }: { id: string }) {
   if (!/^[A-Z0-9-]+$/.test(id)) return null;
@@ -44,47 +57,42 @@ function Analytics({ id }: { id: string }) {
 function AccountNav({ view, active }: { view: ViewState; active: boolean }) {
   if (!view.user) {
     return (
-      <a class="nav-link" href="/login">
-        <i class="bi bi-box-arrow-in-right me-1"></i>登入
+      <a class="btn btn-sm btn-outline-primary site-login" href="/login">
+        會員登入
       </a>
     );
   }
   return (
-    <>
-      <div class="nav-item dropdown">
-        <a
-          class={`nav-link dropdown-toggle${active ? ' active' : ''}`}
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="bi bi-person me-1"></i>
-          {view.user.name ?? '會員中心'}
+    <div class="dropdown">
+      <button
+        class={`btn btn-sm site-account${active ? ' is-active' : ''} dropdown-toggle`}
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="bi bi-person-circle me-1"></i>
+        {view.user.name ?? '會員中心'}
+      </button>
+      <div class="dropdown-menu dropdown-menu-end shadow-sm">
+        <a class="dropdown-item" href="/account/profile">
+          <i class="bi bi-person me-2"></i>個人資料
         </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="/account/profile">
-            個人資料
+        <a class="dropdown-item" href="/account/logins">
+          <i class="bi bi-key me-2"></i>登入方式
+        </a>
+        {view.user.isAdmin && (
+          <a class="dropdown-item" href="/admin">
+            <i class="bi bi-speedometer2 me-2"></i>後台
           </a>
-          <a class="dropdown-item" href="/account/logins">
-            登入方式
-          </a>
-          {view.user.isAdmin && (
-            <>
-              <hr class="dropdown-divider" />
-              <a class="dropdown-item" href="/admin">
-                後台
-              </a>
-            </>
-          )}
-        </div>
+        )}
+        <hr class="dropdown-divider" />
+        <form method="post" action="/logout">
+          <button type="submit" class="dropdown-item">
+            <i class="bi bi-box-arrow-right me-2"></i>登出
+          </button>
+        </form>
       </div>
-      <form method="post" action="/logout" class="d-flex">
-        <button type="submit" class="nav-link btn btn-link">
-          <i class="bi bi-box-arrow-right me-1"></i>登出
-        </button>
-      </form>
-    </>
+    </div>
   );
 }
 
@@ -92,7 +100,7 @@ export function Page(props: PageProps) {
   const s = props.settings;
   const fullTitle = props.title ? `${props.title} | ${s.siteName}` : s.siteName;
   const description = props.description ?? s.siteDescription;
-  const navClass = (key: PageProps['active']) => `nav-link${props.active === key ? ' active' : ''}`;
+  const year = new Date().getFullYear();
 
   return (
     <html lang="zh-Hant">
@@ -101,12 +109,16 @@ export function Page(props: PageProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{fullTitle}</title>
         <meta name="description" content={description} />
+        <meta name="theme-color" content="#4a3570" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={s.siteName} />
         <meta property="og:title" content={props.title ?? s.siteName} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={s.shareImageUrl} />
         <link rel="icon" type="image/png" href={s.faviconUrl} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link rel="stylesheet" href={FONTS} />
         <link rel="stylesheet" href={`${BOOTSTRAP}/css/bootstrap.min.css`} />
         <link rel="stylesheet" href={ICONS} />
         <link rel="stylesheet" href="/app.css" />
@@ -114,119 +126,142 @@ export function Page(props: PageProps) {
         <Analytics id={s.gaMeasurementId} />
       </head>
       <body>
-        <nav class="navbar navbar-expand-md bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-              <img src={s.logoUrl} height="30" alt="" /> {s.siteName}
+        <a class="skip-link" href="#main">
+          跳到主要內容
+        </a>
+        <header class="site-header">
+          <nav class="navbar navbar-expand-md container">
+            <a class="site-brand" href="/">
+              <img src={s.logoUrl} width="36" height="36" alt="" />
+              <span>{s.siteName}</span>
             </a>
             <button
               class="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#navbar-content"
-              aria-controls="navbar-content"
+              data-bs-target="#site-nav"
+              aria-controls="site-nav"
               aria-expanded="false"
               aria-label="切換選單"
             >
-              <span class="navbar-toggler-icon"></span>
+              <i class="bi bi-list"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbar-content">
-              <div class="navbar-nav ms-auto">
-                <a class={navClass('weeklies')} href="/weeklies">
-                  <i class="bi bi-newspaper me-1"></i>週報
-                </a>
-                <a class={navClass('events')} href="/events">
-                  <i class="bi bi-calendar-event me-1"></i>活動
-                </a>
-                <a class={navClass('groups')} href="/groups">
-                  <i class="bi bi-people me-1"></i>小組
-                </a>
+            <div class="collapse navbar-collapse" id="site-nav">
+              <ul class="navbar-nav ms-auto site-nav">
+                {NAV.map((item) => (
+                  <li class="nav-item">
+                    <a
+                      class={`nav-link${props.active === item.key ? ' active' : ''}`}
+                      href={item.href}
+                      aria-current={props.active === item.key ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div class="site-account-slot">
                 <AccountNav view={props.view} active={props.active === 'account'} />
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </header>
 
-        <div class="hero" style={`background-image: url("${encodeURI(s.heroImageUrl)}")`}>
-          <div class="hero-panel d-inline-block ms-4 mb-4 p-2 rounded">
-            <a href="/">首頁</a>
-            {(props.breadcrumb ?? []).map((crumb) => (
-              <>
-                {' > '}
-                <a href={crumb.href}>{crumb.label}</a>
-              </>
-            ))}
-          </div>
-          <div class="d-flex justify-content-center">
-            <div class="hero-panel p-5 rounded text-center">
-              <h1 class="display-4">{props.heading}</h1>
-              {props.lead}
+        {props.hero ?? (
+          <section class="page-header">
+            <div class="container">
+              {props.breadcrumb && props.breadcrumb.length > 0 && (
+                <nav aria-label="麵包屑">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="/">首頁</a>
+                    </li>
+                    {props.breadcrumb.map((crumb, i) =>
+                      i === props.breadcrumb!.length - 1 ? (
+                        <li class="breadcrumb-item active" aria-current="page">
+                          {crumb.label}
+                        </li>
+                      ) : (
+                        <li class="breadcrumb-item">
+                          <a href={crumb.href}>{crumb.label}</a>
+                        </li>
+                      ),
+                    )}
+                  </ol>
+                </nav>
+              )}
+              <h1>{props.heading}</h1>
+              {props.lead && <div class="page-lead">{props.lead}</div>}
             </div>
-          </div>
-        </div>
-
-        {props.view.flash && (
-          <div
-            class={`alert ${props.view.flash.type === 'alert' ? 'alert-danger' : 'alert-success'} rounded-0 mb-0 text-center`}
-            role="alert"
-          >
-            {props.view.flash.message}
-          </div>
+          </section>
         )}
-        <main class="p-4">{props.children}</main>
 
-        <footer class="bg-light p-2 text-center">
-          <div class="container p-2">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-              <h5>
-                <a class="text-decoration-none text-dark" href="/about">
-                  關於茄典
-                </a>
-              </h5>
-              <h5>
-                <a class="text-decoration-none text-dark" href="/contact">
-                  聯絡我們
-                </a>
-              </h5>
-              <h5>
-                <a class="text-decoration-none text-dark" href="/term">
-                  隱私條款
-                </a>
-              </h5>
-              <div class="w-100 d-sm-none"></div>
-              <a
-                class="text-decoration-none text-dark fs-1"
-                href={s.facebookUrl}
-                aria-label="Facebook"
+        <main id="main" class="site-main">
+          {props.view.flash && (
+            <div class="container">
+              <div
+                class={`alert ${props.view.flash.type === 'alert' ? 'alert-danger' : 'alert-success'} site-flash`}
+                role="alert"
               >
-                <i class="bi bi-facebook"></i>
-              </a>
-              <a
-                class="text-decoration-none text-dark fs-1"
-                href={s.youtubeUrl}
-                aria-label="YouTube"
-              >
-                <i class="bi bi-youtube"></i>
-              </a>
-              <a class="text-decoration-none text-dark fs-1" href={s.githubUrl} aria-label="GitHub">
-                <i class="bi bi-github"></i>
-              </a>
+                <i
+                  class={`bi ${props.view.flash.type === 'alert' ? 'bi-exclamation-circle' : 'bi-check-circle'} me-2`}
+                ></i>
+                {props.view.flash.message}
+              </div>
             </div>
-            <div class="row mt-2 align-items-center">
-              <div class="col-12 col-md-6 text-muted p-2">
-                <div>主日崇拜：{s.sundayService}</div>
-                <div>上班時間：{s.officeHours}</div>
+          )}
+          {props.children}
+        </main>
+
+        <footer class="site-footer">
+          <div class="container">
+            <div class="row g-4">
+              <div class="col-12 col-lg-5">
+                <div class="footer-brand">
+                  <img src={s.logoUrl} width="40" height="40" alt="" />
+                  <span>{s.siteName}</span>
+                </div>
+                <p class="footer-muted">{s.legalName}</p>
+                <div class="footer-social">
+                  <a href={s.facebookUrl} aria-label="Facebook">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href={s.youtubeUrl} aria-label="YouTube">
+                    <i class="bi bi-youtube"></i>
+                  </a>
+                  <a href={s.lineUrl} aria-label="LINE">
+                    <i class="bi bi-line"></i>
+                  </a>
+                </div>
               </div>
-              <div class="col-12 col-md-6 p-2">
-                <div class="lead text-purple">{s.phone}</div>
-                <a class="text-decoration-none text-dark" href={`mailto:${s.email}`}>
-                  {s.email}
-                </a>
-                <div>{s.address}</div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <h2 class="footer-heading">聚會時間</h2>
+                <ul class="footer-list">
+                  <li>主日崇拜　{s.sundayService}</li>
+                  <li>青少年團契　{s.youthFellowship}</li>
+                  <li>辦公時間　{s.officeHours}</li>
+                </ul>
               </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <h2 class="footer-heading">聯絡我們</h2>
+                <ul class="footer-list">
+                  <li>
+                    <a href={`tel:${s.phone}`}>{s.phone}</a>
+                  </li>
+                  <li>
+                    <a href={`mailto:${s.email}`}>{s.email}</a>
+                  </li>
+                  <li>{s.address}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <span>
+                © 2014 – {year} {s.siteName}
+              </span>
+              <a href="/term">隱私條款</a>
             </div>
           </div>
-          © 2014 - {new Date().getFullYear()} Hong Xin Yang.
         </footer>
       </body>
     </html>
@@ -267,22 +302,27 @@ export function Pagination(props: {
     const params = [props.query, page === 1 ? '' : `page=${page}`].filter(Boolean).join('&');
     return params ? `${props.path}?${params}` : props.path;
   };
-  const first = Math.max(1, props.page - 4);
-  const last = Math.min(props.totalPages, props.page + 4);
+  const first = Math.max(1, props.page - 2);
+  const last = Math.min(props.totalPages, props.page + 2);
   const pages = Array.from({ length: last - first + 1 }, (_, i) => first + i);
   return (
-    <nav aria-label="分頁">
-      <ul class="pagination flex-wrap">
+    <nav aria-label="分頁" class="site-pagination">
+      <ul class="pagination flex-wrap justify-content-center">
         {props.page > 1 && (
           <li class="page-item">
             <a class="page-link" href={href(props.page - 1)} rel="prev">
-              上一頁
+              <i class="bi bi-chevron-left"></i>
+              <span class="visually-hidden">上一頁</span>
             </a>
           </li>
         )}
         {pages.map((page) => (
           <li class={`page-item${page === props.page ? ' active' : ''}`}>
-            <a class="page-link" href={href(page)}>
+            <a
+              class="page-link"
+              href={href(page)}
+              aria-current={page === props.page ? 'page' : undefined}
+            >
               {page}
             </a>
           </li>
@@ -290,7 +330,8 @@ export function Pagination(props: {
         {props.page < props.totalPages && (
           <li class="page-item">
             <a class="page-link" href={href(props.page + 1)} rel="next">
-              下一頁
+              <i class="bi bi-chevron-right"></i>
+              <span class="visually-hidden">下一頁</span>
             </a>
           </li>
         )}

@@ -133,7 +133,7 @@ export async function setEmail(d1: D1Database, id: number, email: string | null)
  * Folds the account `fromId` into `targetId` and deletes it. Used when one person ended up
  * with two accounts, e.g. an old email/password account and a new one made by signing in
  * with LINE. The target keeps its own profile if it has one; otherwise it takes the other's.
- * Ways to sign in, group memberships and authored events/groups move over. The target does
+ * Ways to sign in move over. The target does
  * not become an admin through a merge.
  */
 export async function mergeMembers(d1: D1Database, targetId: number, fromId: number) {
@@ -144,14 +144,6 @@ export async function mergeMembers(d1: D1Database, targetId: number, fromId: num
 
   const statements = [
     d1.prepare('UPDATE oauth_accounts SET user_id = ?1 WHERE user_id = ?2').bind(targetId, fromId),
-    // Memberships of the same group stay with the target; the duplicates go with the old account
-    d1
-      .prepare('UPDATE OR IGNORE group_users SET user_id = ?1 WHERE user_id = ?2')
-      .bind(targetId, fromId),
-    d1
-      .prepare('UPDATE events SET organizer_id = ?1 WHERE organizer_id = ?2')
-      .bind(targetId, fromId),
-    d1.prepare('UPDATE groups SET creater_id = ?1 WHERE creater_id = ?2').bind(targetId, fromId),
   ];
   if (!targetHasProfile) {
     statements.push(

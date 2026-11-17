@@ -54,3 +54,14 @@ export function fromTaipeiInput(value: string) {
   const date = new Date(`${value}+08:00`);
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
+
+/** `2026-11-17` in Taipei time. */
+export function formatDate(iso: string | null | undefined) {
+  return formatDateTime(iso).slice(0, 10);
+}
+
+/** Year, month and day numbers of a UTC ISO time, in Taipei. */
+export function taipeiDateParts(iso: string) {
+  const p = parts(iso, { year: 'numeric', month: '2-digit', day: '2-digit' });
+  return { year: Number(p.year), month: Number(p.month), day: Number(p.day) };
+}

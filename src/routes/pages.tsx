@@ -1,92 +1,138 @@
 import { Hono } from 'hono';
 import { getSettings, viewState, type AppEnv } from '../app';
+import { findLatestWeekly } from '../data/weeklies';
+import { formatDate, taipeiDateParts } from '../format';
 import { Page } from '../views/layout';
 
 export const pages = new Hono<AppEnv>();
 
 pages.get('/', async (c) => {
-  const s = await getSettings(c);
-  const card = 'card outline-purple text-center h-100';
+  const [s, latest] = await Promise.all([getSettings(c), findLatestWeekly(c.env.DB)]);
+  const hero = (
+    <section class="hero" style={`background-image: url("${encodeURI(s.heroImageUrl)}")`}>
+      <div class="container">
+        <span class="hero-eyebrow">台灣基督長老教會 · 高雄中會</span>
+        <h1>{s.siteName}</h1>
+        <p>位在梓官蚵仔寮的小漁村教會。歡迎你來一起敬拜，認識耶穌的愛。</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold btn-lg" href="/contact">
+            <i class="bi bi-geo-alt me-1"></i>聚會時間與交通
+          </a>
+          <a class="btn btn-light-on-dark btn-lg" href="/weeklies">
+            <i class="bi bi-journal-text me-1"></i>本週週報
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+  const date = latest ? taipeiDateParts(latest.publishedAt) : null;
+
   return c.html(
-    <Page
-      settings={s}
-      view={viewState(c)}
-      heading={s.siteName}
-      lead={
-        <>
-          <p class="lead mt-4">站內有本教會相關之教會活動與與最新消息</p>
-          <p class="lead">歡迎會友透過此網站查看教會最新消息與活動</p>
-        </>
-      }
-    >
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <div class="col">
-          <div class={card}>
-            <div class="card-body">
-              <h2 class="card-title">教會資訊</h2>
-              <p class="card-text">點此前往查看最新的教會消息</p>
+    <Page settings={s} view={viewState(c)} heading={s.siteName} hero={hero}>
+      <div class="container">
+        <section class="section">
+          <h2 class="section-title">聚會時間</h2>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="tile">
+                <div class="tile-icon">
+                  <i class="bi bi-brightness-high"></i>
+                </div>
+                <h3>主日崇拜</h3>
+                <p class="muted">{s.sundayService}</p>
+              </div>
             </div>
-            <div class="card-body d-grid gap-2">
-              <a class="btn btn-light" href="/weeklies">
-                週報
-              </a>
-              <a class="btn btn-light" href="/groups">
-                小組
-              </a>
-              <a class="btn btn-light" href="/tithing">
-                奉獻方式
-              </a>
+            <div class="col-12 col-md-4">
+              <div class="tile">
+                <div class="tile-icon">
+                  <i class="bi bi-moon-stars"></i>
+                </div>
+                <h3>青少年團契</h3>
+                <p class="muted">{s.youthFellowship}</p>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class={card}>
-            <div class="card-body">
-              <h2 class="card-title">網路社群</h2>
-              <p class="card-text">歡迎追蹤或加入我們的網路社群</p>
-            </div>
-            <div class="list-group list-group-flush">
-              <a class="btn btn-light list-group-item" href={s.facebookUrl}>
-                Facebook 粉絲專頁
-              </a>
-              <a class="btn btn-light list-group-item" href={s.youtubeUrl}>
-                YouTube 頻道
-              </a>
-              <a class="btn btn-light list-group-item" href={s.lineUrl}>
-                Line @
-              </a>
+            <div class="col-12 col-md-4">
+              <div class="tile">
+                <div class="tile-icon gold">
+                  <i class="bi bi-telephone"></i>
+                </div>
+                <h3>教會辦公室</h3>
+                <p class="muted mb-1">{s.officeHours}</p>
+                <p>
+                  <a href={`tel:${s.phone}`}>{s.phone}</a>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class={card}>
-            <div class="card-body">
-              <h2 class="card-title">活動專區</h2>
-              <p class="card-text">點此前往查看教會活動</p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">最新週報</h2>
+          {latest && date ? (
+            <div class="tile feature">
+              <div class="date-badge" aria-hidden="true">
+                <span class="m">{date.month} 月</span>
+                <span class="d">{date.day}</span>
+                <span class="y">{date.year}</span>
+              </div>
+              <div>
+                <h3 class="mb-1">{latest.title}</h3>
+                <p class="muted mb-3">
+                  第 {latest.issue} 期 · {formatDate(latest.publishedAt)}
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                  <a class="btn btn-primary" href={`/weeklies/${latest.id}`}>
+                    <i class="bi bi-book me-1"></i>線上閱讀
+                  </a>
+                  <a class="btn btn-outline-primary" href="/weeklies">
+                    所有週報
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="card-body d-grid">
-              <a class="btn btn-purple" href="/events">
-                活動列表
-              </a>
+          ) : (
+            <div class="empty-state">
+              <i class="bi bi-journal"></i>
+              週報即將上線
+            </div>
+          )}
+        </section>
+
+        <section class="section">
+          <div class="row g-4 align-items-stretch">
+            <div class="col-12 col-lg-7">
+              <h2 class="section-title">歡迎來到茄典</h2>
+              <p class="prose">
+                茄典教會位於高雄一個名叫蚵仔寮的小漁村。這裡沒有都市的繁華，但在這裡信仰耶穌基督的人們，內心卻富有無比。無論你是第一次來，或是回到家鄉，我們都誠摯歡迎你。
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-outline-primary" href="/about">
+                  認識我們
+                </a>
+                <a class="btn btn-outline-primary" href="/tithing">
+                  奉獻方式
+                </a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-5">
+              <div class="tile">
+                <h3>跟我們保持聯繫</h3>
+                <p class="muted">追蹤教會的社群，收到最新的聚會與活動消息。</p>
+                <div class="d-grid gap-2">
+                  <a class="btn btn-outline-primary" href={s.facebookUrl}>
+                    <i class="bi bi-facebook me-1"></i>Facebook 粉絲專頁
+                  </a>
+                  <a class="btn btn-outline-primary" href={s.youtubeUrl}>
+                    <i class="bi bi-youtube me-1"></i>YouTube 頻道
+                  </a>
+                  <a class="btn btn-outline-primary" href={s.lineUrl}>
+                    <i class="bi bi-line me-1"></i>LINE 官方帳號
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class={card}>
-            <div class="card-body">
-              <h2 class="card-title">會員中心</h2>
-              <p class="card-text">登入後可以填寫與更新個人資料</p>
-            </div>
-            <div class="list-group list-group-flush">
-              <a class="btn btn-light list-group-item" href="/account/profile">
-                個人資料
-              </a>
-              <a class="btn btn-light list-group-item" href="/account/logins">
-                登入方式
-              </a>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
     </Page>,
   );
@@ -101,22 +147,36 @@ pages.get('/about', async (c) => {
     '茄典教會位於一個在高雄名叫蚵仔寮的小漁村，這裡沒有都市的繁華，沒有太多高級物質的生活，但在這裡信仰耶穌基督的人們內心卻富有無比。',
     '而我們茄典教會青少年團契是一群在愛裡生長的青少年，我們彼此激勵、彼此扶持、彼此協助、相互成長，改正自己的缺點，尊行耶穌的道。我們是一群願意接受耶穌的愛的孩子，因此我們活得很富有；我們活得很快樂。',
     '我們希望將這份感動與美麗的經驗與你們分享。',
-    '如果你願意加入我們、支持我們，或是一起參與在我們當中，我們誠摯歡迎你，你的生命可以不一樣！。',
+    '如果你願意加入我們、支持我們，或是一起參與在我們當中，我們誠摯歡迎你，你的生命可以不一樣！',
   ];
   return c.html(
     <Page
       settings={s}
       view={viewState(c)}
-      title="關於茄典"
+      title="關於我們"
       description={paragraphs.join('\n')}
-      breadcrumb={[{ label: '關於茄典', href: '/about' }]}
-      heading="關於茄典"
-      lead={<p class="lead">像耶穌一樣愛人</p>}
+      active="about"
+      breadcrumb={[{ label: '關於我們', href: '/about' }]}
+      heading="關於我們"
+      lead="像耶穌一樣愛人"
     >
       <div class="container">
-        {paragraphs.map((text) => (
-          <p>{text}</p>
-        ))}
+        <div class="row g-4">
+          <div class="col-12 col-lg-8 prose">
+            {paragraphs.map((text) => (
+              <p>{text}</p>
+            ))}
+          </div>
+          <div class="col-12 col-lg-4">
+            <div class="tile">
+              <h3>第一次來嗎？</h3>
+              <p class="muted">主日崇拜 {s.sundayService}，歡迎直接到教會，不需要事先報名。</p>
+              <a class="btn btn-primary" href="/contact">
+                交通與聯絡方式
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </Page>,
   );
@@ -124,51 +184,70 @@ pages.get('/about', async (c) => {
 
 pages.get('/contact', async (c) => {
   const s = await getSettings(c);
-  const origin = new URL(c.req.url).origin;
-  const description = '歡迎透過以下方式聯絡我們。';
-  const rows: [string, string, string?][] = [
+  const description = '歡迎來教會，也歡迎透過以下方式聯絡我們。';
+  const meetings: [string, string][] = [
     ['主日崇拜', s.sundayService],
     ['青少年團契', s.youthFellowship],
+    ['辦公時間', s.officeHours],
+  ];
+  const contacts: [string, string, string?][] = [
     ['電話', s.phone, `tel:${s.phone}`],
     ['傳真', s.fax],
-    ['統一編號', s.taxId],
     ['Email', s.email, `mailto:${s.email}`],
-    ['網站', origin, '/'],
-    ['Facebook', s.facebookUrl, s.facebookUrl],
-    ['YouTube', s.youtubeUrl, s.youtubeUrl],
-    ['Line @', s.lineUrl, s.lineUrl],
+    ['統一編號', s.taxId],
+    ['Facebook', '粉絲專頁', s.facebookUrl],
+    ['YouTube', '頻道', s.youtubeUrl],
+    ['LINE', '官方帳號', s.lineUrl],
   ];
   return c.html(
     <Page
       settings={s}
       view={viewState(c)}
-      title="聯絡我們"
+      title="聚會與交通"
       description={description}
-      breadcrumb={[{ label: '聯絡我們', href: '/contact' }]}
-      heading="聯絡我們"
-      lead={<p class="lead">{description}</p>}
+      active="contact"
+      breadcrumb={[{ label: '聚會與交通', href: '/contact' }]}
+      heading="聚會與交通"
+      lead={description}
     >
       <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-12 my-2">
-            <h2>{s.siteName}</h2>
-            <address>{s.address}</address>
-            <dl class="row">
-              {rows.map(([label, value, href]) => (
-                <>
-                  <dt class="col-4">{label}</dt>
-                  <dd class="col-8 text-break">{href ? <a href={href}>{value}</a> : value}</dd>
-                </>
-              ))}
-            </dl>
+        <div class="row g-4">
+          <div class="col-12 col-lg-5">
+            <div class="tile mb-4">
+              <div class="tile-icon">
+                <i class="bi bi-calendar3"></i>
+              </div>
+              <h3>聚會時間</h3>
+              <ul class="info-list">
+                {meetings.map(([label, value]) => (
+                  <li>
+                    <span class="label">{label}</span>
+                    <span class="value">{value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="tile">
+              <div class="tile-icon gold">
+                <i class="bi bi-envelope"></i>
+              </div>
+              <h3>{s.siteName}</h3>
+              <address class="muted mb-2">{s.address}</address>
+              <ul class="info-list">
+                {contacts.map(([label, value, href]) => (
+                  <li>
+                    <span class="label">{label}</span>
+                    <span class="value">{href ? <a href={href}>{value}</a> : value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div class="col-md-12 col-lg-6 my-2">
+          <div class="col-12 col-lg-7">
             <iframe
+              class="map-frame"
               src={s.mapEmbedUrl}
               title="教會位置地圖"
-              width="100%"
-              height="100%"
-              style="min-height: 500px; border: 0"
               loading="lazy"
               allowfullscreen
             ></iframe>
@@ -181,42 +260,49 @@ pages.get('/contact', async (c) => {
 
 pages.get('/tithing', async (c) => {
   const s = await getSettings(c);
-  const description =
-    '弟兄姊妹平安，在外工作或讀書的你可以透過線上奉獻囉，本頁將指引你如何透過匯款線上奉獻給教會';
+  const description = '在外工作或讀書的弟兄姊妹，也可以透過匯款奉獻給教會。';
   return c.html(
     <Page
       settings={s}
       view={viewState(c)}
       title="奉獻方式"
       description={description}
+      active="tithing"
       breadcrumb={[{ label: '奉獻方式', href: '/tithing' }]}
       heading="奉獻方式"
-      lead={<p class="lead">{description}</p>}
+      lead={description}
     >
       <div class="container">
-        <h3>匯款奉獻的方式有哪些呢?</h3>
-        <ul>
-          <li>可以使用 ATM 轉帳</li>
-          <li>可以使用網路銀行或手機轉帳，在備註寫上奉獻人姓名 + 奉獻用途</li>
-          <li>可以到銀行，郵局或農漁會臨櫃匯款，在匯款單寫奉獻人姓名 + 奉獻用途</li>
-        </ul>
-        <hr />
-        <h3>茄典教會的帳號是什麼呢?</h3>
-        <ul>
-          <li>農會：{s.tithingBank}</li>
-          <li>銀行代碼：{s.tithingBankCode}</li>
-          <li>帳戶：{s.tithingAccount}</li>
-          <li>戶名：{s.legalName}</li>
-        </ul>
-        <hr />
-        <h3>奉獻後需要做什麼呢?</h3>
-        <p class="text-purple">
-          <strong>線上奉獻後，請提供您的帳號後 5 碼和奉獻項目</strong>
-        </p>
-        <ul>
-          <li>通知茄典教會財務部出納</li>
-          <li>撥打教會電話：{s.phone} 通知教會幹事</li>
-        </ul>
+        <div class="row g-4">
+          <div class="col-12 col-lg-6">
+            <div class="account-card">
+              <div class="label">金融機構</div>
+              <div class="mb-3">
+                {s.tithingBank}（代碼 {s.tithingBankCode}）
+              </div>
+              <div class="label">帳號</div>
+              <div class="number mb-3">{s.tithingAccount}</div>
+              <div class="label">戶名</div>
+              <div>{s.legalName}</div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 prose">
+            <h2 class="h4">怎麼奉獻</h2>
+            <ul>
+              <li>ATM 轉帳</li>
+              <li>網路銀行或手機轉帳，備註寫上奉獻人姓名與奉獻用途</li>
+              <li>到銀行、郵局或農漁會臨櫃匯款，匯款單寫上奉獻人姓名與奉獻用途</li>
+            </ul>
+            <h2 class="h4">奉獻之後</h2>
+            <p>請把你的帳號後 5 碼和奉獻項目告訴教會，讓我們能正確入帳：</p>
+            <ol class="steps">
+              <li>通知茄典教會財務部出納</li>
+              <li>
+                或撥打教會電話 <a href={`tel:${s.phone}`}>{s.phone}</a> 通知教會幹事
+              </li>
+            </ol>
+          </div>
+        </div>
       </div>
     </Page>,
   );
@@ -233,9 +319,9 @@ pages.get('/term', async (c) => {
       description={description}
       breadcrumb={[{ label: '隱私條款', href: '/term' }]}
       heading="隱私條款"
-      lead={<p class="lead">{description}</p>}
+      lead={description}
     >
-      <div class="container">
+      <div class="container prose">
         <h2>個人資料提供告知暨同意書</h2>
         <p>
           台灣基督長老教會高雄中會茄典教會(下稱本會)為推動相關業務及提供相關服務所需，依個人資料保護法之相關規定，將對您個人資料進行蒐集、處理或利用，依法告知您以下事項，為保障您的權益，請詳細閱讀本同意書所有內容。當您簽署本同意書時，表示您已閱讀、瞭解並同意接受本同意書之所有內容及其後修改變更規定。若您未滿二十歲，應於您的法定代理人閱讀、瞭解並同意本同意書之所有內容及其後修改變更規定，但若您簽署本同意書時，視為您已取得法定代理人之同意，並遵守以下所有規範。

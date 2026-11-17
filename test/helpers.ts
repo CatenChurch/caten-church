@@ -82,13 +82,4 @@ function at(offsetHours: number) {
   return new Date(Date.now() + offsetHours * HOUR).toISOString();
 }
 
-/** An event that starts in two days unless the values say otherwise. */
-export async function createEvent(values: Partial<typeof schema.events.$inferInsert> = {}) {
-  const [event] = await db()
-    .insert(schema.events)
-    .values({ name: '夏令營', description: '三天兩夜', start: at(48), over: at(72), ...values })
-    .returning();
-  return event!;
-}
-
 export const hoursFromNow = at;

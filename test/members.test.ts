@@ -2,16 +2,8 @@ import { env } from 'cloudflare:test';
 import { eq } from 'drizzle-orm';
 import { describe, expect, it } from 'vitest';
 import { membersCsv, mergeMembers, type Member } from '../src/data/members';
-import {
-  events,
-  groups,
-  groupUsers,
-  oauthAccounts,
-  profiles,
-  sessions,
-  users,
-} from '../src/db/schema';
-import { createEvent, db, flashOf, get, post, signInAs } from './helpers';
+import { oauthAccounts, profiles, sessions, users } from '../src/db/schema';
+import { db, flashOf, get, post, signInAs } from './helpers';
 
 async function person(
   name: string | null,
@@ -233,28 +225,13 @@ describe('admin rights', () => {
 });
 
 describe('merging duplicate accounts', () => {
-  it('moves sign-in methods, groups and authorship to the kept account and deletes the other', async () => {
+  it('moves sign-in methods to the kept account and deletes the other', async () => {
     const { cookie } = await admin();
     const kept = await person('王小明', { email: 'ming@example.com' });
     const duplicate = await person(null, { email: null });
     await db()
       .insert(oauthAccounts)
       .values({ userId: duplicate.id, provider: 'line', providerUserId: 'line-1' });
-    const [shared, other] = await db()
-      .insert(groups)
-      .values([
-        { name: '恩典小組', introduction: 'a', createrId: duplicate.id },
-        { name: '喜樂小組', introduction: 'b' },
-      ])
-      .returning();
-    await db()
-      .insert(groupUsers)
-      .values([
-        { groupId: shared!.id, userId: kept.id, role: 'leader' },
-        { groupId: shared!.id, userId: duplicate.id, role: 'member' },
-        { groupId: other!.id, userId: duplicate.id, role: 'member' },
-      ]);
-    const event = await createEvent({ organizerId: duplicate.id });
     await signInAs(duplicate.id);
 
     const response = await post(
@@ -268,20 +245,6 @@ describe('merging duplicate accounts', () => {
     expect(await db().select().from(oauthAccounts)).toMatchObject([
       { userId: kept.id, provider: 'line' },
     ]);
-    const memberships = await db().select().from(groupUsers);
-    expect(memberships).toHaveLength(2);
-    expect(memberships).toContainEqual(
-      expect.objectContaining({ groupId: shared!.id, userId: kept.id, role: 'leader' }),
-    );
-    expect(memberships).toContainEqual(
-      expect.objectContaining({ groupId: other!.id, userId: kept.id }),
-    );
-    expect((await db().select().from(events).where(eq(events.id, event.id)))[0]!.organizerId).toBe(
-      kept.id,
-    );
-    expect((await db().select().from(groups).where(eq(groups.id, shared!.id)))[0]!.createrId).toBe(
-      kept.id,
-    );
     // The deleted account can no longer be used
     expect(await db().select().from(sessions).where(eq(sessions.userId, duplicate.id))).toEqual([]);
   });

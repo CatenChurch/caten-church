@@ -1,9 +1,9 @@
 import { env } from 'cloudflare:test';
 import { exports } from 'cloudflare:workers';
 import { describe, expect, it } from 'vitest';
-import { groups, settingChanges, settings, users } from '../src/db/schema';
+import { settingChanges, settings, users } from '../src/db/schema';
 import { MAX_IMAGE_BYTES } from '../src/routes/admin-images';
-import { BASE, createEvent, createWeekly, db, flashOf, get, signInAs } from './helpers';
+import { BASE, createWeekly, db, flashOf, get, signInAs } from './helpers';
 
 const PNG = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4]);
 const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3]);
@@ -145,12 +145,7 @@ describe('uploading site images', () => {
 });
 
 describe('sitemap and robots', () => {
-  it('lists the public pages, events, groups and published weeklies', async () => {
-    const event = await createEvent();
-    const [group] = await db()
-      .insert(groups)
-      .values({ name: '恩典小組', introduction: 'x' })
-      .returning();
+  it('lists the public pages and published weeklies', async () => {
     const published = await createWeekly();
     const future = await createWeekly({ publishedAt: '2999-01-01T00:00:00.000Z' });
 
@@ -158,18 +153,13 @@ describe('sitemap and robots', () => {
     expect(response.headers.get('content-type')).toBe('application/xml; charset=utf-8');
     const xml = await response.text();
     const base = 'https://caten-church.org';
-    for (const path of [
-      '/',
-      '/about',
-      '/weeklies',
-      `/events/${event.id}`,
-      `/groups/${group!.id}`,
-      `/weeklies/${published.id}`,
-    ]) {
+    for (const path of ['/', '/about', '/weeklies', `/weeklies/${published.id}`]) {
       expect(xml).toContain(`<loc>${base}${path}</loc>`);
     }
     expect(xml).not.toContain(`/weeklies/${future.id}<`);
     expect(xml).not.toContain('/admin');
+    expect(xml).not.toContain('/events');
+    expect(xml).not.toContain('/groups');
     expect(xml).not.toContain('/account');
     expect(xml).toMatch(/<lastmod>\d{4}-\d{2}-\d{2}T/);
   });

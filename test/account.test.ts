@@ -72,7 +72,7 @@ describe('profile', () => {
     expect(html).toContain('0912345678');
     expect(html).toContain('A123456789');
     // The menu now greets the member by name
-    expect(html).toMatch(/bi-person me-1"><\/i>王小明/);
+    expect(html).toMatch(/bi-person-circle me-1"><\/i>王小明/);
   });
 
   it('updates the existing profile instead of adding a second one', async () => {
