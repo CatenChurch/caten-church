@@ -1,118 +1,81 @@
 # Caten Church
 
-本專案為茄典教會網站，網址是 <https://caten-church.org/>
+茄典教會網站 <https://caten-church.org/> 的 Cloudflare 重寫版（進行中）。正式站目前仍是 `master` 分支的 Rails 版本，跑在 Heroku。
 
-## Requirements
+## 技術
 
-- Ruby
-- Rails
-- NodeJS
-- Yarn
-- PostgresSQL
-- Redis
+- Cloudflare Workers + [Hono](https://hono.dev/)（JSX 伺服器端渲染）
+- D1（SQLite）+ [Drizzle ORM](https://orm.drizzle.team/)
+- R2：週報 PDF（`weeklies/<id>.pdf`）
+- Vitest（在 Workers 執行環境裡跑，含 D1 與 R2）
 
-## Setup
+## 開發
 
-```sh
-git clone https://github.com/CatenChurch/caten-church.git
-cd caten-church
-bundle install
-```
-
-Create database user `caten_church` with password `caten_church` and create db `caten_church` or Fill in your database connection in `config/database.yml`
+需要 Node 24 以上與 pnpm。
 
 ```sh
-createuser caten_church --interactive -P
-createdb caten_church -U caten_church
+pnpm install
+pnpm dev        # 套用本機 D1 migrations 後啟動 http://localhost:8787
+pnpm test
+pnpm typecheck
+pnpm format
 ```
 
-Then create database
+改了 `src/db/schema.ts` 之後執行 `pnpm db:generate` 產生新的 migration。
+
+## 目錄
+
+| 路徑               | 內容                                              |
+| ------------------ | ------------------------------------------------- |
+| `src/routes/`      | 頁面路由與畫面                                    |
+| `src/data/`        | 資料查詢與規則，不含 HTML                         |
+| `src/db/schema.ts` | 資料表定義                                        |
+| `src/settings.ts`  | 站台設定的預設值；`settings` 表裡的值會覆蓋預設值 |
+| `src/views/`       | 共用版面與元件                                    |
+| `migrations/`      | D1 migrations（由 Drizzle 產生）                  |
+| `scripts/import/`  | 從 Rails 的 Postgres 匯入資料                     |
+
+## 進度
+
+- [x] 公開頁面：首頁、關於、聯絡、奉獻、隱私條款、小組、週報（含 PDF）、活動（唯讀）
+- [x] 站台設定可由資料庫覆蓋（後台編輯畫面尚未做）
+- [x] Postgres → D1 匯入腳本（只用假資料測過，還沒對正式資料跑過）
+- [ ] OAuth 登入（Google、LINE、Facebook）與會員中心
+- [ ] 活動報名、取消、寄信、排程提醒
+- [ ] 後台
+- [ ] 建立正式的 D1 與 R2、部署、切換 DNS
+
+不重寫的功能：密碼登入、LINE 與 Messenger 聊天機器人、小組回報。
+
+## 從 Rails 匯入資料
+
+匯出檔含會友個資，`dump/` 與 `import.sql` 已列在 `.gitignore`，用完請刪除。
 
 ```sh
-rails db:setup
+# 1. 從 Postgres 匯出（唯讀查詢），需要 psql
+DATABASE_URL=postgres://... scripts/import/export-postgres.sh
+
+# 2. 轉成 D1 的 SQL；會列出每張表的筆數與被略過的資料
+node scripts/import/build-sql.ts
+
+# 3. 匯入（先用 --local 演練）
+pnpm exec wrangler d1 execute DB --local --file import.sql
 ```
 
-Copy example credentials from `config/credentials.yml.example`, then fill in your credentials
+`dump/pdf-copies.tsv` 列出每個週報 PDF 要從 GCS 的哪個 key 複製到 R2 的哪個 key（含大小與 MD5），複製步驟尚未寫成腳本。
+
+匯入時的規則：
+
+- 保留原本的 id，所以 `/weeklies/<id>`、`/events/<id>` 等舊網址不變。
+- email 從未驗證、也沒有綁定 Facebook 的帳號不匯入（連同它的個人資料與報名紀錄），並列在略過清單。
+- 不匯入的欄位與資料表：密碼與 Devise 相關欄位、`messengers`、`group_reports`、Active Storage 的表。
+
+## 部署前要做的事
+
+`wrangler.jsonc` 裡的 D1 `database_id` 是佔位值。部署前需要：
 
 ```sh
-EDITOR="code --wait" rails credentials:edit
-```
-
-Using [mkcert](https://github.com/FiloSottile/mkcert) (brew install mkcert) self-signed certificate ssl
-
-```sh
-$ mkcert localhost
-
-Using the local CA at "/Users/username/Library/Application Support/mkcert" ✨
-
-Created a new certificate valid for the following names 📜
- - "localhost"
-
-The certificate is at "./localhost.pem" and the key at "./localhost-key.pem" ✅
-```
-
-mkcert generated cert `localhost.pem` and key `localhost-key.pem`, moving these to `config/ssl/`
-
-```sh
-mv ./localhost.pem ./localhost-key.pem ./config/ssl/
-```
-
-puma and webpack-dev-server will load these .pem files, then force http connection on <https://localhost:3000> and <https://localhost:3035>
-
-## Usage
-
-migrate database
-
-```sh
-rails db:migrate
-```
-
-run server
-
-```sh
-# rails way
-$ rails s
-
-# via puma
-$ puma -C config/puma.rb
-```
-
-run worker
-
-```sh
-sidekiq -C config/sidekiq.yml
-```
-
-rake tasks
-
-```sh
-# 寄送下月壽星列表給管理員
-$ rails mail:admin:birth_notification
-
-# 於活動開始前一天提醒報名活動者
-$ rails mail:event:opening_notice_before_1
-
-# generate public/sitmap.xml
-$ rake sitemap:refresh
-```
-
-## Deploy
-
-- make sure `ENV["RAILS_MASTER_KEY"]` or `config/master.key` exists
-- make sure `ENV["DATABASE_URL"]` or `Rails.application.credentials[:production][:database_url]` exists
-
-This application currently deploy on Heroku, and using Google Cloud Storage to store uploaded files, if you want to store file locally in development environment, go to `config/environments/development.rb` and let `config.active_storage.service = :local`
-
-## Heroku
-
-Dumping database to local
-
-```sh
-heroku pg:pull DATABASE_URL postgres://$USERNAME:$PASSWORD@$HOST:$PORT/$DB_NAME --app $APP_NAME
-```
-
-Migrate heroku database
-
-```
-heroku run rails db:migrate
+pnpm exec wrangler d1 create caten-church      # 把回傳的 id 填進 wrangler.jsonc
+pnpm exec wrangler r2 bucket create caten-church
+pnpm run deploy
 ```

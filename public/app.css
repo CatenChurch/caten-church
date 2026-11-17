@@ -1,0 +1,75 @@
+:root {
+  --purple: #7952b3;
+}
+
+.text-purple {
+  color: var(--purple);
+}
+
+.btn-purple {
+  background-color: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+}
+
+.btn-purple:hover {
+  background-color: #61428f;
+  border-color: #61428f;
+  color: #fff;
+}
+
+.outline-purple {
+  border-color: var(--purple);
+}
+
+.hero {
+  padding: 2rem 0 4rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.hero a,
+.hero a:hover {
+  color: #fff;
+}
+
+.hero-panel {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 575.98px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+}
+
+.event-card {
+  border-radius: 10px;
+  color: var(--bs-dark);
+  border-color: var(--bs-dark);
+  background-color: var(--bs-white);
+}
+
+.event-card:hover {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary);
+}
+
+.event-card .card-body {
+  height: 250px;
+  overflow: auto;
+}
+
+@media (min-width: 768px) {
+  .event-card .card-body {
+    height: 350px;
+  }
+}
+
+.pdf-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}

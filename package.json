@@ -1,45 +1,33 @@
 {
   "name": "caten-church",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "楊竑昕 <jk195417@gmail.com>",
-  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
-    "ruby:format": "prettier --write '**/*.rb'",
-    "eslint:fix": "eslint --fix --ext .erb,.js,.html,.vue {app,config}"
+    "postinstall": "wrangler types",
+    "predev": "wrangler d1 migrations apply DB --local",
+    "dev": "wrangler dev",
+    "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "db:generate": "drizzle-kit generate",
+    "test": "vitest run",
+    "typecheck": "wrangler types && tsc -p .",
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "^5.4",
-    "bootstrap": "^4.4.1",
-    "bs-custom-file-input": "^1.3.4",
-    "core-js": "^3.6.1",
-    "flatpickr": "^4.6.3",
-    "jquery": "^3.5.0",
-    "popper.js": "^1.16.0",
-    "regenerator-runtime": "^0.13.3",
-    "turbolinks": "^5.2.0",
-    "vue": "^2.6.11",
-    "vue-loader": "^15.9.0",
-    "vue-template-compiler": "^2.6.11",
-    "vue-turbolinks": "^2.1.0"
+    "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.18"
   },
   "devDependencies": {
-    "@prettier/plugin-ruby": "^1.5",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-html": "^6.0.0",
-    "eslint-plugin-html-erb": "^1.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.2.1",
-    "prettier": "^2.2",
-    "webpack-dev-server": "^3.11.2"
-  },
-  "engines": {
-    "node": "16.19.1"
+    "@cloudflare/vitest-plugin": "^1.8.2",
+    "@types/node": "^26.6.6",
+    "drizzle-kit": "^0.31.11",
+    "prettier": "^3.10.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.162.0"
   }
 }

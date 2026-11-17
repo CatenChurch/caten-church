@@ -1,22 +1,10 @@
-# Log and temp files.
-/log
-/tmp
-.byebug_history
-
-# Active Storage blobs
-/storage/*
-
-# Credentials
-/config/master.key
-*.pem
-
-# Webpacker
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
-
-# Mac OS X system file
+node_modules/
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+*.log
 .DS_Store
+worker-configuration.d.ts
+# Exports of the production database contain member personal data
+dump/
+import.sql

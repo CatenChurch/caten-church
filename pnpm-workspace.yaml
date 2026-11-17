@@ -1,0 +1,4 @@
+# Dependencies allowed to run install scripts (native binaries)
+allowBuilds:
+  esbuild: true
+  workerd: true

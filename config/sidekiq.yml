@@ -1,8 +1,0 @@
-# redis to go free plan
-# https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting#heroku-err-max-number-of-clients-reached
-:concurrency: 3
-:queues:
-  - ['default', 1]
-  - ['mailers', 1]
-  - ['active_storage_analysis', 1]
-  - ['active_storage_purge', 1]

@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "caten-church",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "observability": { "enabled": true },
+  // Static files (logo, favicon, stylesheet); every other path goes to the Worker
+  "assets": { "directory": "./public" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "caten-church",
+      // Placeholder: replace with the id from `wrangler d1 create caten-church` before deploying
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  // Weekly PDFs (weeklies/<id>.pdf) and admin-uploaded site images (site/...)
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "caten-church" }],
+}
