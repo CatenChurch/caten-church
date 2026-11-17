@@ -43,9 +43,10 @@ pnpm format
 - [x] 每月 25 號寄下月壽星名單給管理員（SendGrid；還沒實際寄過信）
 - [x] 後台：會友（搜尋、檢視、編輯、匯出 CSV、設為管理員、合併重複帳號）、週報管理（PDF 上傳到 R2，上限 10 MB）、站台設定（含修改紀錄與 logo、favicon、頁首背景圖上傳）
 - [x] `sitemap.xml`、`robots.txt`、Google Search Console 驗證網址
-- [ ] 建立正式的 D1 與 R2、部署、切換 DNS
+- [x] 正式的 D1 與 R2（亞太區），部署在 https://beta.caten-church.org
+- [ ] 匯入正式資料與週報 PDF、LINE 與 Facebook 登入、SendGrid、切換 caten-church.org
 
-不重寫的功能：密碼登入、活動（含報名）、小組（含小組回報）、LINE 與 Messenger 聊天機器人、小組回報。
+不重寫的功能：密碼登入、活動（含報名）、小組（含小組回報）、LINE 與 Messenger 聊天機器人。
 
 ## 從 Rails 匯入資料
 
