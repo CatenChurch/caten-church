@@ -4,11 +4,6 @@
   // Not a secret; the account that also hosts danmu-classroom and the caten-church.org zone
   "account_id": "c74b247e8c747f6ca397cca820da6319",
   "main": "src/index.ts",
-  // Served only on our own domain, never on the account's shared workers.dev subdomain
-  "workers_dev": false,
-  "preview_urls": false,
-  // Preview while caten-church.org still points at the Rails site; add the apex at cut-over
-  "routes": [{ "pattern": "beta.caten-church.org", "custom_domain": true }],
   "compatibility_date": "2026-10-01",
   "observability": { "enabled": true },
   // Static files (logo, favicon, stylesheet); every other path goes to the Worker
