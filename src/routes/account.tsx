@@ -18,7 +18,7 @@ import {
   type ProfileInput,
 } from '../data/account';
 import { shownParticipantsCount } from '../data/events';
-import { formatDateTime } from '../format';
+import { formatDateTime, parseId } from '../format';
 import { Page } from '../views/layout';
 
 /** Every route here requires a signed-in member. */
@@ -79,7 +79,13 @@ const PROFILE_ORDER: ProfileField[] = [
   'education',
 ];
 
-function ProfileForm(props: { values: ProfileInput; errors: ProfileErrors; isNew: boolean }) {
+function ProfileForm(props: {
+  values: ProfileInput;
+  errors: ProfileErrors;
+  isNew: boolean;
+  /** Set when the member was sent here while registering for this event. */
+  eventId?: number | null;
+}) {
   const { values, errors } = props;
   const invalid = (field: ProfileField) => (errors[field] ? ' is-invalid' : '');
   const feedback = (field: ProfileField) =>
@@ -101,6 +107,7 @@ function ProfileForm(props: { values: ProfileInput; errors: ProfileErrors; isNew
   );
   return (
     <form method="post" action="/account/profile" novalidate>
+      {props.eventId && <input type="hidden" name="event" value={String(props.eventId)} />}
       {textInput('name', { autocomplete: 'name' })}
       <div class="mb-3">
         <label class="form-label" for="sex">
@@ -186,7 +193,14 @@ account.get('/profile/edit', async (c) => {
     title: profile ? '編輯個人資料' : '建立個人資料',
     path: '/account/profile/edit',
     lead: '報名活動時會使用這些資料',
-    children: <ProfileForm values={values} errors={{}} isNew={!profile} />,
+    children: (
+      <ProfileForm
+        values={values}
+        errors={{}}
+        isNew={!profile}
+        eventId={parseId(c.req.query('event'))}
+      />
+    ),
   });
 });
 
@@ -194,7 +208,11 @@ account.post('/profile', async (c) => {
   const me = member(c);
   const form = await c.req.parseBody();
   const values = readProfileForm(form);
-  const errors = validateProfile(values, { termsAccepted: form.terms === '1' });
+  const eventId = parseId(typeof form.event === 'string' ? form.event : undefined);
+  const errors = validateProfile(values, {
+    termsAccepted: form.terms === '1',
+    forEvent: eventId !== null,
+  });
   const existing = await findProfile(c.env.DB, me.id);
   if (Object.keys(errors).length > 0) {
     return accountPage(c, {
@@ -202,10 +220,14 @@ account.post('/profile', async (c) => {
       path: '/account/profile/edit',
       lead: '有欄位需要修正',
       status: 422,
-      children: <ProfileForm values={values} errors={errors} isNew={!existing} />,
+      children: <ProfileForm values={values} errors={errors} isNew={!existing} eventId={eventId} />,
     });
   }
   await saveProfile(c.env.DB, me.id, values);
+  if (eventId !== null) {
+    setFlash(c, 'notice', '個人資料已更新，可以報名活動了');
+    return c.redirect(`/events/${eventId}`);
+  }
   setFlash(c, 'notice', existing ? '更新個人資料成功' : '建立個人資料成功');
   return c.redirect('/account/profile');
 });

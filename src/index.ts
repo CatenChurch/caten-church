@@ -4,6 +4,8 @@ import { takeFlash, type AppEnv } from './app';
 import { auth } from './auth/routes';
 import { loadCurrentUser } from './auth/sessions';
 import { account } from './routes/account';
+import { runDailyJobs } from './jobs';
+import { sendGridSender } from './mail';
 import { events } from './routes/events';
 import { groups } from './routes/groups';
 import { pages } from './routes/pages';
@@ -30,4 +32,14 @@ app.route('/weeklies', weeklies);
 app.route('/groups', groups);
 app.route('/events', events);
 
-export default app;
+export default {
+  fetch: app.fetch,
+  async scheduled(controller, env, ctx) {
+    const siteUrl = env.SITE_URL || 'https://caten-church.org';
+    ctx.waitUntil(
+      runDailyJobs(env.DB, sendGridSender(env), siteUrl, new Date(controller.scheduledTime)).then(
+        (result) => console.log('daily jobs', JSON.stringify(result)),
+      ),
+    );
+  },
+} satisfies ExportedHandler<Env>;

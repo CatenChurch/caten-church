@@ -1,5 +1,12 @@
 import { Hono } from 'hono';
-import { getSettings, viewState, type AppEnv } from '../app';
+import { getSettings, setFlash, viewState, type AppEnv } from '../app';
+import {
+  isOpenForRegistration,
+  isRegistered,
+  joinEvent,
+  listParticipantNames,
+  quitEvent,
+} from '../data/registrations';
 import {
   findEvent,
   listExpiredEvents,
@@ -84,6 +91,10 @@ events.get('/:id', async (c) => {
   const event = id === null ? undefined : await findEvent(c.env.DB, id);
   if (!event) return c.notFound();
   const s = await getSettings(c);
+  const user = c.get('user');
+  const open = isOpenForRegistration(event);
+  const joined = user ? await isRegistered(c.env.DB, event.id, user.id) : false;
+  const full = event.participantsCount >= event.maxSignUpNumber;
   const facts: [string, string | number | null][] = [
     ['簡述', event.description],
     ['報名人數', shownParticipantsCount(event)],
@@ -128,7 +139,134 @@ events.get('/:id', async (c) => {
               </tbody>
             </table>
           </div>
+          <div class="card-body d-flex flex-wrap gap-2 align-items-center">
+            {joined && <span class="badge text-bg-success fs-6">已報名</span>}
+            {joined && open && (
+              <form method="post" action={`/events/${event.id}/quit`}>
+                <button type="submit" class="btn btn-warning">
+                  取消報名
+                </button>
+              </form>
+            )}
+            {joined && event.showParticipants && (
+              <a class="btn btn-outline-dark" href={`/events/${event.id}/participants`}>
+                看有誰報名
+              </a>
+            )}
+            {!joined && open && full && <span class="text-danger">報名人數已滿</span>}
+            {!joined && open && !full && user && (
+              <form
+                method="post"
+                action={`/events/${event.id}/join`}
+                class="d-flex flex-wrap gap-2 align-items-center flex-grow-1"
+              >
+                <label class="form-label mb-0" for="remark">
+                  備註
+                </label>
+                <input
+                  class="form-control w-auto flex-grow-1"
+                  id="remark"
+                  name="remark"
+                  maxlength={200}
+                />
+                <button type="submit" class="btn btn-success">
+                  報名活動
+                </button>
+              </form>
+            )}
+            {!joined && open && !full && !user && (
+              <a class="btn btn-success" href={`/login?next=/events/${event.id}`}>
+                登入後報名
+              </a>
+            )}
+            {!open && <span class="text-muted">目前不在報名時間內</span>}
+          </div>
         </div>
+      </div>
+    </Page>,
+  );
+});
+
+events.post('/:id/join', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  const user = c.get('user');
+  if (!user) return c.redirect(`/login?next=/events/${event.id}`);
+
+  const form = await c.req.parseBody();
+  const remark = typeof form.remark === 'string' ? form.remark : '';
+  const result = await joinEvent(c.env.DB, event, user.id, remark);
+  if (result === 'profile_incomplete') {
+    setFlash(c, 'alert', '報名活動前需要完整的個人資料（含身分證字號與緊急聯絡人電話）');
+    return c.redirect(`/account/profile/edit?event=${event.id}`);
+  }
+  const messages = {
+    joined: ['notice', '報名活動成功'],
+    closed: ['alert', '目前不在報名時間內'],
+    full: ['alert', '報名人數已滿'],
+    already_joined: ['alert', '你已經報名過這個活動了'],
+  } as const;
+  const [type, message] = messages[result];
+  setFlash(c, type, message);
+  return c.redirect(`/events/${event.id}`);
+});
+
+events.post('/:id/quit', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  const user = c.get('user');
+  if (!user) return c.redirect(`/login?next=/events/${event.id}`);
+
+  const result = await quitEvent(c.env.DB, event, user.id);
+  const messages = {
+    quit: ['notice', '取消報名活動成功'],
+    closed: ['alert', '目前不在報名時間內'],
+    not_joined: ['alert', '你沒有報名這個活動'],
+  } as const;
+  const [type, message] = messages[result];
+  setFlash(c, type, message);
+  return c.redirect(`/events/${event.id}`);
+});
+
+events.get('/:id/participants', async (c) => {
+  const id = parseId(c.req.param('id'));
+  const event = id === null ? undefined : await findEvent(c.env.DB, id);
+  if (!event) return c.notFound();
+  const user = c.get('user');
+  if (!event.showParticipants) {
+    setFlash(c, 'alert', '報名情況未公開');
+    return c.redirect(`/events/${event.id}`);
+  }
+  if (!user || !(await isRegistered(c.env.DB, event.id, user.id))) {
+    setFlash(c, 'alert', '報名活動後才能觀看報名情況');
+    return c.redirect(`/events/${event.id}`);
+  }
+  const [s, names] = await Promise.all([getSettings(c), listParticipantNames(c.env.DB, event.id)]);
+  return c.html(
+    <Page
+      settings={s}
+      view={viewState(c)}
+      title={`${event.name} 報名者`}
+      active="events"
+      breadcrumb={[
+        crumb,
+        { label: event.name, href: `/events/${event.id}` },
+        { label: '報名者', href: `/events/${event.id}/participants` },
+      ]}
+      heading="活動專區"
+      lead={<p class="lead">{event.name} 的報名者</p>}
+    >
+      <div class="container">
+        <a class="btn btn-outline-secondary mb-3" href={`/events/${event.id}`}>
+          返回
+        </a>
+        <ul class="list-group">
+          {names.map((row) => (
+            <li class="list-group-item">{row.name ?? '（未填姓名）'}</li>
+          ))}
+        </ul>
       </div>
     </Page>,
   );

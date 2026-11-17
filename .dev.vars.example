@@ -15,5 +15,8 @@ LINE_CHANNEL_SECRET=
 FACEBOOK_APP_ID=
 FACEBOOK_APP_SECRET=
 
+# SendGrid → Settings → API Keys (Mail Send). Leave empty to skip sending mail locally.
+SENDGRID_API_KEY=
+
 # Localhost-only sign-in button for development without a provider. Never set in production.
 DEV_LOGIN=true
