@@ -42,8 +42,8 @@ pnpm format
 - [x] Postgres → D1 匯入腳本（只用假資料測過，還沒對正式資料跑過）
 - [x] OAuth 登入（Google、LINE、Facebook）與會員中心：個人資料、登入方式（還沒用真實的第三方帳號登入測過）
 - [x] 每月 25 號寄下月壽星名單給管理員（SendGrid；還沒實際寄過信）
-- [x] 後台：會友（搜尋、檢視、編輯、匯出 CSV、設為管理員、合併重複帳號）、週報管理（PDF 上傳到 R2，上限 10 MB）、活動管理、站台設定（含修改紀錄）
-- [ ] 後台：小組管理、圖片上傳
+- [x] 後台：會友（搜尋、檢視、編輯、匯出 CSV、設為管理員、合併重複帳號）、週報管理（PDF 上傳到 R2，上限 10 MB）、活動管理、小組管理、站台設定（含修改紀錄與 logo、favicon、頁首背景圖上傳）
+- [x] `sitemap.xml`、`robots.txt`、Google Search Console 驗證網址
 - [ ] 建立正式的 D1 與 R2、部署、切換 DNS
 
 不重寫的功能：密碼登入、站內活動報名（含報名者名單、活動提醒信、通知設定）、LINE 與 Messenger 聊天機器人、小組回報。
@@ -80,3 +80,15 @@ pnpm exec wrangler d1 create caten-church      # 把回傳的 id 填進 wrangler
 pnpm exec wrangler r2 bucket create caten-church
 pnpm run deploy
 ```
+
+接著用 `pnpm exec wrangler secret put <名稱>` 設定金鑰（名稱與來源見 `.dev.vars.example`）：
+
+- `GOOGLE_CLIENT_ID`、`GOOGLE_CLIENT_SECRET`：callback 是 `https://<網域>/auth/google/callback`
+- `LINE_CHANNEL_ID`、`LINE_CHANNEL_SECRET`：callback 是 `https://<網域>/auth/line/callback`
+- `FACEBOOK_APP_ID`、`FACEBOOK_APP_SECRET`：要用舊站同一個 Facebook app，舊會友才對得回帳號
+- `SENDGRID_API_KEY`：沒有設定就不會寄信
+
+部署後：
+
+- 第一位管理員要直接在資料庫設定：`pnpm exec wrangler d1 execute DB --remote --command "UPDATE users SET is_admin = 1 WHERE email = '<email>'"`（匯入舊資料的話，舊站的管理員會自動帶過來）。
+- 到 後台 → 站台設定 填入 Google Analytics 評估 ID（GA4 是 `G-X2MWZF2WGV`）；沒有填就不會載入分析程式。

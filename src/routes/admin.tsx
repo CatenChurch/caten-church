@@ -16,6 +16,8 @@ import { events, settingChanges, settings as settingsTable, users, weeklies } fr
 import { formatDateTime, fromTaipeiInput, parseId, parsePage, toTaipeiInput } from '../format';
 import { DEFAULT_SETTINGS, SETTING_GROUPS, type SettingKey } from '../settings';
 import { Page, Pagination } from '../views/layout';
+import { registerGroupRoutes } from './admin-groups';
+import { IMAGE_SETTINGS, registerImageRoutes } from './admin-images';
 import { registerMemberRoutes } from './admin-members';
 
 /** Everything under /admin is for administrators only. */
@@ -69,6 +71,7 @@ admin.get('/', (c) =>
           ['會友', '/admin/members', 'bi-people'],
           ['週報', '/admin/weeklies', 'bi-newspaper'],
           ['活動', '/admin/events', 'bi-calendar-event'],
+          ['小組', '/admin/groups', 'bi-diagram-3'],
           ['站台設定', '/admin/settings', 'bi-gear'],
         ].map(([label, href, icon]) => (
           <div class="col">
@@ -84,6 +87,8 @@ admin.get('/', (c) =>
 );
 
 registerMemberRoutes(admin, adminPage);
+registerGroupRoutes(admin, adminPage);
+registerImageRoutes(admin);
 
 // --- Weeklies ---
 
@@ -693,6 +698,53 @@ admin.get('/settings', async (c) => {
             儲存設定
           </button>
         </form>
+        <h2 class="h4 mt-5">更換圖片</h2>
+        <p class="text-muted small">接受 PNG、JPEG、WebP，上限 2 MB。上傳後立即生效。</p>
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+          {IMAGE_SETTINGS.map((image) => (
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-header">{image.label}</div>
+                <div class="card-body">
+                  <img
+                    src={current[image.key]}
+                    alt={`目前的${image.label}`}
+                    class="img-fluid mb-2"
+                    style="max-height: 120px"
+                  />
+                  <p class="small text-muted">{image.hint}</p>
+                  <form
+                    method="post"
+                    action="/admin/settings/image"
+                    enctype="multipart/form-data"
+                    class="d-grid gap-2"
+                  >
+                    <input type="hidden" name="key" value={image.key} />
+                    <input
+                      class="form-control form-control-sm"
+                      type="file"
+                      name="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      aria-label={`選擇新的${image.label}`}
+                      required
+                    />
+                    <button type="submit" class="btn btn-sm btn-purple">
+                      上傳
+                    </button>
+                  </form>
+                  {current[image.key] !== DEFAULT_SETTINGS[image.key] && (
+                    <form method="post" action="/admin/settings/image/reset" class="d-grid mt-2">
+                      <input type="hidden" name="key" value={image.key} />
+                      <button type="submit" class="btn btn-sm btn-outline-secondary">
+                        恢復預設
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         <h2 class="h4 mt-5">最近的修改紀錄</h2>
         {changes.length === 0 ? (
           <p class="text-muted">還沒有修改過</p>

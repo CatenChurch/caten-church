@@ -10,6 +10,7 @@ import { sendGridSender } from './mail';
 import { events } from './routes/events';
 import { groups } from './routes/groups';
 import { pages } from './routes/pages';
+import { site } from './routes/site';
 import { weeklies } from './routes/weeklies';
 
 const app = new Hono<AppEnv>();
@@ -27,6 +28,7 @@ app.use('*', async (c, next) => {
 });
 
 app.route('/', pages);
+app.route('/', site);
 app.route('/', auth);
 app.route('/account', account);
 app.route('/admin', admin);

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /account/
+Disallow: /auth/
+Allow: /
+
+Sitemap: https://caten-church.org/sitemap.xml
