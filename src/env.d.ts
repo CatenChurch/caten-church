@@ -7,6 +7,8 @@ interface OptionalEnv {
   LINE_CHANNEL_SECRET?: string;
   FACEBOOK_APP_ID?: string;
   FACEBOOK_APP_SECRET?: string;
+  /** `off` hides Facebook sign-in even when its keys are set (set in wrangler.jsonc). */
+  FACEBOOK_LOGIN?: string;
   /** SendGrid API key; without it no mail is sent. */
   SENDGRID_API_KEY?: string;
   /** Sender, e.g. `茄典教會 <notify@caten-church.org>` (the default). */

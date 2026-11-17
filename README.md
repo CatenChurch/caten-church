@@ -38,13 +38,14 @@ pnpm format
 ## 進度
 
 - [x] 公開頁面：首頁、關於我們、聚會與交通、奉獻、隱私條款、週報（含 PDF）
-- [x] Postgres → D1 匯入腳本（只用假資料測過，還沒對正式資料跑過）
-- [x] OAuth 登入（Google、LINE、Facebook）與會員中心：個人資料、登入方式（還沒用真實的第三方帳號登入測過）
-- [x] 每月 25 號寄下月壽星名單給管理員（SendGrid；還沒實際寄過信）
+- [x] 從 Heroku 匯入正式資料與 347 份週報 PDF（2026-11-17）
+- [x] OAuth 登入與會員中心：個人資料、登入方式（可綁定多種）。Google、LINE 已上線；Facebook 見下方
+- [x] 每月 25 號寄下月壽星名單給管理員（SendGrid 金鑰已設定；還沒實際寄過信）
 - [x] 後台：會友（搜尋、檢視、編輯、匯出 CSV、設為管理員、合併重複帳號）、週報管理（PDF 上傳到 R2，上限 10 MB）、站台設定（含修改紀錄與 logo、favicon、頁首背景圖上傳）
 - [x] `sitemap.xml`、`robots.txt`、Google Search Console 驗證網址
 - [x] 正式的 D1 與 R2（亞太區），部署在 https://beta.caten-church.org
-- [ ] 匯入正式資料與週報 PDF、LINE 與 Facebook 登入、SendGrid、切換 caten-church.org
+- [ ] Facebook 登入：Meta 自 2024-06 起限制此 app 的 API（資料使用情形檢查逾期、商家未驗證），`wrangler.jsonc` 的 `FACEBOOK_LOGIN: "off"` 先隱藏按鈕；恢復後刪掉這個變數再部署
+- [ ] 切換 caten-church.org
 
 不重寫的功能：密碼登入、活動（含報名）、小組（含小組回報）、LINE 與 Messenger 聊天機器人。
 
@@ -53,17 +54,22 @@ pnpm format
 匯出檔含會友個資，`dump/` 與 `import.sql` 已列在 `.gitignore`，用完請刪除。
 
 ```sh
-# 1. 從 Postgres 匯出（唯讀查詢），需要 psql
-DATABASE_URL=postgres://... scripts/import/export-postgres.sh
+# 1. 從 Heroku 匯出（唯讀）：在 Windows 先 `npx heroku login`，再執行
+#    （psql 在 WSL 裡；也可以直接 DATABASE_URL=postgres://... scripts/import/export-postgres.sh）
+pwsh scripts/import/export-from-heroku.ps1
 
 # 2. 轉成 D1 的 SQL；會列出每張表的筆數與被略過的資料
 node scripts/import/build-sql.ts
 
-# 3. 匯入（先用 --local 演練）
+# 3. 匯入（先用 --local 演練）；已存在的帳號會更新而不是重複新增
 pnpm exec wrangler d1 execute DB --local --file import.sql
+
+# 4. 週報 PDF：WSL 裡用 gcloud 下載，再用 wrangler 上傳（逐一核對 MD5）
+bash scripts/import/copy-pdfs.sh download
+bash scripts/import/copy-pdfs.sh upload
 ```
 
-`dump/pdf-copies.tsv` 列出每個週報 PDF 要從 GCS 的哪個 key 複製到 R2 的哪個 key（含大小與 MD5），複製步驟尚未寫成腳本。
+`dump/pdf-copies.tsv` 列出每個週報 PDF 要從 GCS 的哪個 key 複製到 R2 的哪個 key（含大小與 MD5）。
 
 匯入時的規則：
 

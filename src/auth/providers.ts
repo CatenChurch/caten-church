@@ -78,7 +78,9 @@ const line: SsoProvider = {
 const facebook: SsoProvider = {
   id: 'facebook',
   label: '使用 Facebook 登入',
-  enabled: (env) => Boolean(env.FACEBOOK_APP_ID && env.FACEBOOK_APP_SECRET),
+  // FACEBOOK_LOGIN=off hides it while Meta has the app restricted, keeping the keys in place
+  enabled: (env) =>
+    Boolean(env.FACEBOOK_APP_ID && env.FACEBOOK_APP_SECRET) && env.FACEBOOK_LOGIN !== 'off',
   authorizationUrl: (env, redirectUri, state) =>
     new Facebook(
       env.FACEBOOK_APP_ID!,

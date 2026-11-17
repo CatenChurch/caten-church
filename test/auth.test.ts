@@ -2,6 +2,7 @@ import { env } from 'cloudflare:test';
 import { exports } from 'cloudflare:workers';
 import { eq } from 'drizzle-orm';
 import { describe, expect, it } from 'vitest';
+import { SSO_PROVIDERS } from '../src/auth/providers';
 import { IdentityInUseError, signInWithIdentity, type SsoProfile } from '../src/auth/users';
 import { oauthAccounts, sessions, users } from '../src/db/schema';
 import { BASE, db, flashOf, get, hoursFromNow, post, setCookieValue, signInAs } from './helpers';
@@ -102,6 +103,14 @@ describe('sign-in pages', () => {
     expect(html).not.toContain('/auth/line');
     expect(html).not.toContain('/auth/facebook');
     expect(html).not.toContain('開發用登入');
+  });
+
+  it('keeps Facebook hidden while FACEBOOK_LOGIN is off, even with its keys set', () => {
+    const facebook = SSO_PROVIDERS.find((p) => p.id === 'facebook')!;
+    const keys = { FACEBOOK_APP_ID: '1', FACEBOOK_APP_SECRET: 's' } as Env;
+    expect(facebook.enabled(keys)).toBe(true);
+    expect(facebook.enabled({ ...keys, FACEBOOK_LOGIN: 'off' })).toBe(false);
+    expect(facebook.enabled({ FACEBOOK_LOGIN: 'on' } as Env)).toBe(false);
   });
 
   it('sends the visitor to Google with a state and a callback on this site', async () => {
